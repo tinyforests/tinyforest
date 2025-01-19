@@ -31,8 +31,39 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchEVCData(lat, lon) {
-    // This function will integrate the WMS/WFS EVC dataset
-    console.log(`Fetching EVC data for Lat: ${lat}, Lon: ${lon}`);
+    // Define a small bounding box around the coordinates
+    const bboxSize = 0.001; // ~111 meters
+    const bbox = [
+        lon - bboxSize, lat - bboxSize,  // Min longitude, Min latitude
+        lon + bboxSize, lat + bboxSize   // Max longitude, Max latitude
+    ].join(',');
+
+    // Construct the WFS request URL
+    const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
+                   `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
+                   `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+
+    console.log("Fetching EVC data from WFS:", wfsUrl);
+
+    // Fetch data from the WFS service
+    fetch(wfsUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.features.length > 0) {
+                const evcName = data.features[0].properties.evc_name; // Extract the EVC name
+                document.getElementById("evc-result").innerHTML = `<b>Your EVC:</b> ${evcName}`;
+                console.log("EVC Data:", evcName);
+            } else {
+                document.getElementById("evc-result").innerHTML = "No EVC data found for this location.";
+                console.log("No EVC data found.");
+            }
+        })
+        .catch(error => {
+            console.error("Error fetching EVC data:", error);
+            document.getElementById("evc-result").innerHTML = "Error retrieving EVC data. Please try again.";
+        });
+}
+
 
     // TODO: Fetch data from WMS/WFS API and display the result
 }
