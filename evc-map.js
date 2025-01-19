@@ -65,5 +65,5 @@ function fetchEVCData(lat, lon) {
 }
 
 
-    // TODO: Fetch data from WMS/WFS API and display the result
+    
 }
