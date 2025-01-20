@@ -1,34 +1,3 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const searchButton = document.getElementById("search-button");
-
-    searchButton.addEventListener("click", function () {
-        const address = document.getElementById("address-input").value;
-        if (!address) {
-            alert("Please enter an address.");
-            return;
-        }
-
-        // Fetch coordinates using OpenStreetMap Nominatim API
-        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.length === 0) {
-                    alert("Address not found. Try again.");
-                    return;
-                }
-
-                const lat = parseFloat(data[0].lat);
-                const lon = parseFloat(data[0].lon);
-
-                console.log(`Coordinates: ${lat}, ${lon}`);
-
-                // Call function to fetch EVC data
-                fetchEVCData(lat, lon);
-            })
-            .catch(error => console.error("Error fetching coordinates:", error));
-    });
-});
-
 function fetchEVCData(lat, lon) {
     const bboxSize = 0.01; // Increased BBOX size for broader coverage (~1km)
     const bbox = [
@@ -51,10 +20,12 @@ function fetchEVCData(lat, lon) {
                 const featureProperties = data.features[0].properties; // Log feature properties
                 console.log("Feature Properties:", featureProperties);
 
-                // Use the correct property name for EVC
-                const evc = featureProperties.evc;
-                if (evc) {
-                    document.getElementById("evc-result").innerHTML = `<b>Your EVC:</b> ${evc}`;
+                // Use the correct property name for EVC name
+                const evcName = featureProperties.x_evcname; // Extract the EVC name
+                const evcDescription = featureProperties.evc_bcs_desc; // Optional: Extract the status (e.g., Endangered)
+
+                if (evcName) {
+                    document.getElementById("evc-result").innerHTML = `<b>Your EVC:</b> ${evcName} (${evcDescription})`;
                 } else {
                     document.getElementById("evc-result").innerHTML = "EVC name not found in the response.";
                 }
