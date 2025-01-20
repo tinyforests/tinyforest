@@ -51,8 +51,13 @@ function fetchEVCData(lat, lon) {
                 const featureProperties = data.features[0].properties; // Log feature properties
                 console.log("Feature Properties:", featureProperties);
 
-                const evcName = featureProperties.evc_name || featureProperties.EVC_NAME;
-                document.getElementById("evc-result").innerHTML = `<b>Your EVC:</b> ${evcName}`;
+                // Use the correct property name for EVC
+                const evc = featureProperties.evc;
+                if (evc) {
+                    document.getElementById("evc-result").innerHTML = `<b>Your EVC:</b> ${evc}`;
+                } else {
+                    document.getElementById("evc-result").innerHTML = "EVC name not found in the response.";
+                }
             } else {
                 document.getElementById("evc-result").innerHTML = "No EVC data found for this location.";
                 console.log("No features found in WFS response.");
