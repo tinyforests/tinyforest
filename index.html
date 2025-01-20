@@ -74,6 +74,32 @@
         #content a:hover {
             background-color: #45a049;
         }
+
+        #features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .feature {
+            flex: 1 1 300px;
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .feature img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .feature h3 {
+            color: #4CAF50;
+            margin: 15px 0;
+        }
     </style>
 </head>
 <body>
@@ -85,6 +111,25 @@
         <h1>Welcome to Tiny Forests</h1>
         <p>Discover how to create your own tiny forest and contribute to restoring our planet’s biodiversity.</p>
         <a href="evc-map.html">Find Your EVC</a>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features">
+        <div class="feature">
+            <img src="images/forest1.jpg" alt="Lush Forest">
+            <h3>Why Tiny Forests?</h3>
+            <p>Learn how tiny forests contribute to biodiversity and combat climate change.</p>
+        </div>
+        <div class="feature">
+            <img src="images/forest2.jpg" alt="Planting a Forest">
+            <h3>Get Started</h3>
+            <p>Order your own tiny forest kit and start planting today!</p>
+        </div>
+        <div class="feature">
+            <img src="images/forest3.jpg" alt="Community Forest">
+            <h3>Community Impact</h3>
+            <p>Join a global movement to restore ecosystems one tiny forest at a time.</p>
+        </div>
     </div>
 
     <!-- Script to dynamically load the menu -->
