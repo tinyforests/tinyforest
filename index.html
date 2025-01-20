@@ -1,73 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant your own Tiny Forest!</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Welcome to Tiny Forests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        #content {
+            text-align: center;
+            padding: 20px;
+        }
+
+        #content h1 {
+            color: #4CAF50;
+        }
+
+        #content a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        #content a:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-<div id="menu-placeholder"></div>
+    <!-- Placeholder for the universal menu -->
+    <div id="menu-placeholder"></div>
 
-    <!-- Hero Section -->
-<header class="hero">
-    <h1>Grow a Tiny Forest, Restore the Planet</h1>
-    <p>Purchase a curated micro-forest and plant your impact.</p>
-    <a href="#shop" class="cta-button">Shop Now</a>
-    <a href="evc-map.html" class="cta-button">Find Your EVC</a>
-</header>
+    <!-- Page-specific content -->
+    <div id="content">
+        <h1>Welcome to Tiny Forests</h1>
+        <p>Discover how to create your own tiny forest and contribute to restoring our planet’s biodiversity.</p>
+        <a href="evc-map.html">Find Your EVC</a>
+    </div>
 
-    <!-- Shop Section -->
-    <section id="shop" class="shop">
-        <h2>Choose Your Tiny Forest</h2>
-        <div class="shop-grid">
-            <div class="forest-kit">
-                <h3>Small Urban Forest</h3>
-                <p>Perfect for small spaces</p>
-                <button>Customize & Buy</button>
-            </div>
-            <div class="forest-kit">
-                <h3>Biodiversity Boost</h3>
-                <p>Supports local wildlife</p>
-                <button>Customize & Buy</button>
-            </div>
-            <div class="forest-kit">
-                <h3>Pollinator Haven</h3>
-                <p>Designed to attract bees & butterflies</p>
-                <button>Customize & Buy</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="how-it-works">
-        <h2>How It Works</h2>
-        <div class="steps">
-            <div class="step">1. Choose your forest type</div>
-            <div class="step">2. We send you a tailored kit</div>
-            <div class="step">3. Plant and watch it thrive!</div>
-        </div>
-    </section>
-
-    <!-- Impact Section -->
-    <section class="impact">
-        <h2>Our Impact</h2>
-        <p>Total Trees Planted: <span id="tree-count">12,345</span></p>
-        <p>Total CO2 Absorbed: <span id="co2-count">50,000 kg</span></p>
-        <div id="map">(Map of planted forests will go here)</div>
-    </section>
-
-    <!-- Footer -->
-<footer>
-    <p>&copy; 2025 Tiny Forests. All rights reserved.</p>
-    <nav>
-        <a href="#shop">Shop</a> |
-        <a href="evc-map.html">Find Your EVC</a> |
-        <a href="#about">About</a> |
-        <a href="#contact">Contact</a>
-    </nav>
-</footer>
+    <!-- Script to dynamically load the menu -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('menu-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error("Error loading menu:", error));
+        });
+    </script>
 </body>
 </html>
