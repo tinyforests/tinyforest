@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
         }
+
         nav {
             position: sticky;
             top: 0;
@@ -23,33 +24,40 @@
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         nav a {
             color: white;
             text-decoration: none;
             margin: 0 10px;
             font-weight: bold;
         }
+
         nav a:hover {
             text-decoration: underline;
         }
+
         nav .menu {
             display: flex;
         }
+
         @media (max-width: 600px) {
             nav .menu {
                 flex-direction: column;
                 align-items: flex-start;
             }
+
             nav a {
                 margin: 5px 0;
             }
         }
+
         #container {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px;
         }
+
         #map {
             height: 400px;
             width: 80%;
@@ -57,14 +65,17 @@
             border: 2px solid #ddd;
             border-radius: 8px;
         }
+
         #search-container {
             margin-bottom: 10px;
         }
+
         input[type="text"] {
             padding: 8px;
             width: 300px;
             margin-right: 10px;
         }
+
         button {
             padding: 8px 12px;
             background-color: #4CAF50;
@@ -73,9 +84,11 @@
             border-radius: 4px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #45a049;
         }
+
         #evc-result {
             margin-top: 20px;
             font-size: 1.2em;
@@ -83,8 +96,10 @@
     </style>
 </head>
 <body>
-    <div id="menu-placeholder"></div> <!-- Placeholder for the menu -->
+    <!-- Placeholder for the universal menu -->
+    <div id="menu-placeholder"></div>
 
+    <!-- Page-specific content -->
     <div id="container">
         <h2>Find Your Ecological Vegetation Class (EVC)</h2>
         <div id="search-container">
@@ -95,8 +110,8 @@
         <p id="evc-result">Your EVC will appear here.</p>
     </div>
 
+    <!-- Script to dynamically load the menu -->
     <script>
-        // Load the menu dynamically
         document.addEventListener("DOMContentLoaded", function () {
             fetch('menu.html')
                 .then(response => response.text())
@@ -106,10 +121,11 @@
                 .catch(error => console.error("Error loading menu:", error));
         });
 
-        // Initialize the map
+        // Initialize the map and handle EVC functionality
         document.addEventListener("DOMContentLoaded", function () {
             var map = L.map('map').setView([-37.8136, 144.9631], 8); // Default to Melbourne
 
+            // Add OpenStreetMap tiles
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
@@ -123,6 +139,7 @@
                     return;
                 }
 
+                // Fetch coordinates using OpenStreetMap Nominatim API
                 fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
                     .then(response => response.json())
                     .then(data => {
@@ -144,7 +161,7 @@
             });
 
             function fetchEVCData(lat, lon) {
-                const bboxSize = 0.01;
+                const bboxSize = 0.01; // Increased BBOX size for broader coverage (~1km)
                 const bbox = [
                     lon - bboxSize, lat - bboxSize,
                     lon + bboxSize, lat + bboxSize
