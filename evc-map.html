@@ -39,38 +39,4 @@
             nav .menu {
                 flex-direction: column;
                 align-items: flex-start;
-            }
-            nav a {
-                margin: 5px 0;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="menu-placeholder"></div> <!-- Placeholder for the menu -->
-
-    <div id="container">
-        <h2>Find Your Ecological Vegetation Class (EVC)</h2>
-        <div id="search-container">
-            <input type="text" id="address-input" placeholder="Enter your address">
-            <button id="search-button">Find My EVC</button>
-        </div>
-        <div id="map"></div>
-        <p id="evc-result">Your EVC will appear here.</p>
-    </div>
-
-    <script>
-        // Load the menu dynamically
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('menu.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('menu-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error("Error loading menu:", error));
-        });
-
-        // Your map-related JavaScript (unchanged)
-    </script>
-</body>
-</html>
+         
