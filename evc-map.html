@@ -3,25 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Ecological Vegetation Class (EVC)</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="evc-map.js"></script>
+    <title>Find Your EVC - Tiny Forests</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        #map { height: 600px; width: 80%; margin: auto; }
+        #search-container { margin: 10px 0; }
+        input[type="text"] { padding: 8px; width: 300px; }
+        button { padding: 8px 12px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Find Your Ecological Vegetation Class</h1>
-        <p>Enter your address to discover the right native plants for your area.</p>
-    </header>
-
-    <section id="address-search">
+    <h2>Find Your Ecological Vegetation Class</h2>
+    <div id="search-container">
         <input type="text" id="address-input" placeholder="Enter your address">
         <button id="search-button">Find My EVC</button>
-    </section>
+    </div>
+    <div id="map"></div>
+    <p id="evc-result">Your EVC will appear here.</p>
 
-    <section id="map-container">
-        <div id="map" style="width: 100%; height: 500px;"></div>
-        <p id="evc-result">Your EVC will appear here.</p>
-    </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchButton = document.getElementById("search-button");
 
+            searchButton.addEventListener("click", function () {
+                const address = document.getElementById("address-input").value;
+                if (!address) {
+                    alert("Please enter an address.");
+                    return;
+                }
+
+                // Fetch coordinates using OpenStreetMap Nominatim API
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length === 0) {
+                            alert("Address not found. Try again.");
+                            return;
+                        }
+
+                        const lat = parseFloat(data[0].lat);
+                        const lon = parseFloat(data[0].lon);
+
+                        console.log(`Coordinates: ${lat}, ${lon}`);
+
+                        // Call function to fetch EVC data
+                        fetchEVCData(lat, lon);
+                    })
+                    .catch(error => console.error("Error fetching coordinates:", error));
+            });
+        });
+
+        function fetchEVCData(lat, lon) {
+            const bboxSize = 0.01; // Increased BBOX size for broader coverage (~1km)
+            const bbox = [
+                lon - bboxSize, lat - bboxSize,  // Min longitude, Min latitude
+                lon + bboxSize, lat + bboxSize   // Max longitude, Max latitude
+            ].join(',');
+
+            const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
+                           `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
+                           `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+
+            console.log("Constructed WFS URL:", wfsUrl);
+
+            fetch(wfsUrl)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("WFS Response:", data); // Log the entire response
+
+                    if (data.features && data.features.length > 0) {
+                        const featureProperties = data.features[0].properties; // Log feature properties
+                        console.log("Feature Properties:", featureProperties);
+
+                        // Extract the EVC name and description
+                        const evcName = featureProperties.x_evcname; // Use the correct property for EVC name
+                        const evcDescription = featureProperties.evc_bcs_desc; // Optional: Conservation status
+
+                        if (evcName) {
+                            // Display the EVC name and conservation status
+                            document.getElementById("evc-result").innerHTML = `<b>Your EVC:</b> ${evcName} (${evcDescription})`;
+                        } else {
+                            document.getElementById("evc-result").innerHTML = "EVC name not found in the response.";
+                        }
+                    } else {
+                        document.getElementById("evc-result").innerHTML = "No EVC data found for this location.";
+                        console.log("No features found in WFS response.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching WFS data:", error);
+                    document.getElementById("evc-result").innerHTML = "Error retrieving EVC data. Please try again.";
+                });
+        }
+    </script>
 </body>
 </html>
