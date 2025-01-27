@@ -16,9 +16,9 @@
         }
 
         #container h2 {
-            font-family: "Abril Fatface", serif; /* Apply Abril Fatface font */
+            font-family: "Abril Fatface", serif;
             font-size: 2.5rem;
-            color: #3D4535; /* Dark green color */
+            color: #3D4535;
             margin-bottom: 10px;
         }
 
@@ -55,13 +55,39 @@
 
         #evc-details {
             padding: 15px;
-            background-color: #FFF0DC; /* Match contrast background */
-            border: none; /* Explicitly remove any border */
+            background-color: #FFF0DC;
+            border: none;
             border-radius: 5px;
             margin: 20px auto;
             text-align: left;
             max-width: 800px;
-            box-shadow: none; /* Remove any shadow */
+            box-shadow: none;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #3D4535;
+            color: #FFF0DC;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #FFF0DC;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer .footer-links {
+            margin: 10px 0;
+        }
+
+        footer p {
+            margin: 5px 0;
         }
     </style>
 </head>
@@ -90,6 +116,17 @@
         <!-- Map Section -->
         <div id="map" style="height: 400px; width: 80%; margin: 20px auto; border: 2px solid #ddd; border-radius: 5px;"></div>
     </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-links">
+            <a href="#">Home</a> | 
+            <a href="#">About</a> | 
+            <a href="#">Contact</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p>&copy; 2025 Gardener & Son. All rights reserved.</p>
+    </footer>
 
     <!-- Script to dynamically load menu -->
     <script>
