@@ -1,18 +1,18 @@
 /* General Page Styles */
 body {
-    font-family: "Arial", sans-serif;
+    font-family: "IBM Plex Mono", monospace; /* Updated body font */
     margin: 0;
     padding: 0;
-    color: #333333;
-    background-color: #FFFFFF;
+    color: #3D4535; /* Primary green for text */
+    background-color: #FFF0DC; /* Contrast background color */
 }
 
 /* Navigation Bar */
 nav {
     position: sticky;
     top: 0;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #3D4535; /* Primary green for navbar */
+    color: #FFF0DC; /* Contrast color for text */
     display: flex;
     justify-content: space-between;
     padding: 10px 20px;
@@ -21,10 +21,11 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #FFF0DC; /* Contrast color for links */
     text-decoration: none;
     margin: 0 10px;
     font-weight: bold;
+    font-family: "Abril Fatface", serif; /* Font for navigation links */
 }
 
 nav a:hover {
@@ -53,21 +54,23 @@ nav .menu {
 }
 
 h1, h2 {
-    color: #4CAF50;
+    color: #3D4535; /* Primary green for headings */
     margin-bottom: 20px;
+    font-family: "Abril Fatface", serif; /* Font for headings */
 }
 
 p {
     line-height: 1.6;
     margin-bottom: 20px;
+    font-family: "IBM Plex Mono", monospace; /* Body font */
 }
 
 /* Map Section */
 #map {
-    height: 266px;
+    height: 266px; /* Adjusted height */
     width: 80%;
     margin: 20px auto;
-    border: 2px solid #ddd;
+    border: 2px solid #3D4535; /* Primary green border */
     border-radius: 5px;
 }
 
@@ -80,42 +83,108 @@ input[type="text"] {
     padding: 8px;
     width: 300px;
     margin-right: 10px;
-    border: 1px solid #ddd;
+    border: 1px solid #3D4535; /* Primary green border */
     border-radius: 4px;
+    font-family: "IBM Plex Mono", monospace; /* Input font */
+    color: #3D4535; /* Text color */
 }
 
 button {
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #3D4535; /* Primary green button */
+    color: #FFF0DC; /* Contrast text color */
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
+    font-family: "IBM Plex Mono", monospace;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #2F3928; /* Darker shade for hover */
 }
 
 /* EVC Details Section */
 #evc-info {
     margin-top: 20px;
     font-size: 1.1em;
+    text-align: center; /* Ensures the header text is centered */
 }
 
-#evc-info div {
-    margin: 10px 0;
+#evc-info p {
+    margin-bottom: 10px;
 }
 
 #evc-details {
-    background-color: #ffffff;
+    background-color: #FFF0DC; /* Contrast background for details */
     padding: 15px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto; /* Centers the details container */
+    text-align: left; /* Ensures content inside is aligned to the left */
+    max-width: 800px; /* Limits the width for readability */
+    border: 2px solid #3D4535; /* Green border for emphasis */
+}
+
+/* Features Section */
+#features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.feature {
+    flex: 1 1 300px;
+    margin: 10px;
+    padding: 20px;
+    border: 2px solid #3D4535; /* Primary green border */
+    border-radius: 5px;
+    text-align: center;
+    background-color: #FFF0DC; /* Contrast background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.feature img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.feature h3 {
+    color: #3D4535;
+    margin: 15px 0;
+    font-family: "Abril Fatface", serif;
+}
+
+.feature p {
+    margin-bottom: 10px;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+/* CTA Button */
+.cta-button {
+    display: inline-block;
     margin-top: 20px;
-    text-align: left;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 10px 20px;
+    background-color: #3D4535; /* Primary green */
+    color: #FFF0DC; /* Contrast text color */
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    font-family: "IBM Plex Mono", monospace;
+}
+
+.cta-button:hover {
+    background-color: #2F3928; /* Darker shade for hover */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    #map {
+        height: 200px; /* Reduce map height on smaller screens */
+    }
+
+    #features {
+        flex-direction: column;
+    }
 }
