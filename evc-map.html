@@ -3,19 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Tiny Forest</title>
+    <title>Find Your Ecological Garden</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        /* Centering the hero text, address bar, and button */
+        #container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #search-container {
+            margin-top: 20px;
+        }
+
+        #search-container input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #search-container button {
+            padding: 10px 20px;
+            background-color: #3D4535;
+            color: #FFF0DC;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #search-container button:hover {
+            background-color: #2F3928;
+        }
+    </style>
 </head>
 <body>
     <!-- Placeholder for the universal menu -->
     <div id="menu-placeholder"></div>
 
-      <!-- Main Content -->
+    <!-- Main Content -->
     <div id="container">
         <h2>Find your Ecological Garden</h2>
-        <p>Enter your address to discover your Ecological Vegetation Class (EVC) that can inform you about the species Indigenous to your garden</p>
+        <p>Enter your address to discover your Ecological Vegetation Class (EVC) that can inform you about the species Indigenous to your garden.</p>
+
         <!-- Search Section -->
         <div id="search-container">
             <input type="text" id="address-input" placeholder="Enter your address">
