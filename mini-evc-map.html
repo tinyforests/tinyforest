@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Your Tiny Forest</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Menu Placeholder -->
+    <div id="menu-placeholder"></div>
+
+    <!-- Main Content -->
+    <div id="container">
+        <h2>Find your tiny forest</h2>
+        <p>Enter your address to discover your EVC and suitable species for your tiny forest.</p>
+        <div id="search-container">
+            <input type="text" id="address-input" placeholder="Enter your address">
+            <button id="search-button">Find My Forest</button>
+        </div>
+        <div id="map"></div>
+        <div id="evc-info">
+            <p id="evc-result">Your EVC details will appear here.</p>
+        </div>
+    </div>
+
+    <!-- Script to dynamically load menu -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('menu-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error("Error loading menu:", error));
+        });
+    </script>
+</body>
+</html>
