@@ -10,36 +10,14 @@
     <!-- Placeholder for the universal menu -->
     <div id="menu-placeholder"></div>
 
-    <!-- Page-specific content -->
+    <!-- Main Content -->
     <div id="container">
         <h2>Find your tiny forest</h2>
         <p>Discover the ecological vegetation class (EVC) for your location and learn about species suitable for your tiny forest.</p>
 
+        <!-- Search and Map Section -->
         <div id="search-container">
             <input type="text" id="address-input" placeholder="Enter your address">
             <button id="search-button">Find My Forest</button>
         </div>
-
-        <div id="map"></div>
-
-        <div id="evc-info">
-            <p id="evc-result">Your EVC will appear here.</p>
-            <div id="evc-details"></div>
-        </div>
-    </div>
-
-    <!-- Script to dynamically load the menu -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('menu.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('menu-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error("Error loading menu:", error));
-        });
-
-        // Add your map functionality here
-    </script>
-</body>
-</html>
+        <div id="map" sty
