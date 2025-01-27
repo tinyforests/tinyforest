@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-
     <title>Find Your Tiny Forest</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -19,18 +17,18 @@
         <h2>Find your tiny forest</h2>
         <p>Enter your address to discover your EVC and suitable species for your tiny forest.</p>
 
-        <!-- Search and Map Section -->
+        <!-- EVC Details Section -->
+        <div id="evc-info">
+            <p id="evc-result">Your EVC details will appear here.</p>
+            <div id="evc-details"></div>
+        </div>
+
+        <!-- Map Section -->
         <div id="search-container">
             <input type="text" id="address-input" placeholder="Enter your address">
             <button id="search-button">Find My Forest</button>
         </div>
         <div id="map" style="height: 400px; width: 80%; margin: 20px auto; border: 2px solid #ddd; border-radius: 5px;"></div>
-
-        <!-- EVC Details Section -->
-        <div id="evc-info">
-            <p id="evc-result">Your EVC will appear here.</p>
-            <div id="evc-details"></div>
-        </div>
     </div>
 
     <!-- Script to dynamically load menu -->
