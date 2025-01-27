@@ -1,126 +1,121 @@
-/* Global Styles */
+/* General Page Styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Arial", sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    color: #333333;
+    background-color: #FFFFFF;
 }
 
-/* Hero Section */
-.hero {
-    background: url('forest-hero.jpg') no-repeat center center/cover;
-    height: 100vh;
+/* Navigation Bar */
+nav {
+    position: sticky;
+    top: 0;
+    background-color: #4CAF50;
+    color: white;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: white;
-    padding: 20px;
-}
-.hero h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-.hero p {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-}
-.cta-button {
-    display: inline-block;
-    background: #2e7d32;
-    color: white;
+    justify-content: space-between;
     padding: 10px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background 0.3s;
-}
-.cta-button:hover {
-    background: #1b5e20;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Shop Section */
-.shop {
-    padding: 50px;
-    text-align: center;
-    background: #fff;
-}
-.shop h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-.shop-grid {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-.forest-kit {
-    background: #e8f5e9;
-    padding: 20px;
-    border-radius: 10px;
-    width: 250px;
-    text-align: center;
-}
-.forest-kit h3 {
-    font-size: 1.5rem;
-}
-.forest-kit button {
-    background: #4caf50;
-    color: white;
-    padding: 10px;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-.forest-kit button:hover {
-    background: #388e3c;
-}
-
-/* How It Works */
-.how-it-works {
-    padding: 50px;
-    background: #c8e6c9;
-    text-align: center;
-}
-.steps {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-.step {
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-}
-
-/* Impact Section */
-.impact {
-    padding: 50px;
-    text-align: center;
-    background: #fff;
-}
-#map {
-    width: 100%;
-    height: 300px;
-    background: lightgray;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-}
-
-/* Footer */
-footer {
-    background: #2e7d32;
-    color: white;
-    text-align: center;
-    padding: 20px;
-}
-footer nav a {
+nav a {
     color: white;
     text-decoration: none;
     margin: 0 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+nav .menu {
+    display: flex;
+}
+
+@media (max-width: 600px) {
+    nav .menu {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav a {
+        margin: 5px 0;
+    }
+}
+
+/* Header and Content Styling */
+#container {
+    padding: 20px;
+    text-align: center;
+}
+
+h1, h2 {
+    color: #4CAF50;
+    margin-bottom: 20px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Map Section */
+#map {
+    height: 266px;
+    width: 80%;
+    margin: 20px auto;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Search Container */
+#search-container {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 8px;
+    width: 300px;
+    margin-right: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* EVC Details Section */
+#evc-info {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+#evc-info div {
+    margin: 10px 0;
+}
+
+#evc-details {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
