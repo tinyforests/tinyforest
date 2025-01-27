@@ -6,7 +6,7 @@
     <title>Find Your Ecological Garden</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         /* Centering the hero text, address bar, and button */
@@ -16,7 +16,7 @@
         }
 
         #container h2 {
-            font-family: "Abril Fatface", serif;
+            font-family: "IBM Plex Mono", monospace;
             font-size: 2.5rem;
             color: #3D4535;
             margin-bottom: 10px;
@@ -63,32 +63,6 @@
             max-width: 800px;
             box-shadow: none;
         }
-
-        /* Footer Section */
-        footer {
-            background-color: #3D4535;
-            color: #FFF0DC;
-            padding: 20px;
-            text-align: center;
-        }
-
-        footer a {
-            color: #FFF0DC;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        footer .footer-links {
-            margin: 10px 0;
-        }
-
-        footer p {
-            margin: 5px 0;
-        }
     </style>
 </head>
 <body>
@@ -104,7 +78,7 @@
         <!-- Search Section -->
         <div id="search-container">
             <input type="text" id="address-input" placeholder="Enter your address">
-            <button id="search-button">Find My Forest</button>
+            <button id="search-button">Find My Garden</button>
         </div>
 
         <!-- EVC Details Section -->
@@ -116,17 +90,6 @@
         <!-- Map Section -->
         <div id="map" style="height: 400px; width: 80%; margin: 20px auto; border: 2px solid #ddd; border-radius: 5px;"></div>
     </div>
-
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer-links">
-            <a href="#">Home</a> | 
-            <a href="#">About</a> | 
-            <a href="#">Contact</a> | 
-            <a href="#">Privacy Policy</a>
-        </div>
-        <p>&copy; 2025 Gardener & Son. All rights reserved.</p>
-    </footer>
 
     <!-- Script to dynamically load menu -->
     <script>
