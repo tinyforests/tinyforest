@@ -9,6 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
+        /* General Styling */
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            margin: 0;
+            padding: 0;
+            color: #3D4535;
+            background-color: #FFF0DC;
+        }
+
         /* Centering the hero text, address bar, and button */
         #container {
             text-align: center;
@@ -16,7 +25,7 @@
         }
 
         #container h2 {
-            font-family: "Abril Fatface", serif; /* Reverted to Abril Fatface */
+            font-family: "Abril Fatface", serif;
             font-size: 2.5rem;
             color: #3D4535;
             margin-bottom: 10px;
@@ -51,7 +60,7 @@
         /* EVC Details Section */
         #evc-info {
             margin-top: 20px;
-            text-align: center; /* Center the overall block */
+            text-align: center;
         }
 
         #evc-details {
@@ -60,13 +69,13 @@
             border: none;
             border-radius: 5px;
             margin: 0 auto;
-            text-align: left; /* Align text within the block to the left */
+            text-align: left;
             max-width: 800px;
             box-shadow: none;
         }
 
         #evc-details p {
-            margin: 5px 0; /* Reduce spacing between lines */
+            margin: 5px 0;
         }
 
         /* Map Section */
@@ -76,6 +85,35 @@
             margin: 20px auto;
             border: 2px solid #ddd;
             border-radius: 5px;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #3D4535;
+            color: #FFF0DC;
+            padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer h3 {
+            margin: 0 0 10px;
+            font-family: 'Abril Fatface', serif;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #FFF0DC;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -105,6 +143,21 @@
         <!-- Map Section -->
         <div id="map"></div>
     </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <h3>Find out more</h3>
+        <p>Gardener & Son</p>
+        <p>Garden Design / Heirloom & Foraged Garden Objects.</p>
+        <p>2 Churchill Street, Mont Albert</p>
+        <p><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
+        <p>0406 059 866</p>
+        <div>
+            <a href="#">Depop</a> |
+            <a href="#">Instagram</a> |
+            <a href="#">Studio Playlist</a>
+        </div>
+    </footer>
 
     <!-- Script to dynamically load menu -->
     <script>
