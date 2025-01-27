@@ -15,9 +15,20 @@ nav {
     color: #FFF0DC; /* Contrast color for text */
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+    display: flex;
+    align-items: center;
+}
+
+nav .logo img {
+    height: 40px; /* Logo size */
+    margin-right: 10px;
 }
 
 nav a {
@@ -47,36 +58,10 @@ nav .menu {
     }
 }
 
-/* Header and Content Styling */
-#container {
-    padding: 20px;
-    text-align: center;
-}
-
-h1, h2 {
-    color: #3D4535; /* Primary green for headings */
-    margin-bottom: 20px;
-    font-family: "Abril Fatface", serif; /* Font for headings */
-}
-
-p {
-    line-height: 1.6;
-    margin-bottom: 20px;
-    font-family: "IBM Plex Mono", monospace; /* Body font */
-}
-
-/* Map Section */
-#map {
-    height: 266px; /* Adjusted height */
-    width: 80%;
-    margin: 20px auto;
-    border: 2px solid #3D4535; /* Primary green border */
-    border-radius: 5px;
-}
 /* Hero Section */
 #content {
     text-align: center; /* Ensure everything in the hero is centered */
-    padding: 40px 20px;
+    padding: 60px 20px; /* Add more spacing for a balanced layout */
     background-color: #FFF0DC; /* Match the contrast background */
 }
 
@@ -107,7 +92,16 @@ p {
 }
 
 #content a:hover {
-    background-color: #2F3928;
+    background-color: #2F3928; /* Darker shade for hover */
+}
+
+/* Map Section */
+#map {
+    height: 266px; /* Adjusted height */
+    width: 80%;
+    margin: 20px auto;
+    border: 2px solid #3D4535; /* Primary green border */
+    border-radius: 5px;
 }
 
 /* Search Container */
