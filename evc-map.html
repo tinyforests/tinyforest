@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Ecological Garden</title>
+    <title>Find Your Tiny Forest</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -14,8 +14,14 @@
 
     <!-- Main Content -->
     <div id="container">
-        <h2>Find your Ecological Garden</h2>
-        <p>Enter your address to discover your Ecological Vegetation Class (EVC) that can inform you about the species Indigenous to your garden</p>
+        <h2>Find your tiny forest</h2>
+        <p>Enter your address to discover your EVC and suitable species for your tiny forest.</p>
+
+        <!-- Search Section -->
+        <div id="search-container">
+            <input type="text" id="address-input" placeholder="Enter your address">
+            <button id="search-button">Find My Forest</button>
+        </div>
 
         <!-- EVC Details Section -->
         <div id="evc-info">
@@ -24,10 +30,6 @@
         </div>
 
         <!-- Map Section -->
-        <div id="search-container">
-            <input type="text" id="address-input" placeholder="Enter your address">
-            <button id="search-button">Find My Forest</button>
-        </div>
         <div id="map" style="height: 400px; width: 80%; margin: 20px auto; border: 2px solid #ddd; border-radius: 5px;"></div>
     </div>
 
