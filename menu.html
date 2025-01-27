@@ -15,8 +15,8 @@
 </nav>
 
 <style>
-    /* Import IBM Plex Mono Font with Medium Weight */
-    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap');
+    /* Import IBM Plex Mono Font with Light Weight */
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300&display=swap');
 
     /* Universal Menu Styles */
     nav {
@@ -42,15 +42,17 @@
     .menu {
         display: flex;
         gap: 20px;
-        font-family: 'IBM Plex Mono', monospace !important; /* Force IBM Plex Mono */
-        font-weight: 500; /* Medium weight */
+        font-family: 'IBM Plex Mono', monospace !important; /* Apply Plex Mono */
+        font-weight: 300; /* Light weight */
+        font-size: 14px; /* Reduced by 2pt */
     }
 
     .menu a {
         color: #FFF0DC;
         text-decoration: none;
-        font-family: 'IBM Plex Mono', monospace !important; /* Ensure all links use IBM Plex Mono */
-        font-weight: 500; /* Medium weight for links */
+        font-family: 'IBM Plex Mono', monospace !important;
+        font-weight: 300; /* Light weight for links */
+        font-size: 14px; /* Consistent font size */
     }
 
     .menu a:hover {
