@@ -73,6 +73,42 @@ p {
     border: 2px solid #3D4535; /* Primary green border */
     border-radius: 5px;
 }
+/* Hero Section */
+#content {
+    text-align: center; /* Ensure everything in the hero is centered */
+    padding: 40px 20px;
+    background-color: #FFF0DC; /* Match the contrast background */
+}
+
+#content h1 {
+    font-family: "Abril Fatface", serif;
+    font-size: 2.5rem;
+    color: #3D4535;
+    margin-bottom: 20px;
+}
+
+#content p {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+#content a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3D4535;
+    color: #FFF0DC;
+    font-family: "IBM Plex Mono", monospace;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-top: 20px;
+}
+
+#content a:hover {
+    background-color: #2F3928;
+}
 
 /* Search Container */
 #search-container {
