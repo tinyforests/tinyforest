@@ -42,14 +42,15 @@
     .menu {
         display: flex;
         gap: 20px;
-        font-family: 'IBM Plex Mono', monospace; /* Apply Plex Mono to the top menu */
+        font-family: 'IBM Plex Mono', monospace !important; /* Force IBM Plex Mono */
         font-weight: 500; /* Medium weight */
     }
 
     .menu a {
         color: #FFF0DC;
         text-decoration: none;
-        font-weight: 500; /* Ensure links use medium weight */
+        font-family: 'IBM Plex Mono', monospace !important; /* Ensure all links use IBM Plex Mono */
+        font-weight: 500; /* Medium weight for links */
     }
 
     .menu a:hover {
