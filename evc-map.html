@@ -4,101 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Tiny Forest</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        nav {
-            position: sticky;
-            top: 0;
-            background-color: #4CAF50;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
-
-        nav a:hover {
-            text-decoration: underline;
-        }
-
-        nav .menu {
-            display: flex;
-        }
-
-        @media (max-width: 600px) {
-            nav .menu {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            nav a {
-                margin: 5px 0;
-            }
-        }
-
-        #container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
-
- #map {
-    height: 266px; /* Reduced height by 1/3 */
-    width: 80%;
-    margin: 20px auto;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-}
-
-
-        #search-container {
-            margin-bottom: 10px;
-        }
-
-        input[type="text"] {
-            padding: 8px;
-            width: 300px;
-            margin-right: 10px;
-        }
-
-        button {
-            padding: 8px 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        #evc-info {
-            margin-top: 20px;
-            font-size: 1.1em;
-        }
-
-        #evc-info div {
-            margin: 5px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Placeholder for the universal menu -->
@@ -107,11 +13,15 @@
     <!-- Page-specific content -->
     <div id="container">
         <h2>Find your tiny forest</h2>
+        <p>Discover the ecological vegetation class (EVC) for your location and learn about species suitable for your tiny forest.</p>
+
         <div id="search-container">
             <input type="text" id="address-input" placeholder="Enter your address">
             <button id="search-button">Find My Forest</button>
         </div>
+
         <div id="map"></div>
+
         <div id="evc-info">
             <p id="evc-result">Your EVC will appear here.</p>
             <div id="evc-details"></div>
@@ -129,79 +39,7 @@
                 .catch(error => console.error("Error loading menu:", error));
         });
 
-        // Initialize the map and handle EVC functionality
-        document.addEventListener("DOMContentLoaded", function () {
-            var map = L.map('map').setView([-37.8136, 144.9631], 8); // Default to Melbourne
-
-            // Add OpenStreetMap tiles
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-
-            var marker;
-            document.getElementById("search-button").addEventListener("click", function () {
-                const address = document.getElementById("address-input").value;
-                if (!address) {
-                    alert("Please enter an address.");
-                    return;
-                }
-
-                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.length === 0) {
-                            alert("Address not found. Try again.");
-                            return;
-                        }
-
-                        const lat = parseFloat(data[0].lat);
-                        const lon = parseFloat(data[0].lon);
-
-                        map.setView([lat, lon], 12);
-                        if (marker) map.removeLayer(marker);
-                        marker = L.marker([lat, lon]).addTo(map);
-
-                        fetchEVCData(lat, lon);
-                    })
-                    .catch(error => console.error("Error fetching coordinates:", error));
-            });
-
-            function fetchEVCData(lat, lon) {
-                const bboxSize = 0.01;
-                const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(',');
-                const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
-                               `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
-                               `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
-
-                fetch(wfsUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.features && data.features.length > 0) {
-                            const properties = data.features[0].properties;
-                            const evcName = properties.x_evcname || "Unknown";
-                            const conservationStatus = properties.evc_bcs_desc || "Not Specified";
-                            const bioregion = properties.bioregion || "Not Specified";
-                            const area = properties.areasqm ? `${properties.areasqm} sqm` : "Unknown";
-                            const groupName = properties.x_groupname || "Not Specified";
-
-                            document.getElementById("evc-result").innerHTML = `<b>Your EVC:</b> ${evcName}`;
-                            document.getElementById("evc-details").innerHTML = `
-                                <div><b>Conservation Status:</b> ${conservationStatus}</div>
-                                <div><b>Bioregion:</b> ${bioregion}</div>
-                                <div><b>Area:</b> ${area}</div>
-                                <div><b>Group Name:</b> ${groupName}</div>
-                            `;
-                        } else {
-                            document.getElementById("evc-result").innerHTML = "No EVC data found for this location.";
-                            document.getElementById("evc-details").innerHTML = "";
-                        }
-                    })
-                    .catch(error => {
-                        document.getElementById("evc-result").innerHTML = "Error retrieving EVC data.";
-                        document.getElementById("evc-details").innerHTML = "";
-                    });
-            }
-        });
+        // Add your map functionality here
     </script>
 </body>
 </html>
