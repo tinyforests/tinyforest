@@ -1,9 +1,114 @@
 <nav>
-    <div class="logo">Tiny Forests</div>
-    <div class="menu">
-        <a href="index.html">Home</a>
-        <a href="evc-map.html">Find Your EVC</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+    <div class="menu-container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="images/logo.png" alt="Tiny Forests Logo" />
+            </a>
+        </div>
+        <div class="menu">
+            <a href="index.html">Home</a>
+            <a href="evc-map.html">Find Your EVC</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <div class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </div>
 </nav>
+
+<style>
+    /* Universal Menu Styles */
+    nav {
+        position: sticky;
+        top: 0;
+        background-color: #3D4535;
+        color: #FFF0DC;
+        display: flex;
+        justify-content: center;
+        padding: 10px 20px;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 1200px;
+    }
+
+    .logo img {
+        height: 50px;
+    }
+
+    .menu {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu a {
+        color: #FFF0DC;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .menu a:hover {
+        text-decoration: underline;
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+    }
+
+    .mobile-menu-toggle span {
+        width: 25px;
+        height: 3px;
+        background-color: #FFF0DC;
+    }
+
+    @media (max-width: 768px) {
+        .menu {
+            display: none;
+            flex-direction: column;
+            background-color: #3D4535;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            width: 200px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu a {
+            margin: 10px 0;
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+        }
+
+        .menu.open {
+            display: flex;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const toggle = document.querySelector(".mobile-menu-toggle");
+        const menu = document.querySelector(".menu");
+
+        toggle.addEventListener("click", () => {
+            menu.classList.toggle("open");
+        });
+    });
+</script>
