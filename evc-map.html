@@ -61,10 +61,13 @@
         #evc-info {
             margin-top: 20px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
 
         #evc-details {
-            display: inline-block;
             padding: 15px;
             background-color: #FFF0DC;
             border: none;
@@ -81,7 +84,6 @@
         /* Download Button */
         .download-button {
             display: none; /* Initially hidden */
-            margin-top: 20px;
             padding: 10px 20px;
             background-color: #3D4535;
             color: #FFF0DC;
@@ -90,7 +92,6 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 1rem;
-            text-align: center;
         }
 
         .download-button:hover {
@@ -173,9 +174,7 @@
             <div id="evc-details">
                 <p>Your EVC will display here</p>
             </div>
-            <div style="text-align: center;">
-                <button class="download-button" id="download-button">Download Curated Plant List for this EVC $9.99</button>
-            </div>
+            <button class="download-button" id="download-button">Download Curated Plant List for this EVC $9.99</button>
         </div>
 
         <!-- Map Section -->
@@ -284,11 +283,4 @@
                     })
                     .catch(error => {
                         console.error("Error fetching EVC data:", error);
-                        document.getElementById("evc-details").innerHTML = "<p>Error retrieving EVC data.</p>";
-                        document.getElementById("download-button").style.display = "none";
-                    });
-            }
-        });
-    </script>
-</body>
-</html>
+                        document.getElement
