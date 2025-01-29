@@ -32,7 +32,7 @@ function searchEVC(data) {
 }
 
 function getEVCData(lat, lon, data) {
-    const evcCode = "175"; // Replace with dynamic lookup later
+    const evcCode = "175"; // Replace this with dynamic lookup based on lat/lon
     const evc = data.find(e => e.EVC_Code === evcCode);
 
     if (!evc) {
@@ -40,9 +40,24 @@ function getEVCData(lat, lon, data) {
         return;
     }
 
-    document.getElementById("evc-details").innerHTML = `
-        <p><b>Your EVC:</b> ${evc.EVC_Name}</p>
-        <p><b>Conservation Status:</b> ${evc.Conservation_Status}</p>
-        <p><b>Bioregion:</b> ${evc.Bioregion}</p>
+    let plantListHTML = `
+        <h4>${evc.EVC_Name}</h4>
+        <p><b>Description:</b> ${evc.Description}</p>
+        <h4>Recommended Plants:</h4>
+        <ul>
     `;
+
+    evc.Plant_Species.forEach(species => {
+        plantListHTML += `
+            <li>
+                <b>${species.Common_Name}</b> (*${species.Scientific_Name}*) - 
+                ${species.Layer}, ${species.Soil_Type}, ${species.Sunlight}, 
+                ${species.Water_Requirement} Water
+            </li>
+        `;
+    });
+
+    plantListHTML += "</ul>";
+
+    document.getElementById("evc-details").innerHTML = plantListHTML;
 }
