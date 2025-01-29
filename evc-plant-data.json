@@ -1,1 +1,29 @@
+[
+  {
+    "EVC_Code": "175",
+    "EVC_Name": "Grassy Woodland",
+    "Conservation_Status": "Endangered",
+    "Bioregion": "Gippsland Plain",
+    "Plant_Species": [
+      {
+        "Scientific_Name": "Eucalyptus camaldulensis",
+        "Common_Name": "River Red Gum",
+        "Layer": "Canopy",
+        "Soil_Type": "Loam",
+        "Sunlight": "Full Sun",
+        "Water_Requirement": "Medium",
+        "Ecological_Role": "Habitat for native fauna"
+      },
+      {
+        "Scientific_Name": "Themeda triandra",
+        "Common_Name": "Kangaroo Grass",
+        "Layer": "Groundcover",
+        "Soil_Type": "Sandy Loam",
+        "Sunlight": "Full Sun",
+        "Water_Requirement": "Low",
+        "Ecological_Role": "Supports pollinators and prevents erosion"
+      }
+    ]
+  }
+]
 
