@@ -45,6 +45,4 @@ function getEVCData(lat, lon, data) {
         <p><b>Conservation Status:</b> ${evc.Conservation_Status}</p>
         <p><b>Bioregion:</b> ${evc.Bioregion}</p>
     `;
-
-    document.getElementById("download-button").style.display = "block";
 }
