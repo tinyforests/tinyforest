@@ -1,220 +1,130 @@
-/* General Page Styles */
+/* Universal Styling */
 body {
-    font-family: "IBM Plex Mono", monospace; /* Updated body font */
+    font-family: 'IBM Plex Mono', monospace;
+    color: #3D4535;
+    background-color: #FFF0DC;
     margin: 0;
     padding: 0;
-    color: #3D4535; /* Primary green for text */
-    background-color: #FFF0DC; /* Contrast background color */
 }
 
-/* Navigation Bar */
-nav {
-    position: sticky;
-    top: 0;
-    background-color: #3D4535; /* Primary green for navbar */
-    color: #FFF0DC; /* Contrast color for text */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+/* Centering the hero text, search bar, and button */
+#container {
+    text-align: center;
+    padding: 60px 20px;
 }
 
-nav .logo {
-    display: flex;
-    align-items: center;
-}
-
-nav .logo img {
-    height: 40px; /* Logo size */
-    margin-right: 10px;
-}
-
-nav a {
-    color: #FFF0DC; /* Contrast color for links */
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-    font-family: "Abril Fatface", serif; /* Font for navigation links */
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-nav .menu {
-    display: flex;
-}
-
-@media (max-width: 600px) {
-    nav .menu {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    nav a {
-        margin: 5px 0;
-    }
-}
-
-/* Hero Section */
-#content {
-    text-align: center; /* Ensure everything in the hero is centered */
-    padding: 60px 20px; /* Add more spacing for a balanced layout */
-    background-color: #FFF0DC; /* Match the contrast background */
-}
-
-#content h1 {
+#container h2 {
     font-family: "Abril Fatface", serif;
-    font-size: 2.5rem;
+    font-size: 3rem;
     color: #3D4535;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-#content p {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+#search-container {
+    margin-top: 20px;
 }
 
-#content a {
-    display: inline-block;
-    padding: 10px 20px;
+#search-container input[type="text"] {
+    width: 350px;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #3D4535;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+#search-container button {
+    padding: 12px 24px;
     background-color: #3D4535;
     color: #FFF0DC;
-    font-family: "IBM Plex Mono", monospace;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-top: 20px;
-}
-
-#content a:hover {
-    background-color: #2F3928; /* Darker shade for hover */
-}
-
-/* Map Section */
-#map {
-    height: 266px; /* Adjusted height */
-    width: 80%;
-    margin: 20px auto;
-    border: 2px solid #3D4535; /* Primary green border */
-    border-radius: 5px;
-}
-
-/* Search Container */
-#search-container {
-    margin-bottom: 20px;
-}
-
-input[type="text"] {
-    padding: 8px;
-    width: 300px;
-    margin-right: 10px;
-    border: 1px solid #3D4535; /* Primary green border */
-    border-radius: 4px;
-    font-family: "IBM Plex Mono", monospace; /* Input font */
-    color: #3D4535; /* Text color */
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #3D4535; /* Primary green button */
-    color: #FFF0DC; /* Contrast text color */
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
-    font-family: "IBM Plex Mono", monospace;
+    font-size: 1rem;
 }
 
-button:hover {
-    background-color: #2F3928; /* Darker shade for hover */
+#search-container button:hover {
+    background-color: #2F3928;
 }
 
-/* EVC Details Section */
+/* EVC Details */
 #evc-info {
-    margin-top: 20px;
-    font-size: 1.1em;
-    text-align: center; /* Ensures the header text is centered */
-}
-
-#evc-info p {
-    margin-bottom: 10px;
+    margin-top: 30px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
 }
 
 #evc-details {
-    background-color: #FFF0DC; /* Contrast background for details */
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 20px auto; /* Centers the details container */
-    text-align: left; /* Ensures content inside is aligned to the left */
-    max-width: 800px; /* Limits the width for readability */
-    border: 2px solid #3D4535; /* Green border for emphasis */
-}
-
-/* Features Section */
-#features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.feature {
-    flex: 1 1 300px;
-    margin: 10px;
+    background-color: #FFF0DC;
     padding: 20px;
-    border: 2px solid #3D4535; /* Primary green border */
-    border-radius: 5px;
-    text-align: center;
-    background-color: #FFF0DC; /* Contrast background */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    text-align: left;
+    max-width: 600px;
+    font-size: 1rem;
 }
 
-.feature img {
-    max-width: 100%;
-    border-radius: 5px;
-}
-
-.feature h3 {
-    color: #3D4535;
-    margin: 15px 0;
-    font-family: "Abril Fatface", serif;
-}
-
-.feature p {
-    margin-bottom: 10px;
-    font-family: "IBM Plex Mono", monospace;
-}
-
-/* CTA Button */
-.cta-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #3D4535; /* Primary green */
-    color: #FFF0DC; /* Contrast text color */
-    text-decoration: none;
+/* Download Button */
+.download-button {
+    display: none;
+    padding: 12px 24px;
+    background-color: #3D4535;
+    color: #FFF0DC;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
     font-weight: bold;
-    border-radius: 5px;
-    font-family: "IBM Plex Mono", monospace;
+    font-size: 1rem;
+    text-align: center;
 }
 
-.cta-button:hover {
-    background-color: #2F3928; /* Darker shade for hover */
+.download-button:hover {
+    background-color: #2F3928;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    #map {
-        height: 200px; /* Reduce map height on smaller screens */
-    }
+/* Map */
+#map {
+    height: 400px;
+    width: 80%;
+    margin: 30px auto;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+}
 
-    #features {
-        flex-direction: column;
-    }
+/* Footer */
+footer {
+    background-color: #3D4535;
+    color: #FFF0DC;
+    padding: 40px 20px;
+    text-align: left;
+    font-size: 1rem;
+    width: 100%;
+}
+
+footer h3 {
+    font-size: 33px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+}
+
+.footer-details {
+    font-weight: 500;
+    font-size: 21px;
+    color: #cccccc;
+    letter-spacing: -0.5px;
+    line-height: 1.2em;
+}
+
+footer a {
+    color: #FFF0DC;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
