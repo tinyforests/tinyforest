@@ -1,4 +1,4 @@
-/* Universal Styling */
+/* Restored CSS File */
 body {
     font-family: 'IBM Plex Mono', monospace;
     color: #3D4535;
@@ -18,10 +18,6 @@ body {
     font-size: 3rem;
     color: #3D4535;
     margin-bottom: 10px;
-}
-
-#search-container {
-    margin-top: 20px;
 }
 
 #search-container input[type="text"] {
@@ -46,43 +42,6 @@ body {
 }
 
 #search-container button:hover {
-    background-color: #2F3928;
-}
-
-/* EVC Details */
-#evc-info {
-    margin-top: 30px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-}
-
-#evc-details {
-    background-color: #FFF0DC;
-    padding: 20px;
-    border-radius: 6px;
-    text-align: left;
-    max-width: 600px;
-    font-size: 1rem;
-}
-
-/* Download Button */
-.download-button {
-    display: none;
-    padding: 12px 24px;
-    background-color: #3D4535;
-    color: #FFF0DC;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    text-align: center;
-}
-
-.download-button:hover {
     background-color: #2F3928;
 }
 
