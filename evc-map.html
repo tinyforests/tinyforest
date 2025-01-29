@@ -4,13 +4,154 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Ecological Garden</title>
-    
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <!-- Scripts -->
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            margin: 0;
+            padding: 0;
+            color: #3D4535;
+            background-color: #FFF0DC;
+        }
+
+        /* Centering the hero text, address bar, and button */
+        #container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #container h2 {
+            font-family: "Abril Fatface", serif;
+            font-size: 2.5rem;
+            color: #3D4535;
+            margin-bottom: 10px;
+        }
+
+        #search-container {
+            margin-top: 20px;
+        }
+
+        #search-container input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #search-container button {
+            padding: 10px 20px;
+            background-color: #3D4535;
+            color: #FFF0DC;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #search-container button:hover {
+            background-color: #2F3928;
+        }
+
+        /* EVC Details Section */
+        #evc-info {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #evc-details {
+            padding: 15px;
+            background-color: #FFF0DC;
+            border: none;
+            border-radius: 5px;
+            text-align: left;
+            max-width: 600px;
+            box-shadow: none;
+        }
+
+        #evc-details p {
+            margin: 5px 0;
+        }
+
+        /* Download Button */
+        .download-button {
+            display: none; /* Initially hidden */
+            padding: 10px 20px;
+            background-color: #3D4535;
+            color: #FFF0DC;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .download-button:hover {
+            background-color: #2F3928;
+        }
+
+        /* Map Section */
+        #map {
+            height: 400px;
+            width: 80%;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #3D4535;
+            color: #FFF0DC;
+            padding: 20px;
+            text-align: left;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            padding-left: 10%; /* Align footer text to match map edges */
+            padding-right: 10%;
+        }
+
+        footer h3 {
+            font-size: 33px;
+            font-weight: 400;
+            letter-spacing: -0.2px;
+            margin-bottom: 10px;
+            font-family: 'Abril Fatface', serif;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Footer specific styling for contact details */
+        .footer-details {
+            color: #888888; /* Updated color */
+            font-weight: 500; /* Medium weight */
+            font-size: 21px; /* Updated size */
+            letter-spacing: -0.5px; /* Updated letter-spacing */
+            line-height: 1.2em; /* Updated line height */
+        }
+
+        footer a {
+            color: #FFF0DC;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <!-- Placeholder for the universal menu -->
@@ -33,12 +174,120 @@
             <div id="evc-details">
                 <p>Your EVC will display here</p>
             </div>
+            <button class="download-button" id="download-button">Download Curated Plant List for this EVC $9.99</button>
         </div>
 
         <!-- Map Section -->
         <div id="map"></div>
     </div>
 
-    <!-- Footer -->
+    <!-- Footer Section -->
     <footer>
-   
+        <h3>Find out more</h3>
+        <p class="footer-details">Gardener & Son</p>
+        <p class="footer-details">Garden Design / Heirloom & Foraged Garden Objects.</p>
+        <p class="footer-details">2 Churchill Street, Mont Albert</p>
+        <p class="footer-details"><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
+        <p class="footer-details">0406 059 866</p>
+        <div>
+            <a href="#">Depop</a>
+            <a href="#">Instagram</a>
+            <a href="#">Studio Playlist</a>
+        </div>
+    </footer>
+
+    <!-- Script to dynamically load menu -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Load the menu dynamically
+            fetch('menu.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('menu-placeholder').innerHTML = data;
+                })
+                .catch(error => console.error("Error loading menu:", error));
+        });
+
+        // Map functionality
+        document.addEventListener("DOMContentLoaded", function () {
+            var map = L.map('map').setView([-37.8136, 144.9631], 8); // Default to Melbourne
+
+            // Add OpenStreetMap tiles
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            var marker;
+
+            // Search functionality
+            document.getElementById("search-button").addEventListener("click", function () {
+                const address = document.getElementById("address-input").value;
+                if (!address) {
+                    alert("Please enter an address.");
+                    return;
+                }
+
+                // Fetch coordinates using OpenStreetMap Nominatim API
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length === 0) {
+                            alert("Address not found. Try again.");
+                            return;
+                        }
+
+                        const lat = parseFloat(data[0].lat);
+                        const lon = parseFloat(data[0].lon);
+
+                        // Update map view and marker
+                        map.setView([lat, lon], 12);
+                        if (marker) map.removeLayer(marker);
+                        marker = L.marker([lat, lon]).addTo(map);
+
+                        // Fetch EVC data
+                        fetchEVCData(lat, lon);
+                    })
+                    .catch(error => console.error("Error fetching coordinates:", error));
+            });
+
+            // Fetch EVC data
+            function fetchEVCData(lat, lon) {
+                const bboxSize = 0.01;
+                const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(',');
+                const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
+                               `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
+                               `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+
+                fetch(wfsUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.features && data.features.length > 0) {
+                            const properties = data.features[0].properties;
+                            const evcName = properties.x_evcname || "Unknown";
+                            const conservationStatus = properties.evc_bcs_desc || "Not Specified";
+                            const bioregion = properties.bioregion || "Not Specified";
+
+                            document.getElementById("evc-details").innerHTML = `
+                                <p><b>Your EVC:</b> ${evcName}</p>
+                                <p><b>Conservation Status:</b> ${conservationStatus}</p>
+                                <p><b>Bioregion:</b> ${bioregion}</p>
+                            `;
+
+                            // Show the download button
+                            document.getElementById("download-button").style.display = "block";
+                        } else {
+                            console.error("No EVC data found in the response.");
+                            document.getElementById("evc-details").innerHTML = "<p>No EVC data found for this location.</p>";
+                            document.getElementById("download-button").style.display = "none";
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error fetching EVC data:", error);
+                        document.getElementById("evc-details").innerHTML = "<p>Error retrieving EVC data.</p>";
+                        document.getElementById("download-button").style.display = "none";
+                    });
+            }
+        });
+    </script>
+</body>
+</html>
