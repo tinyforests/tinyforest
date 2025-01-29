@@ -1,29 +1,96 @@
 [
-  {
-    "EVC_Code": "175",
-    "EVC_Name": "Grassy Woodland",
-    "Conservation_Status": "Endangered",
-    "Bioregion": "Gippsland Plain",
-    "Plant_Species": [
-      {
-        "Scientific_Name": "Eucalyptus camaldulensis",
-        "Common_Name": "River Red Gum",
-        "Layer": "Canopy",
-        "Soil_Type": "Loam",
-        "Sunlight": "Full Sun",
-        "Water_Requirement": "Medium",
-        "Ecological_Role": "Habitat for native fauna"
-      },
-      {
-        "Scientific_Name": "Themeda triandra",
-        "Common_Name": "Kangaroo Grass",
-        "Layer": "Groundcover",
-        "Soil_Type": "Sandy Loam",
-        "Sunlight": "Full Sun",
-        "Water_Requirement": "Low",
-        "Ecological_Role": "Supports pollinators and prevents erosion"
-      }
-    ]
-  }
+    {
+        "EVC_Code": "53",
+        "EVC_Name": "Swamp Scrub",
+        "Description": "A dense thicket of shrubs and trees occurring in swampy areas.",
+        "Plant_Species": [
+            {
+                "Common_Name": "River Red Gum",
+                "Scientific_Name": "Eucalyptus camaldulensis",
+                "Layer": "Canopy Tree",
+                "Soil_Type": "Clay, Loam",
+                "Sunlight": "Full Sun",
+                "Water_Requirement": "Moderate"
+            },
+            {
+                "Common_Name": "Swamp Paperbark",
+                "Scientific_Name": "Melaleuca ericifolia",
+                "Layer": "Midstory Shrub",
+                "Soil_Type": "Clay, Loam",
+                "Sunlight": "Part Shade",
+                "Water_Requirement": "High"
+            }
+        ]
+    },
+    {
+        "EVC_Code": "175",
+        "EVC_Name": "Grassy Woodland",
+        "Description": "Open woodland with a grassy understory, occurring on well-drained soils.",
+        "Plant_Species": [
+            {
+                "Common_Name": "Blackwood",
+                "Scientific_Name": "Acacia melanoxylon",
+                "Layer": "Understory Tree",
+                "Soil_Type": "Loam, Sandy",
+                "Sunlight": "Part Shade",
+                "Water_Requirement": "Low"
+            },
+            {
+                "Common_Name": "Kangaroo Grass",
+                "Scientific_Name": "Themeda triandra",
+                "Layer": "Ground Cover",
+                "Soil_Type": "Sandy, Loam",
+                "Sunlight": "Full Sun",
+                "Water_Requirement": "Low"
+            }
+        ]
+    }
 ]
-
+[
+    {
+        "EVC_Code": "53",
+        "EVC_Name": "Swamp Scrub",
+        "Description": "A dense thicket of shrubs and trees occurring in swampy areas.",
+        "Plant_Species": [
+            {
+                "Common_Name": "River Red Gum",
+                "Scientific_Name": "Eucalyptus camaldulensis",
+                "Layer": "Canopy Tree",
+                "Soil_Type": "Clay, Loam",
+                "Sunlight": "Full Sun",
+                "Water_Requirement": "Moderate"
+            },
+            {
+                "Common_Name": "Swamp Paperbark",
+                "Scientific_Name": "Melaleuca ericifolia",
+                "Layer": "Midstory Shrub",
+                "Soil_Type": "Clay, Loam",
+                "Sunlight": "Part Shade",
+                "Water_Requirement": "High"
+            }
+        ]
+    },
+    {
+        "EVC_Code": "175",
+        "EVC_Name": "Grassy Woodland",
+        "Description": "Open woodland with a grassy understory, occurring on well-drained soils.",
+        "Plant_Species": [
+            {
+                "Common_Name": "Blackwood",
+                "Scientific_Name": "Acacia melanoxylon",
+                "Layer": "Understory Tree",
+                "Soil_Type": "Loam, Sandy",
+                "Sunlight": "Part Shade",
+                "Water_Requirement": "Low"
+            },
+            {
+                "Common_Name": "Kangaroo Grass",
+                "Scientific_Name": "Themeda triandra",
+                "Layer": "Ground Cover",
+                "Soil_Type": "Sandy, Loam",
+                "Sunlight": "Full Sun",
+                "Water_Requirement": "Low"
+            }
+        ]
+    }
+]
