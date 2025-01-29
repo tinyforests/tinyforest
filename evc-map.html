@@ -4,109 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Find Your Ecological Garden</title>
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <!-- Scripts -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://js.stripe.com/v3/"></script>
-    <style>
-        /* General Styling */
-        body {
-            font-family: 'IBM Plex Mono', monospace;
-            margin: 0;
-            padding: 0;
-            color: #3D4535;
-            background-color: #FFF0DC;
-        }
-
-        /* Centering the hero text, address bar, and button */
-        #container {
-            text-align: center;
-            padding: 40px 20px;
-        }
-
-        #container h2 {
-            font-family: "Abril Fatface", serif;
-            font-size: 2.5rem;
-            color: #3D4535;
-            margin-bottom: 10px;
-        }
-
-        #search-container {
-            margin-top: 20px;
-        }
-
-        #search-container input[type="text"] {
-            width: 300px;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        #search-container button {
-            padding: 10px 20px;
-            background-color: #3D4535;
-            color: #FFF0DC;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        #search-container button:hover {
-            background-color: #2F3928;
-        }
-
-        /* EVC Details Section */
-        #evc-info {
-            margin-top: 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-
-        #evc-details {
-            padding: 15px;
-            background-color: #FFF0DC;
-            border: none;
-            border-radius: 5px;
-            text-align: left;
-            max-width: 600px;
-            box-shadow: none;
-        }
-
-        #evc-details p {
-            margin: 5px 0;
-        }
-
-        /* Download Button */
-        .download-button {
-            display: none; /* Initially hidden */
-            padding: 10px 20px;
-            background-color: #3D4535;
-            color: #FFF0DC;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .download-button:hover {
-            background-color: #2F3928;
-        }
-
-        /* Map Section */
-        #map {
-            height: 400px;
-            width: 80%;
-            margin: 20px auto;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-        }
-    </style>
 </head>
 <body>
     <!-- Placeholder for the universal menu -->
@@ -136,7 +41,22 @@
         <div id="map"></div>
     </div>
 
-    <!-- Script -->
+    <!-- Footer -->
+    <footer>
+        <h3>Find out more</h3>
+        <p class="footer-details">Gardener & Son</p>
+        <p class="footer-details">Garden Design / Heirloom & Foraged Garden Objects.</p>
+        <p class="footer-details">2 Churchill Street, Mont Albert</p>
+        <p class="footer-details"><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
+        <p class="footer-details">0406 059 866</p>
+        <div>
+            <a href="#">Depop</a>
+            <a href="#">Instagram</a>
+            <a href="#">Studio Playlist</a>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="evc-fetch.js"></script>
 </body>
 </html>
