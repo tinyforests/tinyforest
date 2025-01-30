@@ -228,7 +228,7 @@
                 }
 
                 // Fetch coordinates using OpenStreetMap Nominatim API
-                fetch(https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)})
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data.length === 0) {
@@ -254,9 +254,9 @@
             function fetchEVCData(lat, lon) {
                 const bboxSize = 0.01;
                 const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(',');
-                const wfsUrl = https://opendata.maps.vic.gov.au/geoserver/wfs? +
-                               service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs& +
-                               bbox=${bbox},EPSG:4326&outputFormat=application/json;
+                const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
+                               `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
+                               `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
 
                 fetch(wfsUrl)
                     .then(response => response.json())
@@ -267,11 +267,11 @@
                             const conservationStatus = properties.evc_bcs_desc || "Not Specified";
                             const bioregion = properties.bioregion || "Not Specified";
 
-                            document.getElementById("evc-details").innerHTML = 
+                            document.getElementById("evc-details").innerHTML = `
                                 <p><b>Your EVC:</b> ${evcName}</p>
                                 <p><b>Conservation Status:</b> ${conservationStatus}</p>
                                 <p><b>Bioregion:</b> ${bioregion}</p>
-                            ;
+                            `;
 
                             // Show the download button
                             document.getElementById("download-button").style.display = "block";
