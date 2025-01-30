@@ -8,6 +8,153 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            margin: 0;
+            padding: 0;
+            color: #3D4535;
+            background-color: #FFF0DC;
+        }
+
+        /* Centering the hero text, address bar, and button */
+        #container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #container h2 {
+            font-family: "Abril Fatface", serif;
+            font-size: 2.5rem;
+            color: #3D4535;
+            margin-bottom: 10px;
+        }
+
+        #search-container {
+            margin-top: 20px;
+        }
+
+        #search-container input[type="text"] {
+            width: 300px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #search-container button {
+            padding: 10px 20px;
+            background-color: #3D4535;
+            color: #FFF0DC;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        #search-container button:hover {
+            background-color: #2F3928;
+        }
+
+        /* EVC Details Section */
+        #evc-info {
+            margin-top: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #evc-details {
+            padding: 15px;
+            background-color: #FFF0DC;
+            border: none;
+            border-radius: 5px;
+            text-align: left;
+            max-width: 600px;
+            box-shadow: none;
+            font-size: 1rem;
+        }
+
+        #evc-details p {
+            margin: 5px 0;
+        }
+
+        /* Download Button */
+        .download-button {
+            display: none; /* Initially hidden */
+            padding: 10px 20px;
+            background-color: #3D4535;
+            color: #FFF0DC;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .download-button:hover {
+            background-color: #2F3928;
+        }
+
+        /* Map Section */
+        #map {
+            height: 400px;
+            width: 80%;
+            margin: 20px auto;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        /* Footer Section */
+        footer {
+            background-color: #3D4535;
+            color: #FFF0DC;
+            padding: 20px;
+            text-align: left;
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            padding-left: 10%; /* Align footer text to match map edges */
+            padding-right: 10%;
+        }
+
+        footer h3 {
+            font-size: 33px;
+            font-weight: 400;
+            letter-spacing: -0.2px;
+            margin-bottom: 10px;
+            font-family: 'Abril Fatface', serif;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        /* Footer specific styling for contact details */
+        .footer-details {
+            color: #888888;
+            font-weight: 500;
+            font-size: 21px;
+            letter-spacing: -0.5px;
+            line-height: 1.2em;
+        }
+
+        footer a {
+            color: #FFF0DC;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <!-- Placeholder for the universal menu -->
@@ -30,7 +177,7 @@
             <div id="evc-details">
                 <p>Your EVC will display here</p>
             </div>
-            <button class="download-button" id="download-button" style="display: none;">Download Curated Plant List for this EVC $9.99</button>
+            <button class="download-button" id="download-button">Download Curated Plant List for this EVC $9.99</button>
         </div>
 
         <!-- Map Section -->
