@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 searchEVC(data);
             });
         })
-        .catch(error => console.error("Error fetching EVC plant list:", error));
+        .catch(error => console.error("Error fetching EVC data:", error));
 });
 
 function searchEVC(data) {
@@ -32,32 +32,21 @@ function searchEVC(data) {
 }
 
 function getEVCData(lat, lon, data) {
-    const evcCode = "175"; // Replace this with dynamic lookup based on lat/lon
+    const evcCode = "175"; // Replace with dynamic lookup based on lat/lon
     const evc = data.find(e => e.EVC_Code === evcCode);
 
     if (!evc) {
-        document.getElementById("evc-details").innerHTML = "<p>No plant list found for this EVC.</p>";
+        document.getElementById("evc-details").innerHTML = "<p>No data found for this EVC.</p>";
+        document.getElementById("download-button").style.display = "none"; // Hide button if no EVC
         return;
     }
 
-    let plantListHTML = `
-        <h4>${evc.EVC_Name}</h4>
+    // Display only the EVC information (No plant list)
+    document.getElementById("evc-details").innerHTML = `
+        <h4>${evc.EVC_Name} (EVC ${evc.EVC_Code})</h4>
         <p><b>Description:</b> ${evc.Description}</p>
-        <h4>Recommended Plants:</h4>
-        <ul>
     `;
 
-    evc.Plant_Species.forEach(species => {
-        plantListHTML += `
-            <li>
-                <b>${species.Common_Name}</b> (*${species.Scientific_Name}*) - 
-                ${species.Layer}, ${species.Soil_Type}, ${species.Sunlight}, 
-                ${species.Water_Requirement} Water
-            </li>
-        `;
-    });
-
-    plantListHTML += "</ul>";
-
-    document.getElementById("evc-details").innerHTML = plantListHTML;
+    // Show the "Download Curated Plant List" button
+    document.getElementById("download-button").style.display = "block";
 }
