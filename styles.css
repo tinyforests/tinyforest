@@ -94,6 +94,66 @@ nav .menu {
 #content a:hover {
     background-color: #2F3928; /* Darker shade for hover */
 }
+/* ========== UNIVERSAL MENU STYLES ========== */
+nav {
+    position: sticky;
+    top: 0;
+    background-color: #3D4535;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav .menu {
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* ========== MAP STYLES ========== */
+#map {
+    height: 400px;
+    width: 80%;
+    margin: 20px auto;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
+
+/* ========== OTHER GLOBAL STYLES ========== */
+body {
+    font-family: 'IBM Plex Mono', monospace;
+    margin: 0;
+    padding: 0;
+    color: #3D4535;
+    background-color: #FFF0DC;
+}
+
+#container {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+#container h2 {
+    font-family: "Abril Fatface", serif;
+    font-size: 2.5rem;
+    color: #3D4535;
+    margin-bottom: 10px;
+}
 
 /* Map Section */
 #map {
