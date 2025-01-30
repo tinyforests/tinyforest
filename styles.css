@@ -1,68 +1,103 @@
-/* General Page Styles */
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap');
+
+/* ========== GENERAL PAGE STYLES ========== */
 body {
-    font-family: "IBM Plex Mono", monospace; /* Updated body font */
+    font-family: "IBM Plex Mono", monospace;
     margin: 0;
     padding: 0;
-    color: #3D4535; /* Primary green for text */
-    background-color: #FFF0DC; /* Contrast background color */
+    color: #3D4535; /* Primary green */
+    background-color: #FFF0DC; /* Contrast background */
 }
 
-/* Navigation Bar */
+/* ========== UNIVERSAL MENU STYLES ========== */
 nav {
     position: sticky;
     top: 0;
-    background-color: #3D4535; /* Primary green for navbar */
-    color: #FFF0DC; /* Contrast color for text */
+    background-color: #3D4535; /* Primary green */
+    color: #FFF0DC;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
     padding: 10px 20px;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
-nav .logo {
+.menu-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    width: 100%;
+    max-width: 1200px;
 }
 
-nav .logo img {
-    height: 40px; /* Logo size */
-    margin-right: 10px;
+.menu {
+    display: flex;
+    gap: 20px;
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-weight: 300;
+    font-size: 14px;
 }
 
-nav a {
-    color: #FFF0DC; /* Contrast color for links */
+.menu a {
+    color: #FFF0DC;
     text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-    font-family: "Abril Fatface", serif; /* Font for navigation links */
+    font-family: 'IBM Plex Mono', monospace !important;
+    font-weight: 300;
+    font-size: 14px;
 }
 
-nav a:hover {
+.menu a:hover {
     text-decoration: underline;
 }
 
-nav .menu {
-    display: flex;
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
 }
 
-@media (max-width: 600px) {
-    nav .menu {
+.mobile-menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: #FFF0DC;
+}
+
+@media (max-width: 768px) {
+    .menu {
+        display: none;
         flex-direction: column;
-        align-items: flex-start;
+        background-color: #3D4535;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
-    nav a {
-        margin: 5px 0;
+    .menu a {
+        margin: 10px 0;
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .menu.open {
+        display: flex;
     }
 }
 
-/* Hero Section */
+/* ========== HERO SECTION ========== */
 #content {
-    text-align: center; /* Ensure everything in the hero is centered */
-    padding: 60px 20px; /* Add more spacing for a balanced layout */
-    background-color: #FFF0DC; /* Match the contrast background */
+    text-align: center;
+    padding: 60px 20px;
+    background-color: #FFF0DC;
 }
 
 #content h1 {
@@ -92,80 +127,12 @@ nav .menu {
 }
 
 #content a:hover {
-    background-color: #2F3928; /* Darker shade for hover */
-}
-/* ========== UNIVERSAL MENU STYLES ========== */
-nav {
-    position: sticky;
-    top: 0;
-    background-color: #3D4535;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #2F3928;
 }
 
-nav .menu {
-    display: flex;
-    gap: 15px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 300;
-    font-size: 14px;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-/* ========== MAP STYLES ========== */
-#map {
-    height: 400px;
-    width: 80%;
-    margin: 20px auto;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-}
-
-/* ========== OTHER GLOBAL STYLES ========== */
-body {
-    font-family: 'IBM Plex Mono', monospace;
-    margin: 0;
-    padding: 0;
-    color: #3D4535;
-    background-color: #FFF0DC;
-}
-
-#container {
-    text-align: center;
-    padding: 40px 20px;
-}
-
-#container h2 {
-    font-family: "Abril Fatface", serif;
-    font-size: 2.5rem;
-    color: #3D4535;
-    margin-bottom: 10px;
-}
-
-/* Map Section */
-#map {
-    height: 266px; /* Adjusted height */
-    width: 80%;
-    margin: 20px auto;
-    border: 2px solid #3D4535; /* Primary green border */
-    border-radius: 5px;
-}
-
-/* Search Container */
+/* ========== SEARCH CONTAINER ========== */
 #search-container {
+    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -173,16 +140,16 @@ input[type="text"] {
     padding: 8px;
     width: 300px;
     margin-right: 10px;
-    border: 1px solid #3D4535; /* Primary green border */
+    border: 1px solid #3D4535;
     border-radius: 4px;
-    font-family: "IBM Plex Mono", monospace; /* Input font */
-    color: #3D4535; /* Text color */
+    font-family: "IBM Plex Mono", monospace;
+    color: #3D4535;
 }
 
 button {
     padding: 10px 20px;
-    background-color: #3D4535; /* Primary green button */
-    color: #FFF0DC; /* Contrast text color */
+    background-color: #3D4535;
+    color: #FFF0DC;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -191,14 +158,14 @@ button {
 }
 
 button:hover {
-    background-color: #2F3928; /* Darker shade for hover */
+    background-color: #2F3928;
 }
 
-/* EVC Details Section */
+/* ========== EVC DETAILS SECTION ========== */
 #evc-info {
     margin-top: 20px;
     font-size: 1.1em;
-    text-align: center; /* Ensures the header text is centered */
+    text-align: center;
 }
 
 #evc-info p {
@@ -206,17 +173,42 @@ button:hover {
 }
 
 #evc-details {
-    background-color: #FFF0DC; /* Contrast background for details */
+    background-color: #FFF0DC;
     padding: 15px;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 20px auto; /* Centers the details container */
-    text-align: left; /* Ensures content inside is aligned to the left */
-    max-width: 800px; /* Limits the width for readability */
-    border: 2px solid #3D4535; /* Green border for emphasis */
+    margin: 20px auto;
+    text-align: left;
+    max-width: 800px;
+    border: 2px solid #3D4535;
 }
 
-/* Features Section */
+/* Download Button */
+.download-button {
+    display: none;
+    padding: 10px 20px;
+    background-color: #3D4535;
+    color: #FFF0DC;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.download-button:hover {
+    background-color: #2F3928;
+}
+
+/* ========== MAP SECTION ========== */
+#map {
+    height: 266px;
+    width: 80%;
+    margin: 20px auto;
+    border: 2px solid #3D4535;
+    border-radius: 5px;
+}
+
+/* ========== FEATURES SECTION ========== */
 #features {
     display: flex;
     flex-wrap: wrap;
@@ -228,10 +220,10 @@ button:hover {
     flex: 1 1 300px;
     margin: 10px;
     padding: 20px;
-    border: 2px solid #3D4535; /* Primary green border */
+    border: 2px solid #3D4535;
     border-radius: 5px;
     text-align: center;
-    background-color: #FFF0DC; /* Contrast background */
+    background-color: #FFF0DC;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -256,8 +248,8 @@ button:hover {
     display: inline-block;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #3D4535; /* Primary green */
-    color: #FFF0DC; /* Contrast text color */
+    background-color: #3D4535;
+    color: #FFF0DC;
     text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
@@ -265,13 +257,57 @@ button:hover {
 }
 
 .cta-button:hover {
-    background-color: #2F3928; /* Darker shade for hover */
+    background-color: #2F3928;
+}
+
+/* ========== FOOTER ========== */
+footer {
+    background-color: #3D4535;
+    color: #FFF0DC;
+    padding: 20px;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+footer h3 {
+    font-size: 33px;
+    font-weight: 400;
+    letter-spacing: -0.2px;
+    margin-bottom: 10px;
+    font-family: 'Abril Fatface', serif;
+}
+
+footer p {
+    margin: 5px 0;
+}
+
+.footer-details {
+    color: #888888;
+    font-weight: 500;
+    font-size: 21px;
+    letter-spacing: -0.5px;
+    line-height: 1.2em;
+}
+
+footer a {
+    color: #FFF0DC;
+    text-decoration: none;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {
     #map {
-        height: 200px; /* Reduce map height on smaller screens */
+        height: 200px;
     }
 
     #features {
