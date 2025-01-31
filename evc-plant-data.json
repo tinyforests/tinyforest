@@ -1,4 +1,13 @@
 [
+  {
+    "EVC_Code": "ABC123",
+    "Description": "Sample description for EVC ABC123."
+  },
+  {
+    "EVC_Code": "XYZ789",
+    "Description": "Another sample description for EVC XYZ789."
+  }
+][
     {
         "EVC_Code": "53",
         "EVC_Name": "Swamp Scrub",
