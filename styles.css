@@ -112,7 +112,7 @@ button:hover {
    DOWNLOAD BUTTON
    ======================= */
 .download-button {
-  display: none; /* Initially hidden */
+  display: none;
   padding: 10px 20px;
   background-color: #3d4535;
   color: #fff0dc;
@@ -132,12 +132,12 @@ button:hover {
    MAP SECTION
    ======================= */
 #map {
-  height: 400px; /* Increased for testing visibility */
+  height: 400px; /* Ensure the map container has enough height */
   width: 80%;
   margin: 20px auto;
   border: none;
   border-radius: 5px;
-  background-color: #e0e0e0; /* Temporary background color to show the container */
+  background-color: #e0e0e0; /* Temporary background to visualize the container */
 }
 
 /* =======================
