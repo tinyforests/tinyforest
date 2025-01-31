@@ -1,77 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your EVC - Tiny Forests</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; }
-        #map { height: 600px; width: 80%; margin: auto; }
-        #search-container { margin: 10px 0; }
-        input[type="text"] { padding: 8px; width: 300px; }
-        button { padding: 8px 12px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Your Ecological Garden</title>
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <h2>Find Your Ecological Vegetation Class</h2>
+  <!-- (Optional) Navigation/Menu Placeholder -->
+  <div id="menu-placeholder"></div>
+
+  <!-- Main Content Container -->
+  <div id="container">
+    <h2>Find your Ecological Garden</h2>
+    <p>
+      Enter your address to discover your Ecological Vegetation Class (EVC).
+    </p>
+    <p>
+      This information can inform you about the species indigenous to your garden.
+    </p>
+
+    <!-- Search Section -->
     <div id="search-container">
-        <input type="text" id="addressInput" placeholder="Enter your address...">
-        <button onclick="searchAddress()">Find My EVC</button>
+      <input type="text" id="address-input" placeholder="Enter your address" />
+      <button id="search-button">Find My Garden</button>
     </div>
+
+    <!-- EVC Details Section -->
+    <div id="evc-info">
+      <div id="evc-details">
+        <p>Your EVC will display here</p>
+      </div>
+      <button class="download-button" id="download-button">
+        Download Curated Plant List for this EVC $9.99
+      </button>
+    </div>
+
+    <!-- Map Section -->
     <div id="map"></div>
-    <p id="evc-result">Your EVC will appear here.</p>
+  </div>
 
-    <script>
-        var map = L.map('map').setView([-37.8136, 144.9631], 6); // Melbourne
+  <!-- Footer Section -->
+  <footer>
+    <h3>Find out more</h3>
+    <p class="footer-details">Gardener &amp; Son</p>
+    <p class="footer-details">
+      Garden Design / Heirloom &amp; Foraged Garden Objects.
+    </p>
+    <p class="footer-details">2 Churchill Street, Mont Albert</p>
+    <p class="footer-details">
+      <a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a>
+    </p>
+    <p class="footer-details">0406 059 866</p>
+    <div>
+      <a href="#">Depop</a>
+      <a href="#">Instagram</a>
+      <a href="#">Studio Playlist</a>
+    </div>
+  </footer>
 
-        // Add OpenStreetMap tiles
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // (Optional) Dynamically load the menu from an external file.
+      fetch("menu.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("menu-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading menu:", error));
 
-        // Add WMS EVC Layer
-        var evcLayer = L.tileLayer.wms("https://opendata.maps.vic.gov.au/geoserver/wms", {
-            layers: "open-data-platform:nv2005_evcbcs",
-            format: "image/png",
-            transparent: true,
-            attribution: "© Victorian Government Open Data"
-        }).addTo(map);
+      // Initialize the Leaflet map
+      var map = L.map("map").setView([-37.8136, 144.9631], 8); // Default view: Melbourne
 
-        var marker;
+      // Add OpenStreetMap tiles
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+      }).addTo(map);
 
-        // Function to search for an address
-        function searchAddress() {
-            var address = document.getElementById("addressInput").value;
-            if (!address) return alert("Please enter an address.");
+      var marker;
 
-            fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.length > 0) {
-                        var lat = parseFloat(data[0].lat);
-                        var lon = parseFloat(data[0].lon);
+      // Search functionality: geocode address with Nominatim API
+      document
+        .getElementById("search-button")
+        .addEventListener("click", function () {
+          const address = document.getElementById("address-input").value;
+          if (!address) {
+            alert("Please enter an address.");
+            return;
+          }
 
-                        map.setView([lat, lon], 12);
-                        if (marker) map.removeLayer(marker);
-                        marker = L.marker([lat, lon]).addTo(map);
+          fetch(
+            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+              address
+            )}`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.length === 0) {
+                alert("Address not found. Try again.");
+                return;
+              }
+              const lat = parseFloat(data[0].lat);
+              const lon = parseFloat(data[0].lon);
 
-                        getEVCData(lat, lon);
-                    } else {
-                        alert("Address not found.");
-                    }
-                })
-                .catch(error => console.error("Error with geocoding:", error));
-        }
+              // Update map view and add marker
+              map.setView([lat, lon], 12);
+              if (marker) {
+                map.removeLayer(marker);
+              }
+              marker = L.marker([lat, lon]).addTo(map);
 
-        // Function to get EVC data from WFS
-        function getEVCData(lat, lng) {
-            var wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
-                         `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
-                         `outputFormat=application/json&bbox=${lng-0.001},${lat-0.001},${lng+0.001},${lat+0.001},EPSG:4326`;
+              // Fetch and display EVC data using the coordinates
+              fetchEVCData(lat, lon);
+            })
+            .catch((error) => {
+              console.error("Error fetching coordinates:", error);
+            });
+        });
 
-            console.log("Fetching EVC data from WFS:", wfsUrl);
+      // Function to fetch EVC data
+      function fetchEVCData(lat, lon) {
+        // Define a small bounding box around the coordinate
+        const bboxSize = 0.01;
+        const bbox = [
+          lon - bboxSize,
+          lat - bboxSize,
+          lon + bboxSize,
+          lat + bboxSize,
+        ].join(",");
 
-            fetch
+        // Construct WFS request URL (update typeName if necessary)
+        const wfsUrl =
+          "https://opendata.maps.vic.gov.au/geoserver/wfs?" +
+          "service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&" +
+          `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+
+        console.log("Fetching EVC data from:", wfsUrl);
+
+        fetch(wfsUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("EVC Data:", data);
+            if (data.features && data.features.length > 0) {
+              const properties = data.features[0].properties;
+              const evcName = properties.x_evcname || "Unknown";
+              const conservationStatus =
+                properties.evc_bcs_desc || "Not Specified";
+              const bioregion = properties.bioregion || "Not Specified";
+
+              document.getElementById("evc-details").innerHTML = `
+                <p><b>Your EVC:</b> ${evcName}</p>
+                <p><b>Conservation Status:</b> ${conservationStatus}</p>
+                <p><b>Bioregion:</b> ${bioregion}</p>
+              `;
+              // Show the download button
+              document.getElementById("download-button").style.display =
+                "block";
+            } else {
+              document.getElementById("evc-details").innerHTML =
+                "<p>No EVC data found for this location.</p>";
+              document.getElementById("download-button").style.display = "none";
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching EVC data:", error);
+            document.getElementById("evc-details").innerHTML =
+              "<p>Error retrieving EVC data.</p>";
+            document.getElementById("download-button").style.display = "none";
+          });
+      }
+    });
+  </script>
+</body>
+</html>
