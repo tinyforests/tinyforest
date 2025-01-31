@@ -1,138 +1,66 @@
-/* Import Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap');
-
-/* ========== GENERAL PAGE STYLES ========== */
+/* =======================
+   GENERAL PAGE STYLES
+   ======================= */
 body {
     font-family: "IBM Plex Mono", monospace;
     margin: 0;
     padding: 0;
-    color: #3D4535; /* Primary green */
-    background-color: #FFF0DC; /* Contrast background */
+    color: #3D4535;
+    background-color: #FFF0DC;
 }
 
-/* ========== UNIVERSAL MENU STYLES ========== */
+/* =======================
+   NAVIGATION MENU
+   ======================= */
 nav {
     position: sticky;
     top: 0;
-    background-color: #3D4535; /* Primary green */
-    color: #FFF0DC;
+    background-color: #3D4535;
+    color: white;
     display: flex;
     justify-content: center;
-    padding: 10px 20px;
+    align-items: center;
+    padding: 15px 20px;
     z-index: 1000;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
 }
 
-.menu-container {
+nav .menu {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
+    gap: 15px;
 }
 
-.menu {
-    display: flex;
-    gap: 20px;
-    font-family: 'IBM Plex Mono', monospace !important;
-    font-weight: 300;
-    font-size: 14px;
-}
-
-.menu a {
-    color: #FFF0DC;
+nav a {
+    color: white;
     text-decoration: none;
-    font-family: 'IBM Plex Mono', monospace !important;
+    font-family: 'IBM Plex Mono', monospace;
     font-weight: 300;
     font-size: 14px;
 }
 
-.menu a:hover {
+nav a:hover {
     text-decoration: underline;
 }
 
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.mobile-menu-toggle span {
-    width: 25px;
-    height: 3px;
-    background-color: #FFF0DC;
-}
-
-@media (max-width: 768px) {
-    .menu {
-        display: none;
-        flex-direction: column;
-        background-color: #3D4535;
-        position: absolute;
-        top: 100%;
-        right: 0;
-        width: 200px;
-        padding: 10px;
-        border-radius: 5px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    .menu a {
-        margin: 10px 0;
-    }
-
-    .mobile-menu-toggle {
-        display: flex;
-    }
-
-    .menu.open {
-        display: flex;
-    }
-}
-
-/* ========== HERO SECTION ========== */
-#content {
+/* =======================
+   HERO / HEADER SECTION
+   ======================= */
+#container {
     text-align: center;
     padding: 60px 20px;
-    background-color: #FFF0DC;
 }
 
-#content h1 {
+#container h2 {
     font-family: "Abril Fatface", serif;
     font-size: 2.5rem;
     color: #3D4535;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-#content p {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-}
-
-#content a {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #3D4535;
-    color: #FFF0DC;
-    font-family: "IBM Plex Mono", monospace;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    margin-top: 20px;
-}
-
-#content a:hover {
-    background-color: #2F3928;
-}
-
-/* ========== SEARCH CONTAINER ========== */
+/* =======================
+   SEARCH CONTAINER
+   ======================= */
 #search-container {
-    text-align: center;
     margin-bottom: 20px;
 }
 
@@ -161,30 +89,30 @@ button:hover {
     background-color: #2F3928;
 }
 
-/* ========== EVC DETAILS SECTION ========== */
+/* =======================
+   EVC DETAILS SECTION
+   ======================= */
 #evc-info {
     margin-top: 20px;
     font-size: 1.1em;
     text-align: center;
 }
 
-#evc-info p {
-    margin-bottom: 10px;
-}
-
 #evc-details {
-    background-color: #FFF0DC;
+    background-color: transparent; /* REMOVE unwanted background */
     padding: 15px;
     border-radius: 5px;
+    box-shadow: none; /* REMOVE unwanted shadow */
     margin: 20px auto;
     text-align: left;
     max-width: 800px;
-    border: 2px solid #3D4535;
 }
 
-/* Download Button */
+/* =======================
+   DOWNLOAD BUTTON
+   ======================= */
 .download-button {
-    display: none;
+    display: none; /* Initially hidden */
     padding: 10px 20px;
     background-color: #3D4535;
     color: #FFF0DC;
@@ -193,74 +121,27 @@ button:hover {
     cursor: pointer;
     font-weight: bold;
     font-size: 1rem;
+    text-align: center;
 }
 
 .download-button:hover {
     background-color: #2F3928;
 }
 
-/* ========== MAP SECTION ========== */
+/* =======================
+   MAP SECTION
+   ======================= */
 #map {
     height: 266px;
     width: 80%;
     margin: 20px auto;
-    border: 2px solid #3D4535;
+    border: none; /* REMOVE unwanted border */
     border-radius: 5px;
 }
 
-/* ========== FEATURES SECTION ========== */
-#features {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.feature {
-    flex: 1 1 300px;
-    margin: 10px;
-    padding: 20px;
-    border: 2px solid #3D4535;
-    border-radius: 5px;
-    text-align: center;
-    background-color: #FFF0DC;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.feature img {
-    max-width: 100%;
-    border-radius: 5px;
-}
-
-.feature h3 {
-    color: #3D4535;
-    margin: 15px 0;
-    font-family: "Abril Fatface", serif;
-}
-
-.feature p {
-    margin-bottom: 10px;
-    font-family: "IBM Plex Mono", monospace;
-}
-
-/* CTA Button */
-.cta-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #3D4535;
-    color: #FFF0DC;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    font-family: "IBM Plex Mono", monospace;
-}
-
-.cta-button:hover {
-    background-color: #2F3928;
-}
-
-/* ========== FOOTER ========== */
+/* =======================
+   FOOTER STYLES
+   ======================= */
 footer {
     background-color: #3D4535;
     color: #FFF0DC;
@@ -269,7 +150,7 @@ footer {
     width: 100%;
     margin: 0;
     box-sizing: border-box;
-    padding-left: 10%;
+    padding-left: 10%; /* Align footer text */
     padding-right: 10%;
 }
 
@@ -302,15 +183,4 @@ footer a {
 
 footer a:hover {
     text-decoration: underline;
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    #map {
-        height: 200px;
-    }
-
-    #features {
-        flex-direction: column;
-    }
 }
