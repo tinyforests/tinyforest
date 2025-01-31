@@ -58,8 +58,8 @@ function searchEVC() {
 
 // Function to fetch EVC data using the government WFS API
 function fetchEVCData(lat, lon) {
-  // Increase bbox size for a broader search if needed (adjust as necessary)
-  const bboxSize = 0.1;
+  // Reduced bbox size for a more accurate, focused search
+  const bboxSize = 0.02;
   const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(',');
   const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
                  `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
@@ -71,8 +71,25 @@ function fetchEVCData(lat, lon) {
     .then(data => {
       console.log("EVC data received:", data);
       if (data.features && data.features.length > 0) {
-        const properties = data.features[0].properties;
-        console.log("Properties:", properties);
+        let bestFeature = null;
+        const point = turf.point([lon, lat]);
+
+        // If Turf.js is available, iterate over features to find one that contains the point.
+        for (const feature of data.features) {
+          // Ensure the feature has a polygon geometry
+          if (feature.geometry && feature.geometry.type === "Polygon") {
+            const poly = turf.polygon(feature.geometry.coordinates);
+            if (turf.booleanPointInPolygon(point, poly)) {
+              bestFeature = feature;
+              break;
+            }
+          }
+        }
+        // Fallback: if no feature contains the point, use the first feature returned.
+        if (!bestFeature) bestFeature = data.features[0];
+
+        const properties = bestFeature.properties;
+        console.log("Selected Properties:", properties);
 
         // Extract properties (adjust keys if necessary based on the API's response)
         const evcCode = properties.evc || "Unknown";
