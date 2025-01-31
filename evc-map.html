@@ -1,73 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find Your Ecological Garden</title>
-    
-    <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet">
-
-    <!-- Leaflet Map -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Your Ecological Garden</title>
+  <!-- External Stylesheet -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
-    <!-- Universal Menu Placeholder -->
-    <div id="menu-placeholder"></div>
+  <!-- Optional: Dynamic Menu Placeholder -->
+  <div id="menu-placeholder"></div>
 
-    <!-- Main Content -->
-    <div id="container">
-        <h2>Find your Ecological Garden</h2>
-        <p>Enter your address to discover your Ecological Vegetation Class (EVC).</p>
-        <p>This information can inform you about the species indigenous to your garden.</p>
+  <!-- Main Content Container -->
+  <div id="container">
+    <h2>Find your Ecological Garden</h2>
+    <p>Enter your address to discover your Ecological Vegetation Class (EVC).</p>
+    <p>This information can inform you about the species indigenous to your garden.</p>
 
-        <!-- Search Section -->
-        <div id="search-container">
-            <input type="text" id="address-input" placeholder="Enter your address">
-            <button id="search-button">Find My Garden</button>
-        </div>
-
-        <!-- EVC Details Section -->
-        <div id="evc-info">
-            <div id="evc-details">
-                <p>Your EVC will display here</p>
-            </div>
-            <button class="download-button" id="download-button">Download Curated Plant List for this EVC $9.99</button>
-        </div>
-
-        <!-- Map Section -->
-        <div id="map"></div>
+    <!-- Search Section -->
+    <div id="search-container">
+      <input type="text" id="address-input" placeholder="Enter your address" />
+      <button id="search-button">Find My Garden</button>
     </div>
 
-    <!-- Footer Section -->
-    <footer>
-        <h3>Find out more</h3>
-        <p class="footer-details">Gardener & Son</p>
-        <p class="footer-details">Garden Design / Heirloom & Foraged Garden Objects.</p>
-        <p class="footer-details">2 Churchill Street, Mont Albert</p>
-        <p class="footer-details"><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
-        <p class="footer-details">0406 059 866</p>
-        <div>
-            <a href="#">Depop</a>
-            <a href="#">Instagram</a>
-            <a href="#">Studio Playlist</a>
-        </div>
-    </footer>
+    <!-- EVC Details Section -->
+    <div id="evc-info">
+      <div id="evc-details">
+        <p>Your EVC will display here</p>
+      </div>
+      <button class="download-button" id="download-button">
+        Download Curated Plant List for this EVC $9.99
+      </button>
+    </div>
 
-    <!-- Scripts -->
-    <script>
-        // Dynamically load the universal menu
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('menu.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('menu-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error("Error loading menu:", error));
-        });
-    </script>
-    <script src="evc-fetch.js"></script> <!-- Fetch EVC Data -->
+    <!-- Map Section -->
+    <div id="map"></div>
+  </div>
+
+  <!-- Footer Section -->
+  <footer>
+    <h3>Find out more</h3>
+    <p class="footer-details">Gardener &amp; Son</p>
+    <p class="footer-details">Garden Design / Heirloom &amp; Foraged Garden Objects.</p>
+    <p class="footer-details">2 Churchill Street, Mont Albert</p>
+    <p class="footer-details">
+      <a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a>
+    </p>
+    <p class="footer-details">0406 059 866</p>
+    <div>
+      <a href="#">Depop</a>
+      <a href="#">Instagram</a>
+      <a href="#">Studio Playlist</a>
+    </div>
+  </footer>
+
+  <!-- Optional: Script to dynamically load a menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("menu.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("menu-placeholder").innerHTML = data;
+        })
+        .catch((error) => console.error("Error loading menu:", error));
+    });
+  </script>
+
+  <!-- Custom JavaScript -->
+  <script src="evc-fetch.js"></script>
 </body>
 </html>
