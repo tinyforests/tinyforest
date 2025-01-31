@@ -74,12 +74,14 @@ function fetchEVCData(lat, lon) {
         const properties = data.features[0].properties;
         console.log("Properties:", properties);
 
-        // Adjust property names if necessary based on the API's response
-        const evcName = properties.x_evcname || properties.X_EVCNAME || "Unknown";
-        const bioregion = properties.bioregion || properties.BIORREGION || "Not Specified";
+        // Extract properties (adjust keys if necessary based on the API's response)
+        const evcCode = properties.evc || "Unknown";
+        const evcName = properties.x_evcname || "Unknown";
+        const conservationStatus = properties.evc_bcs_desc || "Not Specified";
+        const bioregion = properties.bioregion || "Not Specified";
 
-        // Display only the EVC name and bioregion
-        displayEVCInfo(evcName, bioregion);
+        // Display the EVC Name, EVC Code, Conservation Status, and Bioregion
+        displayEVCInfo(evcName, evcCode, conservationStatus, bioregion);
       } else {
         document.getElementById("evc-details").innerHTML = "<p>No EVC data found for this location.</p>";
       }
@@ -91,9 +93,11 @@ function fetchEVCData(lat, lon) {
 }
 
 // Function to display the EVC information
-function displayEVCInfo(evcName, bioregion) {
+function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
   document.getElementById("evc-details").innerHTML = `
     <p><b>Your EVC:</b> ${evcName}</p>
+    <p><b>EVC Code:</b> ${evcCode}</p>
+    <p><b>Conservation Status:</b> ${conservationStatus}</p>
     <p><b>Bioregion:</b> ${bioregion}</p>
   `;
   console.log("EVC information displayed.");
