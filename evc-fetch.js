@@ -58,11 +58,12 @@ function searchEVC() {
 
 // Function to fetch EVC data using the government WFS API
 function fetchEVCData(lat, lon) {
-  // Use a narrower bbox for more accuracy
+  // Use a narrower bbox for a more accurate, focused search
   const bboxSize = 0.02;
   const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(',');
+  // Note the updated typeName for pre-1750 EVC data
   const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
-                 `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
+                 `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:pre1750_evcbcs&` +
                  `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
   console.log("Fetching EVC data from:", wfsUrl);
 
