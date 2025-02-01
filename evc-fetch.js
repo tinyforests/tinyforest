@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }).addTo(map);
   console.log("Map initialized.");
 
-  // Attach event listener to the search button (no external JSON fetch now)
+  // Attach event listener to the search button
   document.getElementById("search-button").addEventListener("click", function () {
     console.log("Search button clicked.");
     searchEVC();
@@ -58,7 +58,7 @@ function searchEVC() {
 
 // Function to fetch EVC data using the government WFS API
 function fetchEVCData(lat, lon) {
-  // Reduced bbox size for a more accurate, focused search
+  // Use a narrower bbox for more accuracy
   const bboxSize = 0.02;
   const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(',');
   const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
@@ -74,9 +74,8 @@ function fetchEVCData(lat, lon) {
         let bestFeature = null;
         const point = turf.point([lon, lat]);
 
-        // If Turf.js is available, iterate over features to find one that contains the point.
+        // Use Turf.js to select the feature that contains the search point
         for (const feature of data.features) {
-          // Ensure the feature has a polygon geometry
           if (feature.geometry && feature.geometry.type === "Polygon") {
             const poly = turf.polygon(feature.geometry.coordinates);
             if (turf.booleanPointInPolygon(point, poly)) {
@@ -85,19 +84,19 @@ function fetchEVCData(lat, lon) {
             }
           }
         }
-        // Fallback: if no feature contains the point, use the first feature returned.
+        // Fallback: if none contain the point, select the first feature
         if (!bestFeature) bestFeature = data.features[0];
 
         const properties = bestFeature.properties;
         console.log("Selected Properties:", properties);
 
-        // Extract properties (adjust keys if necessary based on the API's response)
+        // Extract the properties (adjust keys if necessary based on the API's response)
         const evcCode = properties.evc || "Unknown";
         const evcName = properties.x_evcname || "Unknown";
         const conservationStatus = properties.evc_bcs_desc || "Not Specified";
         const bioregion = properties.bioregion || "Not Specified";
 
-        // Display the EVC Name, EVC Code, Conservation Status, and Bioregion
+        // Display the EVC information and show the purchase button
         displayEVCInfo(evcName, evcCode, conservationStatus, bioregion);
       } else {
         document.getElementById("evc-details").innerHTML = "<p>No EVC data found for this location.</p>";
@@ -109,7 +108,7 @@ function fetchEVCData(lat, lon) {
     });
 }
 
-// Function to display the EVC information
+// Function to display the EVC information and show the purchase button
 function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
   document.getElementById("evc-details").innerHTML = `
     <p><b>Your EVC:</b> ${evcName}</p>
@@ -117,5 +116,7 @@ function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
     <p><b>Conservation Status:</b> ${conservationStatus}</p>
     <p><b>Bioregion:</b> ${bioregion}</p>
   `;
+  // Show the purchase button
+  document.getElementById("download-button").style.display = "block";
   console.log("EVC information displayed.");
 }
