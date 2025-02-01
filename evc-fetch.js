@@ -61,7 +61,7 @@ function fetchEVCData(lat, lon) {
   // Use a narrower bbox for a more accurate, focused search
   const bboxSize = 0.02;
   const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(',');
-  // Note: Using the original NV2005 EVC data layer
+  // Using the NV2005 EVC data layer
   const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?` +
                  `service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&` +
                  `bbox=${bbox},EPSG:4326&outputFormat=application/json`;
@@ -109,7 +109,7 @@ function fetchEVCData(lat, lon) {
     });
 }
 
-// Function to display the EVC information and show the purchase button
+// Function to display the EVC information and link the purchase button to plant-list.html
 function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
   document.getElementById("evc-details").innerHTML = `
     <p><b>Your EVC:</b> ${evcName}</p>
@@ -117,7 +117,11 @@ function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
     <p><b>Conservation Status:</b> ${conservationStatus}</p>
     <p><b>Bioregion:</b> ${bioregion}</p>
   `;
-  // Show the purchase button
-  document.getElementById("download-button").style.display = "block";
-  console.log("EVC information displayed.");
+  // Show the purchase button and link it to plant-list.html with the EVC code in the query string
+  const purchaseButton = document.getElementById("download-button");
+  purchaseButton.style.display = "block";
+  purchaseButton.onclick = function () {
+    window.location.href = "plant-list.html?evcCode=" + encodeURIComponent(evcCode);
+  };
+  console.log("EVC information displayed and purchase button linked.");
 }
