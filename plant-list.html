@@ -18,10 +18,11 @@
   <script>
     // --- CONFIGURATION: Replace these placeholders with your actual Notion credentials and IDs ---
     const NOTION_API_KEY = 'secret_51lDb0dUUpHlNZ64UbULv8qUdO8Bx5iQdVqPp8Sqv4J';
-    const EVCS_DATABASE_ID = '8ab709765ded4d7f92896485d644a4c7';
+    // Plants database ID provided:
+    const PLANTS_DATABASE_ID = '8ab709765ded4d7f92896485d644a4c7';
     // -------------------------------------------------------------------------------------
 
-    // Extract the EVC code from the URL query parameters (e.g., ?evcCode=ABC123)
+    // Extract the EVC code from the URL query parameters (e.g., ?evcCode=175)
     const urlParams = new URLSearchParams(window.location.search);
     const evcCode = urlParams.get('evcCode');
 
@@ -31,8 +32,9 @@
     }
     document.getElementById('evc-code-display').textContent = evcCode;
 
-    // Query the EVC database in Notion for the page matching this EVC code.
-    fetch(`https://api.notion.com/v1/databases/${EVCS_DATABASE_ID}/query`, {
+    // Query the Plants database in Notion for pages where the property "EVC" equals the provided evcCode.
+    // Using a number filter here because the EVC value appears to be numeric.
+    fetch(`https://api.notion.com/v1/databases/${PLANTS_DATABASE_ID}/query`, {
       method: 'POST',
       headers: {
         'Authorization': 'Bearer ' + NOTION_API_KEY,
@@ -41,9 +43,9 @@
       },
       body: JSON.stringify({
         filter: {
-          property: 'EVC Code',
-          text: {
-            equals: evcCode
+          property: 'EVC',
+          number: {
+            equals: parseFloat(evcCode)
           }
         }
       })
@@ -51,163 +53,33 @@
     .then(response => response.json())
     .then(data => {
       if (!data.results || data.results.length === 0) {
-        document.getElementById('plant-list').innerHTML = '<p>No EVC found with this code.</p>';
-        return;
-      }
-      // Assume the first result is the matching EVC page
-      const evcPage = data.results[0];
-      
-      // Get the related plant pages from the relation property "Plants"
-      const plantRelations = evcPage.properties.Plants?.relation;
-      if (!plantRelations || plantRelations.length === 0) {
-        document.getElementById('plant-list').innerHTML = '<p>No curated plant list available for this EVC.</p>';
+        document.getElementById('plant-list').innerHTML = '<p>No plants found for this EVC.</p>';
         return;
       }
 
       // Clear the "Loading" text
       document.getElementById('plant-list').innerHTML = '';
 
-      // For each related plant, fetch its page details
-      plantRelations.forEach(rel => {
-        fetch(`https://api.notion.com/v1/pages/${rel.id}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + NOTION_API_KEY,
-            'Notion-Version': '2022-06-28'
-          }
-        })
-        .then(response => response.json())
-        .then(plantData => {
-          // Assume the plant page has a property "Name" that is a title
-          const plantTitleProperty = plantData.properties.Name;
-          let plantName = 'Unnamed Plant';
-          if (
-            plantTitleProperty &&
-            plantTitleProperty.type === 'title' &&
-            plantTitleProperty.title.length > 0
-          ) {
-            plantName = plantTitleProperty.title[0].plain_text;
-          }
-          // Create an element for the plant and append it to the list
-          const plantItem = document.createElement('div');
-          plantItem.classList.add('plant-item');
-          plantItem.textContent = plantName;
-          document.getElementById('plant-list').appendChild(plantItem);
-        })
-        .catch(err => {
-          console.error('Error fetching plant data for relation id:', rel.id, err);
-        });
-      });
-    })
-    .catch(err => {
-      console.error('Error querying Notion EVC database:', err);
-      document.getElementById('plant-list').innerHTML = '<p>Error retrieving curated plant list.</p>';
-    });
-  </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Curated Plant List</title>
-  <!-- External Stylesheet -->
-  <link rel="stylesheet" href="styles.css" />
-  <!-- (Optional) You can include additional CSS here -->
-</head>
-<body>
-  <div id="plant-list-container">
-    <h1>Curated Plant List for EVC: <span id="evc-code-display"></span></h1>
-    <div id="plant-list">
-      <p>Loading curated plant list...</p>
-    </div>
-  </div>
-
-  <script>
-    // --- CONFIGURATION: Replace these placeholders with your actual Notion credentials ---
-    const NOTION_API_KEY = 'secret_yourNotionApiKey';  // Replace with your Notion API key
-    const EVCS_DATABASE_ID = 'your-evcs-database-id';    // Replace with your EVC database ID
-    // -------------------------------------------------------------------------------------
-
-    // Extract the EVC code from the URL query parameters (e.g., ?evcCode=ABC123)
-    const urlParams = new URLSearchParams(window.location.search);
-    const evcCode = urlParams.get('evcCode');
-
-    if (!evcCode) {
-      document.getElementById('plant-list').innerHTML = '<p>Error: No EVC code provided.</p>';
-      throw new Error('No EVC code provided in URL.');
-    }
-    document.getElementById('evc-code-display').textContent = evcCode;
-
-    // Query the EVC database in Notion for the page matching this EVC code.
-    fetch(`https://api.notion.com/v1/databases/${EVCS_DATABASE_ID}/query`, {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Bearer ' + NOTION_API_KEY,
-        'Content-Type': 'application/json',
-        'Notion-Version': '2022-06-28'
-      },
-      body: JSON.stringify({
-        filter: {
-          property: 'EVC Code',
-          text: {
-            equals: evcCode
-          }
+      // For each plant page returned, display its title from the "Plant Name" property.
+      data.results.forEach(plantPage => {
+        const plantTitleProperty = plantPage.properties["Plant Name"];
+        let plantName = 'Unnamed Plant';
+        if (
+          plantTitleProperty &&
+          plantTitleProperty.type === 'title' &&
+          plantTitleProperty.title.length > 0
+        ) {
+          plantName = plantTitleProperty.title[0].plain_text;
         }
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (!data.results || data.results.length === 0) {
-        document.getElementById('plant-list').innerHTML = '<p>No EVC found with this code.</p>';
-        return;
-      }
-      // Assuming the first result is the matching EVC
-      const evcPage = data.results[0];
-      
-      // Get the related plant pages from the relation property "Plants"
-      // Adjust the property name ("Plants") if necessary
-      const plantRelations = evcPage.properties.Plants?.relation;
-      if (!plantRelations || plantRelations.length === 0) {
-        document.getElementById('plant-list').innerHTML = '<p>No curated plant list available for this EVC.</p>';
-        return;
-      }
-
-      // Clear the "Loading" text
-      document.getElementById('plant-list').innerHTML = '';
-
-      // For each related plant, fetch its page details (we’ll display the plant's name)
-      plantRelations.forEach(rel => {
-        fetch(`https://api.notion.com/v1/pages/${rel.id}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + NOTION_API_KEY,
-            'Notion-Version': '2022-06-28'
-          }
-        })
-        .then(response => response.json())
-        .then(plantData => {
-          // Assume the plant page has a property "Name" that is a title
-          const plantTitleProperty = plantData.properties.Name;
-          let plantName = 'Unnamed Plant';
-          if (plantTitleProperty && plantTitleProperty.type === 'title' && plantTitleProperty.title.length > 0) {
-            plantName = plantTitleProperty.title[0].plain_text;
-          }
-          // Create an element for the plant and append it to the list
-          const plantItem = document.createElement('div');
-          plantItem.classList.add('plant-item');
-          plantItem.textContent = plantName;
-          document.getElementById('plant-list').appendChild(plantItem);
-        })
-        .catch(err => {
-          console.error('Error fetching plant data:', err);
-          // Optionally, display an error message for this plant
-        });
+        // Create an element for the plant and append it to the list
+        const plantItem = document.createElement('div');
+        plantItem.classList.add('plant-item');
+        plantItem.textContent = plantName;
+        document.getElementById('plant-list').appendChild(plantItem);
       });
     })
     .catch(err => {
-      console.error('Error querying EVC database:', err);
+      console.error('Error querying Notion Plants database:', err);
       document.getElementById('plant-list').innerHTML = '<p>Error retrieving curated plant list.</p>';
     });
   </script>
