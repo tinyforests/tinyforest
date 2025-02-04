@@ -109,7 +109,7 @@ function fetchEVCData(lat, lon) {
     });
 }
 
-// Function to display the EVC information and link the purchase button to plant-list.html
+// Function to display the EVC information and link the purchase button to curated-plants.html
 function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
   document.getElementById("evc-details").innerHTML = `
     <p><b>Your EVC:</b> ${evcName}</p>
@@ -117,11 +117,11 @@ function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
     <p><b>Conservation Status:</b> ${conservationStatus}</p>
     <p><b>Bioregion:</b> ${bioregion}</p>
   `;
-  // Show the purchase button and link it to plant-list.html with the EVC code in the query string
+  // Show the purchase button and link it to curated-plants.html with the EVC code in the query string
   const purchaseButton = document.getElementById("download-button");
   purchaseButton.style.display = "block";
   purchaseButton.onclick = function () {
-    window.location.href = "plant-list.html?evcCode=" + encodeURIComponent(evcCode);
+    window.location.href = "curated-plants.html?evcCode=" + encodeURIComponent(evcCode);
   };
-  console.log("EVC information displayed and purchase button linked.");
+  console.log("EVC information displayed and purchase button linked to curated-plants.html.");
 }
