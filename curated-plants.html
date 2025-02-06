@@ -6,98 +6,36 @@
   <title>Curated Plant Recommendations</title>
   <!-- External Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Additional styles for the curated plants page */
-    body {
-      background-color: #f9f9f9;
-      margin: 0;
-      font-family: "IBM Plex Mono", monospace;
-      color: #3d4535;
-    }
-    header, footer {
-      background-color: #3d4535;
-      color: #fff0dc;
-      padding: 10px 20px;
-      text-align: center;
-    }
-    header nav a {
-      color: #fff0dc;
-      text-decoration: none;
-      margin: 0 10px;
-      font-size: 1.1rem;
-    }
-    header nav a:hover {
-      text-decoration: underline;
-    }
-    main {
-      padding: 20px;
-    }
-    #plant-list-container {
-      max-width: 900px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      border-radius: 8px;
-    }
-    #plant-list-container h1 {
-      margin-top: 0;
-      font-size: 2rem;
-      text-align: center;
-    }
-    #evc-code-display {
-      color: #2f3928;
-    }
-    #evc-description {
-      font-size: 1.1rem;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
-    .recommendation-group {
-      margin-bottom: 30px;
-    }
-    .recommendation-group h2 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-      color: #2f3928;
-      border-bottom: 2px solid #3d4535;
-      padding-bottom: 5px;
-    }
-    .recommendation-group ul {
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-    .recommendation-group li {
-      margin-bottom: 5px;
-      font-size: 1rem;
-    }
-    footer p {
-      margin: 0;
-      font-size: 0.9rem;
-    }
-  </style>
+  <!-- Google Fonts (if not already included in your other pages) -->
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <nav>
-      <a href="index.html">Home</a>
-      <!-- Additional navigation links can be added here -->
-    </nav>
-  </header>
-  <main>
-    <div id="plant-list-container">
-      <h1>Curated Plant Recommendations for EVC: <span id="evc-code-display"></span></h1>
-      <div id="evc-description">
-        <!-- EVC description will be inserted here -->
-      </div>
-      <div id="recommendations">
-        <!-- Plant recommendations will be displayed here -->
-      </div>
+  <!-- Universal Menu Placeholder -->
+  <div id="menu-placeholder"></div>
+  
+  <div id="plant-list-container">
+    <h1>Curated Plant Recommendations for EVC: <span id="evc-code-display"></span></h1>
+    <div id="evc-description">
+      <!-- EVC description will appear here -->
     </div>
-  </main>
-  <footer>
-    <p>&copy; 2025 Your Company Name. All rights reserved.</p>
-  </footer>
+    <div id="recommendations">
+      <!-- Plant recommendations will be displayed here -->
+    </div>
+  </div>
+
+  <!-- Load the universal menu -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("menu.html")
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById("menu-placeholder").innerHTML = data;
+        })
+        .catch(error => console.error("Error loading menu:", error));
+    });
+  </script>
+  
+  <!-- Curated plants script -->
   <script src="curated-plants.js"></script>
 </body>
 </html>
