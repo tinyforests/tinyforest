@@ -1,68 +1,48 @@
 (function() {
-  // Local data for curated plant recommendations based on Miyawaki forest layers.
-  // This example is for EVC 175.
+  // Local data for curated plant recommendations based on the Miyawaki method for EVC 175.
   const recommendationData = {
     "175": {
-      description: "EVC 175 experiences moist, temperate conditions with fertile soils. For a 10sqm site using the Miyawaki method, dense, multi-layered planting is essential to rapidly restore biodiversity. The recommended species have been grouped into five simplified layers:",
+      description: "EVC 175 is characterized by moist, temperate conditions with fertile soils. For a 10sqm area using the Miyawaki method, dense planting is required to rapidly restore biodiversity. The recommendations below are grouped into simplified forest layers to achieve a multi-layered, self-sustaining forest.",
       recommendations: [
         {
           layer: "Canopy Layer",
           plants: [
-            "Acacia mearnsii (Black Wattle)",
-            "Allocasuarina littoralis (Black Sheoak)",
+            "Eucalyptus radiata s.l. Narrow-leaf Peppermint",
+            "Allocasuarina littoralis Drooping Sheoak",
             "Exocarpos cupressiformis (Cherry Ballart)"
           ]
         },
         {
-          layer: "Shrub/Tree Layer",
+          layer: "Tree Layer",
           plants: [
-            "Leptospermum continentale (Prickly Tea-tree)",
-            "Epacris impressa (Common Heath)",
-            "Cassinia aculeata (Common Cassinia)",
-            "Acacia paradoxa (Hedge Wattle)",
-            "Pimelea humilis (Common Rice-flower)",
-            "Hibbertia riparia (Erect Guinea-flower)",
-            "Bossiaea prostrata (Creeping Bossiaea)",
-            "Astroloma humifusum (Cranberry Heath)",
-            "Acrotriche serrulata (Honey-pots)"
+            "Acacia mearnsii (Black Wattle)",
+            "Callistemon citrinus (Bottlebrush)"
           ]
         },
         {
-          layer: "Herb Layer",
+          layer: "Sub Tree Layer",
           plants: [
-            "Pterostylis longifolia s.l. (Tall Greenhood)",
-            "Gonocarpus tetragynus (Common Raspwort)",
-            "Drosera peltata ssp. auriculata (Tall Sundew)",
-            "Dichondra repens (Kidney-weed)",
-            "Opercularia varia (Variable Stinkweed)",
-            "Drosera whittakeri ssp. aberrans (Scented Sundew)"
+            "Grevillea robusta (Silk Oak)",
+            "Banksia integrifolia (Coast Banksia)"
           ]
         },
         {
-          layer: "Graminoid Layer",
+          layer: "Shrub Layer",
           plants: [
-            "Deyeuxia quadriseta (Reed Bent-grass)",
-            "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
-            "Lomandra longifolia (Spiny-headed Mat-rush)",
-            "Gahnia radula (Thatch Saw-sedge)",
-            "Lomandra filiformis (Wattle Mat-rush)",
-            "Themeda triandra (Kangaroo Grass)",
-            "Poa sieberiana (Grey Tussock-grass)",
-            "Lepidosperma laterale (Variable Sword-sedge)",
-            "Microlaena stipoides var. stipoides (Weeping Grass)"
+            "Azalea",
+            "Hydrangea"
           ]
         },
         {
-          layer: "Fern/Climber Layer",
+          layer: "Ground Covers",
           plants: [
-            "Pteridium esculentum (Austral Bracken)",
-            "Comesperma volubile (Love Creeper)",
-            "Billardiera scandens (Common Apple-berry)"
+            "Creeping Thyme",
+            "Sedum"
           ]
         }
       ]
     }
-    // Add more EVC entries here if needed.
+    // Additional EVC entries can be added here.
   };
 
   // Extract the EVC code from the URL query parameters (e.g., ?evcCode=175)
