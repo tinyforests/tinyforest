@@ -1,34 +1,68 @@
 (function() {
-  // Local data for curated plant recommendations.
-  // This example contains data for EVC 175 only.
-  // You can add more EVC codes and data as needed.
+  // Local data for curated plant recommendations based on Miyawaki forest layers.
+  // This example is for EVC 175.
   const recommendationData = {
     "175": {
-      description: "EVC 175 is characterized by a moist, temperate climate with fertile soils. For a 10sqm area using the Miyawaki method, dense planting is recommended to rapidly restore biodiversity. This curated plant list is designed to form multiple layers, encouraging vertical complexity and rich species diversity.",
+      description: "EVC 175 experiences moist, temperate conditions with fertile soils. For a 10sqm site using the Miyawaki method, dense, multi-layered planting is essential to rapidly restore biodiversity. The recommended species have been grouped into five simplified layers:",
       recommendations: [
-        { 
-          layer: "Canopy layer", 
-          plants: ["Oak", "Eucalyptus"] 
+        {
+          layer: "Canopy Layer",
+          plants: [
+            "Acacia mearnsii (Black Wattle)",
+            "Allocasuarina littoralis (Black Sheoak)",
+            "Exocarpos cupressiformis (Cherry Ballart)"
+          ]
         },
-        { 
-          layer: "Tree layer", 
-          plants: ["Maple", "Birch"] 
+        {
+          layer: "Shrub/Tree Layer",
+          plants: [
+            "Leptospermum continentale (Prickly Tea-tree)",
+            "Epacris impressa (Common Heath)",
+            "Cassinia aculeata (Common Cassinia)",
+            "Acacia paradoxa (Hedge Wattle)",
+            "Pimelea humilis (Common Rice-flower)",
+            "Hibbertia riparia (Erect Guinea-flower)",
+            "Bossiaea prostrata (Creeping Bossiaea)",
+            "Astroloma humifusum (Cranberry Heath)",
+            "Acrotriche serrulata (Honey-pots)"
+          ]
         },
-        { 
-          layer: "Sub Tree layer", 
-          plants: ["Cherry", "Apple"] 
+        {
+          layer: "Herb Layer",
+          plants: [
+            "Pterostylis longifolia s.l. (Tall Greenhood)",
+            "Gonocarpus tetragynus (Common Raspwort)",
+            "Drosera peltata ssp. auriculata (Tall Sundew)",
+            "Dichondra repens (Kidney-weed)",
+            "Opercularia varia (Variable Stinkweed)",
+            "Drosera whittakeri ssp. aberrans (Scented Sundew)"
+          ]
         },
-        { 
-          layer: "Shrub layer", 
-          plants: ["Azalea", "Hydrangea"] 
+        {
+          layer: "Graminoid Layer",
+          plants: [
+            "Deyeuxia quadriseta (Reed Bent-grass)",
+            "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+            "Lomandra longifolia (Spiny-headed Mat-rush)",
+            "Gahnia radula (Thatch Saw-sedge)",
+            "Lomandra filiformis (Wattle Mat-rush)",
+            "Themeda triandra (Kangaroo Grass)",
+            "Poa sieberiana (Grey Tussock-grass)",
+            "Lepidosperma laterale (Variable Sword-sedge)",
+            "Microlaena stipoides var. stipoides (Weeping Grass)"
+          ]
         },
-        { 
-          layer: "Ground covers", 
-          plants: ["Creeping Thyme", "Sedum"] 
+        {
+          layer: "Fern/Climber Layer",
+          plants: [
+            "Pteridium esculentum (Austral Bracken)",
+            "Comesperma volubile (Love Creeper)",
+            "Billardiera scandens (Common Apple-berry)"
+          ]
         }
       ]
     }
-    // Add additional EVC entries here as needed.
+    // Add more EVC entries here if needed.
   };
 
   // Extract the EVC code from the URL query parameters (e.g., ?evcCode=175)
@@ -41,7 +75,7 @@
   }
   document.getElementById('evc-code-display').textContent = evcCode;
 
-  // Look up recommendation data for the provided EVC code.
+  // Look up the recommendation data for the provided EVC code.
   const evcData = recommendationData[evcCode];
   if (!evcData) {
     document.getElementById('plant-list-container').innerHTML = '<p>No curated recommendations available for this EVC.</p>';
@@ -50,24 +84,26 @@
 
   // Insert the EVC description into the page.
   const descriptionDiv = document.getElementById('evc-description');
-  descriptionDiv.innerHTML = `<p>${evcData.description}</p>`;
+  if (descriptionDiv) {
+    descriptionDiv.innerHTML = `<p>${evcData.description}</p>`;
+  }
 
   // Display the plant recommendations.
   const recommendationsDiv = document.getElementById('recommendations');
   recommendationsDiv.innerHTML = ''; // Clear any existing content.
 
-  // Loop through each recommendation group.
+  // Loop through each recommendation group (layer).
   evcData.recommendations.forEach(group => {
-    // Create a container for each layer.
+    // Create a container for this layer.
     const groupContainer = document.createElement('div');
     groupContainer.classList.add('recommendation-group');
 
-    // Create a header for the layer.
+    // Create and append a header for the layer.
     const header = document.createElement('h2');
     header.textContent = group.layer;
     groupContainer.appendChild(header);
 
-    // Create a list for the plants in this layer.
+    // Create an unordered list for the plants in this layer.
     const list = document.createElement('ul');
     group.plants.forEach(plant => {
       const listItem = document.createElement('li');
@@ -76,7 +112,7 @@
     });
     groupContainer.appendChild(list);
 
-    // Append this group's container to the recommendations div.
+    // Append the layer container to the recommendations div.
     recommendationsDiv.appendChild(groupContainer);
   });
 })();
