@@ -1,44 +1,103 @@
 (function() {
   // Local data for curated plant recommendations based on the Miyawaki method.
-  // This object now includes sample entries for EVC 175, 180, 200, 2 (Coast Banksia Woodland), and 55.
+  // This object now includes an expanded entry for EVC 175 (plus sample entries for 180, 200, 2).
   const recommendationData = {
     "175": {
-      description: "EVC 175 is characterized by moist, temperate conditions with fertile soils. For a 10sqm area using the Miyawaki method, dense planting is required to rapidly restore biodiversity. The recommendations below are grouped into simplified forest layers to achieve a multi-layered, self-sustaining forest.",
+      description: "EVC 175 is characterized by moist, temperate conditions with fertile soils. For a 10sqm area using the Miyawaki method, dense planting is required to rapidly restore biodiversity. Below are recommended species grouped by their life form category:",
       recommendations: [
         {
-          layer: "Canopy Layer",
+          layer: "Understorey Tree / Large Shrub (T)",
           plants: [
-            "Eucalyptus radiata s.l. Narrow-leaf Peppermint",
-            "Allocasuarina littoralis Drooping Sheoak",
+            "Acacia mearnsii (Black Wattle)",
+            "Allocasuarina littoralis (Black Sheoak)",
             "Exocarpos cupressiformis (Cherry Ballart)"
           ]
         },
         {
-          layer: "Tree Layer",
+          layer: "Medium Shrub (MS)",
           plants: [
-            "Acacia mearnsii (Black Wattle)",
-            "Callistemon citrinus (Bottlebrush)"
+            "Leptospermum continentale (Prickly Tea-tree)",
+            "Epacris impressa (Common Heath)",
+            "Cassinia aculeata (Common Cassinia)",
+            "Acacia paradoxa (Hedge Wattle)"
           ]
         },
         {
-          layer: "Sub Tree Layer",
+          layer: "Small Shrub (SS)",
           plants: [
-            "Grevillea robusta (Silk Oak)",
-            "Banksia integrifolia (Coast Banksia)"
+            "Pimelea humilis (Common Rice-flower)",
+            "Hibbertia riparia (Erect Guinea-flower)"
           ]
         },
         {
-          layer: "Shrub Layer",
+          layer: "Prostrate Shrub (PS)",
           plants: [
-            "Azalea",
-            "Hydrangea"
+            "Bossiaea prostrata (Creeping Bossiaea)",
+            "Astroloma humifusum (Cranberry Heath)",
+            "Acrotriche serrulata (Honey-pots)"
           ]
         },
         {
-          layer: "Ground Covers",
+          layer: "Large Herb (LH)",
           plants: [
-            "Creeping Thyme",
-            "Sedum"
+            "Pterostylis longifolia s.l. (Tall Greenhood)"
+          ]
+        },
+        {
+          layer: "Medium Herb (MH)",
+          plants: [
+            "Gonocarpus tetragynus (Common Raspwort)",
+            "Drosera peltata ssp. auriculata (Tall Sundew)"
+          ]
+        },
+        {
+          layer: "Small Herb (SH)",
+          plants: [
+            "Dichondra repens (Kidney-weed)",
+            "Opercularia varia (Variable Stinkweed)",
+            "Drosera whittakeri ssp. aberrans (Scented Sundew)"
+          ]
+        },
+        {
+          layer: "Large Tufted Graminoid (LTG)",
+          plants: [
+            "Deyeuxia quadriseta (Reed Bent-grass)",
+            "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+            "Lomandra longifolia (Spiny-headed Mat-rush)"
+          ]
+        },
+        {
+          layer: "Large Non-tufted Graminoid (LNG)",
+          plants: [
+            "Gahnia radula (Thatch Saw-sedge)"
+          ]
+        },
+        {
+          layer: "Medium to Small Tufted Graminoid (MTG)",
+          plants: [
+            "Lomandra filiformis (Wattle Mat-rush)",
+            "Themeda triandra (Kangaroo Grass)",
+            "Poa sieberiana (Grey Tussock-grass)",
+            "Lepidosperma laterale (Variable Sword-sedge)"
+          ]
+        },
+        {
+          layer: "Medium to Tiny Non-tufted Graminoid (MNG)",
+          plants: [
+            "Microlaena stipoides var. stipoides (Weeping Grass)"
+          ]
+        },
+        {
+          layer: "Ground Fern (GF)",
+          plants: [
+            "Pteridium esculentum (Austral Bracken)"
+          ]
+        },
+        {
+          layer: "Scrambler or Climber (SC)",
+          plants: [
+            "Comesperma volubile (Love Creeper)",
+            "Billardiera scandens (Common Apple-berry)"
           ]
         }
       ]
