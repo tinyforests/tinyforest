@@ -1,6 +1,6 @@
 (function() {
   // Local data for curated plant recommendations based on the Miyawaki method.
-  // This object now includes sample entries for EVC 175, 180, 200, and 2 (Coast Banksia Woodland).
+  // This object now includes sample entries for EVC 175, 180, 200, 2 (Coast Banksia Woodland), and 55.
   const recommendationData = {
     "175": {
       description: "EVC 175 is characterized by moist, temperate conditions with fertile soils. For a 10sqm area using the Miyawaki method, dense planting is required to rapidly restore biodiversity. The recommendations below are grouped into simplified forest layers to achieve a multi-layered, self-sustaining forest.",
@@ -158,6 +158,46 @@
             "Dichondra repens (Kidney-weed)",
             "Galium australe (Tangled Bedstraw)",
             "Clematis microphylla (Small-leaved Clematis)"
+          ]
+        }
+      ]
+    },
+    "55": {
+      description: "EVC 55 represents a distinct lowland vegetation community with open woodlands and native grasses adapted to drier conditions. For a 10sqm area using the Miyawaki method, dense planting with drought-tolerant species is key to mimicking this environment. The following recommendations are grouped into simplified forest layers:",
+      recommendations: [
+        {
+          layer: "Canopy Layer",
+          plants: [
+            "Eucalyptus camaldulensis (River Red Gum)",
+            "Allocasuarina verticillata (Drooping Sheoak)"
+          ]
+        },
+        {
+          layer: "Tree Layer",
+          plants: [
+            "Acacia dealbata (Silver Wattle)",
+            "Allocasuarina littoralis (Black Sheoak)"
+          ]
+        },
+        {
+          layer: "Sub Tree Layer",
+          plants: [
+            "Callistemon citrinus (Bottlebrush)",
+            "Grevillea robusta (Silk Oak)"
+          ]
+        },
+        {
+          layer: "Shrub Layer",
+          plants: [
+            "Hakea salicifolia (Willow-leaved Hakea)",
+            "Leptospermum scoparium (Manuka)"
+          ]
+        },
+        {
+          layer: "Ground Covers",
+          plants: [
+            "Dichondra repens (Kidney Weed)",
+            "Myoporum parvifolium (Creeping Boobialla)"
           ]
         }
       ]
