@@ -1,8 +1,6 @@
 (function() {
-  // Debug: log that the script has started.
-  console.log("curated-plants.js loaded");
-
-  // Local data for curated plant recommendations.
+  // Local data for curated plant recommendations based on the Miyawaki method.
+  // This object now includes entries for EVC 175, 180, 200, 2, 55, 3, 6, and 8.
   const recommendationData = {
     "175": {
       description: "EVC 175 is characterized by moist, temperate conditions with fertile soils. For a 10sqm area using the Miyawaki method, dense planting is required to rapidly restore biodiversity. The recommendations below are grouped into simplified forest layers to achieve a multi-layered, self-sustaining forest.",
@@ -235,6 +233,200 @@
           plants: [
             "Galium australe (Tangled Bedstraw)",
             "Clematis microphylla (Small-leaved Clematis)"
+          ]
+        }
+      ]
+    },
+    "55": {
+      description: "EVC 55 represents a distinct lowland vegetation community with open woodlands and native grasses adapted to drier conditions. For a 10sqm area using the Miyawaki method, dense planting with drought-tolerant species is key to mimicking this environment. The following recommendations are grouped into simplified forest layers:",
+      recommendations: [
+        {
+          layer: "Canopy Layer",
+          plants: [
+            "Eucalyptus camaldulensis (River Red Gum)",
+            "Allocasuarina verticillata (Drooping Sheoak)"
+          ]
+        },
+        {
+          layer: "Tree Layer",
+          plants: [
+            "Acacia dealbata (Silver Wattle)",
+            "Allocasuarina littoralis (Black Sheoak)"
+          ]
+        },
+        {
+          layer: "Sub Tree Layer",
+          plants: [
+            "Callistemon citrinus (Bottlebrush)",
+            "Grevillea robusta (Silk Oak)"
+          ]
+        },
+        {
+          layer: "Shrub Layer",
+          plants: [
+            "Hakea salicifolia (Willow-leaved Hakea)",
+            "Leptospermum scoparium (Manuka)"
+          ]
+        },
+        {
+          layer: "Ground Covers",
+          plants: [
+            "Dichondra repens (Kidney Weed)",
+            "Myoporum parvifolium (Creeping Boobialla)"
+          ]
+        }
+      ]
+    },
+    "3": {
+      description: "EVC 3: Damp Sands Herb-rich Woodland is characterized by sandy soils and a diverse, herbaceous understorey. This vegetation community supports a mix of trees, shrubs, and herbs adapted to damp, sandy conditions. The recommendations below are grouped according to life form categories observed in this community.",
+      recommendations: [
+        {
+          layer: "Tree Canopy",
+          plants: [
+            "Eucalyptus viminalis ssp. pryoriana (Rough-barked Manna Gum)"
+          ]
+        },
+        {
+          layer: "Understorey Tree / Large Shrub (T)",
+          plants: [
+            "Acacia mearnsii (Black Wattle)",
+            "Acacia melanoxylon (Blackwood)"
+          ]
+        },
+        {
+          layer: "Medium Shrub (MS)",
+          plants: [
+            "Epacris impressa (Common Heath)",
+            "Leptospermum continentale (Prickly Tea-tree)",
+            "Banksia marginata (Silver Banksia)",
+            "Leptospermum myrsinoides (Heath Tea-tree)"
+          ]
+        },
+        {
+          layer: "Small Shrub (SS)",
+          plants: [
+            "Leucopogon virgatus (Common Beard-heath)",
+            "Dillwynia glaberrima (Smooth Parrot-pea)",
+            "Amperea xiphoclada var. xiphoclada (Broom Spurge)"
+          ]
+        },
+        {
+          layer: "Prostrate Shrub (PS)",
+          plants: [
+            "Astroloma humifusum (Cranberry Heath)"
+          ]
+        },
+        {
+          layer: "Medium Herb (MH)",
+          plants: [
+            "Gonocarpus tetragynus (Common Raspwort)",
+            "Drosera peltata ssp. auriculata (Tall Sundew)",
+            "Viola hederacea sensu Willis (1972) (Ivy-leaf Violet)",
+            "Geranium solanderi s.l. (Austral Cranesbill)"
+          ]
+        },
+        {
+          layer: "Small Herb (SH)",
+          plants: [
+            "Hydrocotyle laxiflora (Stinking Pennywort)",
+            "Opercularia varia (Variable Stinkweed)",
+            "Dichondra repens (Kidney-weed)",
+            "Poranthera microphylla (Small Poranthera)"
+          ]
+        },
+        {
+          layer: "Large Tufted Graminoid (LTG)",
+          plants: [
+            "Lomandra longifolia (Spiny-headed Mat-rush)",
+            "Austrostipa mollis (Supple Spear-grass)"
+          ]
+        },
+        {
+          layer: "Large Non-tufted Graminoid (LNG)",
+          plants: [
+            "Tetrarrhena juncea (Forest Wire-grass)"
+          ]
+        },
+        {
+          layer: "Medium to Small Tufted Graminoid (MTG)",
+          plants: [
+            "Lepidosperma concavum (Sandhill Sword-sedge)",
+            "Dianella revoluta s.l. (Black-anther Flax-lily)",
+            "Lomandra filiformis (Wattle-headed Mat-rush)",
+            "Poa sieberiana (Grey Tussock-grass)"
+          ]
+        },
+        {
+          layer: "Medium to Tiny Non-tufted Graminoid (MNG)",
+          plants: [
+            "Microlaena stipoides var. stipoides (Weeping Grass)"
+          ]
+        },
+        {
+          layer: "Ground Fern (GF)",
+          plants: [
+            "Pteridium esculentum (Austral Bracken)"
+          ]
+        }
+      ]
+    },
+    "6": {
+      description: "EVC 6: Sand Heathland is characterized by sandy soils and a low, heathland vegetation structure dominated by a mix of medium shrubs, small shrubs, and a variety of herbs and graminoids that thrive in drier conditions. For a 10sqm area using the Miyawaki method, dense planting with these species helps recreate this distinctive environment.",
+      recommendations: [
+        {
+          layer: "Medium Shrub (MS)",
+          plants: [
+            "Epacris impressa (Common Heath)",
+            "Banksia marginata (Silver Banksia)",
+            "Leptospermum continentale (Prickly Tea-tree)",
+            "Leptospermum myrsinoides (Heath Tea-tree)"
+          ]
+        },
+        {
+          layer: "Small Shrub (SS)",
+          plants: [
+            "Dillwynia glaberrima (Smooth Parrot-pea)",
+            "Platylobium obtusangulum (Common Flat-pea)",
+            "Hibbertia fasciculata var. prostrata (Bundled Guinea-flower)",
+            "Leucopogon virgatus (Common Beard-heath)"
+          ]
+        },
+        {
+          layer: "Medium Herb (MH)",
+          plants: [
+            "Gonocarpus humilis (Shade Raspwort)",
+            "Drosera peltata ssp. auriculata (Tall Sundew)"
+          ]
+        },
+        {
+          layer: "Large Non-tufted Graminoid (LNG)",
+          plants: [
+            "Gahnia radula (Thatch Saw-sedge)"
+          ]
+        },
+        {
+          layer: "Large Tufted Graminoid (LTG)",
+          plants: [
+            "Xanthorrhoea minor ssp. lutea (Small Grass-tree)"
+          ]
+        },
+        {
+          layer: "Medium to Small Tufted Graminoid (MTG)",
+          plants: [
+            "Lepidosperma concavum (Sandhill Sword-sedge)"
+          ]
+        },
+        {
+          layer: "Medium to Tiny Non-tufted Graminoid (MNG)",
+          plants: [
+            "Hypolaena fastigiata (Tassel Rope-rush)",
+            "Schoenus brevifolius (Zig-zag Bog-sedge)"
+          ]
+        },
+        {
+          layer: "Ground Fern (GF)",
+          plants: [
+            "Pteridium esculentum (Austral Bracken)"
           ]
         }
       ]
