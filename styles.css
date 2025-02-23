@@ -190,7 +190,6 @@ footer a:hover {
 /* =======================
    PLANT LIST PAGE STYLES
    ======================= */
-/* Container for the curated plant list page */
 #plant-list-container {
   max-width: 800px;
   margin: 40px auto;
@@ -198,7 +197,6 @@ footer a:hover {
   text-align: center;
 }
 
-/* Styling for the plant list header */
 #plant-list-container h1 {
   font-family: "Abril Fatface", serif;
   font-size: 2rem;
@@ -206,13 +204,11 @@ footer a:hover {
   margin-bottom: 20px;
 }
 
-/* Styling for the plant list items container */
 #plant-list {
   margin-top: 20px;
   padding: 0 20px;
 }
 
-/* Individual plant item styling */
 .plant-item {
   padding: 8px 12px;
   margin: 6px 0;
@@ -222,3 +218,30 @@ footer a:hover {
   font-size: 1rem;
   text-align: left;
 }
+
+/* =======================
+   GRID LAYOUT FOR EVC MAP PAGE
+   ======================= */
+#evc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  background-color: #3D4535;
+  color: #FFF0DC;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+#evc-details-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+#map-container {
+  height: 400px;
+}
+
+#map {
+  heig
