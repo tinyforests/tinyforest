@@ -4,23 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Find Your Ecological Garden</title>
+  
   <!-- External Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet" />
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- Turf.js for spatial operations (optional) -->
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
 </head>
 <body>
-  <!-- Optional: Dynamic Menu Placeholder -->
-  <!--<div id="menu-placeholder"></div>-->
+  <!-- Optional: Dynamic Menu Placeholder (uncomment if needed) -->
+  <!-- <div id="menu-placeholder"></div> -->
 
   <!-- Main Content Container -->
   <div id="container">
@@ -34,19 +32,22 @@
       <button id="search-button">Find My Garden</button>
     </div>
 
-    <!-- EVC Details Section -->
-    <div id="evc-info">
-      <div id="evc-details">
-        <p>Your EVC will display here</p>
+    <!-- Grid Layout for EVC Details and Map -->
+    <div id="evc-grid">
+      <!-- EVC Details Column -->
+      <div id="evc-details-container">
+        <div id="evc-details">
+          <p>Your EVC will display here</p>
+        </div>
+        <button class="download-button" id="download-button">
+          Purchase Curated Plant List For This EVC
+        </button>
       </div>
-      <!-- Purchase button; initially hidden via CSS -->
-      <button class="download-button" id="download-button">
-        Purchase Curated Plant List For This EVC
-      </button>
+      <!-- Map Column -->
+      <div id="map-container">
+        <div id="map"></div>
+      </div>
     </div>
-
-    <!-- Map Section -->
-    <div id="map"></div>
   </div>
 
   <!-- Footer Section -->
@@ -70,15 +71,15 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       fetch("menu.html")
-        .then((response) => response.text())
-        .then((data) => {
+        .then(response => response.text())
+        .then(data => {
           document.getElementById("menu-placeholder").innerHTML = data;
         })
-        .catch((error) => console.error("Error loading menu:", error));
+        .catch(error => console.error("Error loading menu:", error));
     });
   </script>
 
-  <!-- Custom JavaScript -->
+  <!-- Custom JavaScript for map and EVC fetching -->
   <script src="evc-fetch.js"></script>
 </body>
 </html>
