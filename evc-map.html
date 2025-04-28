@@ -4,22 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Find Your Ecological Garden</title>
-  
   <!-- External Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
   <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap"
+    rel="stylesheet"
+  />
   <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <!-- Turf.js for spatial operations (optional) -->
+  <!-- Turf.js for spatial ops (optional) -->
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
 </head>
 <body>
-  <!-- Optional: Dynamic Menu Placeholder (uncomment if needed) -->
-  <!-- <div id="menu-placeholder"></div> -->
-
   <!-- Main Content Container -->
   <div id="container">
     <h2>Let's find your Ecological Vegetation Class (EVC)</h2>
@@ -32,7 +31,7 @@
       <button id="search-button">Find My Garden</button>
     </div>
 
-    <!-- Grid Layout for EVC Details and Map -->
+    <!-- Grid Layout for Map and EVC Details -->
     <div id="evc-grid">
       <!-- EVC Details Column -->
       <div id="evc-details-container">
@@ -67,19 +66,31 @@
     </div>
   </footer>
 
-  <!-- Optional: Script to dynamically load a menu -->
+  <!-- Custom JS -->
+  <script src="evc-fetch.js"></script>
   <script>
+    // In evc-fetch.js we find and populate EVC details,
+    // then show & wire up the purchase button:
     document.addEventListener("DOMContentLoaded", function () {
-      fetch("menu.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("menu-placeholder").innerHTML = data;
-        })
-        .catch(error => console.error("Error loading menu:", error));
+      // after the map + EVC data functions run, they do:
+      //   purchaseButton.onclick = () => {
+      //     window.location.href = 
+      //       `curated-plants.html?evcCode=${encodeURIComponent(evcCode)}`;
+      //   };
+      //
+      // If you prefer inline here, you can also do:
+      const purchaseButton = document.getElementById("download-button");
+      // Wait until the variable `currentEvcCode` is set by your fetch logic:
+      setTimeout(() => {
+        if (window.currentEvcCode) {
+          purchaseButton.style.display = "block";
+          purchaseButton.onclick = () => {
+            window.location.href = 
+              `curated-plants.html?evcCode=${encodeURIComponent(window.currentEvcCode)}`;
+          };
+        }
+      }, 500);
     });
   </script>
-
-  <!-- Custom JavaScript for map and EVC fetching -->
-  <script src="evc-fetch.js"></script>
 </body>
 </html>
