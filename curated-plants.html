@@ -5,35 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Curated Plant Recommendations</title>
   <link rel="stylesheet" href="styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400&display=swap"
+    rel="stylesheet"
+  />
 </head>
 <body>
   <!-- Universal Menu Placeholder -->
-  <!--<div id="menu-placeholder"></div>-->
-  
+  <div id="menu-placeholder"></div>
+
   <div id="plant-list-container">
-    <h1>Curated Plant Recommendations for EVC: <span id="evc-code-display"></span></h1>
+    <h1>
+      Curated Plant Recommendations for EVC:
+      <span id="evc-code-display"></span>
+    </h1>
     <div id="evc-description">
-      <!-- EVC description will appear here -->
+      <!-- EVC description will be injected here -->
     </div>
     <div id="recommendations">
-      <!-- Plant recommendations will be displayed here -->
+      <!-- Plant layers and lists will be injected here -->
     </div>
   </div>
 
-  <!-- Load the universal menu -->
+  <!-- Load universal menu -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       fetch("menu.html")
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById("menu-placeholder").innerHTML = data;
+        .then((resp) => resp.text())
+        .then((html) => {
+          document.getElementById("menu-placeholder").innerHTML = html;
         })
-        .catch(error => console.error("Error loading menu:", error));
+        .catch((err) => console.error("Error loading menu:", err));
     });
   </script>
-  
-  <!-- Curated plants script -->
+
+  <!-- Curated plants logic -->
   <script src="curated-plants.js"></script>
 </body>
 </html>
