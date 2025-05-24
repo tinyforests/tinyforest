@@ -40,7 +40,7 @@
 <body>
   <div id="container">
     <h2>Let's find your Ecological Vegetation Class (EVC)</h2>
-    <p>Enter your address to discover your EVC—and see which plants belong in your garden.</p>
+    <p>Enter your address to discover your EVC—and then view your curated plant list.</p>
 
     <!-- Search -->
     <div id="search-container">
@@ -54,20 +54,19 @@
 
     <!-- EVC + Map Grid -->
     <div id="evc-grid">
-      <!-- Left: EVC Info & Plant List -->
+      <!-- Left: EVC Info -->
       <div id="evc-details-container">
         <div id="evc-details">
           <p>Your EVC data will appear here.</p>
         </div>
+        <!-- Back to linking behavior -->
         <button
           id="download-button"
           type="button"
           style="display: none; margin-top: 0.5em;"
         >
-          Purchase Curated Plant List For This EVC
+          View Curated Plant List
         </button>
-        <!-- Curated list will render here -->
-        <ul id="curated-list" style="display: none; margin-top: 1em; padding-left: 1.2em;"></ul>
       </div>
 
       <!-- Right: Map -->
@@ -94,7 +93,7 @@
     </div>
   </footer>
 
-  <!-- Your updated logic -->
+  <!-- Original redirecting logic -->
   <script src="evc-fetch.js"></script>
 </body>
 </html>
