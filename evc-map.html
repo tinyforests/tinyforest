@@ -84,6 +84,8 @@
 
       // Initialize after EVC lookup logic
       const initCuratedList = () => {
+        // Remove any pre-existing onclick handlers that navigate away
+        purchaseButton.onclick = null;
         if (!window.currentEvcCode) return;
         purchaseButton.style.display = "inline-block";
 
