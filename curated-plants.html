@@ -2,44 +2,111 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Curated Plant Recommendations</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400&display=swap"
-    rel="stylesheet"
-  />
-</head>
-<body>
-  <!-- Universal Menu Placeholder -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Curated Plant List</title>
+
+  <!-- Universal menu placeholder (optional) -->
   <div id="menu-placeholder"></div>
-
-  <div id="plant-list-container">
-    <h1>
-      Curated Plant Recommendations for EVC:
-      <span id="evc-code-display"></span>
-    </h1>
-    <div id="evc-description">
-      <!-- EVC description will be injected here -->
-    </div>
-    <div id="recommendations">
-      <!-- Plant layers and lists will be injected here -->
-    </div>
-  </div>
-
-  <!-- Load universal menu -->
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+    document.addEventListener("DOMContentLoaded", () => {
       fetch("menu.html")
-        .then((resp) => resp.text())
-        .then((html) => {
+        .then(r => r.text())
+        .then(html => {
           document.getElementById("menu-placeholder").innerHTML = html;
         })
-        .catch((err) => console.error("Error loading menu:", err));
+        .catch(console.error);
     });
   </script>
 
-  <!-- Curated plants logic -->
-  <script src="curated-plants.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Quick overrides for this page */
+    #content { max-width: 800px; margin: 2em auto; padding: 0 1em; }
+    h1 { margin-bottom: 0.5em; }
+    .layer { margin-top: 1.5em; }
+    .layer h3 { margin-bottom: 0.3em; }
+    .error { color: #900; }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1>Your Curated Plant List</h1>
+    <div id="message">Loading…</div>
+    <div id="plant-list" style="display:none;">
+      <p id="description"></p>
+      <div id="recommendations"></div>
+    </div>
+  </div>
+
+  <script>
+    // 1. Helper to parse ?evcCode=…
+    function getEvcCode() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("evcCode");
+    }
+
+    // 2. Render error state
+    function showError(msg) {
+      document.getElementById("message").innerHTML = `<p class="error">${msg}</p>`;
+      document.getElementById("plant-list").style.display = "none";
+    }
+
+    // 3. Render the JSON entry
+    function showPlants(entry) {
+      document.getElementById("message").style.display = "none";
+      document.getElementById("description").textContent = entry.description;
+
+      const container = document.getElementById("recommendations");
+      container.innerHTML = "";  // clear
+
+      entry.recommendations.forEach(layer => {
+        const div = document.createElement("div");
+        div.className = "layer";
+
+        const title = document.createElement("h3");
+        title.textContent = layer.layer;
+        div.appendChild(title);
+
+        const ul = document.createElement("ul");
+        layer.plants.forEach(p => {
+          const li = document.createElement("li");
+          li.textContent = p;
+          ul.appendChild(li);
+        });
+        div.appendChild(ul);
+
+        container.appendChild(div);
+      });
+
+      document.getElementById("plant-list").style.display = "block";
+    }
+
+    // 4. Main
+    document.addEventListener("DOMContentLoaded", () => {
+      const code = getEvcCode();
+      if (!code) {
+        showError("No EVC code provided in the URL.");
+        return;
+      }
+
+      fetch("curated-plants.json")
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          return res.json();
+        })
+        .then(data => {
+          const entry = data[code];
+          if (!entry) {
+            showError(`No curated list found for EVC code ${code}.`);
+          } else {
+            showPlants(entry);
+          }
+        })
+        .catch(err => {
+          console.error("Error loading JSON:", err);
+          showError("Could not load curated plant data. Please try again later.");
+        });
+    });
+  </script>
 </body>
 </html>
