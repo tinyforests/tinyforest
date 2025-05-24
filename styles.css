@@ -132,6 +132,11 @@ button:hover {
 /* =======================
    MAP SECTION
    ======================= */
+#map-container {
+  width: 100%;
+  height: 400px;
+}
+
 #map {
   height: 100%;
   width: 100%;
@@ -237,17 +242,6 @@ footer a:hover {
   padding: 20px;
 }
 
-#map-container {
-  width: 100%;
-  height: 400px;
-}
-
-#map {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-}
-
 /* Adjust download button styling for grid layout */
 .download-button {
   margin-top: 20px;
@@ -262,4 +256,39 @@ footer a:hover {
 
 .download-button:hover {
   background-color: #e0e0e0;
+}
+
+/* =======================
+   MOBILE STYLES
+   ======================= */
+@media (max-width: 600px) {
+  /* Hide the map entirely */
+  #map-container,
+  #map {
+    display: none;
+  }
+
+  /* Stack the EVC grid into a single column */
+  #evc-grid {
+    display: block;
+  }
+
+  /* Ensure details container spans full width */
+  #evc-details-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* Adjust input width on mobile */
+  input[type="text"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  /* Center buttons full width */
+  button,
+  .download-button {
+    width: 100%;
+    box-sizing: border-box;
+  }
 }
