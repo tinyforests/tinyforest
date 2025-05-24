@@ -4,77 +4,52 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Find Your Ecological Garden</title>
-  <!-- External Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- Leaflet CSS -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap"
-    rel="stylesheet"
-  />
-  <!-- Leaflet JS -->
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <!-- Turf.js for spatial ops (optional) -->
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
 </head>
 <body>
-  <!-- Main Content Container -->
   <div id="container">
     <h2>Let's find your Ecological Vegetation Class (EVC)</h2>
     <p>Enter your address to discover your Ecological Vegetation Class (EVC).</p>
     <p>This information can inform you about the species indigenous to your garden.</p>
 
-    <!-- Search Section -->
     <div id="search-container">
       <input type="text" id="address-input" placeholder="Enter your address" />
       <button id="search-button" type="button">Find My Garden</button>
     </div>
 
-    <!-- Grid Layout for Map and EVC Details -->
     <div id="evc-grid">
-      <!-- EVC Details Column -->
       <div id="evc-details-container">
         <div id="evc-details">
           <p>Your EVC will display here</p>
         </div>
-        <!-- Use type="button" to prevent any default navigation -->
         <button class="download-button" id="download-button" type="button" style="display: none;">
           View Curated Plant List
         </button>
-        <!-- Curated Plant List Section -->
         <div id="curated-plant-list" style="display:none; margin-top: 1rem;">
           <h4>Curated Plant List</h4>
-          <ul id="plant-list-items">
-            <!-- JavaScript will populate these items -->
-          </ul>
+          <ul id="plant-list-items"></ul>
         </div>
       </div>
-      <!-- Map Column -->
       <div id="map-container">
         <div id="map"></div>
       </div>
     </div>
   </div>
 
-  <!-- Footer Section -->
   <footer>
     <h3>Find out more</h3>
     <p class="footer-details">Gardener &amp; Son</p>
     <p class="footer-details">Garden Design / Heirloom &amp; Foraged Garden Objects.</p>
     <p class="footer-details">2 Churchill Street, Mont Albert</p>
-    <p class="footer-details">
-      <a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a>
-    </p>
+    <p class="footer-details"><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
     <p class="footer-details">0406 059 866</p>
-    <div>
-      <a href="#">Depop</a>
-      <a href="#">Instagram</a>
-      <a href="#">Studio Playlist</a>
-    </div>
+    <div><a href="#">Depop</a> <a href="#">Instagram</a> <a href="#">Studio Playlist</a></div>
   </footer>
 
-  <!-- Custom JS -->
   <script src="evc-fetch.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -82,15 +57,15 @@
       const plantListSection = document.getElementById("curated-plant-list");
       const plantListItems = document.getElementById("plant-list-items");
 
-      // Initialize after EVC lookup logic
+      // remove any old onclicks
+      purchaseButton.onclick = null;
+
       const initCuratedList = () => {
-        // Remove any pre-existing onclick handlers that navigate away
-        purchaseButton.onclick = null;
         if (!window.currentEvcCode) return;
         purchaseButton.style.display = "inline-block";
 
-        purchaseButton.addEventListener("click", () => {
-          // Prevent default navigation and fetch plant list
+        purchaseButton.addEventListener("click", (e) => {
+          e.preventDefault();
           fetch(`/api/curated-plants?evc=${encodeURIComponent(window.currentEvcCode)}`)
             .then(res => res.json())
             .then(data => {
@@ -103,8 +78,7 @@
         });
       };
 
-      // Replace previous timeout with event or callback from evc-fetch
-      // For now, poll until currentEvcCode is set
+      // poll until currentEvcCode is set
       const checkInterval = setInterval(() => {
         if (window.currentEvcCode) {
           clearInterval(checkInterval);
