@@ -1,4 +1,3 @@
-@@ -0,0 +1,466 @@
 {
   "175": {
     "description": "EVC 175 is characterized by moist, temperate conditions with fertile soils. For a 10 sqm area using the Miyawaki method, dense planting is required to rapidly restore biodiversity. The recommendations below are grouped into life form categories.",
@@ -6,7 +5,9 @@
       {
         "layer": "Tree Canopy",
         "plants": [
-          "No canopy species provided"
+          "Eucalyptus obliqua (Messmate)",
+          "Eucalyptus radiata (Narrow-leaved Peppermint)",
+          "Eucalyptus delegatensis (Alpine Ash)"
         ]
       },
       {
