@@ -293,7 +293,7 @@ footer a:hover {
   }
 
   /* Adjust header letter-spacing & line-height */
-  #container h2 {
+  #container h1 {
     letter-spacing: -2px;
     line-height: 1.2em;
   }
