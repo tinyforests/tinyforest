@@ -262,10 +262,10 @@ footer a:hover {
    MOBILE STYLES
    ======================= */
 @media (max-width: 600px) {
-  /* Hide the map entirely */
+  /* completely remove map area on mobile */
   #map-container,
   #map {
-    display: none;
+    display: none !important;
   }
 
   /* Stack the EVC grid into a single column */
@@ -285,7 +285,7 @@ footer a:hover {
     margin-bottom: 10px;
   }
 
-  /* Center buttons full width */
+  /* Make buttons full width */
   button,
   .download-button {
     width: 100%;
