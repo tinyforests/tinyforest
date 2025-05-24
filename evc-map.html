@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Make your Own Ecological Tiny Forest</title>
+  <title>Find Your Ecological Garden</title>
   <!-- External Stylesheet -->
   <link rel="stylesheet" href="styles.css" />
   <!-- Leaflet CSS -->
@@ -28,7 +28,7 @@
     <!-- Search Section -->
     <div id="search-container">
       <input type="text" id="address-input" placeholder="Enter your address" />
-      <button id="search-button">Find My Garden</button>
+      <button id="search-button" type="button">Find My Garden</button>
     </div>
 
     <!-- Grid Layout for Map and EVC Details -->
@@ -38,8 +38,9 @@
         <div id="evc-details">
           <p>Your EVC will display here</p>
         </div>
-        <button class="download-button" id="download-button">
-          Purchase Curated Plant List For This EVC
+        <!-- Use type="button" to prevent any default navigation -->
+        <button class="download-button" id="download-button" type="button" style="display: none;">
+          View Curated Plant List
         </button>
         <!-- Curated Plant List Section -->
         <div id="curated-plant-list" style="display:none; margin-top: 1rem;">
@@ -81,23 +82,33 @@
       const plantListSection = document.getElementById("curated-plant-list");
       const plantListItems = document.getElementById("plant-list-items");
 
-      setTimeout(() => {
+      // Initialize after EVC lookup logic
+      const initCuratedList = () => {
+        if (!window.currentEvcCode) return;
+        purchaseButton.style.display = "inline-block";
+
+        purchaseButton.addEventListener("click", () => {
+          // Prevent default navigation and fetch plant list
+          fetch(`/api/curated-plants?evc=${encodeURIComponent(window.currentEvcCode)}`)
+            .then(res => res.json())
+            .then(data => {
+              plantListItems.innerHTML = data.plants
+                .map(plant => `<li>${plant.commonName} (<em>${plant.scientificName}</em>)</li>`)
+                .join('');
+              plantListSection.style.display = 'block';
+            })
+            .catch(err => console.error('Error fetching plant list:', err));
+        });
+      };
+
+      // Replace previous timeout with event or callback from evc-fetch
+      // For now, poll until currentEvcCode is set
+      const checkInterval = setInterval(() => {
         if (window.currentEvcCode) {
-          purchaseButton.style.display = "block";
-          purchaseButton.onclick = () => {
-            // Show curated plant list instead of navigating away
-            fetch(`api/curated-plants?evc=${encodeURIComponent(window.currentEvcCode)}`)
-              .then(res => res.json())
-              .then(data => {
-                plantListItems.innerHTML = data.plants
-                  .map(plant => `<li>${plant.commonName} (<em>${plant.scientificName}</em>)</li>`)
-                  .join('');
-                plantListSection.style.display = 'block';
-              })
-              .catch(err => console.error('Error fetching plant list:', err));
-          };
+          clearInterval(checkInterval);
+          initCuratedList();
         }
-      }, 500);
+      }, 200);
     });
   </script>
 </body>
