@@ -41,6 +41,13 @@
         <button class="download-button" id="download-button">
           Purchase Curated Plant List For This EVC
         </button>
+        <!-- Curated Plant List Section -->
+        <div id="curated-plant-list" style="display:none; margin-top: 1rem;">
+          <h4>Curated Plant List</h4>
+          <ul id="plant-list-items">
+            <!-- JavaScript will populate these items -->
+          </ul>
+        </div>
       </div>
       <!-- Map Column -->
       <div id="map-container">
@@ -69,24 +76,25 @@
   <!-- Custom JS -->
   <script src="evc-fetch.js"></script>
   <script>
-    // In evc-fetch.js we find and populate EVC details,
-    // then show & wire up the purchase button:
     document.addEventListener("DOMContentLoaded", function () {
-      // after the map + EVC data functions run, they do:
-      //   purchaseButton.onclick = () => {
-      //     window.location.href = 
-      //       `curated-plants.html?evcCode=${encodeURIComponent(evcCode)}`;
-      //   };
-      //
-      // If you prefer inline here, you can also do:
       const purchaseButton = document.getElementById("download-button");
-      // Wait until the variable `currentEvcCode` is set by your fetch logic:
+      const plantListSection = document.getElementById("curated-plant-list");
+      const plantListItems = document.getElementById("plant-list-items");
+
       setTimeout(() => {
         if (window.currentEvcCode) {
           purchaseButton.style.display = "block";
           purchaseButton.onclick = () => {
-            window.location.href = 
-              `curated-plants.html?evcCode=${encodeURIComponent(window.currentEvcCode)}`;
+            // Show curated plant list instead of navigating away
+            fetch(`api/curated-plants?evc=${encodeURIComponent(window.currentEvcCode)}`)
+              .then(res => res.json())
+              .then(data => {
+                plantListItems.innerHTML = data.plants
+                  .map(plant => `<li>${plant.commonName} (<em>${plant.scientificName}</em>)</li>`)
+                  .join('');
+                plantListSection.style.display = 'block';
+              })
+              .catch(err => console.error('Error fetching plant list:', err));
           };
         }
       }, 500);
