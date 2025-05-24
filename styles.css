@@ -291,4 +291,10 @@ footer a:hover {
     width: 100%;
     box-sizing: border-box;
   }
+
+  /* Adjust header letter-spacing & line-height */
+  #container h2 {
+    letter-spacing: -2px;
+    line-height: 1.2em;
+  }
 }
