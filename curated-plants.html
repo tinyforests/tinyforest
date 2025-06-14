@@ -1,26 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Curated Plant List</title>
-
-  <!-- Universal menu placeholder -->
-  <div id="menu-placeholder"></div>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch("menu.html")
-        .then(r => r.text())
-        .then(html => {
-          document.getElementById("menu-placeholder").innerHTML = html;
-        })
-        .catch(console.error);
-    });
-  </script>
-
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css"/>
   <style>
-    /* Quick page‐specific overrides */
     #content { max-width: 800px; margin: 2em auto; padding: 0 1em; }
     h1 { font-family: "Abril Fatface", serif; margin-bottom: 0.5em; }
     .layer { margin-top: 1.5em; }
@@ -29,35 +14,40 @@
   </style>
 </head>
 <body>
+  <!-- universal menu -->
+  <div id="menu-placeholder"></div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      fetch("menu.html")
+        .then(r => r.text())
+        .then(html => document.getElementById("menu-placeholder").innerHTML = html)
+        .catch(console.error);
+    });
+  </script>
+
   <div id="content">
     <h1>Your Curated Plant List</h1>
     <div id="message">Loading…</div>
-    <div id="plant-list" style="display:none;">
-      <p id="description"></p>
-      <div id="recommendations"></div>
-    </div>
+    <div id="recommendations" style="display:none;"></div>
   </div>
 
   <script>
     function getEvcCode() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("evcCode");
+      return new URLSearchParams(location.search).get("evcCode");
     }
     function showError(msg) {
       document.getElementById("message").innerHTML = `<p class="error">${msg}</p>`;
-      document.getElementById("plant-list").style.display = "none";
+      document.getElementById("recommendations").style.display = "none";
     }
     function showPlants(entry) {
-      document.getElementById("message").style.display = "none";
-      document.getElementById("description").textContent = entry.description;
       const container = document.getElementById("recommendations");
       container.innerHTML = "";
       entry.recommendations.forEach(layer => {
         const div = document.createElement("div");
         div.className = "layer";
-        const title = document.createElement("h3");
-        title.textContent = layer.layer;
-        div.appendChild(title);
+        const h3 = document.createElement("h3");
+        h3.textContent = layer.layer;
+        div.appendChild(h3);
         const ul = document.createElement("ul");
         layer.plants.forEach(p => {
           const li = document.createElement("li");
@@ -67,31 +57,31 @@
         div.appendChild(ul);
         container.appendChild(div);
       });
-      document.getElementById("plant-list").style.display = "block";
+      document.getElementById("message").style.display = "none";
+      container.style.display = "block";
     }
 
     document.addEventListener("DOMContentLoaded", () => {
       const code = getEvcCode();
-      if (!code) {
-        showError("No EVC code provided in the URL.");
-        return;
-      }
+      if (!code) return showError("No EVC code provided.");
       fetch("curated-plants.json")
-        .then(res => {
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          return res.json();
+        .then(r => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
         })
         .then(data => {
           const entry = data[code];
           if (!entry) {
-            showError(`No curated list found for EVC code ${code}.`);
+            showError(`No curated list found for EVC ${code}.`);
+          } else if (!entry.recommendations.length) {
+            showError(`No plant recommendations available for EVC ${code}.`);
           } else {
             showPlants(entry);
           }
         })
         .catch(err => {
-          console.error("Error loading JSON:", err);
-          showError("Could not load curated plant data. Please try again later.");
+          console.error("Failed to load JSON:", err);
+          showError("Could not load curated plant data. Try again later.");
         });
     });
   </script>
