@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Curated Plant List</title>
 
-  <!-- Universal menu placeholder (optional) -->
+  <!-- Universal menu placeholder -->
   <div id="menu-placeholder"></div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -20,9 +20,9 @@
 
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* Quick overrides for this page */
+    /* Quick page‐specific overrides */
     #content { max-width: 800px; margin: 2em auto; padding: 0 1em; }
-    h1 { margin-bottom: 0.5em; }
+    h1 { font-family: "Abril Fatface", serif; margin-bottom: 0.5em; }
     .layer { margin-top: 1.5em; }
     .layer h3 { margin-bottom: 0.3em; }
     .error { color: #900; }
@@ -39,34 +39,25 @@
   </div>
 
   <script>
-    // 1. Helper to parse ?evcCode=…
     function getEvcCode() {
       const params = new URLSearchParams(window.location.search);
       return params.get("evcCode");
     }
-
-    // 2. Render error state
     function showError(msg) {
       document.getElementById("message").innerHTML = `<p class="error">${msg}</p>`;
       document.getElementById("plant-list").style.display = "none";
     }
-
-    // 3. Render the JSON entry
     function showPlants(entry) {
       document.getElementById("message").style.display = "none";
       document.getElementById("description").textContent = entry.description;
-
       const container = document.getElementById("recommendations");
-      container.innerHTML = "";  // clear
-
+      container.innerHTML = "";
       entry.recommendations.forEach(layer => {
         const div = document.createElement("div");
         div.className = "layer";
-
         const title = document.createElement("h3");
         title.textContent = layer.layer;
         div.appendChild(title);
-
         const ul = document.createElement("ul");
         layer.plants.forEach(p => {
           const li = document.createElement("li");
@@ -74,21 +65,17 @@
           ul.appendChild(li);
         });
         div.appendChild(ul);
-
         container.appendChild(div);
       });
-
       document.getElementById("plant-list").style.display = "block";
     }
 
-    // 4. Main
     document.addEventListener("DOMContentLoaded", () => {
       const code = getEvcCode();
       if (!code) {
         showError("No EVC code provided in the URL.");
         return;
       }
-
       fetch("curated-plants.json")
         .then(res => {
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
