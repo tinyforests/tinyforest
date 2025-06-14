@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Find Your Ecological Garden</title>
 
-  <!-- Universal menu -->
+  <!-- Universal menu placeholder -->
   <div id="menu-placeholder"></div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -18,7 +18,7 @@
     });
   </script>
 
-  <!-- Styles -->
+  <!-- Your stylesheet (must include the mobile form rules) -->
   <link rel="stylesheet" href="styles.css" />
 
   <!-- Leaflet CSS & JS -->
@@ -28,7 +28,7 @@
   />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-  <!-- Turf.js for spatial ops -->
+  <!-- Turf.js -->
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
 
   <!-- Google Fonts -->
@@ -40,38 +40,41 @@
 <body>
   <div id="container">
     <h2>Let's find your Ecological Vegetation Class (EVC)</h2>
-    <p>Enter your address to discover your EVC—and then view your curated plant list.</p>
+    <p>Enter your address to discover your EVC—and see which plants belong in your garden.</p>
 
-    <!-- Search -->
+    <!-- SEARCH FORM -->
     <div id="search-container">
-      <input
-        type="text"
-        id="address-input"
-        placeholder="Enter your address"
-      />
-      <button id="search-button" type="button">Find My Garden</button>
+      <form id="address-form">
+        <input
+          type="text"
+          id="address-input"
+          placeholder="Enter your address"
+          required
+        />
+        <button id="search-button" type="submit">Find My Garden</button>
+      </form>
     </div>
 
     <!-- EVC + Map Grid -->
     <div id="evc-grid">
-      <!-- Left: EVC Info -->
+      <!-- Left: Details & Button -->
       <div id="evc-details-container">
         <div id="evc-details">
           <p>Your EVC data will appear here.</p>
         </div>
-        <!-- Back to linking behavior -->
         <button
           id="download-button"
+          class="download-button"
           type="button"
-          style="display: none; margin-top: 0.5em;"
+          style="display: none;"
         >
           View Curated Plant List
         </button>
       </div>
 
       <!-- Right: Map -->
-      <div id="map-container" style="height: 400px;">
-        <div id="map" style="width: 100%; height: 100%;"></div>
+      <div id="map-container">
+        <div id="map"></div>
       </div>
     </div>
   </div>
@@ -93,7 +96,7 @@
     </div>
   </footer>
 
-  <!-- Original redirecting logic -->
+  <!-- Your map/EVC logic -->
   <script src="evc-fetch.js"></script>
 </body>
 </html>
