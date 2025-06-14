@@ -2,36 +2,27 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
 
-  <!-- Universal menu placeholder -->
+  <!-- menu -->
   <div id="menu-placeholder"></div>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       fetch("menu.html")
         .then(r => r.text())
-        .then(html => {
-          document.getElementById("menu-placeholder").innerHTML = html;
-        })
+        .then(html => document.getElementById("menu-placeholder").innerHTML = html)
         .catch(console.error);
     });
   </script>
 
-  <!-- Your stylesheet (must include the mobile form rules) -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Leaflet CSS & JS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-  <!-- Turf.js -->
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
-
-  <!-- Google Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400;700&display=swap"
     rel="stylesheet"
@@ -55,48 +46,27 @@
       </form>
     </div>
 
-    <!-- EVC + Map Grid -->
+    <!-- EVC + Map -->
     <div id="evc-grid">
-      <!-- Left: Details & Button -->
       <div id="evc-details-container">
-        <div id="evc-details">
-          <p>Your EVC data will appear here.</p>
-        </div>
+        <div id="evc-details"><p>Your EVC data will appear here.</p></div>
         <button
           id="download-button"
           class="download-button"
           type="button"
-          style="display: none;"
-        >
-          View Curated Plant List
-        </button>
+          style="display:none"
+        >View Curated Plant List</button>
       </div>
-
-      <!-- Right: Map -->
       <div id="map-container">
         <div id="map"></div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
-    <h3>Find out more</h3>
-    <p class="footer-details">Gardener &amp; Son</p>
-    <p class="footer-details">Garden Design / Heirloom &amp; Foraged Objects</p>
-    <p class="footer-details">2 Churchill Street, Mont Albert</p>
-    <p class="footer-details">
-      <a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a>
-    </p>
-    <p class="footer-details">0406 059 866</p>
-    <div class="social-links">
-      <a href="#">Depop</a> |
-      <a href="#">Instagram</a> |
-      <a href="#">Studio Playlist</a>
-    </div>
+    <!-- ... your footer ... -->
   </footer>
 
-  <!-- Your map/EVC logic -->
   <script src="evc-fetch.js"></script>
 </body>
 </html>
