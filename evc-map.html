@@ -4,6 +4,9 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
+
+  <!-- Load Abril Fatface -->
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
 
   <style>
@@ -57,6 +60,14 @@
       color: #555;
       margin-bottom: 1em;
     }
+    /* EVC name styling */
+    #modal-evc-name {
+      font-family: 'Abril Fatface', serif;
+      font-size: 2rem;
+      margin: 0.3em 0 1em;
+      display: block;
+      color: #3d4535;
+    }
   </style>
 </head>
 <body>
@@ -76,7 +87,8 @@
     <div class="modal-content">
       <button class="close-btn" id="modal-close">&times;</button>
       <div id="modal-info">
-        <p><strong>Your Ecological Vegetation is:</strong> <span id="modal-evc-name"></span></p>
+        <p><strong>Your Ecological Vegetation is:</strong></p>
+        <p id="modal-evc-name"></p>
         <p class="description" id="modal-evc-description"></p>
         <p><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
