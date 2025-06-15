@@ -3,26 +3,84 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Find Your Ecological Garden</title>
+  <title>Welcome to the Gardener &amp; Son Ecological Vegetation Machine</title>
 
   <!-- Load Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400;700&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" href="styles.css"/>
 
   <style>
-    /* Modal backdrop */
-    #evc-modal { /* ...existing styles...*/ }
-    #evc-modal .modal-content { /* ...existing styles...*/ }
-    #evc-modal .close-btn { /* ...existing styles...*/ }
-    #modal-map { /* ...existing styles...*/ }
+    /* ======== Modal Container (hidden by default) ======== */
+    #evc-modal {
+      display: none;             /* fully invisible */
+      position: fixed;
+      top: 0; left: 0; bottom: 0; right: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
 
-    /* Info styling */
-    #modal-info p { /* ...existing styles...*/ }
-    #modal-info p.title { /* ...existing styles...*/ }
-    #modal-evc-name { /* ...existing styles...*/ }
-    #modal-info p.description { /* ...existing styles...*/ }
+    /* ======== Modal Box ======== */
+    #evc-modal .modal-content {
+      background: #3d4535;
+      color: #fff0dc;
+      border-radius: 6px;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90%;
+      overflow-y: auto;
+      padding: 1.5em;
+      position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
 
-    /* Email section */
+    /* ======== Close Button ======== */
+    #evc-modal .close-btn {
+      position: absolute;
+      top: 0.5em; right: 0.5em;
+      background: transparent;
+      border: none;
+      font-size: 1.5em;
+      color: #fff0dc;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ======== Map in Modal ======== */
+    #modal-map {
+      width: 100%;
+      height: 300px;
+      margin: 1em 0;
+      border: 1px solid #fff0dc;
+      border-radius: 4px;
+    }
+
+    /* ======== Info Text ======== */
+    #modal-info p {
+      margin: 0.2em 0;
+      font-family: 'IBM Plex Mono', monospace;
+      color: #fff0dc;
+    }
+    #modal-info p.title {
+      font-style: italic;
+      font-weight: 300;
+      font-size: 1rem;
+      line-height: 1.2em;
+      margin-bottom: 0.1em;
+    }
+    #modal-evc-name {
+      font-family: 'Abril Fatface', serif !important;
+      font-size: 2rem !important;
+      margin: 0.1em 0 1em !important;
+      color: #fff0dc !important;
+    }
+    #modal-info p.description {
+      font-style: italic;
+      margin-bottom: 1em;
+    }
+
+    /* ======== Email Capture ======== */
     #email-section {
       margin: 1em 0;
     }
@@ -55,14 +113,15 @@
       background: #e0e0e0;
     }
 
-    /* Plants list */
-    #modal-plants .layer { /* ...existing styles...*/ }
-    #modal-plants .layer h3 { /* ...existing styles...*/ }
-    #modal-plants ul { /* ...existing styles...*/ }
-    #modal-plants li { /* ...existing styles...*/ }
+    /* ======== Plant List ======== */
+    #modal-plants .layer { margin-top: 1em; }
+    #modal-plants .layer h3 { margin-bottom: 0.3em; color: #fff0dc; }
+    #modal-plants ul { padding-left: 1.2em; }
+    #modal-plants li { margin-bottom: 0.2em; }
   </style>
 </head>
 <body>
+  <!-- Main Container -->
   <div id="container">
     <h2>Welcome to the Gardener &amp; Son Ecological Vegetation Machine</h2>
     <p>Enter your address to discover your EVC—and see which plants belong in your garden.</p>
@@ -74,7 +133,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal (hidden until showModal) -->
   <div id="evc-modal">
     <div class="modal-content">
       <button class="close-btn" id="modal-close">&times;</button>
@@ -85,22 +144,19 @@
         <p><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
 
-        <!-- Email capture (not a form) -->
         <div id="email-section">
           <p>Enter your email address to receive your curated plant list.</p>
-          <input type="email" id="email-input" placeholder="you@example.com" />
+          <input type="email" id="email-input" placeholder="you@example.com"/>
           <button id="email-submit">Send List</button>
         </div>
       </div>
 
-      <!-- Placeholder for plant recommendations -->
       <div id="modal-plants"></div>
-
       <div id="modal-map"></div>
     </div>
   </div>
 
-  <!-- Leaflet & Turf -->
+  <!-- Leaflet & Turf & Fetch Script -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
