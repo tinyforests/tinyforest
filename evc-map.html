@@ -4,91 +4,81 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
-
-  <!-- Universal menu -->
-  <div id="menu-placeholder"></div>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      fetch("menu.html")
-        .then(r => r.text())
-        .then(html => document.getElementById("menu-placeholder").innerHTML = html)
-        .catch(console.error);
-    });
-  </script>
-
   <link rel="stylesheet" href="styles.css"/>
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400;700&display=swap"
-    rel="stylesheet"
-  />
+
+  <!-- Modal CSS (can go in styles.css instead) -->
+  <style>
+    /* Modal backdrop */
+    #evc-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+    /* Modal content box */
+    #evc-modal .modal-content {
+      background: #fff;
+      border-radius: 6px;
+      max-width: 90%;
+      max-height: 90%;
+      overflow: auto;
+      padding: 1em;
+      position: relative;
+    }
+    /* Close button */
+    #evc-modal .close-btn {
+      position: absolute;
+      top: 0.5em; right: 0.5em;
+      background: transparent;
+      border: none;
+      font-size: 1.5em;
+      cursor: pointer;
+    }
+    /* Inside the modal: map height */
+    #modal-map {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 1em;
+    }
+  </style>
 </head>
 <body>
   <div id="container">
     <h2>Let's find your Ecological Vegetation Class (EVC)</h2>
     <p>Enter your address to discover your EVC—and see which plants belong in your garden.</p>
 
-    <!-- SEARCH FORM -->
     <div id="search-container">
       <form id="address-form">
-        <input
-          type="text"
-          id="address-input"
-          placeholder="Enter your address"
-          required
-        />
+        <input type="text" id="address-input" placeholder="Enter your address" required/>
         <button id="search-button" type="submit">Find My Garden</button>
       </form>
     </div>
+  </div>
 
-    <!-- EVC + Map Grid -->
-    <div id="evc-grid">
-      <!-- Left: Details & Button -->
-      <div id="evc-details-container">
-        <div id="evc-details">
-          <p><strong>Your EVC:</strong> <span id="evc-name">–</span></p>
-          <p id="evc-description" style="margin:0.5em 0;color:#ddd;font-style:italic;"></p>
-          <p><strong>Code:</strong> <span id="evc-code">–</span></p>
-          <p><strong>Status:</strong> <span id="evc-status">–</span></p>
-          <p><strong>Bioregion:</strong> <span id="evc-region">–</span></p>
-        </div>
-        <button
-          id="download-button"
-          class="download-button"
-          type="button"
-          style="display:none"
-        >
-          View Curated Plant List
-        </button>
+  <!-- Modal -->
+  <div id="evc-modal">
+    <div class="modal-content">
+      <button class="close-btn" id="modal-close">&times;</button>
+      <div id="modal-info">
+        <p><strong>Your EVC:</strong> <span id="modal-evc-name"></span></p>
+        <p id="modal-evc-description" style="font-style:italic; color:#555;"></p>
+        <p><strong>Code:</strong> <span id="modal-evc-code"></span></p>
+        <p><strong>Status:</strong> <span id="modal-evc-status"></span></p>
+        <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
       </div>
-
-      <!-- Right: Map -->
-      <div id="map-container">
-        <div id="map"></div>
-      </div>
+      <div id="modal-map"></div>
+      <button id="modal-download" class="download-button">View Curated Plant List</button>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer>
-    <h3>Find out more</h3>
-    <p>Gardener &amp; Son</p>
-    <p>Garden Design / Heirloom &amp; Foraged Garden Objects.</p>
-    <p>2 Churchill Street, Mont Albert</p>
-    <p><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
-    <p>0406 059 866</p>
-    <div class="social-links">
-      <a href="#">Depop</a> |
-      <a href="#">Instagram</a> |
-      <a href="#">Studio Playlist</a>
-    </div>
-  </footer>
-
+  <!-- Leaflet & Turf -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
 </body>
 </html>
