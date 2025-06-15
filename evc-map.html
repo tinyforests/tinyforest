@@ -24,7 +24,8 @@
 
     /* Modal box */
     #evc-modal .modal-content {
-      background: #fff;
+      background: #3d4535;
+      color: #fff0dc;
       border-radius: 6px;
       max-width: 800px;
       width: 90%;
@@ -42,6 +43,7 @@
       background: transparent;
       border: none;
       font-size: 1.5em;
+      color: #fff0dc;
       cursor: pointer;
       line-height: 1;
     }
@@ -51,7 +53,7 @@
       width: 100%;
       height: 300px;
       margin: 1em 0;
-      border: 1px solid #ccc;
+      border: 1px solid #fff0dc;
       border-radius: 4px;
     }
 
@@ -59,6 +61,7 @@
     #modal-info p {
       margin: 0.2em 0;
       font-family: 'IBM Plex Mono', monospace;
+      color: #fff0dc;
     }
     /* Title line */
     #modal-info p.title {
@@ -74,14 +77,30 @@
       font-family: 'Abril Fatface', serif !important;
       font-size: 2rem !important;
       margin: 0.1em 0 1em !important;
-      color: #3d4535 !important;
+      color: #fff0dc !important;
     }
 
     /* Description */
     #modal-info p.description {
       font-style: italic;
-      color: #555;
+      color: #fff0dc;
       margin-bottom: 1em;
+    }
+
+    /* Download button */
+    #modal-download {
+      background: #fff0dc;
+      color: #3d4535;
+      border: none;
+      padding: 0.8em 1.2em;
+      border-radius: 4px;
+      cursor: pointer;
+      font-family: 'IBM Plex Mono', monospace;
+      font-weight: bold;
+      margin-top: 1em;
+    }
+    #modal-download:hover {
+      background: #e0e0e0;
     }
   </style>
 </head>
@@ -109,7 +128,7 @@
         <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
       </div>
       <div id="modal-map"></div>
-      <button id="modal-download" class="download-button">View Curated Plant List</button>
+      <button id="modal-download">View Curated Plant List</button>
     </div>
   </div>
 
