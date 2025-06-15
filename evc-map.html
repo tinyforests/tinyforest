@@ -6,8 +6,8 @@
   <title>Find Your Ecological Garden</title>
   <link rel="stylesheet" href="styles.css"/>
 
-  <!-- Modal CSS (or move into styles.css) -->
   <style>
+    /* Modal backdrop */
     #evc-modal {
       display: none;
       position: fixed;
@@ -18,6 +18,7 @@
       align-items: center;
       z-index: 2000;
     }
+    /* Modal box */
     #evc-modal .modal-content {
       background: #fff;
       border-radius: 6px;
@@ -29,6 +30,7 @@
       position: relative;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
+    /* Close button */
     #evc-modal .close-btn {
       position: absolute;
       top: 0.5em; right: 0.5em;
@@ -38,6 +40,7 @@
       cursor: pointer;
       line-height: 1;
     }
+    /* Map inside modal */
     #modal-map {
       width: 100%;
       height: 300px;
@@ -45,6 +48,7 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
+    /* Info styling */
     #modal-info p {
       margin: 0.4em 0;
     }
@@ -72,7 +76,7 @@
     <div class="modal-content">
       <button class="close-btn" id="modal-close">&times;</button>
       <div id="modal-info">
-        <p><strong>Your EVC:</strong> <span id="modal-evc-name"></span></p>
+        <p><strong>Your Ecological Vegetation is:</strong> <span id="modal-evc-name"></span></p>
         <p class="description" id="modal-evc-description"></p>
         <p><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
