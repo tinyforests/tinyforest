@@ -3,13 +3,13 @@
 let modalMap, marker, currentEvcCode;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize the modal map
+  // Initialize modal map
   modalMap = L.map("modal-map", { zoomControl: false }).setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
 
-  // Address form submit
+  // Handle address form submit
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     searchEVC();
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // Download list button
+  // “View Curated Plant List” button
   document.getElementById("modal-download").addEventListener("click", () => {
     if (currentEvcCode) {
       window.location.href = `curated-plants.html?evcCode=${encodeURIComponent(currentEvcCode)}`;
@@ -32,8 +32,7 @@ function searchEVC() {
   const addr = document.getElementById("address-input").value.trim();
   if (!addr) return alert("Please enter an address.");
 
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}`;
-  fetch(url)
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}`)
     .then(r => r.json())
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
@@ -72,7 +71,7 @@ function fetchEVCData(lat, lon) {
 }
 
 function showModal(name, status, bioregion, code, lat, lon) {
-  // Populate text fields
+  // Populate modal text
   document.getElementById("modal-evc-name").textContent = name;
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
@@ -89,11 +88,11 @@ function showModal(name, status, bioregion, code, lat, lon) {
       document.getElementById("modal-evc-description").textContent = "";
     });
 
-  // Update and show modal map
+  // Center and mark modal map
   modalMap.setView([lat, lon], 12);
   if (marker) modalMap.removeLayer(marker);
   marker = L.marker([lat, lon]).addTo(modalMap);
 
-  // Show modal
+  // Show the modal
   document.getElementById("evc-modal").style.display = "flex";
 }
