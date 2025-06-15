@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
 
-  // Search form
+  // Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     searchEVC();
@@ -20,9 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // Email form
-  document.getElementById("email-form").addEventListener("submit", e => {
-    e.preventDefault();
+  // Send List button
+  document.getElementById("email-submit").addEventListener("click", () => {
     loadPlantList();
   });
 });
@@ -39,8 +38,8 @@ function searchEVC() {
       fetchEVCData(+lat, +lon);
     })
     .catch(err => {
-      console.error(err);
       alert(err.message || "Error finding that address.");
+      console.error(err);
     });
 }
 
@@ -64,8 +63,8 @@ function fetchEVCData(lat, lon) {
       showModal(x_evcname, evc_bcs_desc, bioregion, evc, lat, lon);
     })
     .catch(err => {
-      console.error(err);
       alert(err.message || "Error retrieving EVC data.");
+      console.error(err);
     });
 }
 
@@ -73,7 +72,7 @@ function showModal(name, status, bioregion, code, lat, lon) {
   document.getElementById("modal-evc-name").textContent = name;
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
-  document.getElementById("modal-plants").innerHTML = "";  // clear old list
+  document.getElementById("modal-plants").innerHTML = "";   // clear previous
   document.getElementById("email-input").value = "";
 
   // Load description
@@ -82,27 +81,26 @@ function showModal(name, status, bioregion, code, lat, lon) {
     .then(json => {
       document.getElementById("modal-evc-description").textContent = json[code]?.description || "";
     })
-    .catch(err => {
-      console.error("Could not load description:", err);
-      document.getElementById("modal-evc-description").textContent = "";
-    });
+    .catch(err => console.error("Desc load failed:", err));
 
-  // Center map
+  // Center the map
   modalMap.setView([lat, lon], 12);
   if (marker) modalMap.removeLayer(marker);
   marker = L.marker([lat, lon]).addTo(modalMap);
 
+  // Show modal
   document.getElementById("evc-modal").style.display = "flex";
 }
 
 function loadPlantList() {
   if (!currentEvcCode) return;
+
   fetch("curated-plants.json")
     .then(r => r.json())
     .then(json => {
       const entry = json[currentEvcCode];
       const container = document.getElementById("modal-plants");
-      container.innerHTML = ""; 
+      container.innerHTML = "";
       entry.recommendations.forEach(layer => {
         const div = document.createElement("div");
         div.className = "layer";
@@ -119,7 +117,5 @@ function loadPlantList() {
         container.appendChild(div);
       });
     })
-    .catch(err => {
-      console.error("Failed to load plant list:", err);
-    });
+    .catch(err => console.error("Plant list load failed:", err));
 }
