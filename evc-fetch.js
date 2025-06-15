@@ -61,7 +61,7 @@ function fetchEVCData(lat, lon) {
         turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
       ) || data.features[0];
 
-      const { x_evcname, evc, evc_bcs_desc, bioregion } = feat.properties;
+      const { x_evcname, evc_bcs_desc, bioregion, evc } = feat.properties;
       currentEvcCode = evc || "";
       showModal(x_evcname, evc_bcs_desc, bioregion, evc, lat, lon);
     })
@@ -76,7 +76,6 @@ function showModal(name, status, bioregion, code, lat, lon) {
   document.getElementById("modal-evc-name").textContent = name;
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
-  document.getElementById("modal-evc-code").textContent = code;
 
   // Load description from curated-plants.json
   fetch("curated-plants.json")
