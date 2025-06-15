@@ -21,7 +21,6 @@
       align-items: center;
       z-index: 2000;
     }
-
     /* Modal box */
     #evc-modal .modal-content {
       background: #3d4535;
@@ -35,7 +34,6 @@
       position: relative;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
-
     /* Close button */
     #evc-modal .close-btn {
       position: absolute;
@@ -47,7 +45,6 @@
       cursor: pointer;
       line-height: 1;
     }
-
     /* Map inside modal */
     #modal-map {
       width: 100%;
@@ -56,14 +53,12 @@
       border: 1px solid #fff0dc;
       border-radius: 4px;
     }
-
     /* Info styling */
     #modal-info p {
       margin: 0.2em 0;
       font-family: 'IBM Plex Mono', monospace;
       color: #fff0dc;
     }
-    /* Title line */
     #modal-info p.title {
       font-style: italic;
       font-weight: 300;
@@ -71,36 +66,59 @@
       line-height: 1.2em;
       margin-bottom: 0.1em;
     }
-
-    /* EVC name styling in Abril Fatface */
+    /* EVC name */
     #modal-evc-name {
       font-family: 'Abril Fatface', serif !important;
       font-size: 2rem !important;
       margin: 0.1em 0 1em !important;
       color: #fff0dc !important;
     }
-
     /* Description */
     #modal-info p.description {
       font-style: italic;
-      color: #fff0dc;
       margin-bottom: 1em;
     }
-
-    /* Download button */
-    #modal-download {
+    /* Email form */
+    #email-form {
+      margin: 1em 0;
+      display: flex;
+      gap: 0.5em;
+    }
+    #email-input {
+      flex: 1;
+      padding: 0.6em;
+      border: 1px solid #fff0dc;
+      border-radius: 4px;
+      background: transparent;
+      color: #fff0dc;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+    #email-submit {
+      padding: 0.6em 1em;
       background: #fff0dc;
       color: #3d4535;
       border: none;
-      padding: 0.8em 1.2em;
       border-radius: 4px;
-      cursor: pointer;
       font-family: 'IBM Plex Mono', monospace;
       font-weight: bold;
+      cursor: pointer;
+    }
+    #email-submit:hover {
+      background: #e0e0e0;
+    }
+    /* Plants list */
+    #modal-plants .layer {
       margin-top: 1em;
     }
-    #modal-download:hover {
-      background: #e0e0e0;
+    #modal-plants .layer h3 {
+      margin-bottom: 0.3em;
+      color: #fff0dc;
+    }
+    #modal-plants ul {
+      padding-left: 1.2em;
+    }
+    #modal-plants li {
+      margin-bottom: 0.2em;
     }
   </style>
 </head>
@@ -126,9 +144,19 @@
         <p class="description" id="modal-evc-description"></p>
         <p><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
+
+        <!-- Email capture -->
+        <p>Enter your email address to receive your curated plant list.</p>
+        <form id="email-form">
+          <input type="email" id="email-input" placeholder="you@example.com" required/>
+          <button type="submit" id="email-submit">Send List</button>
+        </form>
       </div>
+
+      <!-- Placeholder for plant recommendations -->
+      <div id="modal-plants"></div>
+
       <div id="modal-map"></div>
-      <button id="modal-download">View Curated Plant List</button>
     </div>
   </div>
 
