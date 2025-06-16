@@ -288,33 +288,36 @@ footer a:hover {
   margin-bottom: 0.2em;
 }
 
-/* Email capture */
+/* =======================
+   EMAIL FORM STYLES
+   ======================= */
 #email-section {
-  margin: 1em 0;
-}
-#email-section p {
-  margin: 0.4em 0;
-  font-family: 'IBM Plex Mono', monospace;
-  color: #fff0dc;
+  display: flex;
+  width: 100%;
+  gap: 1em;
+  margin: 1.5em 0;
+  box-sizing: border-box;
 }
 #email-input {
-  padding: 0.6em;
-  border: 1px solid #fff0dc;
-  border-radius: 4px;
+  flex: 3;
+  min-width: 0;
+  padding: 1em;
+  font-size: 1.1em;
+  border: 2px solid #fff0dc;
+  border-radius: 6px;
   background: transparent;
   color: #fff0dc;
   font-family: 'IBM Plex Mono', monospace;
 }
 #email-submit {
-  padding: 0.6em 1em;
+  flex: 1;
+  padding: 1em;
+  font-size: 1.1em;
   background: #fff0dc;
   color: #3d4535;
+  border-radius: 6px;
   border: none;
-  border-radius: 4px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-weight: bold;
   cursor: pointer;
-  margin-left: 0.5em;
 }
 #email-submit:hover {
   background: #e0e0e0;
@@ -339,7 +342,7 @@ footer a:hover {
     margin-bottom: 20px;
   }
 
-  /* Stack and enlarge form */
+  /* Stack and enlarge search form */
   #address-form {
     flex-direction: column;
     gap: 0.8em;
@@ -366,24 +369,14 @@ footer a:hover {
 
   /* Modal email form enhancements */
   #email-section {
-    display: flex;
     flex-direction: column;
-    gap: 1em;
-    margin: 1.5em 0;
   }
-  #email-input {
-    width: 100%;
-    padding: 1em;
-    font-size: 1.2em;
-    border: 2px solid #fff0dc;
-    border-radius: 6px;
-  }
+  #email-input,
   #email-submit {
     width: 100%;
+    flex: none;
     padding: 1em;
     font-size: 1.2em;
-    border-radius: 6px;
-    margin-left: 0;
   }
 
   /* Reduce modal-content padding */
