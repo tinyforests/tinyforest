@@ -88,66 +88,14 @@ nav a:hover {
 }
 
 /* =======================
-   EVC DETAILS SECTION
-   ======================= */
-#evc-info {
-  margin-top: 20px;
-  font-size: 1.1em;
-  text-align: center;
-}
-#evc-details {
-  background-color: transparent;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: none;
-  margin: 20px auto;
-  text-align: left;
-  max-width: 800px;
-}
-
-/* =======================
-   PURCHASE BUTTON (DOWNLOAD BUTTON)
-   ======================= */
-.download-button {
-  display: none; /* Initially hidden */
-  padding: 10px 20px;
-  background-color: #3d4535;
-  color: #fff0dc;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-  margin: 10px auto;
-}
-.download-button:hover {
-  background-color: #2f3928;
-}
-
-/* =======================
-   MAP SECTION
-   ======================= */
-#map-container {
-  width: 100%;
-  height: 400px;
-}
-#map {
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-  background-color: #e0e0e0;
-}
-
-/* =======================
-   GRID LAYOUT FOR EVC MAP PAGE
+   EVC DETAILS GRID LAYOUT
    ======================= */
 #evc-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
-  background-color: #3D4535;
-  color: #FFF0DC;
+  background-color: #3d4535;
+  color: #fff0dc;
   padding: 20px;
   margin-top: 20px;
 }
@@ -157,11 +105,20 @@ nav a:hover {
   justify-content: center;
   padding: 20px;
 }
-/* Override download-button within grid */
+#map-container {
+  width: 100%;
+  height: 400px;
+}
+#map {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+}
 #evc-details-container .download-button {
   margin-top: 20px;
-  background-color: #FFF0DC;
-  color: #3D4535;
+  background-color: #fff0dc;
+  color: #3d4535;
 }
 #evc-details-container .download-button:hover {
   background-color: #e0e0e0;
@@ -194,6 +151,25 @@ nav a:hover {
   border-radius: 4px;
   font-size: 1rem;
   text-align: left;
+}
+
+/* =======================
+   PURCHASE BUTTON
+   ======================= */
+.download-button {
+  display: none;
+  padding: 10px 20px;
+  background-color: #3d4535;
+  color: #fff0dc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  margin: 10px auto;
+}
+.download-button:hover {
+  background-color: #2f3928;
 }
 
 /* =======================
@@ -237,6 +213,114 @@ footer a:hover {
 }
 
 /* =======================
+   MODAL STYLES
+   ======================= */
+#evc-modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+#evc-modal .modal-content {
+  background: #3d4535;
+  color: #fff0dc;
+  border-radius: 6px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90%;
+  overflow-y: auto;
+  padding: 1.5em;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+#evc-modal .close-btn {
+  position: absolute;
+  top: 0.5em; right: 0.5em;
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  color: #fff0dc;
+  cursor: pointer;
+}
+#modal-info p {
+  margin: 0.2em 0;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #fff0dc;
+}
+#modal-info p.title {
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.2em;
+  margin-bottom: 0.1em;
+}
+#modal-evc-name {
+  font-family: 'Abril Fatface', serif;
+  font-size: 2rem;
+  margin: 0.1em 0 1em;
+  color: #fff0dc;
+}
+#modal-info p.description {
+  font-style: italic;
+  margin-bottom: 1em;
+}
+#modal-map {
+  width: 100%;
+  height: 300px;
+  margin: 1em 0;
+  border: 1px solid #fff0dc;
+  border-radius: 4px;
+}
+#modal-plants .layer {
+  margin-top: 1em;
+}
+#modal-plants .layer h3 {
+  margin-bottom: 0.3em;
+  color: #fff0dc;
+}
+#modal-plants ul {
+  padding-left: 1.2em;
+}
+#modal-plants li {
+  margin-bottom: 0.2em;
+}
+
+/* Email capture */
+#email-section {
+  margin: 1em 0;
+}
+#email-section p {
+  margin: 0.4em 0;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #fff0dc;
+}
+#email-input {
+  padding: 0.6em;
+  border: 1px solid #fff0dc;
+  border-radius: 4px;
+  background: transparent;
+  color: #fff0dc;
+  font-family: 'IBM Plex Mono', monospace;
+}
+#email-submit {
+  padding: 0.6em 1em;
+  background: #fff0dc;
+  color: #3d4535;
+  border: none;
+  border-radius: 4px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 0.5em;
+}
+#email-submit:hover {
+  background: #e0e0e0;
+}
+
+/* =======================
    MOBILE / RESPONSIVE STYLES
    ======================= */
 @media (max-width: 600px) {
@@ -257,11 +341,8 @@ footer a:hover {
 
   /* Stack and enlarge form */
   #address-form {
-    display: flex;
     flex-direction: column;
     gap: 0.8em;
-    align-items: stretch;
-    margin-bottom: 1.5em;
   }
   #address-input,
   #search-button {
@@ -283,27 +364,29 @@ footer a:hover {
     line-height: 1.2em;
   }
 
-  /* Adjust input width margin cleanup */
-  input[type="text"] {
-    margin: 0;
-  }
-
-  /* =======
-     Modal email form responsive
-     ======= */
+  /* Modal email form enhancements */
   #email-section {
     display: flex;
     flex-direction: column;
-    gap: 0.75em;
+    gap: 1em;
+    margin: 1.5em 0;
   }
-  #email-input,
+  #email-input {
+    width: 100%;
+    padding: 1em;
+    font-size: 1.2em;
+    border: 2px solid #fff0dc;
+    border-radius: 6px;
+  }
   #email-submit {
     width: 100%;
-    box-sizing: border-box;
-    font-size: 1.1em;
-    padding: 0.8em;
+    padding: 1em;
+    font-size: 1.2em;
+    border-radius: 6px;
+    margin-left: 0;
   }
-  /* Slightly reduce modal-content padding */
+
+  /* Reduce modal-content padding */
   #evc-modal .modal-content {
     padding: 1em;
   }
