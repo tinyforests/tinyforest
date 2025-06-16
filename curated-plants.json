@@ -1,6 +1,6 @@
 {
   "175": {
-    "description": "EVC 175 is characterized by moist, temperate conditions with fertile soils. For a 10 sqm area using the Miyawaki method, dense planting is required to rapidly restore biodiversity. The recommendations below are grouped into life form categories.",
+    "description": "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
     "recommendations": [
       {
         "layer": "Tree Canopy",
@@ -444,122 +444,122 @@
         ]
       },
       {
-        "layer": "Large Non-tufted Graminoid (LNG)",  
-        "plants": [  
-          "Tetrarrhena juncea (Forest Wire-grass)"  
-        ]  
-      },  
-      {  
-        "layer": "Medium to Small Tufted Graminoid (MTG)",  
-        "plants": [  
-          "Lepidosperma concavum (Sandhill Sword-sedge)",  
-          "Dianella revoluta s.l. (Black-anther Flax-lily)",  
-          "Lomandra filiformis (Wattle-headed Mat-rush)",  
-          "Poa sieberiana (Grey Tussock-grass)"  
-        ]  
-      },  
-      {  
-        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",  
-        "plants": [  
-          "Microlaena stipoides var. stipoides (Weeping Grass)"  
-        ]  
-      },  
-      {  
-        "layer": "Ground Fern (GF)",  
-        "plants": [  
-          "Pteridium esculentum (Austral Bracken)"  
-        ]  
-      }  
-    ]  
-  },  
-  "7": {  
-    "description": "EVC 7: Clay Heathland – Gippsland Plain is characterized by clay soils and a woodland overstorey of Swamp Stringybark and Saw Banksia (10% cover) over a rich understorey (~75% cover).",  
-    "recommendations": [  
-      {  
-        "layer": "Tree Canopy",  
-        "plants": [  
-          "Eucalyptus conspicua (Swamp Stringybark)",  
-          "Banksia serrata (Saw Banksia)"  
-        ]  
-      },  
-      {  
-        "layer": "Medium Shrub (MS)",  
-        "plants": [  
-          "Allocasuarina paludosa (Scrub Sheoak)",  
-          "Leptospermum continentale (Prickly Tea-tree)",  
-          "Epacris impressa (Common Heath)",  
-          "Hakea teretifolia ssp. hirsuta (Dagger Hakea)"  
-        ]  
-      },  
-      {  
-        "layer": "Small Shrub (SS)",  
-        "plants": [  
-          "Dampiera stricta (Blue Dampiera)",  
-          "Dillwynia sericea s.l. (Showy Parrot-pea)",  
-          "Hibbertia empetrifolia s.l. (Tangled Guinea-flower)",  
-          "Sphaerolobium vimineum s.l. (Leafless Globe-pea)"  
-        ]  
-      },  
-      {  
-        "layer": "Prostrate Shrub (PS)",  
-        "plants": [  
-          "Xanthosia pusilla spp. agg. (Heath Xanthosia)"  
-        ]  
-      },  
-      {  
-        "layer": "Large Herb (LH)",  
-        "plants": [  
-          "Euphrasia collina (Purple Eyebright)",  
-          "Hybanthus vernonii ssp. vernonii (Erect Violet)"  
-        ]  
-      },  
-      {  
-        "layer": "Medium Herb (MH)",  
-        "plants": [  
-          "Gonocarpus teucrioides s.l. (Germander Raspwort)",  
-          "Drosera peltata ssp. auriculata (Tall Sundew)",  
-          "Helichrysum scorpioides (Button Everlasting)"  
-        ]  
-      },  
-      {  
-        "layer": "Small Herb (SH)",  
-        "plants": [  
-          "Opercularia varia (Variable Stinkweed)",  
-          "Drosera pygmaea (Tiny Sundew)"  
-        ]  
-      },  
-      {  
-        "layer": "Large Tufted Graminoid (LTG)",  
-        "plants": [  
-          "Anisopogon avenaceus (Oat Spear-grass)",  
-          "Xanthorrhoea resinosa (Spear Grass-tree)",  
-          "Deyeuxia quadriseta (Reed Bent-grass)"  
-        ]  
-      },  
-      {  
-        "layer": "Medium to Small Tufted Graminoid (MTG)",  
-        "plants": [  
-          "Themeda triandra (Kangaroo Grass)",  
-          "Patersonia sericea (Silky Purple-flag)",  
-          "Lomandra filiformis (Wattle Mat-rush)",  
-          "Patersonia glabrata (Leafy Purple-flag)"  
-        ]  
-      },  
-      {  
-        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",  
-        "plants": [  
-          "Schoenus brevifolius (Zig-zag Bog-sedge)",  
-          "Lepidosperma neesii (Stiff Rapier-sedge)",  
-          "Entolasia marginata (Bordered Panic)",  
-          "Schoenus lepidosperma (Slender Bog-sedge)"  
-        ]  
-      },  
-      {  
-        "layer": "Ground Fern (GF)",  
-        "plants": [  
-          "Lindsaea linearis (Screw Fern)"  
-        ]  
-      }  
-    ]  
-  }  
+        "layer": "Large Non-tufted Graminoid (LNG)",
+        "plants": [
+          "Tetrarrhena juncea (Forest Wire-grass)"
+        ]
+      },
+      {
+        "layer": "Medium to Small Tufted Graminoid (MTG)",
+        "plants": [
+          "Lepidosperma concavum (Sandhill Sword-sedge)",
+          "Dianella revoluta s.l. (Black-anther Flax-lily)",
+          "Lomandra filiformis (Wattle-headed Mat-rush)",
+          "Poa sieberiana (Grey Tussock-grass)"
+        ]
+      },
+      {
+        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",
+        "plants": [
+          "Microlaena stipoides var. stipoides (Weeping Grass)"
+        ]
+      },
+      {
+        "layer": "Ground Fern (GF)",
+        "plants": [
+          "Pteridium esculentum (Austral Bracken)"
+        ]
+      }
+    ]
+  },
+  "7": {
+    "description": "EVC 7: Clay Heathland – Gippsland Plain is characterized by clay soils and a woodland overstorey of Swamp Stringybark and Saw Banksia (10% cover) over a rich understorey (~75% cover).",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Eucalyptus conspicua (Swamp Stringybark)",
+          "Banksia serrata (Saw Banksia)"
+        ]
+      },
+      {
+        "layer": "Medium Shrub (MS)",
+        "plants": [
+          "Allocasuarina paludosa (Scrub Sheoak)",
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Epacris impressa (Common Heath)",
+          "Hakea teretifolia ssp. hirsuta (Dagger Hakea)"
+        ]
+      },
+      {
+        "layer": "Small Shrub (SS)",
+        "plants": [
+          "Dampiera stricta (Blue Dampiera)",
+          "Dillwynia sericea s.l. (Showy Parrot-pea)",
+          "Hibbertia empetrifolia s.l. (Tangled Guinea-flower)",
+          "Sphaerolobium vimineum s.l. (Leafless Globe-pea)"
+        ]
+      },
+      {
+        "layer": "Prostrate Shrub (PS)",
+        "plants": [
+          "Xanthosia pusilla spp. agg. (Heath Xanthosia)"
+        ]
+      },
+      {
+        "layer": "Large Herb (LH)",
+        "plants": [
+          "Euphrasia collina (Purple Eyebright)",
+          "Hybanthus vernonii ssp. vernonii (Erect Violet)"
+        ]
+      },
+      {
+        "layer": "Medium Herb (MH)",
+        "plants": [
+          "Gonocarpus teucrioides s.l. (Germander Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)",
+          "Helichrysum scorpioides (Button Everlasting)"
+        ]
+      },
+      {
+        "layer": "Small Herb (SH)",
+        "plants": [
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera pygmaea (Tiny Sundew)"
+        ]
+      },
+      {
+        "layer": "Large Tufted Graminoid (LTG)",
+        "plants": [
+          "Anisopogon avenaceus (Oat Spear-grass)",
+          "Xanthorrhoea resinosa (Spear Grass-tree)",
+          "Deyeuxia quadriseta (Reed Bent-grass)"
+        ]
+      },
+      {
+        "layer": "Medium to Small Tufted Graminoid (MTG)",
+        "plants": [
+          "Themeda triandra (Kangaroo Grass)",
+          "Patersonia sericea (Silky Purple-flag)",
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Patersonia glabrata (Leafy Purple-flag)"
+        ]
+      },
+      {
+        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",
+        "plants": [
+          "Schoenus brevifolius (Zig-zag Bog-sedge)",
+          "Lepidosperma neesii (Stiff Rapier-sedge)",
+          "Entolasia marginata (Bordered Panic)",
+          "Schoenus lepidosperma (Slender Bog-sedge)"
+        ]
+      },
+      {
+        "layer": "Ground Fern (GF)",
+        "plants": [
+          "Lindsaea linearis (Screw Fern)"
+        ]
+      }
+    ]
+  }
 }
