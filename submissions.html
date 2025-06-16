@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Submissions Log</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    body { padding: 2em; font-family: "IBM Plex Mono", monospace; color: #3d4535; }
+    h1 { font-family: "Abril Fatface", serif; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
+    th { background: #3d4535; color: #fff0dc; }
+  </style>
+</head>
+<body>
+  <h1>Address & Email Submissions</h1>
+  <p>This table shows all lookups & emails you've captured in this browser.</p>
+  <table id="subs-table">
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>Address</th>
+        <th>EVC Code</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const tbody = document.querySelector("#subs-table tbody");
+    const submissions = JSON.parse(localStorage.getItem("tinyforest_submissions") || "[]");
+    if (!submissions.length) {
+      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No submissions yet.</td></tr>`;
+    } else {
+      submissions.forEach(sub => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${new Date(sub.timestamp).toLocaleString()}</td>
+          <td>${sub.address}</td>
+          <td>${sub.evcCode}</td>
+          <td>${sub.email}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+  </script>
+</body>
+</html>
