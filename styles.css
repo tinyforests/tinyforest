@@ -287,4 +287,24 @@ footer a:hover {
   input[type="text"] {
     margin: 0;
   }
+
+  /* =======
+     Modal email form responsive
+     ======= */
+  #email-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75em;
+  }
+  #email-input,
+  #email-submit {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1.1em;
+    padding: 0.8em;
+  }
+  /* Slightly reduce modal-content padding */
+  #evc-modal .modal-content {
+    padding: 1em;
+  }
 }
