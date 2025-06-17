@@ -50,7 +50,11 @@ nav a:hover {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
   color: #3d4535;
+  line-height: 1.2em;
   margin-bottom: 10px;
+}
+#container p {
+  font-family: "IBM Plex Mono", monospace;
 }
 
 /* =======================
@@ -236,7 +240,6 @@ footer a:hover {
   overflow-y: auto;
   padding: 1.5em;
   position: relative;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 #evc-modal .close-btn {
   position: absolute;
@@ -248,28 +251,44 @@ footer a:hover {
   color: #fff0dc;
   cursor: pointer;
 }
-#modal-info p {
-  margin: 0.2em 0;
-  font-family: 'IBM Plex Mono', monospace;
-  color: #fff0dc;
-}
+
+/* Modal title label */
 #modal-info p.title {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 18px;
   font-style: italic;
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.2em;
-  margin-bottom: 0.1em;
+  color: #888888;
+  margin-bottom: 0.5em;
 }
+
+/* EVC name in Abril Fatface */
 #modal-evc-name {
   font-family: 'Abril Fatface', serif;
   font-size: 2rem;
-  margin: 0.1em 0 1em;
   color: #fff0dc;
+  margin: 0 0 0.5em;
 }
-#modal-info p.description {
-  font-style: italic;
-  margin-bottom: 1em;
+
+/* Status & Bioregion */
+#modal-info p.status,
+#modal-info p.region {
+  font-family: 'IBM Plex Mono', monospace;
+  color: #fff0dc;
+  margin: 0.2em 0;
 }
+
+/* EVC description in #888888 */
+#modal-evc-description {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 500;
+  font-size: 21px;
+  color: #888888;
+  margin: 0.5em 0 1em;
+  font-style: normal;
+}
+
+/* Modal map */
 #modal-map {
   width: 100%;
   height: 300px;
@@ -277,12 +296,14 @@ footer a:hover {
   border: 1px solid #fff0dc;
   border-radius: 4px;
 }
+
+/* Plant list */
 #modal-plants .layer {
   margin-top: 1em;
 }
 #modal-plants .layer h3 {
-  margin-bottom: 0.3em;
   color: #fff0dc;
+  margin-bottom: 0.3em;
 }
 #modal-plants ul {
   padding-left: 1.2em;
@@ -292,34 +313,40 @@ footer a:hover {
 }
 
 /* =======================
-   EMAIL FORM STYLES (original look)
+   EMAIL FORM STYLES
    ======================= */
 #email-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
   margin: 1em 0;
 }
 #email-section p {
-  margin: 0.4em 0;
   font-family: 'IBM Plex Mono', monospace;
   color: #fff0dc;
+  font-size: 1.1em;
+  padding-left: 0.25em;
+}
+#email-input,
+#email-submit {
+  width: 100%;
+  padding: 0.8em;
+  font-size: 1.1em;
+  border-radius: 6px;
+  box-sizing: border-box;
 }
 #email-input {
-  padding: 0.6em;
-  border: 1px solid #fff0dc;
-  border-radius: 4px;
+  border: 2px solid #fff0dc;
   background: transparent;
   color: #fff0dc;
-  font-family: 'IBM Plex Mono', monospace;
 }
 #email-submit {
-  padding: 0.6em 1em;
   background: #fff0dc;
   color: #3d4535;
   border: none;
-  border-radius: 4px;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: "IBM Plex Mono", monospace;
   font-weight: bold;
   cursor: pointer;
-  margin-left: 0.5em;
 }
 #email-submit:hover {
   background: #e0e0e0;
@@ -369,7 +396,7 @@ footer a:hover {
     line-height: 1.2em;
   }
 
-  /* Modal email form on mobile */
+  /* Modal email form */
   #email-section {
     flex-direction: column;
   }
