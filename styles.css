@@ -247,7 +247,6 @@ footer a:hover {
   font-size: 1.5em;
   color: #fff0dc;
   cursor: pointer;
-  width: auto;              /* override any full-width rule */
 }
 #modal-info p {
   margin: 0.2em 0;
@@ -293,37 +292,37 @@ footer a:hover {
 }
 
 /* =======================
-   EMAIL FORM STYLES (MATCH MAP PAGE)
+   EMAIL FORM STYLES (original look)
    ======================= */
 #email-section {
-  display: flex;
-  width: 100%;
-  gap: 1em;
-  margin: 1.5em 0;
-  box-sizing: border-box;
+  margin: 1em 0;
+}
+#email-section p {
+  margin: 0.4em 0;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #fff0dc;
 }
 #email-input {
-  padding: 8px;
-  width: 300px;
-  border: 1px solid #3d4535;
+  padding: 0.6em;
+  border: 1px solid #fff0dc;
   border-radius: 4px;
-  font-family: "IBM Plex Mono", monospace;
-  color: #3d4535;
-  background: #fff;
-  box-sizing: border-box;
+  background: transparent;
+  color: #fff0dc;
+  font-family: 'IBM Plex Mono', monospace;
 }
 #email-submit {
-  padding: 10px 20px;
-  background-color: #3d4535;
-  color: #fff0dc;
+  padding: 0.6em 1em;
+  background: #fff0dc;
+  color: #3d4535;
   border: none;
   border-radius: 4px;
-  cursor: pointer;
+  font-family: 'IBM Plex Mono', monospace;
   font-weight: bold;
-  font-family: "IBM Plex Mono", monospace;
+  cursor: pointer;
+  margin-left: 0.5em;
 }
 #email-submit:hover {
-  background-color: #2f3928;
+  background: #e0e0e0;
 }
 
 /* =======================
@@ -359,6 +358,7 @@ footer a:hover {
   }
 
   /* Full-width buttons */
+  button,
   .download-button {
     width: 100%;
   }
