@@ -11,7 +11,8 @@
 
   <style>
     /* ====== Modal Styles ====== */
-    #evc-modal { display: none; position: fixed; top:0; left:0; right:0; bottom:0;
+    #evc-modal { 
+      display: none; position: fixed; top:0; left:0; right:0; bottom:0;
       background: rgba(0,0,0,0.6); justify-content:center; align-items:center; z-index:2000;
     }
     #evc-modal .modal-content {
@@ -25,17 +26,17 @@
       color:#fff0dc; cursor:pointer;
     }
 
-    /* Title “Your Ecological Vegetation is:” */
+    /* “Your Ecological Vegetation is:” label */
     #modal-info p.title {
       font-family:'IBM Plex Mono', monospace; font-weight:500;
       font-size:18px; font-style:italic; color:#888888;
       margin-bottom:0.5em;
     }
 
-    /* EVC name */
+    /* EVC name styled in Abril Fatface */
     #modal-evc-name {
-      font-family:'Abril Fatface', serif; font-size:2rem;
-      color:#fff0dc; margin:0 0 0.5em;
+      font-family:'Abril Fatface', serif;
+      font-size:2rem; color:#fff0dc; margin:0 0 0.5em;
     }
 
     /* Status & Bioregion */
@@ -44,20 +45,20 @@
       margin:0.2em 0;
     }
 
-    /* Description */
+    /* Description in #888888 */
     #modal-evc-description {
       font-family:'IBM Plex Mono', monospace; font-weight:500;
       font-size:21px; color:#888888; margin:0.5em 0 1em;
       font-style:normal;
     }
 
-    /* Map */
+    /* Map container */
     #modal-map {
       width:100%; height:300px; margin:1em 0;
       border:1px solid #fff0dc; border-radius:4px;
     }
 
-    /* Plants */
+    /* Plant list */
     #modal-plants .layer { margin-top:1em; }
     #modal-plants .layer h3 { color:#fff0dc; margin-bottom:0.3em; }
     #modal-plants ul { padding-left:1.2em; }
