@@ -10,12 +10,12 @@
   <link rel="stylesheet" href="styles.css"/>
 
   <style>
-    /* ====== Override main heading style ====== */
+    /* Override main heading style */
     #container h2 {
       line-height: 1.2em;
     }
 
-    /* ====== Modal Styles (with updated title) ====== */
+    /* Modal Styles */
     #evc-modal {
       display: none;
       position: fixed;
@@ -46,7 +46,8 @@
       color: #fff0dc;
       cursor: pointer;
     }
-    /* NEW: Modal title styling */
+
+    /* Modal title label */
     #modal-info p.title {
       font-family: 'IBM Plex Mono', monospace;
       font-weight: 500;
@@ -55,15 +56,19 @@
       margin-bottom: 0.5em;
       font-style: normal;
     }
-    #modal-info p {
-      margin: 0.2em 0;
-      font-family: 'IBM Plex Mono', monospace;
-      color: #fff0dc;
-    }
+
+    /* EVC name itself */
     #modal-evc-name {
       font-family: 'Abril Fatface', serif;
       font-size: 2rem;
       margin: 0.1em 0 1em;
+      color: #fff0dc;
+    }
+
+    #modal-info p {
+      margin: 0.2em 0;
+      font-family: 'IBM Plex Mono', monospace;
+      color: #fff0dc;
     }
     #modal-info p.description {
       font-style: italic;
@@ -76,20 +81,104 @@
       border: 1px solid #fff0dc;
       border-radius: 4px;
     }
-    #modal-plants .layer {
-      margin-top: 1em;
-    }
     #modal-plants .layer h3 {
       margin-bottom: 0.3em;
       color: #fff0dc;
     }
-    #modal-plants ul {
-      padding-left: 1.2em;
+
+    /* Mobile-friendly email form */
+    #email-section {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75em;
+      margin: 1em 0;
     }
-    #modal-plants li {
-      margin-bottom: 0.2em;
+    #email-section p {
+      font-size: 1.1em;
+      padding-left: 0.25em;
+    }
+    #email-input,
+    #email-submit {
+      width: 100%;
+      padding: 0.8em;
+      font-size: 1.1em;
+      box-sizing: border-box;
+      border-radius: 6px;
+    }
+    #email-input {
+      border: 2px solid #fff0dc;
+      background: transparent;
+      color: #fff0dc;
+    }
+    #email-submit {
+      background: #fff0dc;
+      color: #3d4535;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #email-submit:hover {
+      background: #e0e0e0;
     }
 
-    /* ===== Mobile-friendly email form ===== */
-    #email-section {
-      display: fl
+    /* Search form responsive */
+    @media (max-width: 600px) {
+      #address-form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8em;
+      }
+      #address-input,
+      #search-button {
+        width: 100%;
+        padding: 1em;
+        font-size: 1.1em;
+        box-sizing: border-box;
+      }
+      button,
+      .download-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="container">
+    <h2>Find your Ecological Vegetation.</h2>
+    <p>Enter your address to discover your EVC—and see which plants belong in your garden.</p>
+    <div id="search-container">
+      <form id="address-form">
+        <input type="text" id="address-input" placeholder="Enter your address" required/>
+        <button id="search-button" type="submit">Find My Garden</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="evc-modal">
+    <div class="modal-content">
+      <button class="close-btn" id="modal-close">&times;</button>
+      <div id="modal-info">
+        <p class="title">Your Ecological Vegetation is:</p>
+        <p id="modal-evc-name"></p>
+        <p class="description" id="modal-evc-description"></p>
+        <p><strong>Status:</strong> <span id="modal-evc-status"></span></p>
+        <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
+        <div id="email-section">
+          <p>Enter your email address to receive your curated plant list.</p>
+          <input type="email" id="email-input" placeholder="you@example.com"/>
+          <button id="email-submit">Send List</button>
+        </div>
+      </div>
+      <div id="modal-plants"></div>
+      <div id="modal-map"></div>
+    </div>
+  </div>
+
+  <!-- Leaflet & Turf -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+  <script src="evc-fetch.js"></script>
+</body>
+</html>
