@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="styles.css"/>
 
   <style>
+    /* ====== Override main heading style ====== */
+    #container h2 {
+      line-height: 1.2em;
+    }
+
     /* ====== Modal Styles (with mobile-friendly form) ====== */
     #evc-modal {
       display: none;
@@ -142,7 +147,7 @@
 </head>
 <body>
   <div id="container">
-    <h2>Welcome to the Gardener &amp; Son Ecological Vegetation Machine</h2>
+    <h2>Find your Ecological Vegetation.</h2>
     <p>Enter your address to discover your EVC—and see which plants belong in your garden.</p>
     <div id="search-container">
       <form id="address-form">
@@ -162,14 +167,12 @@
         <p class="description" id="modal-evc-description"></p>
         <p><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
-
         <div id="email-section">
           <p>Enter your email address to receive your curated plant list.</p>
           <input type="email" id="email-input" placeholder="you@example.com"/>
           <button id="email-submit">Send List</button>
         </div>
       </div>
-
       <div id="modal-plants"></div>
       <div id="modal-map"></div>
     </div>
