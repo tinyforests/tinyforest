@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
 
-  // Handle address lookup form submission
+  // Address lookup form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     searchEVC(addr);
   });
 
-  // Handle “Send List” button click (no form submission)
+  // “Send List” button
   document.getElementById("email-submit").addEventListener("click", () => {
     const email = document.getElementById("email-input").value.trim();
     if (!email) return alert("Please enter an email address.");
@@ -26,14 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
     loadPlantList();
   });
 
-  // Close the modal on × click
+  // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 });
 
 /**
- * Geocode the address and fetch EVC data
+ * Geocode the address and trigger EVC fetch
  */
 function searchEVC(address) {
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
@@ -50,7 +50,7 @@ function searchEVC(address) {
 }
 
 /**
- * Fetch EVC data from Victorian Gov API and show modal
+ * Fetch EVC polygon data and show the modal
  */
 function fetchEVCData(lat, lon) {
   const delta = 0.02;
@@ -60,9 +60,7 @@ function fetchEVCData(lat, lon) {
   fetch(url)
     .then(res => res.json())
     .then(data => {
-      if (!data.features || !data.features.length) {
-        throw new Error("No EVC data for this location.");
-      }
+      if (!data.features?.length) throw new Error("No EVC data for this location.");
       const pt = turf.point([lon, lat]);
       const feature = data.features.find(f =>
         f.geometry?.type === "Polygon" &&
@@ -80,17 +78,20 @@ function fetchEVCData(lat, lon) {
 }
 
 /**
- * Populate and display the modal with EVC info and map
+ * Populate and display the modal
+ * Appends a period to the EVC name if missing
  */
 function showModal(name, status, bioregion, code, lat, lon) {
-  // Text fields
-  document.getElementById("modal-evc-name").textContent = name;
+  // Ensure trailing period on the EVC name
+  const displayName = name.endsWith('.') ? name : name + '.';
+  document.getElementById("modal-evc-name").textContent = displayName;
+
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
-  document.getElementById("modal-plants").innerHTML = "";    // clear previous list
-  document.getElementById("email-input").value = "";         // clear email field
+  document.getElementById("modal-plants").innerHTML = "";   // clear previous list
+  document.getElementById("email-input").value = "";        // clear email field
 
-  // Load description from JSON
+  // Load description from curated-plants.json
   fetch("curated-plants.json")
     .then(res => res.json())
     .then(json => {
@@ -102,7 +103,7 @@ function showModal(name, status, bioregion, code, lat, lon) {
       document.getElementById("modal-evc-description").textContent = "";
     });
 
-  // Center and mark the map
+  // Center marker on modal map
   modalMap.setView([lat, lon], 12);
   if (marker) modalMap.removeLayer(marker);
   marker = L.marker([lat, lon]).addTo(modalMap);
@@ -112,7 +113,7 @@ function showModal(name, status, bioregion, code, lat, lon) {
 }
 
 /**
- * Load and display the curated plant list in the modal
+ * Load and render the curated plant list inside the modal
  */
 function loadPlantList() {
   if (!currentEvcCode) return;
@@ -123,20 +124,23 @@ function loadPlantList() {
       const entry = json[currentEvcCode];
       const container = document.getElementById("modal-plants");
       container.innerHTML = "";
+
       entry.recommendations.forEach(layer => {
-        const section = document.createElement("div");
-        section.className = "layer";
-        const heading = document.createElement("h3");
-        heading.textContent = layer.layer;
-        section.appendChild(heading);
+        const div = document.createElement("div");
+        div.className = "layer";
+
+        const h3 = document.createElement("h3");
+        h3.textContent = layer.layer;
+        div.appendChild(h3);
+
         const ul = document.createElement("ul");
         layer.plants.forEach(plant => {
           const li = document.createElement("li");
           li.textContent = plant;
           ul.appendChild(li);
         });
-        section.appendChild(ul);
-        container.appendChild(section);
+        div.appendChild(ul);
+        container.appendChild(div);
       });
     })
     .catch(err => {
@@ -145,7 +149,7 @@ function loadPlantList() {
 }
 
 /**
- * Save an entry of address + EVC + email to localStorage
+ * Save address + EVC code + email to localStorage
  */
 function recordSubmission(address, evcCode, email) {
   const key = "tinyforest_submissions";
