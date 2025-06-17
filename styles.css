@@ -72,6 +72,8 @@ nav a:hover {
   border-radius: 4px;
   font-family: "IBM Plex Mono", monospace;
   color: #3d4535;
+  background: #fff;
+  box-sizing: border-box;
 }
 #search-button {
   padding: 10px 20px;
@@ -289,7 +291,7 @@ footer a:hover {
 }
 
 /* =======================
-   EMAIL FORM STYLES
+   EMAIL FORM STYLES (MATCH MAP PAGE)
    ======================= */
 #email-section {
   display: flex;
@@ -299,88 +301,15 @@ footer a:hover {
   box-sizing: border-box;
 }
 #email-input {
-  flex: 3;
-  min-width: 0;
-  padding: 1em;
-  font-size: 1.1em;
-  border: 2px solid #fff0dc;
-  border-radius: 6px;
-  background: transparent;
-  color: #fff0dc;
-  font-family: 'IBM Plex Mono', monospace;
+  /* match #address-input */
+  padding: 8px;
+  width: 300px;
+  border: 1px solid #3d4535;
+  border-radius: 4px;
+  font-family: "IBM Plex Mono", monospace;
+  color: #3d4535;
+  background: #fff;
+  box-sizing: border-box;
 }
 #email-submit {
-  flex: 1;
-  padding: 1em;
-  font-size: 1.1em;
-  background: #fff0dc;
-  color: #3d4535;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-}
-#email-submit:hover {
-  background: #e0e0e0;
-}
-
-/* =======================
-   MOBILE / RESPONSIVE STYLES
-   ======================= */
-@media (max-width: 600px) {
-  /* Hide map on mobile */
-  #map-container,
-  #map {
-    display: none !important;
-  }
-
-  /* Stack EVC grid into one column */
-  #evc-grid {
-    display: block;
-  }
-  #evc-details-container {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  /* Stack and enlarge search form */
-  #address-form {
-    flex-direction: column;
-    gap: 0.8em;
-  }
-  #address-input,
-  #search-button {
-    width: 100%;
-    padding: 1em;
-    font-size: 1.1em;
-    box-sizing: border-box;
-  }
-
-  /* Full-width buttons */
-  button,
-  .download-button {
-    width: 100%;
-  }
-
-  /* Adjust heading spacing */
-  #container h2 {
-    letter-spacing: -2px;
-    line-height: 1.2em;
-  }
-
-  /* Modal email form enhancements */
-  #email-section {
-    flex-direction: column;
-  }
-  #email-input,
-  #email-submit {
-    width: 100%;
-    flex: none;
-    padding: 1em;
-    font-size: 1.2em;
-  }
-
-  /* Reduce modal-content padding */
-  #evc-modal .modal-content {
-    padding: 1em;
-  }
-}
+  /* match #search-butto*
