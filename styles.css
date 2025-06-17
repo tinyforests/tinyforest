@@ -240,12 +240,14 @@ footer a:hover {
 }
 #evc-modal .close-btn {
   position: absolute;
-  top: 0.5em; right: 0.5em;
+  top: 0.5em;
+  right: 0.5em;
   background: transparent;
   border: none;
   font-size: 1.5em;
   color: #fff0dc;
   cursor: pointer;
+  width: auto;              /* override any full-width rule */
 }
 #modal-info p {
   margin: 0.2em 0;
@@ -301,7 +303,6 @@ footer a:hover {
   box-sizing: border-box;
 }
 #email-input {
-  /* match #address-input */
   padding: 8px;
   width: 300px;
   border: 1px solid #3d4535;
@@ -312,4 +313,76 @@ footer a:hover {
   box-sizing: border-box;
 }
 #email-submit {
-  /* match #search-butto*
+  padding: 10px 20px;
+  background-color: #3d4535;
+  color: #fff0dc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  font-family: "IBM Plex Mono", monospace;
+}
+#email-submit:hover {
+  background-color: #2f3928;
+}
+
+/* =======================
+   MOBILE / RESPONSIVE STYLES
+   ======================= */
+@media (max-width: 600px) {
+  /* Hide map on mobile */
+  #map-container,
+  #map {
+    display: none !important;
+  }
+
+  /* Stack EVC grid into one column */
+  #evc-grid {
+    display: block;
+  }
+  #evc-details-container {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  /* Stack and enlarge search form */
+  #address-form {
+    flex-direction: column;
+    gap: 0.8em;
+  }
+  #address-input,
+  #search-button {
+    width: 100%;
+    padding: 1em;
+    font-size: 1.1em;
+    box-sizing: border-box;
+  }
+
+  /* Full-width buttons */
+  .download-button {
+    width: 100%;
+  }
+
+  /* Adjust heading spacing */
+  #container h2 {
+    letter-spacing: -2px;
+    line-height: 1.2em;
+  }
+
+  /* Modal email form on mobile */
+  #email-section {
+    flex-direction: column;
+  }
+  #email-input,
+  #email-submit {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1em;
+    font-size: 1.2em;
+  }
+
+  /* Reduce modal-content padding */
+  #evc-modal .modal-content {
+    padding: 1em;
+  }
+}
