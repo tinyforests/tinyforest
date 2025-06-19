@@ -2,20 +2,44 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8"/>
+  <title>All Submissions</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Submissions Log</title>
   <link rel="stylesheet" href="styles.css"/>
   <style>
-    body { padding: 2em; font-family: "IBM Plex Mono", monospace; color: #3d4535; }
-    h1 { font-family: "Abril Fatface", serif; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1em; }
-    th, td { border: 1px solid #ccc; padding: 0.5em; text-align: left; }
-    th { background: #3d4535; color: #fff0dc; }
+    body {
+      font-family: "IBM Plex Mono", monospace;
+      color: #3d4535;
+      padding: 2em;
+    }
+    h1 {
+      font-family: "Abril Fatface", serif;
+      margin-bottom: 0.5em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5em;
+      text-align: left;
+    }
+    th {
+      background: #3d4535;
+      color: #fff0dc;
+    }
+    td {
+      background: #fff;
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
-  <h1>Address & Email Submissions</h1>
-  <p>This table shows all lookups & emails you've captured in this browser.</p>
+  <h1>All Address & Email Submissions</h1>
   <table id="subs-table">
     <thead>
       <tr>
@@ -25,26 +49,40 @@
         <th>Email</th>
       </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+      <tr><td colspan="4" style="text-align:center">Loading…</td></tr>
+    </tbody>
   </table>
 
   <script>
-    const tbody = document.querySelector("#subs-table tbody");
-    const submissions = JSON.parse(localStorage.getItem("tinyforest_submissions") || "[]");
-    if (!submissions.length) {
-      tbody.innerHTML = `<tr><td colspan="4" style="text-align:center;">No submissions yet.</td></tr>`;
-    } else {
-      submissions.forEach(sub => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td>${new Date(sub.timestamp).toLocaleString()}</td>
-          <td>${sub.address}</td>
-          <td>${sub.evcCode}</td>
-          <td>${sub.email}</td>
-        `;
-        tbody.appendChild(tr);
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymbLvKI4SPXMyDsGxGPRfpYZDxTpVWPR1CUsKwzzlyt-KI94XaSymAoZg9FN9IuKRyKQ/exec";
+
+    // Fetch & render the centralized submissions
+    fetch(SCRIPT_URL)
+      .then(r => r.json())
+      .then(data => {
+        const tbody = document.querySelector("#subs-table tbody");
+        if (!data.length) {
+          tbody.innerHTML = '<tr><td colspan="4" class="error">No submissions yet.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = "";
+        data.forEach(sub => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${new Date(sub.timestamp).toLocaleString()}</td>
+            <td>${sub.address}</td>
+            <td>${sub.evcCode}</td>
+            <td>${sub.email}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        document.querySelector("#subs-table tbody").innerHTML =
+          `<tr><td colspan="4" class="error">Error loading submissions</td></tr>`;
+        console.error(err);
       });
-    }
   </script>
 </body>
 </html>
