@@ -57,32 +57,29 @@
   <script>
     const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymbLvKI4SPXMyDsGxGPRfpYZDxTpVWPR1CUsKwzzlyt-KI94XaSymAoZg9FN9IuKRyKQ/exec";
 
-    // Fetch & render the centralized submissions
-    fetch(SCRIPT_URL)
-      .then(r => r.json())
-      .then(data => {
-        const tbody = document.querySelector("#subs-table tbody");
-        if (!data.length) {
-          tbody.innerHTML = '<tr><td colspan="4" class="error">No submissions yet.</td></tr>';
-          return;
-        }
-        tbody.innerHTML = "";
-        data.forEach(sub => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${new Date(sub.timestamp).toLocaleString()}</td>
-            <td>${sub.address}</td>
-            <td>${sub.evcCode}</td>
-            <td>${sub.email}</td>
-          `;
-          tbody.appendChild(tr);
-        });
-      })
-      .catch(err => {
-        document.querySelector("#subs-table tbody").innerHTML =
-          `<tr><td colspan="4" class="error">Error loading submissions</td></tr>`;
-        console.error(err);
+    function handleSubs(data) {
+      const tbody = document.querySelector("#subs-table tbody");
+      if (!data.length) {
+        tbody.innerHTML = '<tr><td colspan="4" class="error">No submissions yet.</td></tr>';
+        return;
+      }
+      tbody.innerHTML = "";
+      data.forEach(sub => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${new Date(sub.timestamp).toLocaleString()}</td>
+          <td>${sub.address}</td>
+          <td>${sub.evcCode}</td>
+          <td>${sub.email}</td>
+        `;
+        tbody.appendChild(tr);
       });
+    }
+
+    // JSONP injection to bypass CORS
+    const script = document.createElement("script");
+    script.src = SCRIPT_URL + "?callback=handleSubs";
+    document.body.appendChild(script);
   </script>
 </body>
 </html>
