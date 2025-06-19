@@ -2,6 +2,9 @@
 
 let modalMap, marker, currentEvcCode, currentAddress;
 
+// Your Apps Script endpoint for centralized logging
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymbLvKI4SPXMyDsGxGPRfpYZDxTpVWPR1CUsKwzzlyt-KI94XaSymAoZg9FN9IuKRyKQ/exec";
+
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the modal map
   modalMap = L.map("modal-map", { zoomControl: false }).setView([-37.8136, 144.9631], 8);
@@ -86,8 +89,10 @@ function showModal(name, status, bioregion, code, lat, lon) {
   const displayName = name.endsWith('.') ? name : name + '.';
   document.getElementById("modal-evc-name").textContent = displayName;
 
+  // Status & Bioregion now directly under name
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
+
   document.getElementById("modal-plants").innerHTML = "";   // clear previous list
   document.getElementById("email-input").value = "";        // clear email field
 
@@ -149,16 +154,18 @@ function loadPlantList() {
 }
 
 /**
- * Save address + EVC code + email to localStorage
+ * Save address + EVC code + email to Google Sheet via Apps Script
  */
 function recordSubmission(address, evcCode, email) {
-  const key = "tinyforest_submissions";
-  const submissions = JSON.parse(localStorage.getItem(key) || "[]");
-  submissions.push({
-    timestamp: new Date().toISOString(),
-    address: address || "",
-    evcCode: evcCode || "",
-    email
-  });
-  localStorage.setItem(key, JSON.stringify(submissions));
+  const payload = { address, evcCode, email };
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(json => {
+    if (!json.success) console.error('Submit error', json.error);
+  })
+  .catch(err => console.error('Network error', err));
 }
