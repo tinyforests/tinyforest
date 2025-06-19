@@ -2,8 +2,8 @@
 
 let modalMap, marker, currentEvcCode, currentAddress;
 
-// Your Apps Script endpoint for centralized logging
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbymbLvKI4SPXMyDsGxGPRfpYZDxTpVWPR1CUsKwzzlyt-KI94XaSymAoZg9FN9IuKRyKQ/exec";
+// Your updated Apps Script endpoint for centralized logging
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZa9YlObZ5IbIqOzxIOzK0c5z3O5r2VkL3w_Esp-GDB7mQwMdsycahNh-ShfvTa2H-/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize the modal map
