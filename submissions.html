@@ -3,51 +3,22 @@
 <head>
   <meta charset="UTF-8"/>
   <title>All Submissions</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <link rel="stylesheet" href="styles.css"/>
   <style>
-    body {
-      font-family: "IBM Plex Mono", monospace;
-      color: #3d4535;
-      padding: 2em;
-    }
-    h1 {
-      font-family: "Abril Fatface", serif;
-      margin-bottom: 0.5em;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1em;
-    }
-    th, td {
-      border: 1px solid #ccc;
-      padding: 0.5em;
-      text-align: left;
-    }
-    th {
-      background: #3d4535;
-      color: #fff0dc;
-    }
-    td {
-      background: #fff;
-    }
-    .error {
-      color: red;
-      text-align: center;
-    }
+    body { font-family:"IBM Plex Mono",monospace; color:#3d4535; padding:2em; }
+    h1 { font-family:"Abril Fatface",serif; margin-bottom:0.5em; }
+    table { width:100%; border-collapse:collapse; margin-top:1em; }
+    th,td { border:1px solid #ccc; padding:0.5em; text-align:left; }
+    th { background:#3d4535; color:#fff0dc; }
+    .error { color:red; text-align:center; }
   </style>
 </head>
 <body>
   <h1>All Address & Email Submissions</h1>
   <table id="subs-table">
     <thead>
-      <tr>
-        <th>Timestamp</th>
-        <th>Address</th>
-        <th>EVC Code</th>
-        <th>Email</th>
-      </tr>
+      <tr><th>Timestamp</th><th>Address</th><th>EVC Code</th><th>Email</th></tr>
     </thead>
     <tbody>
       <tr><td colspan="4" style="text-align:center">Loading…</td></tr>
@@ -55,7 +26,7 @@
   </table>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyZa9YlObZ5IbIqOzxIOzK0c5z3O5r2VkL3w_Esp-GDB7mQwMdsycahNh-ShfvTa2H-/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5lI0vJONS4RiQfpquUP1PVbEWiIgt-IZXSD3HWIgkeemyxb2i4O5ugSRsgVX57dHW5g/exec";
 
     function handleSubs(data) {
       const tbody = document.querySelector("#subs-table tbody");
