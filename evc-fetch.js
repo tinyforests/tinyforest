@@ -1,7 +1,8 @@
 // evc-fetch.js
+
 let modalMap, marker, currentEvcCode, currentAddress;
 
-// Updated Apps Script URL
+// Same endpoint for both record & list:
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5lI0vJONS4RiQfpquUP1PVbEWiIgt-IZXSD3HWIgkeemyxb2i4O5ugSRsgVX57dHW5g/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("email-submit").addEventListener("click", () => {
     const email = document.getElementById("email-input").value.trim();
-    if (!email) return alert("Please enter an email address.");
+    if (!email) return alert("Please enter an email.");
     recordSubmission(currentAddress, currentEvcCode, email);
     loadPlantList();
   });
@@ -38,15 +39,12 @@ function searchEVC(address) {
       const { lat, lon } = results[0];
       fetchEVCData(+lat, +lon);
     })
-    .catch(err => {
-      console.error("Geocode error:", err);
-      alert(err.message);
-    });
+    .catch(err => { alert(err.message); console.error(err); });
 }
 
 function fetchEVCData(lat, lon) {
-  const delta = 0.02;
-  const bbox = [lon - delta, lat - delta, lon + delta, lat + delta].join(",");
+  const d = 0.02;
+  const bbox = [lon-d, lat-d, lon+d, lat+d].join(",");
   const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
 
   fetch(url)
@@ -54,18 +52,15 @@ function fetchEVCData(lat, lon) {
     .then(data => {
       if (!data.features?.length) throw new Error("No EVC data.");
       const pt = turf.point([lon, lat]);
-      const f = data.features.find(f =>
+      const feat = data.features.find(f =>
         f.geometry?.type==="Polygon" &&
         turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
       ) || data.features[0];
-      const { x_evcname, evc_bcs_desc, bioregion, evc } = f.properties;
+      const { x_evcname, evc_bcs_desc, bioregion, evc } = feat.properties;
       currentEvcCode = evc || "";
       showModal(x_evcname, evc_bcs_desc, bioregion, evc, lat, lon);
     })
-    .catch(err => {
-      console.error("EVC fetch error:", err);
-      alert(err.message);
-    });
+    .catch(err => { alert(err.message); console.error(err); });
 }
 
 function showModal(name, status, bioregion, code, lat, lon) {
@@ -108,13 +103,16 @@ function loadPlantList() {
     .catch(console.error);
 }
 
+// JSONP record
 function recordSubmission(address, evcCode, email) {
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ address, evcCode, email })
-  })
-  .then(r => r.json())
-  .then(json => { if (!json.success) console.error("Submit error", json.error); })
-  .catch(console.error);
+  window.recordCallback = resp => {
+    if (!resp.success) console.error("Record failed", resp.error);
+  };
+  const s = document.createElement("script");
+  s.src = SCRIPT_URL
+    + `?address=${encodeURIComponent(address)}`
+    + `&evcCode=${encodeURIComponent(evcCode)}`
+    + `&email=${encodeURIComponent(email)}`
+    + `&callback=recordCallback`;
+  document.body.appendChild(s);
 }
