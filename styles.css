@@ -53,9 +53,9 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-/* highlight the first sentence */
+/* highlight the first sentence in sage */
 .hero-highlight {
-  background-color: rgba(255, 240, 220, 0.8);
+  background-color: #dcedc8;
   padding: 0.2em 0.4em;
   border-radius: 0.2em;
 }
@@ -65,7 +65,8 @@ nav a:hover {
   display: block;
   margin-bottom: 3em;
 }
-/* tighten space below the whole paragraph */
+
+/* space after the entire paragraph down to the form */
 #container p {
   margin-bottom: 1em;
   line-height: 1.4;
