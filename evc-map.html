@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal with email form -->
   <div id="evc-modal">
     <div class="modal-content">
       <button id="modal-close">&times;</button>
@@ -48,7 +48,30 @@
         <p id="modal-evc-description"></p>
       </div>
 
-      <div id="modal-map"></div>
+      <!-- Email form to collect address, EVC code, email -->
+      <div id="email-section">
+        <form
+          id="gf-form"
+          action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
+          method="POST"
+          target="gf-iframe"
+        >
+          <input type="hidden" name="entry.2031982455" id="gf-address"/>
+          <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
+
+          <p>Enter your email address to display your curated plant list.</p>
+          <input
+            type="email"
+            name="entry.48659416"
+            id="gf-email"
+            placeholder="you@example.com"
+            required
+          />
+          <button type="submit">Display plant list</button>
+        </form>
+        <iframe name="gf-iframe" style="display:none;"></iframe>
+      </div>
+
       <div id="modal-plants"></div>
     </div>
   </div>
