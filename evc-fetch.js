@@ -4,21 +4,30 @@ let marker;
 let currentEvcCode;
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Initialize the map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  document.getElementById("search-button").addEventListener("click", searchEVC);
+  // Attach the submit handler to the form
+  const addressForm = document.getElementById("address-form");
+  addressForm.addEventListener("submit", searchEVC);
 });
 
-function searchEVC(evt) {
-  evt.preventDefault();
-  const address = document.getElementById("address-input").value;
+/**
+ * Geocode the address and fetch EVC data
+ */
+function searchEVC(event) {
+  // prevent the form from reloading the page
+  event.preventDefault();
+
+  const address = document.getElementById("address-input").value.trim();
   if (!address) {
     alert("Please enter an address.");
     return;
   }
+
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
     .then(res => res.json())
     .then(results => {
@@ -26,61 +35,84 @@ function searchEVC(evt) {
         alert("Address not found.");
         return;
       }
-      const lat = parseFloat(results[0].lat),
-            lon = parseFloat(results[0].lon);
-      map.setView([lat, lon], 12);
+      const { lat, lon } = results[0];
+      const latNum = parseFloat(lat), lonNum = parseFloat(lon);
+
+      // Update the map and marker
+      map.setView([latNum, lonNum], 12);
       if (marker) map.removeLayer(marker);
-      marker = L.marker([lat, lon]).addTo(map);
-      fetchEVCData(lat, lon);
+      marker = L.marker([latNum, lonNum]).addTo(map);
+
+      // Fetch EVC data
+      fetchEVCData(latNum, lonNum);
     })
-    .catch(err => console.error("Error geocoding:", err));
+    .catch(err => {
+      console.error("Error fetching geocoding results:", err);
+      alert("There was a problem looking up that address.");
+    });
 }
 
+/**
+ * Fetches EVC data from the Victorian Gov API
+ */
 function fetchEVCData(lat, lon) {
-  const bboxSize = 0.02,
-        bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(",");
+  const bboxSize = 0.02;
+  const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(",");
   const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
 
   fetch(wfsUrl)
     .then(res => res.json())
     .then(data => {
-      if (data.features && data.features.length) {
-        const point = turf.point([lon, lat]);
-        let best = data.features.find(f => {
-          if (f.geometry.type === "Polygon") {
-            return turf.booleanPointInPolygon(point, turf.polygon(f.geometry.coordinates));
-          }
-        }) || data.features[0];
-
-        const p = best.properties,
-              name = p.x_evcname || "Unknown",
-              code = p.evc || "Unknown",
-              status = p.evc_bcs_desc || "Not Specified",
-              region = p.bioregion || "Not Specified";
-
-        displayEVCInfo(name, code, status, region);
-      } else {
-        document.getElementById("evc-details").innerHTML = "<p>No EVC data found.</p>";
-        document.querySelector(".download-button").style.display = "none";
+      if (!data.features || !data.features.length) {
+        document.getElementById("modal-evc-name").textContent = "No data";
+        document.getElementById("evc-modal").style.display = "flex";
+        return;
       }
+
+      const point = turf.point([lon, lat]);
+      let feature = data.features.find(f => {
+        if (f.geometry.type === "Polygon") {
+          return turf.booleanPointInPolygon(point, turf.polygon(f.geometry.coordinates));
+        }
+      }) || data.features[0];
+
+      const props = feature.properties;
+      const name   = props.x_evcname || "Unknown";
+      const code   = props.evc         || "Unknown";
+      const status = props.evc_bcs_desc|| "Not specified";
+      const region = props.bioregion   || "Not specified";
+
+      displayEVCInfo(name, code, status, region);
     })
     .catch(err => {
-      console.error("Error fetching EVC:", err);
-      document.getElementById("evc-details").innerHTML = "<p>Error retrieving EVC data.</p>";
-      document.querySelector(".download-button").style.display = "none";
+      console.error("Error fetching EVC data:", err);
+      alert("There was a problem retrieving your EVC.");
     });
 }
 
+/**
+ * Show modal, populate fields, map, etc.
+ */
 function displayEVCInfo(name, code, status, region) {
   currentEvcCode = code;
-  document.getElementById("modal-evc-name").textContent = name;
-  document.getElementById("modal-evc-status").textContent = status;
-  document.getElementById("modal-evc-region").textContent = region;
-  document.getElementById("modal-evc-description").textContent = p.bcref; // or your description logic
 
-  // show modal, wire up form hidden inputs, map, plants...
-  document.getElementById("evc-modal").style.display = "flex";
+  // populate modal text
+  document.getElementById("modal-evc-name").textContent    = name;
+  document.getElementById("modal-evc-status").textContent  = status;
+  document.getElementById("modal-evc-region").textContent  = region;
+  // description logic assumed in modal already
+
+  // prefill hidden form inputs
   document.getElementById("gf-address").value = document.getElementById("address-input").value;
   document.getElementById("gf-evcCode").value = code;
-  // …and the rest of your modal population…
+
+  // show the modal
+  document.getElementById("evc-modal").style.display = "flex";
 }
+
+// close button for the modal
+document.addEventListener("click", e => {
+  if (e.target.id === "modal-close" || e.target.id === "evc-modal") {
+    document.getElementById("evc-modal").style.display = "none";
+  }
+});
