@@ -1,22 +1,4 @@
 /* =======================
-   GENERAL PAGE STYLES
-   ======================= */
-body {
-  font-family: "IBM Plex Mono", monospace;
-  margin: 0;
-  padding: 0;
-  color: #3d4535;
-  background-color: #fff0dc;
-}
-
-/* =======================
-   NAVIGATION MENU
-   ======================= */
-nav {
-  /* …your existing nav styles… */
-}
-
-/* =======================
    HERO / HEADER SECTION
    ======================= */
 #container {
@@ -31,70 +13,14 @@ nav {
   margin-bottom: 10px;
 }
 
-/* keep the 2em below the whole paragraph */
-#container p {
+/* keep a nice gap between the two sentences */
+#container p br {
+  display: block;
   margin-bottom: 2em;
 }
 
-/* ↑ add extra space after the <br> line break */
-#container p br {
-  display: block;
-  margin-bottom: 2em;   /* adjust this value to taste */
-  content: "";
-}
-
-/* optional: ensure comfortable line-height overall */
+/* tighten the space below the entire paragraph */
 #container p {
-  line-height: 1.4;
-}
-
-/* =======================
-   SEARCH CONTAINER & FORM
-   ======================= */
-#search-container {
-  /* … */
-}
-#address-form { /* … */ }
-#address-input { /* … */ }
-#search-button { /* … */ }
-
-/* =======================
-   EVC DETAILS SECTION
-   ======================= */
-#evc-info { /* … */ }
-#evc-details { /* … */ }
-
-/* =======================
-   PURCHASE BUTTON
-   ======================= */
-.download-button { /* … */ }
-
-/* =======================
-   MAP SECTION
-   ======================= */
-#map-container { /* … */ }
-#map { /* … */ }
-
-/* =======================
-   GRID LAYOUT FOR EVC MAP PAGE
-   ======================= */
-#evc-grid { /* … */ }
-#evc-details-container { /* … */ }
-
-/* =======================
-   PLANT LIST PAGE STYLES
-   ======================= */
-#plant-list-container { /* … */ }
-.plant-item { /* … */ }
-
-/* =======================
-   FOOTER STYLES
-   ======================= */
-footer { /* … */ }
-
-/* =======================
-   MOBILE / RESPONSIVE STYLES
-   ======================= */
-@media (max-width: 600px) {
-  /* …all your existing mobile overrides… */
+  margin-bottom: 1em;  /* was 2em—now reduced */
+  line-height: 1.4;     /* optional for readability */
 }
