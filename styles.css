@@ -60,10 +60,10 @@ nav a:hover {
   border-radius: 0.2em;
 }
 
-/* spacing after that highlighted block */
+/* ↑ extra space after the first <br> only */
 #container p br:first-of-type {
   display: block;
-  margin-bottom: 3em;
+  margin-bottom: 4em;  /* increased from 3em to 4em */
 }
 
 /* space after the entire paragraph down to the form */
