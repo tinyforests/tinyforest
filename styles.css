@@ -53,13 +53,19 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-/* ↑ extra space *after* the first <br> only */
+/* highlight the first sentence */
+.hero-highlight {
+  background-color: rgba(255, 240, 220, 0.8);
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+}
+
+/* spacing after that highlighted block */
 #container p br:first-of-type {
   display: block;
   margin-bottom: 3em;
 }
-
-/* space after the entire paragraph down to the form */
+/* tighten space below the whole paragraph */
 #container p {
   margin-bottom: 1em;
   line-height: 1.4;
@@ -111,17 +117,16 @@ nav a:hover {
   background-color: transparent;
   padding: 15px;
   border-radius: 5px;
-  box-shadow: none;
   margin: 20px auto;
   text-align: left;
   max-width: 800px;
 }
 
 /* =======================
-   PURCHASE BUTTON (DOWNLOAD BUTTON)
+   PURCHASE BUTTON
    ======================= */
 .download-button {
-  display: none; /* Initially hidden */
+  display: none;
   padding: 10px 20px;
   background-color: #3d4535;
   color: #fff0dc;
@@ -130,7 +135,6 @@ nav a:hover {
   cursor: pointer;
   font-weight: bold;
   font-size: 1rem;
-  text-align: center;
   margin: 10px auto;
 }
 .download-button:hover {
@@ -145,14 +149,14 @@ nav a:hover {
   height: 400px;
 }
 #map {
-  height: 100%;
   width: 100%;
+  height: 100%;
   border-radius: 5px;
   background-color: #e0e0e0;
 }
 
 /* =======================
-   GRID LAYOUT FOR EVC MAP PAGE
+   GRID LAYOUT
    ======================= */
 #evc-grid {
   display: grid;
@@ -169,7 +173,6 @@ nav a:hover {
   justify-content: center;
   padding: 20px;
 }
-/* Override download-button within grid */
 #evc-details-container .download-button {
   margin-top: 20px;
   background-color: #FFF0DC;
@@ -180,7 +183,7 @@ nav a:hover {
 }
 
 /* =======================
-   PLANT LIST PAGE STYLES
+   PLANT LIST PAGE
    ======================= */
 #plant-list-container {
   max-width: 800px;
@@ -191,52 +194,40 @@ nav a:hover {
 #plant-list-container h1 {
   font-family: "Abril Fatface", serif;
   font-size: 2rem;
-  color: #3d4535;
   margin-bottom: 20px;
-}
-#plant-list {
-  margin-top: 20px;
-  padding: 0 20px;
 }
 .plant-item {
   padding: 8px 12px;
   margin: 6px 0;
-  background-color: #fff;
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 1rem;
   text-align: left;
 }
 
 /* =======================
-   FOOTER STYLES
+   FOOTER
    ======================= */
 footer {
   background-color: #3d4535;
   color: #fff0dc;
   padding: 20px;
   text-align: left;
-  width: 100%;
   box-sizing: border-box;
   padding-left: 10%;
   padding-right: 10%;
 }
 footer h3 {
+  font-family: "Abril Fatface", serif;
   font-size: 33px;
   font-weight: 400;
-  letter-spacing: -0.2px;
   margin-bottom: 10px;
-  font-family: "Abril Fatface", serif;
-}
-footer p {
-  margin: 5px 0;
 }
 .footer-details {
-  color: #888888;
+  color: #888;
   font-weight: 500;
   font-size: 21px;
-  letter-spacing: -0.5px;
-  line-height: 1.2em;
+  line-height: 1.2;
 }
 footer a {
   color: #fff0dc;
@@ -249,54 +240,23 @@ footer a:hover {
 }
 
 /* =======================
-   MOBILE / RESPONSIVE STYLES
+   RESPONSIVE
    ======================= */
 @media (max-width: 600px) {
-  /* Hide map on mobile */
-  #map-container,
-  #map {
-    display: none !important;
-  }
-
-  /* Stack EVC grid into one column */
-  #evc-grid {
-    display: block;
-  }
-  #evc-details-container {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  /* Stack and enlarge form */
-  #address-form {
+  #map-container, #map { display: none; }
+  #evc-grid { display: block; }
+  #evc-details-container { margin-bottom: 20px; }
+  #address-form, #email-section form {
     display: flex;
     flex-direction: column;
     gap: 0.8em;
-    align-items: stretch;
-    margin-bottom: 1.5em;
   }
-  #address-input,
-  #search-button {
-    width: 100%;
-    padding: 1em;
-    font-size: 1.1em;
-    box-sizing: border-box;
+  #address-input, #search-button,
+  #email-section input, #email-section button {
+    width: 100%; padding: 1em; font-size: 1.1em;
   }
-
-  /* Full-width buttons */
-  button,
-  .download-button {
-    width: 100%;
-  }
-
-  /* Adjust heading spacing */
   #container h2 {
     letter-spacing: -2px;
     line-height: 1.2em;
-  }
-
-  /* Adjust input width margin cleanup */
-  input[type="text"] {
-    margin: 0;
   }
 }
