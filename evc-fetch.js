@@ -1,32 +1,29 @@
 let map, marker, currentEvcCode;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize the base map (hidden behind modal, but required for geocoding)
+  // initialize map (hidden behind modal or placed later)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Wire up Find My Garden
+  // search button
   document.getElementById("search-button")
     .addEventListener("click", searchEVC);
 
-  // Modal close handlers
+  // modal close
   document.getElementById("modal-close")
-    .addEventListener("click", () => evcModal().style.display = "none");
+    .addEventListener("click", () => modal().style.display = "none");
   document.getElementById("evc-modal")
     .addEventListener("click", e => {
-      if (e.target.id === "evc-modal") evcModal().style.display = "none";
+      if (e.target.id === "evc-modal") modal().style.display = "none";
     });
 });
 
-function evcModal() {
+function modal() {
   return document.getElementById("evc-modal");
 }
 
-/**
- * Geocode and fetch EVC
- */
 function searchEVC() {
   const addr = document.getElementById("address-input").value.trim();
   if (!addr) {
@@ -34,28 +31,36 @@ function searchEVC() {
     return;
   }
 
+  // geocode
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}`)
     .then(r => r.json())
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
       const lat = +results[0].lat, lon = +results[0].lon;
-      fetchEVCData(lat, lon, addr);
+      showOnMap(lat, lon);
+      fetchEVCData(lat, lon);
     })
-    .catch(err => {
-      alert(err.message);
-    });
+    .catch(err => alert(err.message));
 }
 
-/**
- * Fetch EVC details
- */
-function fetchEVCData(lat, lon, address) {
+function showOnMap(lat, lon) {
+  map.setView([lat, lon], 12);
+  if (marker) map.removeLayer(marker);
+  marker = L.marker([lat, lon]).addTo(map);
+}
+
+function fetchEVCData(lat, lon) {
   const d = 0.02;
   const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
-  const url =
-    "https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0" +
-    "&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs" +
-    `&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+  const url = [
+    "https://opendata.maps.vic.gov.au/geoserver/wfs",
+    "?service=WFS",
+    "&version=1.0.0",
+    "&request=GetFeature",
+    "&typeName=open-data-platform:nv2005_evcbcs",
+    `&bbox=${bbox},EPSG:4326`,
+    "&outputFormat=application/json"
+  ].join("");
 
   fetch(url)
     .then(r => r.json())
@@ -72,43 +77,66 @@ function fetchEVCData(lat, lon, address) {
 
       const p = feat.properties;
       displayEVCInfo(
-        p.x_evcname || "Unknown",
-        p.evc || "Unknown",
-        p.evc_bcs_desc || "Not Specified",
-        p.bioregion || "Not Specified",
-        address
+        p.x_evcname,
+        p.evc,
+        p.evc_bcs_desc,
+        p.bioregion
       );
     })
-    .catch(err => {
-      alert(err.message);
-    });
+    .catch(err => alert(err.message));
 }
 
-/**
- * Populate & show modal
- */
-function displayEVCInfo(name, code, status, region, address) {
-  currentEvcCode = code;
-  document.getElementById("modal-evc-name").textContent   = name;
-  document.getElementById("modal-evc-status").textContent = status;
-  document.getElementById("modal-evc-region").textContent = region;
+function displayEVCInfo(name, code, status, region) {
+  document.getElementById("modal-evc-name").textContent   = name || "Unknown";
+  document.getElementById("modal-evc-status").textContent = status || "Not specified";
+  document.getElementById("modal-evc-region").textContent = region || "Not specified";
   document.getElementById("modal-evc-description").textContent =
-    getDescriptionFor(code);
+    getDescription(code);
 
-  // prefill form
-  document.getElementById("gf-address").value = address;
-  document.getElementById("gf-evcCode").value = code;
+  fillPlantList(code);
 
-  evcModal().style.display = "flex";
+  // show modal
+  modal().style.display = "flex";
 }
 
-// Simple lookup for descriptions by EVC code
-function getDescriptionFor(code) {
+function getDescription(code) {
   const desc = {
     "175": "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
-    "47": "Valley Grassy Forest occurs under moderate rainfall regimes of 700-800 mm per annum on fertile well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts, usually species which prefer more moist or more fertile conditions over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer but at the drier end of the spectrum the ground layer may be sparse and slightly less diverse, but with the moisture-loving species still remaining.",
-    "FPW": "A tall eucalypt woodland found along riverbanks and floodplains. It features shrubs and a mix of wetland herbs and sedges in the ground layer. Grows in fertile soils that flood from time to time, in low-lying areas with modest rainfall."
-    // …add any others here…
+    "47": "Valley Grassy Forest occurs under moderate rainfall regimes of 700–800 mm per annum on fertile well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. …",
+    "FPW": "A tall eucalypt woodland found along riverbanks and floodplains. It features shrubs and a mix of wetland herbs and sedges in the ground layer. …"
+    // add more as needed
   };
-  return desc[code] || "Description not available for this EVC.";
+  return desc[code] || "Description not available.";
+}
+
+function fillPlantList(code) {
+  const lists = {
+    "175": [
+      { layer: "Tree Canopy", plants: ["Eucalyptus tereticornis …"] },
+      // etc…
+    ],
+    "47": [
+      { layer: "Tree Canopy", plants: ["Eucalyptus radiata", "E. leucoxylon", "E. melliodora", "E. rubida"] },
+      // etc…
+    ],
+    "FPW": [
+      { layer: "Tree Canopy", plants: ["Eucalyptus camaldulensis", "E. tereticornis ssp. mediana", "E. ovata"] },
+      // etc…
+    ]
+  };
+
+  const container = document.getElementById("modal-plants");
+  container.innerHTML = "";
+  const recs = lists[code];
+  if (!recs) {
+    container.innerHTML = "<p>No plant list available.</p>";
+    return;
+  }
+
+  recs.forEach(section => {
+    const div = document.createElement("div");
+    div.className = "layer";
+    div.innerHTML = `<h3>${section.layer}</h3><ul>${section.plants.map(p=>`<li>${p}</li>`).join("")}</ul>`;
+    container.appendChild(div);
+  });
 }
