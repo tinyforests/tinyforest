@@ -52,9 +52,9 @@ nav a:hover {
   color: #3d4535;
   margin-bottom: 10px;
 }
-/* add gap between paragraphs in hero */
+/* ↑ Increased gap between hero paragraphs to 2em */
 #container p {
-  margin-bottom: 1.5em;
+  margin-bottom: 2em;
 }
 
 /* =======================
