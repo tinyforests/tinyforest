@@ -1,294 +1,667 @@
-/* =======================
-   GENERAL PAGE STYLES
-   ======================= */
-body {
-  font-family: "IBM Plex Mono", monospace;
-  margin: 0;
-  padding: 0;
-  color: #3d4535;
-  background-color: #fff0dc;
-}
-
-/* =======================
-   NAVIGATION MENU
-   ======================= */
-nav {
-  position: sticky;
-  top: 0;
-  background-color: #3d4535;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 20px;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-nav .menu {
-  display: flex;
-  gap: 15px;
-}
-nav a {
-  color: white;
-  text-decoration: none;
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 300;
-  font-size: 14px;
-}
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* =======================
-   HERO / HEADER SECTION
-   ======================= */
-#container {
-  text-align: center;
-  padding: 60px 20px;
-}
-#container h2 {
-  font-family: "Abril Fatface", serif;
-  font-size: 2.5rem;
-  color: #3d4535;
-  margin-bottom: 10px;
-}
-/* ↑ Increased gap between hero paragraphs to 10em */
-#container p {
-  margin-bottom: 10em;
-}
-
-/* =======================
-   SEARCH CONTAINER & FORM
-   ======================= */
-#search-container {
-  margin-bottom: 20px;
-}
-#address-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-#address-input {
-  padding: 8px;
-  width: 300px;
-  border: 1px solid #3d4535;
-  border-radius: 4px;
-  font-family: "IBM Plex Mono", monospace;
-  color: #3d4535;
-}
-#search-button {
-  padding: 10px 20px;
-  background-color: #3d4535;
-  color: #fff0dc;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: "IBM Plex Mono", monospace;
-}
-#search-button:hover {
-  background-color: #2f3928;
-}
-
-/* =======================
-   EVC DETAILS SECTION
-   ======================= */
-#evc-info {
-  margin-top: 20px;
-  font-size: 1.1em;
-  text-align: center;
-}
-#evc-details {
-  background-color: transparent;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: none;
-  margin: 20px auto;
-  text-align: left;
-  max-width: 800px;
-}
-
-/* =======================
-   PURCHASE BUTTON (DOWNLOAD BUTTON)
-   ======================= */
-.download-button {
-  display: none; /* Initially hidden */
-  padding: 10px 20px;
-  background-color: #3d4535;
-  color: #fff0dc;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-  margin: 10px auto;
-}
-.download-button:hover {
-  background-color: #2f3928;
-}
-
-/* =======================
-   MAP SECTION
-   ======================= */
-#map-container {
-  width: 100%;
-  height: 400px;
-}
-#map {
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-  background-color: #e0e0e0;
-}
-
-/* =======================
-   GRID LAYOUT FOR EVC MAP PAGE
-   ======================= */
-#evc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  background-color: #3D4535;
-  color: #FFF0DC;
-  padding: 20px;
-  margin-top: 20px;
-}
-#evc-details-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-}
-/* Override download-button within grid */
-#evc-details-container .download-button {
-  margin-top: 20px;
-  background-color: #FFF0DC;
-  color: #3D4535;
-}
-#evc-details-container .download-button:hover {
-  background-color: #e0e0e0;
-}
-
-/* =======================
-   PLANT LIST PAGE STYLES
-   ======================= */
-#plant-list-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-  text-align: center;
-}
-#plant-list-container h1 {
-  font-family: "Abril Fatface", serif;
-  font-size: 2rem;
-  color: #3d4535;
-  margin-bottom: 20px;
-}
-#plant-list {
-  margin-top: 20px;
-  padding: 0 20px;
-}
-.plant-item {
-  padding: 8px 12px;
-  margin: 6px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  text-align: left;
-}
-
-/* =======================
-   FOOTER STYLES
-   ======================= */
-footer {
-  background-color: #3d4535;
-  color: #fff0dc;
-  padding: 20px;
-  text-align: left;
-  width: 100%;
-  box-sizing: border-box;
-  padding-left: 10%;
-  padding-right: 10%;
-}
-footer h3 {
-  font-size: 33px;
-  font-weight: 400;
-  letter-spacing: -0.2px;
-  margin-bottom: 10px;
-  font-family: "Abril Fatface", serif;
-}
-footer p {
-  margin: 5px 0;
-}
-.footer-details {
-  color: #888888;
-  font-weight: 500;
-  font-size: 21px;
-  letter-spacing: -0.5px;
-  line-height: 1.2em;
-}
-footer a {
-  color: #fff0dc;
-  text-decoration: none;
-  font-weight: bold;
-  margin-right: 10px;
-}
-footer a:hover {
-  text-decoration: underline;
-}
-
-/* =======================
-   MOBILE / RESPONSIVE STYLES
-   ======================= */
-@media (max-width: 600px) {
-  /* Hide map on mobile */
-  #map-container,
-  #map {
-    display: none !important;
-  }
-
-  /* Stack EVC grid into one column */
-  #evc-grid {
-    display: block;
-  }
-  #evc-details-container {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  /* Stack and enlarge form */
-  #address-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8em;
-    align-items: stretch;
-    margin-bottom: 1.5em;
-  }
-  #address-input,
-  #search-button {
-    width: 100%;
-    padding: 1em;
-    font-size: 1.1em;
-    box-sizing: border-box;
-  }
-
-  /* Full-width buttons */
-  button,
-  .download-button {
-    width: 100%;
-  }
-
-  /* Adjust heading spacing */
-  #container h2 {
-    letter-spacing: -2px;
-    line-height: 1.2em;
-  }
-
-  /* Adjust input width margin cleanup */
-  input[type="text"] {
-    margin: 0;
+{
+  "2": {
+    "description": "EVC 2: Coast Banksia Woodland is restricted to near coastal dunes behind Coastal Dune Scrub. Dominated by Banksia integrifolia up to 15 m tall over a medium shrub layer, the understorey includes herbs, sedges, and scramblers.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Banksia integrifolia (Coast Banksia)"
+        ]
+      },
+      {
+        "layer": "Medium Shrub (MS)",
+        "plants": [
+          "Leucopogon parviflorus (Coast Beard-heath)",
+          "Rhagodia candolleana ssp. candolleana (Seaberry Saltbush)",
+          "Leptospermum laevigatum (Coast Tea-tree)"
+        ]
+      },
+      {
+        "layer": "Large Herb (LH)",
+        "plants": [
+          "Senecio minimus (Shrubby Fireweed)",
+          "Haloragis brownii (Swamp Raspwort)"
+        ]
+      },
+      {
+        "layer": "Medium Herb (MH)",
+        "plants": [
+          "Sambucus gaudichaudiana (White Elderberry)",
+          "Viola hederacea (Ivy-leaf Violet)",
+          "Lobelia anceps (Angled Lobelia)",
+          "Sarcocornia quinqueflora (Beaded Glasswort)"
+        ]
+      },
+      {
+        "layer": "Small Herb (SH)",
+        "plants": [
+          "Hydrocotyle sibthorpioides (Shining Pennywort)",
+          "Dichondra repens (Kidney-weed)"
+        ]
+      },
+      {
+        "layer": "Ground Fern (GF)",
+        "plants": [
+          "Pteridium esculentum (Austral Bracken)"
+        ]
+      },
+      {
+        "layer": "Scrambler/Climber (SC)",
+        "plants": [
+          "Galium australe (Tangled Bedstraw)",
+          "Clematis microphylla (Small-leaved Clematis)"
+        ]
+      }
+    ]
+  },
+  "3": {
+    "description": "EVC 3: Damp Sands Herb-rich Woodland is characterized by sandy soils and a diverse, herbaceous understorey adapted to damp, sandy conditions.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Eucalyptus viminalis ssp. pryoriana (Rough-barked Manna Gum)"
+        ]
+      },
+      {
+        "layer": "Understorey Tree / Large Shrub (T)",
+        "plants": [
+          "Acacia mearnsii (Black Wattle)",
+          "Acacia melanoxylon (Blackwood)"
+        ]
+      },
+      {
+        "layer": "Medium Shrub (MS)",
+        "plants": [
+          "Epacris impressa (Common Heath)",
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Banksia marginata (Silver Banksia)",
+          "Leptospermum myrsinoides (Heath Tea-tree)"
+        ]
+      },
+      {
+        "layer": "Small Shrub (SS)",
+        "plants": [
+          "Leucopogon virgatus (Common Beard-heath)",
+          "Dillwynia glaberrima (Smooth Parrot-pea)",
+          "Amperea xiphoclada var. xiphoclada (Broom Spurge)"
+        ]
+      },
+      {
+        "layer": "Prostrate Shrub (PS)",
+        "plants": [
+          "Astroloma humifusum (Cranberry Heath)"
+        ]
+      },
+      {
+        "layer": "Medium Herb (MH)",
+        "plants": [
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)",
+          "Viola hederacea (Ivy-leaf Violet)",
+          "Geranium solanderi s.l. (Austral Cranesbill)"
+        ]
+      },
+      {
+        "layer": "Small Herb (SH)",
+        "plants": [
+          "Hydrocotyle laxiflora (Stinking Pennywort)",
+          "Opercularia varia (Variable Stinkweed)",
+          "Dichondra repens (Kidney-weed)",
+          "Poranthera microphylla (Small Poranthera)"
+        ]
+      },
+      {
+        "layer": "Large Tufted Graminoid (LTG)",
+        "plants": [
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
+          "Austrostipa mollis (Supple Spear-grass)"
+        ]
+      },
+      {
+        "layer": "Large Non-tufted Graminoid (LNG)",
+        "plants": [
+          "Tetrarrhena juncea (Forest Wire-grass)"
+        ]
+      },
+      {
+        "layer": "Medium to Small Tufted Graminoid (MTG)",
+        "plants": [
+          "Lepidosperma concavum (Sandhill Sword-sedge)",
+          "Dianella revoluta s.l. (Black-anther Flax-lily)",
+          "Lomandra filiformis (Wattle-headed Mat-rush)",
+          "Poa sieberiana (Grey Tussock-grass)"
+        ]
+      },
+      {
+        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",
+        "plants": [
+          "Microlaena stipoides var. stipoides (Weeping Grass)"
+        ]
+      },
+      {
+        "layer": "Ground Fern (GF)",
+        "plants": [
+          "Pteridium esculentum (Austral Bracken)"
+        ]
+      }
+    ]
+  },
+  "7": {
+    "description": "EVC 7: Clay Heathland – Gippsland Plain is characterized by clay soils and a woodland overstorey of Swamp Stringybark and Saw Banksia (10% cover) over a rich understorey (~75% cover).",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Eucalyptus conspicua (Swamp Stringybark)",
+          "Banksia serrata (Saw Banksia)"
+        ]
+      },
+      {
+        "layer": "Medium Shrub (MS)",
+        "plants": [
+          "Allocasuarina paludosa (Scrub Sheoak)",
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Epacris impressa (Common Heath)",
+          "Hakea teretifolia ssp. hirsuta (Dagger Hakea)"
+        ]
+      },
+      {
+        "layer": "Small Shrub (SS)",
+        "plants": [
+          "Dampiera stricta (Blue Dampiera)",
+          "Dillwynia sericea s.l. (Showy Parrot-pea)",
+          "Hibbertia empetrifolia s.l. (Tangled Guinea-flower)",
+          "Sphaerolobium vimineum s.l. (Leafless Globe-pea)"
+        ]
+      },
+      {
+        "layer": "Prostrate Shrub (PS)",
+        "plants": [
+          "Xanthosia pusilla spp. agg. (Heath Xanthosia)"
+        ]
+      },
+      {
+        "layer": "Large Herb (LH)",
+        "plants": [
+          "Euphrasia collina (Purple Eyebright)",
+          "Hybanthus vernonii ssp. vernonii (Erect Violet)"
+        ]
+      },
+      {
+        "layer": "Medium Herb (MH)",
+        "plants": [
+          "Gonocarpus teucrioides s.l. (Germander Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)",
+          "Helichrysum scorpioides (Button Everlasting)"
+        ]
+      },
+      {
+        "layer": "Small Herb (SH)",
+        "plants": [
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera pygmaea (Tiny Sundew)"
+        ]
+      },
+      {
+        "layer": "Large Tufted Graminoid (LTG)",
+        "plants": [
+          "Anisopogon avenaceus (Oat Spear-grass)",
+          "Xanthorrhoea resinosa (Spear Grass-tree)",
+          "Deyeuxia quadriseta (Reed Bent-grass)"
+        ]
+      },
+      {
+        "layer": "Medium to Small Tufted Graminoid (MTG)",
+        "plants": [
+          "Themeda triandra (Kangaroo Grass)",
+          "Patersonia sericea (Silky Purple-flag)",
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Patersonia glabrata (Leafy Purple-flag)"
+        ]
+      },
+      {
+        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",
+        "plants": [
+          "Schoenus brevifolius (Zig-zag Bog-sedge)",
+          "Lepidosperma neesii (Stiff Rapier-sedge)",
+          "Entolasia marginata (Bordered Panic)",
+          "Schoenus lepidosperma (Slender Bog-sedge)"
+        ]
+      },
+      {
+        "layer": "Ground Fern (GF)",
+        "plants": [
+          "Lindsaea linearis (Screw Fern)"
+        ]
+      }
+    ]
+  },
+  "47": {
+    "description": "Valley Grassy Forest occurs under moderate rainfall regimes of 700-800 mm per annum on fertile well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts, usually species which prefer more moist or more fertile conditions over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer but at the drier end of the spectrum the ground layer may be sparse and slightly less diverse, but with the moisture-loving species still remaining.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy Cover",
+        "plants": [
+          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
+          "Eucalyptus leucoxylon (Yellow Gum)",
+          "Eucalyptus melliodora (Yellow Box)",
+          "Eucalyptus rubida (Candlebark)"
+        ]
+      },
+      {
+        "layer": "Understorey Tree or Large Shrub (T)",
+        "plants": [
+          "Acacia mearnsii (Black Wattle)"
+        ]
+      },
+      {
+        "layer": "Medium Shrub (MS)",
+        "plants": [
+          "Myoporum sp. 1 (Sticky Boobialla)",
+          "Acacia pycnantha (Golden Wattle)",
+          "Bursaria spinosa ssp. spinosa (Sweet Bursaria)"
+        ]
+      },
+      {
+        "layer": "Small Shrub (SS)",
+        "plants": [
+          "Pimelea humilis (Common Rice-flower)"
+        ]
+      },
+      {
+        "layer": "Prostrate Shrub (PS)",
+        "plants": [
+          "Bossiaea prostrata (Creeping Bossiaea)"
+        ]
+      },
+      {
+        "layer": "Large Herb (LH)",
+        "plants": [
+          "Veronica gracilis (Slender Speedwell)"
+        ]
+      },
+      {
+        "layer": "Medium Herb (MH)",
+        "plants": [
+          "Poranthera microphylla (Small Poranthera)",
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)"
+        ]
+      },
+      {
+        "layer": "Small Herb (SH)",
+        "plants": [
+          "Solenogyne dominii (Smooth Solenogyne)",
+          "Oxalis corniculata s.l. (Yellow Wood-sorrel)",
+          "Oxalis exilis (Shady Wood-sorrel)",
+          "Opercularia varia (Variable Stinkweed)"
+        ]
+      },
+      {
+        "layer": "Large Tufted Graminoid (LTG)",
+        "plants": [
+          "Austrostipa rudis (Veined Spear-grass)",
+          "Austrostipa mollis (Supple Spear-grass)"
+        ]
+      },
+      {
+        "layer": "Large Non-tufted Graminoid (LNG)",
+        "plants": [
+          "Gahnia radula (Thatch Saw-sedge)"
+        ]
+      },
+      {
+        "layer": "Medium to Small Tufted Graminoid (MTG)",
+        "plants": [
+          "Themeda triandra (Kangaroo Grass)",
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Tricoryne elatior (Yellow Rush-lily)",
+          "Arthropodium strictum s.l. (Chocolate Lily)"
+        ]
+      },
+      {
+        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",
+        "plants": [
+          "Microlaena stipoides var. stipoides (Weeping Grass)"
+        ]
+      },
+      {
+        "layer": "Scrambler or Climber (SC)",
+        "plants": [
+          "Billardiera scandens (Common Apple-berry)"
+        ]
+      },
+      {
+        "layer": "Bryophytes/Lichens (BL)",
+        "plants": [
+          "Various mosses and lichens (~20% cover)"
+        ]
+      }
+    ]
+  },
+  "55": {
+    "description": "EVC 55 represents a lowland vegetation community with open woodlands and native grasses adapted to drier conditions. Dense planting with drought-tolerant species is key.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Eucalyptus camaldulensis (River Red Gum)",
+          "Allocasuarina verticillata (Drooping Sheoak)"
+        ]
+      },
+      {
+        "layer": "Tree Layer",
+        "plants": [
+          "Acacia dealbata (Silver Wattle)",
+          "Allocasuarina littoralis (Black Sheoak)"
+        ]
+      },
+      {
+        "layer": "Sub Tree Layer",
+        "plants": [
+          "Callistemon citrinus (Bottlebrush)",
+          "Grevillea robusta (Silk Oak)"
+        ]
+      },
+      {
+        "layer": "Shrub Layer",
+        "plants": [
+          "Hakea salicifolia (Willow-leaved Hakea)",
+          "Leptospermum scoparium (Manuka)"
+        ]
+      },
+      {
+        "layer": "Ground Covers",
+        "plants": [
+          "Dichondra repens (Kidney Weed)",
+          "Myoporum parvifolium (Creeping Boobialla)"
+        ]
+      }
+    ]
+  },
+  "175": {
+    "description": "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Eucalyptus camaldulensis (River Red Gum)",
+          "Eucalyptus microtheca (Coolibah)"
+        ]
+      },
+      {
+        "layer": "Understorey Tree / Large Shrub (T)",
+        "plants": [
+          "Acacia mearnsii (Black Wattle)",
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Exocarpos cupressiformis (Cherry Ballart)"
+        ]
+      },
+      {
+        "layer": "Medium Shrub (MS)",
+        "plants": [
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Epacris impressa (Common Heath)",
+          "Cassinia aculeata (Common Cassinia)",
+          "Acacia paradoxa (Hedge Wattle)"
+        ]
+      },
+      {
+        "layer": "Small Shrub (SS)",
+        "plants": [
+          "Pimelea humilis (Common Rice-flower)",
+          "Hibbertia riparia (Erect Guinea-flower)"
+        ]
+      },
+      {
+        "layer": "Prostrate Shrub (PS)",
+        "plants": [
+          "Bossiaea prostrata (Creeping Bossiaea)",
+          "Astroloma humifusum (Cranberry Heath)",
+          "Acrotriche serrulata (Honey-pots)"
+        ]
+      },
+      {
+        "layer": "Large Herb (LH)",
+        "plants": [
+          "Pterostylis longifolia s.l. (Tall Greenhood)"
+        ]
+      },
+      {
+        "layer": "Medium Herb (MH)",
+        "plants": [
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)"
+        ]
+      },
+      {
+        "layer": "Small Herb (SH)",
+        "plants": [
+          "Dichondra repens (Kidney-weed)",
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera whittakeri ssp. aberrans (Scented Sundew)"
+        ]
+      },
+      {
+        "layer": "Large Tufted Graminoid (LTG)",
+        "plants": [
+          "Deyeuxia quadriseta (Reed Bent-grass)",
+          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)"
+        ]
+      },
+      {
+        "layer": "Large Non-tufted Graminoid (LNG)",
+        "plants": [
+          "Gahnia radula (Thatch Saw-sedge)"
+        ]
+      },
+      {
+        "layer": "Medium to Small Tufted Graminoid (MTG)",
+        "plants": [
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Poa sieberiana (Grey Tussock-grass)",
+          "Lepidosperma laterale (Variable Sword-sedge)"
+        ]
+      },
+      {
+        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",
+        "plants": [
+          "Microlaena stipoides var. stipoides (Weeping Grass)"
+        ]
+      },
+      {
+        "layer": "Ground Fern (GF)",
+        "plants": [
+          "Pteridium esculentum (Austral Bracken)"
+        ]
+      },
+      {
+        "layer": "Scrambler or Climber (SC)",
+        "plants": [
+          "Comesperma volubile (Love Creeper)",
+          "Billardiera scandens (Common Apple-berry)"
+        ]
+      }
+    ]
+  },
+  "180": {
+    "description": "EVC 180 typically occurs in drier, sclerophyll conditions on well-drained soils. Drought-tolerant species are essential for rapid establishment. The following represent a balanced, multi-layered approach for EVC 180.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Eucalyptus camaldulensis (River Red Gum)",
+          "Eucalyptus microtheca (Coolibah)"
+        ]
+      },
+      {
+        "layer": "Tree Layer",
+        "plants": [
+          "Acacia aneura (Mulga)",
+          "Acacia pycnantha (Golden Wattle)"
+        ]
+      },
+      {
+        "layer": "Sub Tree Layer",
+        "plants": [
+          "Callistemon sieberi (River Bottlebrush)",
+          "Banksia menziesii (Menzies' Banksia)"
+        ]
+      },
+      {
+        "layer": "Shrub Layer",
+        "plants": [
+          "Hakea salicifolia (Willow-leaved Hakea)",
+          "Leptospermum scoparium (Manuka)"
+        ]
+      },
+      {
+        "layer": "Ground Covers",
+        "plants": [
+          "Dichondra repens (Kidney Weed)",
+          "Myoporum parvifolium (Creeping Boobialla)"
+        ]
+      }
+    ]
+  },
+  "200": {
+    "description": "EVC 200 represents a mosaic of woodland and open forest with mixed sclerophyll and grassy understorey. A diverse selection is required to quickly form a closed canopy and rich understorey.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy",
+        "plants": [
+          "Eucalyptus obliqua (Messmate)",
+          "Eucalyptus viminalis (Manna Gum)"
+        ]
+      },
+      {
+        "layer": "Tree Layer",
+        "plants": [
+          "Acacia dealbata (Silver Wattle)",
+          "Allocasuarina verticillata (Drooping Sheoak)"
+        ]
+      },
+      {
+        "layer": "Sub Tree Layer",
+        "plants": [
+          "Grevillea juniperina (Juniper Grevillea)",
+          "Callistemon viminalis (Weeping Bottlebrush)"
+        ]
+      },
+      {
+        "layer": "Shrub Layer",
+        "plants": [
+          "Prostanthera incisa (Cut-leaf Mint Bush)",
+          "Melaleuca linariifolia (Snow-in-summer)"
+        ]
+      },
+      {
+        "layer": "Ground Covers",
+        "plants": [
+          "Wahlenbergia spp. (Bluebell)",
+          "Scaevola aemula (Fan Flower)"
+        ]
+      }
+    ]
+  },
+  "71": {
+    "description": "A tall eucalypt woodland found along riverbanks and floodplains. It features shrubs and a mix of wetland herbs and sedges in the ground layer. Grows in fertile soils that flood from time to time, in low-lying areas with modest rainfall.",
+    "recommendations": [
+      {
+        "layer": "Tree Canopy Cover",
+        "plants": [
+          "Eucalyptus camaldulensis (River Red-gum)",
+          "Eucalyptus tereticornis ssp. mediana (Gippsland Red Gum)",
+          "Eucalyptus ovata (Swamp Gum)"
+        ]
+      },
+      {
+        "layer": "Immature Canopy Tree (IT)",
+        "plants": [
+          "Self-sown immature canopy seedlings (approx. 5% cover)"
+        ]
+      },
+      {
+        "layer": "Understorey Tree or Large Shrub (T)",
+        "plants": [
+          "Acacia implexa (Lightwood)",
+          "Acacia melanoxylon (Blackwood)"
+        ]
+      },
+      {
+        "layer": "Medium Shrub (MS)",
+        "plants": [
+          "Ozothamnus ferrugineus (Tree Everlasting)",
+          "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
+          "Hymenanthera dentata s.l. (Tree Violet)"
+        ]
+      },
+      {
+        "layer": "Large Herb (LH)",
+        "plants": [
+          "Urtica incisa (Scrub Nettle)",
+          "Persicaria subsessilis (Hairy Knotweed)",
+          "Senecio quadridentatus (Cottony Fireweed)"
+        ]
+      },
+      {
+        "layer": "Medium Herb (MH)",
+        "plants": [
+          "Acaena novae-zelandiae (Bidgee-widgee)",
+          "Hydrocotyle hirta (Hairy Pennywort)",
+          "Stellaria pungens (Prickly Starwort)",
+          "Veronica plebeia (Trailing Speedwell)"
+        ]
+      },
+      {
+        "layer": "Small or Prostrate Herb (SH)",
+        "plants": [
+          "Oxalis corniculata s.l. (Yellow Wood-sorrel)",
+          "Dichondra repens (Kidney-weed)"
+        ]
+      },
+      {
+        "layer": "Large Tufted Graminoid (LTG)",
+        "plants": [
+          "Carex appressa (Tall Sedge)",
+          "Poa labillardierei (Common Tussock-grass)"
+        ]
+      },
+      {
+        "layer": "Large Non-tufted Graminoid (LNG)",
+        "plants": [
+          "Phragmites australis (Common Reed)"
+        ]
+      },
+      {
+        "layer": "Medium to Small Tufted Graminoid (MTG)",
+        "plants": [
+          "Juncus amabilis (Hollow Rush)",
+          "Cyperus spp. (Flat-sedge)"
+        ]
+      },
+      {
+        "layer": "Medium to Tiny Non-tufted Graminoid (MNG)",
+        "plants": [
+          "Microlaena stipoides var. stipoides (Weeping Grass)",
+          "Eleocharis acuta (Common Spike-sedge)"
+        ]
+      },
+      {
+        "layer": "Scrambler or Climber (SC)",
+        "plants": [
+          "Calystegia sepium (Large Bindweed)"
+        ]
+      },
+      {
+        "layer": "Bryophytes/Lichens (BL)",
+        "plants": [
+          "Various mosses, liverworts & lichens (approx. 10% cover)"
+        ]
+      }
+    ]
   }
 }
