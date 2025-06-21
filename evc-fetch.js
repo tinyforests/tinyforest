@@ -1,138 +1,86 @@
-// evc-fetch.js
-
-let modalMap, marker, currentEvcCode, currentAddress;
+// Global variables
+let map;
+let marker;
+let currentEvcCode;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Initialize the Leaflet map in the modal
-  modalMap = L.map("modal-map", { zoomControl: false })
-    .setView([-37.8136, 144.9631], 8);
+  map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
-  }).addTo(modalMap);
+  }).addTo(map);
 
-  // 2) Handle address submission
-  document.getElementById("address-form").addEventListener("submit", e => {
-    e.preventDefault();
-    const addr = document.getElementById("address-input").value.trim();
-    if (!addr) return alert("Please enter an address.");
-    currentAddress = addr;
-    searchEVC(addr);
-  });
-
-  // 3) Close modal
-  document.getElementById("modal-close").addEventListener("click", () => {
-    document.getElementById("evc-modal").style.display = "none";
-    document.getElementById("modal-plants").innerHTML = "";
-  });
-
-  // 4) Display plant list only after email form is submitted
-  const gfForm = document.getElementById("gf-form");
-  if (gfForm) {
-    gfForm.addEventListener("submit", () => {
-      // let the POST go through, then render plants
-      setTimeout(() => {
-        fetch("curated-plants.json")
-          .then(r => r.json())
-          .then(json => {
-            const entry = json[currentEvcCode];
-            if (!entry) {
-              console.error("No entry for EVC code:", currentEvcCode);
-              return;
-            }
-            const container = document.getElementById("modal-plants");
-            container.innerHTML = "";
-            entry.recommendations.forEach(layer => {
-              const div = document.createElement("div");
-              div.className = "layer";
-              div.innerHTML = `
-                <h3>${layer.layer}</h3>
-                <ul>${layer.plants.map(p => `<li>${p}</li>`).join("")}</ul>
-              `;
-              container.appendChild(div);
-            });
-          })
-          .catch(err => console.error("Error loading plant list:", err));
-      }, 500);
-    });
-  }
+  document.getElementById("search-button").addEventListener("click", searchEVC);
 });
 
-/**
- * Geocode the address and fetch EVC
- */
-function searchEVC(address) {
+function searchEVC(evt) {
+  evt.preventDefault();
+  const address = document.getElementById("address-input").value;
+  if (!address) {
+    alert("Please enter an address.");
+    return;
+  }
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
     .then(res => res.json())
     .then(results => {
-      if (!results.length) throw new Error("Address not found.");
-      const { lat, lon } = results[0];
-      fetchEVCData(+lat, +lon);
+      if (!results.length) {
+        alert("Address not found.");
+        return;
+      }
+      const lat = parseFloat(results[0].lat),
+            lon = parseFloat(results[0].lon);
+      map.setView([lat, lon], 12);
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lon]).addTo(map);
+      fetchEVCData(lat, lon);
     })
-    .catch(err => alert(err.message));
+    .catch(err => console.error("Error geocoding:", err));
 }
 
-/**
- * Fetch EVC data from Victorian Gov WFS
- */
 function fetchEVCData(lat, lon) {
-  const d = 0.02;
-  const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
-  const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+  const bboxSize = 0.02,
+        bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(",");
+  const wfsUrl = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
 
-  fetch(url)
+  fetch(wfsUrl)
     .then(res => res.json())
     .then(data => {
-      if (!data.features?.length) throw new Error("No EVC data.");
-      const pt = turf.point([lon, lat]);
-      const feat = data.features.find(f =>
-        f.geometry?.type === "Polygon" &&
-        turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
-      ) || data.features[0];
+      if (data.features && data.features.length) {
+        const point = turf.point([lon, lat]);
+        let best = data.features.find(f => {
+          if (f.geometry.type === "Polygon") {
+            return turf.booleanPointInPolygon(point, turf.polygon(f.geometry.coordinates));
+          }
+        }) || data.features[0];
 
-      const { x_evcname, evc_bcs_desc, bioregion, evc } = feat.properties;
-      currentEvcCode = String(evc).trim();
-      showModal(x_evcname, evc_bcs_desc, bioregion, currentEvcCode, lat, lon);
-    })
-    .catch(err => alert(err.message));
-}
+        const p = best.properties,
+              name = p.x_evcname || "Unknown",
+              code = p.evc || "Unknown",
+              status = p.evc_bcs_desc || "Not Specified",
+              region = p.bioregion || "Not Specified";
 
-/**
- * Populate & open the modal with EVC info + map + description
- */
-function showModal(name, status, bioregion, code, lat, lon) {
-  // EVC name (with trailing period)
-  const dispName = name.endsWith('.') ? name : name + '.';
-  document.getElementById("modal-evc-name").textContent = dispName;
-
-  // Status & Bioregion
-  document.getElementById("modal-evc-status").textContent = status;
-  document.getElementById("modal-evc-region").textContent = bioregion;
-
-  // Load description from JSON
-  fetch("curated-plants.json")
-    .then(r => r.json())
-    .then(json => {
-      const entry = json[code];
-      document.getElementById("modal-evc-description").textContent =
-        entry?.description || "No description available.";
+        displayEVCInfo(name, code, status, region);
+      } else {
+        document.getElementById("evc-details").innerHTML = "<p>No EVC data found.</p>";
+        document.querySelector(".download-button").style.display = "none";
+      }
     })
     .catch(err => {
-      console.error("Error loading description:", err);
-      document.getElementById("modal-evc-description").textContent =
-        "Error loading description.";
+      console.error("Error fetching EVC:", err);
+      document.getElementById("evc-details").innerHTML = "<p>Error retrieving EVC data.</p>";
+      document.querySelector(".download-button").style.display = "none";
     });
+}
 
-  // Populate hidden form fields
-  const addrF = document.getElementById("gf-address");
-  if (addrF) addrF.value = currentAddress;
-  const codeF = document.getElementById("gf-evcCode");
-  if (codeF) codeF.value = currentEvcCode;
+function displayEVCInfo(name, code, status, region) {
+  currentEvcCode = code;
+  document.getElementById("modal-evc-name").textContent = name;
+  document.getElementById("modal-evc-status").textContent = status;
+  document.getElementById("modal-evc-region").textContent = region;
+  document.getElementById("modal-evc-description").textContent = p.bcref; // or your description logic
 
-  // Draw marker
-  modalMap.setView([lat, lon], 12);
-  if (marker) modalMap.removeLayer(marker);
-  marker = L.marker([lat, lon]).addTo(modalMap);
-
-  // Show modal
+  // show modal, wire up form hidden inputs, map, plants...
   document.getElementById("evc-modal").style.display = "flex";
+  document.getElementById("gf-address").value = document.getElementById("address-input").value;
+  document.getElementById("gf-evcCode").value = code;
+  // …and the rest of your modal population…
 }
