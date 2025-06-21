@@ -27,17 +27,12 @@
       Enter your address to discover your Ecological Vegetation and find what plants belong in your garden.
     </p>
     <div id="search-container">
-      <form id="address-form" onsubmit="return false;">
-        <input
-          type="text"
-          id="address-input"
-          placeholder="Enter your address"
-          required
-        />
-        <button id="search-button" type="button">
-          Find My Garden
-        </button>
-      </form>
+      <input
+        type="text"
+        id="address-input"
+        placeholder="Enter your address"
+      />
+      <button id="search-button" type="button">Find My Garden</button>
     </div>
   </div>
 
@@ -51,34 +46,10 @@
         <p class="status"><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p class="region"><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
         <p id="modal-evc-description"></p>
-
-        <!-- Email Form -->
-        <div id="email-section">
-          <form
-            id="gf-form"
-            action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
-            method="POST"
-            target="gf-iframe"
-          >
-            <input type="hidden" name="entry.2031982455" id="gf-address"/>
-            <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
-
-            <p>Enter your email address to display your curated plant list.</p>
-            <input
-              type="email"
-              name="entry.48659416"
-              id="gf-email"
-              placeholder="you@example.com"
-              required
-            />
-            <button type="submit">Display plant list</button>
-          </form>
-          <iframe name="gf-iframe" style="display:none;"></iframe>
-        </div>
       </div>
 
-      <div id="modal-plants"></div>
       <div id="modal-map"></div>
+      <div id="modal-plants"></div>
     </div>
   </div>
 
