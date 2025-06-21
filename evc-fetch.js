@@ -2,7 +2,7 @@
 
 let modalMap, marker, currentEvcCode, currentAddress;
 
-// Same endpoint for both record & list:
+// Your Web App endpoint
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx5lI0vJONS4RiQfpquUP1PVbEWiIgt-IZXSD3HWIgkeemyxb2i4O5ugSRsgVX57dHW5g/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("email-submit").addEventListener("click", () => {
     const email = document.getElementById("email-input").value.trim();
-    if (!email) return alert("Please enter an email.");
+    if (!email) return alert("Please enter an email address.");
     recordSubmission(currentAddress, currentEvcCode, email);
     loadPlantList();
   });
@@ -39,7 +39,7 @@ function searchEVC(address) {
       const { lat, lon } = results[0];
       fetchEVCData(+lat, +lon);
     })
-    .catch(err => { alert(err.message); console.error(err); });
+    .catch(err => { alert(err.message); });
 }
 
 function fetchEVCData(lat, lon) {
@@ -60,23 +60,23 @@ function fetchEVCData(lat, lon) {
       currentEvcCode = evc || "";
       showModal(x_evcname, evc_bcs_desc, bioregion, evc, lat, lon);
     })
-    .catch(err => { alert(err.message); console.error(err); });
+    .catch(err => { alert(err.message); });
 }
 
 function showModal(name, status, bioregion, code, lat, lon) {
-  const displayName = name.endsWith('.') ? name : name + '.';
-  document.getElementById("modal-evc-name").textContent = displayName;
+  const dispName = name.endsWith('.') ? name : name + '.';
+  document.getElementById("modal-evc-name").textContent   = dispName;
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
-  document.getElementById("modal-plants").innerHTML = "";
-  document.getElementById("email-input").value = "";
+  document.getElementById("modal-plants").innerHTML       = "";
+  document.getElementById("email-input").value            = "";
 
   fetch("curated-plants.json")
     .then(r => r.json())
     .then(json => {
-      document.getElementById("modal-evc-description").textContent = json[code]?.description || "";
-    })
-    .catch(console.error);
+      document.getElementById("modal-evc-description").textContent =
+        json[code]?.description || "";
+    });
 
   modalMap.setView([lat, lon], 12);
   if (marker) modalMap.removeLayer(marker);
@@ -96,14 +96,14 @@ function loadPlantList() {
       entry.recommendations.forEach(layer => {
         const div = document.createElement("div");
         div.className = "layer";
-        div.innerHTML = `<h3>${layer.layer}</h3><ul>${layer.plants.map(p=>`<li>${p}</li>`).join("")}</ul>`;
+        div.innerHTML = `<h3>${layer.layer}</h3>
+          <ul>${layer.plants.map(p=>`<li>${p}</li>`).join("")}</ul>`;
         container.appendChild(div);
       });
-    })
-    .catch(console.error);
+    });
 }
 
-// JSONP record
+// JSONP-based record
 function recordSubmission(address, evcCode, email) {
   window.recordCallback = resp => {
     if (!resp.success) console.error("Record failed", resp.error);
