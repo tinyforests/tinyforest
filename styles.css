@@ -53,16 +53,16 @@ nav a:hover {
   margin-bottom: 10px;
 }
 
-/* control spacing between the two hero lines */
-#container p br {
+/* ↑ extra space *after* the first <br> only */
+#container p br:first-of-type {
   display: block;
-  margin-bottom: 2em;
+  margin-bottom: 3em;
 }
 
 /* space after the entire paragraph down to the form */
 #container p {
   margin-bottom: 1em;
-  line-height: 1.4;  /* overall readability */
+  line-height: 1.4;
 }
 
 /* =======================
