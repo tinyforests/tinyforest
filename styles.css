@@ -97,14 +97,41 @@ body {
   font-size: 21px;
   color: #888888;
   margin: 0.5em 0 1em;
+  font-style: normal;
 }
-#modal-map {
-  width: 100%;
-  height: 300px;
+
+/* EMAIL SECTION */
+#email-section {
   margin: 1em 0;
-  border: 1px solid #fff0dc;
-  border-radius: 4px;
 }
+#email-section p {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.1em;
+  color: #fff0dc;
+  padding-left: 0.25em;
+}
+#email-section input,
+#email-section button {
+  width: 100%; padding: 0.8em;
+  font-size: 1.1em; border-radius: 6px;
+  box-sizing: border-box;
+  font-family: "IBM Plex Mono", monospace;
+}
+#email-section input {
+  border: 2px solid #fff0dc;
+  background: transparent; color: #fff0dc;
+  margin-bottom: 0.5em;
+}
+#email-section button {
+  background: #fff0dc; color: #3d4535;
+  border: none; font-weight: bold;
+  cursor: pointer;
+}
+#email-section button:hover {
+  background: #e0e0e0;
+}
+
+/* PLANT LIST */
 #modal-plants .layer {
   margin-top: 1em;
 }
@@ -122,13 +149,10 @@ body {
 /* RESPONSIVE */
 @media (max-width: 600px) {
   #address-input, #search-button {
-    display: block; width: 80%; margin: 0.5em auto; 
+    display: block; width: 80%; margin: 0.5em auto;
   }
   .modal-content {
     width: 95%;
     padding: 1em;
-  }
-  #modal-map {
-    height: 200px;
   }
 }
