@@ -3,14 +3,14 @@
 let modalMap, marker, currentEvcCode, currentAddress;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize the modal’s Leaflet map
+  // 1) Initialize the modal’s Leaflet map
   modalMap = L.map("modal-map", { zoomControl: false })
     .setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
 
-  // Address‐search form
+  // 2) Address‐lookup form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -19,24 +19,31 @@ document.addEventListener("DOMContentLoaded", () => {
     searchEVC(addr);
   });
 
-  // Close‐modal button
+  // 3) Close the modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
+    // clear out any previously rendered plant list
+    document.getElementById("modal-plants").innerHTML = "";
   });
 
-  // When the Google Form posts, load the plant list
+  // 4) “Display plant list” button → fetch & render plants
   const gfForm = document.getElementById("gf-form");
   if (gfForm) {
-    gfForm.addEventListener("submit", () => {
-      // Delay slightly to allow the POST to fire
+    gfForm.addEventListener("submit", e => {
+      // allow the form POST to Google to go through,
+      // then fetch + render the plants
       setTimeout(() => {
         fetch("curated-plants.json")
           .then(r => r.json())
           .then(json => {
             const entry = json[currentEvcCode];
+            if (!entry) {
+              console.error("No entry for EVC code:", currentEvcCode);
+              return;
+            }
             const container = document.getElementById("modal-plants");
-            container.innerHTML = "";
-            entry?.recommendations.forEach(layer => {
+            container.innerHTML = ""; 
+            entry.recommendations.forEach(layer => {
               const div = document.createElement("div");
               div.className = "layer";
               div.innerHTML = `
@@ -45,7 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
               `;
               container.appendChild(div);
             });
-          });
+          })
+          .catch(err => console.error("Error loading plant list:", err));
       }, 500);
     });
   }
@@ -78,42 +86,45 @@ function fetchEVCData(lat, lon) {
       ) || data.features[0];
 
       const { x_evcname, evc_bcs_desc, bioregion, evc } = feat.properties;
-      currentEvcCode = evc || "";
-      showModal(x_evcname, evc_bcs_desc, bioregion, evc, lat, lon);
+      currentEvcCode = String(evc).trim();
+      showModal(x_evcname, evc_bcs_desc, bioregion, currentEvcCode, lat, lon);
     })
     .catch(err => alert(err.message));
 }
 
 function showModal(name, status, bioregion, code, lat, lon) {
-  // Ensure trailing period
+  // 1) Header info
   const dispName = name.endsWith('.') ? name : name + '.';
   document.getElementById("modal-evc-name").textContent   = dispName;
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
 
-  // Load description
+  // 2) Description only
   fetch("curated-plants.json")
     .then(r => r.json())
     .then(json => {
+      const entry = json[code];
       document.getElementById("modal-evc-description").textContent =
-        json[code]?.description || "";
+        entry?.description || "No description available.";
+    })
+    .catch(err => {
+      console.error("Error loading descriptions:", err);
+      document.getElementById("modal-evc-description").textContent =
+        "Error loading description.";
     });
 
-  // Safely populate hidden form fields
-  const addrField = document.getElementById("gf-address");
-  if (addrField) addrField.value = currentAddress;
+  // 3) Populate hidden form fields
+  const addrF = document.getElementById("gf-address");
+  if (addrF) addrF.value = currentAddress;
+  const codeF = document.getElementById("gf-evcCode");
+  if (codeF) codeF.value = currentEvcCode;
 
-  const codeField = document.getElementById("gf-evcCode");
-  if (codeField) codeField.value = currentEvcCode;
-
-  // Draw marker on modal map
+  // 4) Draw the marker in the modal map
   modalMap.setView([lat, lon], 12);
   if (marker) modalMap.removeLayer(marker);
   marker = L.marker([lat, lon]).addTo(modalMap);
 
-  // Clear old plant list
+  // 5) Show the modal
   document.getElementById("modal-plants").innerHTML = "";
-
-  // Show the modal
   document.getElementById("evc-modal").style.display = "flex";
 }
