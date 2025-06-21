@@ -131,7 +131,10 @@ body {
   background: #e0e0e0;
 }
 
-/* PLANT LIST */
+/* PLANT LIST (hidden until submission) */
+#modal-plants {
+  display: none;
+}
 #modal-plants .layer {
   margin-top: 1em;
 }
