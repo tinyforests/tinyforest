@@ -1,62 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Fonts & CSS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css"/>
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300&display=swap"
-    rel="stylesheet"
-  />
 </head>
 <body>
   <div id="container">
-    <h2>Let's find your Ecological Vegetation Class (EVC)</h2>
-    <p>Enter your address to discover your Ecological Vegetation Class (EVC).</p>
-
-    <!-- Search -->
+    <h2>Find Your Ecological Garden.</h2>
+    <p>
+      <span class="hero-highlight">
+        Planting ecological species helps restore local biodiversity, support native wildlife,
+        and build climate resilience right from your own garden.
+      </span><br>
+      Enter your address to discover your Ecological Vegetation and find what plants belong in your garden.
+    </p>
     <div id="search-container">
-      <input type="text" id="address-input" placeholder="Enter your address" />
-      <button id="search-button" type="button">Find My Garden</button>
-    </div>
-
-    <!-- Grid: EVC details + map -->
-    <div id="evc-grid">
-      <div id="evc-details-container">
-        <div id="evc-details">
-          <p>Your EVC will display here</p>
-        </div>
-        <button class="download-button" id="download-button">
-          Purchase Curated Plant List For This EVC
+      <form id="address-form" onsubmit="return false;">
+        <input
+          type="text"
+          id="address-input"
+          placeholder="Enter your address"
+          required
+        />
+        <button id="search-button" type="button">
+          Find My Garden
         </button>
-      </div>
-      <div id="map-container">
-        <div id="map"></div>
-      </div>
+      </form>
     </div>
   </div>
 
-  <footer>
-    <h3>Find out more</h3>
-    <p class="footer-details">Gardener &amp; Son</p>
-    <p class="footer-details">Garden Design / Heirloom &amp; Foraged Garden Objects.</p>
-    <p class="footer-details">2 Churchill Street, Mont Albert</p>
-    <p class="footer-details">
-      <a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a>
-    </p>
-    <p class="footer-details">0406 059 866</p>
-    <div>
-      <a href="#">Depop</a>
-      <a href="#">Instagram</a>
-      <a href="#">Studio Playlist</a>
-    </div>
-  </footer>
+  <!-- Modal -->
+  <div id="evc-modal">
+    <div class="modal-content">
+      <button id="modal-close">&times;</button>
+      <div id="modal-info">
+        <p class="title">Your Ecological Vegetation is:</p>
+        <p id="modal-evc-name"></p>
+        <p class="status"><strong>Status:</strong> <span id="modal-evc-status"></span></p>
+        <p class="region"><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
+        <p id="modal-evc-description"></p>
 
+        <!-- Email Form -->
+        <div id="email-section">
+          <form
+            id="gf-form"
+            action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
+            method="POST"
+            target="gf-iframe"
+          >
+            <input type="hidden" name="entry.2031982455" id="gf-address"/>
+            <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
+
+            <p>Enter your email address to display your curated plant list.</p>
+            <input
+              type="email"
+              name="entry.48659416"
+              id="gf-email"
+              placeholder="you@example.com"
+              required
+            />
+            <button type="submit">Display plant list</button>
+          </form>
+          <iframe name="gf-iframe" style="display:none;"></iframe>
+        </div>
+      </div>
+
+      <div id="modal-plants"></div>
+      <div id="modal-map"></div>
+    </div>
+  </div>
+
+  <!-- Libraries & Logic -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
