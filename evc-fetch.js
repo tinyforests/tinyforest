@@ -1,17 +1,20 @@
 let map, marker, currentEvcCode;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) init map
+  // 1) Initialize map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) button
+  // 2) Wire up search button
   document.getElementById("search-button")
     .addEventListener("click", searchEVC);
 });
 
+/**
+ * Geocode the address and then fetch EVC data
+ */
 function searchEVC() {
   const address = document.getElementById("address-input").value.trim();
   if (!address) {
@@ -19,71 +22,103 @@ function searchEVC() {
     return;
   }
 
-  // geocode
+  // Geocode via Nominatim
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error(`Geocode error: ${res.status}`);
+      return res.json();
+    })
     .then(results => {
       if (!results.length) {
-        alert("Address not found.");
-        return;
+        throw new Error("Geocode returned no results");
       }
       const lat = parseFloat(results[0].lat),
             lon = parseFloat(results[0].lon);
 
-      // update map
+      // Update the map
       map.setView([lat, lon], 12);
       if (marker) map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
 
-      // fetch EVC
+      // Fetch EVC
       fetchEVCData(lat, lon);
     })
     .catch(err => {
-      console.error(err);
-      alert("Error looking up that address.");
+      console.error("Error during geocoding:", err);
+      document.getElementById("evc-details").innerHTML =
+        `<p style="color:red;">Error finding that address:<br>${err.message}</p>`;
+      document.getElementById("download-button").style.display = "none";
     });
 }
 
+/**
+ * Fetch EVC data from VicGov WFS and display
+ */
 function fetchEVCData(lat, lon) {
   const d = 0.02;
   const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
-  const url =
-    "https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0" +
-    "&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs" +
-    `&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+  const wfsUrl = [
+    "https://opendata.maps.vic.gov.au/geoserver/wfs",
+    "?service=WFS",
+    "&version=1.0.0",
+    "&request=GetFeature",
+    "&typeName=open-data-platform:nv2005_evcbcs",
+    `&bbox=${bbox},EPSG:4326`,
+    "&outputFormat=application/json"
+  ].join("");
 
-  fetch(url)
-    .then(res => res.json())
+  console.log("Fetching EVC data from:", wfsUrl);
+
+  fetch(wfsUrl)
+    .then(res => {
+      if (!res.ok) throw new Error(`WFS status ${res.status}`);
+      return res.json();
+    })
     .then(data => {
+      console.log("EVC raw data:", data);
       if (!data.features || !data.features.length) {
-        alert("No EVC data found.");
-        return;
+        throw new Error("No EVC features returned");
       }
 
-      // pick the polygon containing the point
+      // Find the polygon containing our point
       const pt = turf.point([lon, lat]);
-      let feat = data.features.find(f => {
-        return f.geometry.type === "Polygon" &&
-               turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates));
-      }) || data.features[0];
+      let feat = data.features.find(f =>
+        f.geometry &&
+        f.geometry.type === "Polygon" &&
+        turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+      ) || data.features[0];
 
       const p = feat.properties;
-      document.getElementById("evc-details").innerHTML = `
-        <p><b>Your EVC:</b> ${p.x_evcname || "Unknown"}</p>
-        <p><b>EVC Code:</b> ${p.evc || "Unknown"}</p>
-        <p><b>Conservation Status:</b> ${p.evc_bcs_desc || "Not Specified"}</p>
-        <p><b>Bioregion:</b> ${p.bioregion || "Not Specified"}</p>
-      `;
-
-      // enable purchase button
-      const btn = document.getElementById("download-button");
-      btn.style.display = "block";
-      btn.onclick = () => {
-        window.location.href = `curated-plants.html?evcCode=${encodeURIComponent(p.evc)}`;
-      };
+      displayEVCInfo(
+        p.x_evcname || "Unknown",
+        p.evc || "Unknown",
+        p.evc_bcs_desc || "Not Specified",
+        p.bioregion || "Not Specified"
+      );
     })
     .catch(err => {
-      console.error(err);
-      alert("Error retrieving EVC data.");
+      console.error("Error retrieving EVC data:", err);
+      document.getElementById("evc-details").innerHTML =
+        `<p style="color:red;">Error retrieving EVC data:<br>${err.message}</p>`;
+      document.getElementById("download-button").style.display = "none";
     });
+}
+
+/**
+ * Populate the EVC details panel and show the purchase button
+ */
+function displayEVCInfo(evcName, evcCode, conservationStatus, bioregion) {
+  const details = document.getElementById("evc-details");
+  details.innerHTML = `
+    <p><b>Your EVC:</b> ${evcName}</p>
+    <p><b>EVC Code:</b> ${evcCode}</p>
+    <p><b>Conservation Status:</b> ${conservationStatus}</p>
+    <p><b>Bioregion:</b> ${bioregion}</p>
+  `;
+
+  const btn = document.getElementById("download-button");
+  btn.style.display = "block";
+  btn.onclick = () => {
+    window.location.href = `curated-plants.html?evcCode=${encodeURIComponent(evcCode)}`;
+  };
 }
