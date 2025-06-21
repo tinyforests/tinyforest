@@ -1,66 +1,49 @@
 let map, marker, currentEvcCode;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize map
+  // 1) init map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Button click
+  // 2) button
   document.getElementById("search-button")
     .addEventListener("click", searchEVC);
-
-  // Modal close
-  document.getElementById("modal-close")
-    .addEventListener("click", () => evcModal().style.display = "none");
-  document.getElementById("evc-modal")
-    .addEventListener("click", e => {
-      if (e.target.id === "evc-modal") evcModal().style.display = "none";
-    });
 });
 
-// helper
-function evcModal() {
-  return document.getElementById("evc-modal");
-}
-
-/**
- * Geocode and fetch EVC
- */
 function searchEVC() {
-  const addr = document.getElementById("address-input").value.trim();
-  if (!addr) {
+  const address = document.getElementById("address-input").value.trim();
+  if (!address) {
     alert("Please enter an address.");
     return;
   }
 
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}`)
-    .then(r => r.json())
+  // geocode
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+    .then(res => res.json())
     .then(results => {
       if (!results.length) {
         alert("Address not found.");
         return;
       }
-      const lat = +results[0].lat, lon = +results[0].lon;
-      showOnMap(lat, lon);
+      const lat = parseFloat(results[0].lat),
+            lon = parseFloat(results[0].lon);
+
+      // update map
+      map.setView([lat, lon], 12);
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lon]).addTo(map);
+
+      // fetch EVC
       fetchEVCData(lat, lon);
     })
     .catch(err => {
       console.error(err);
-      alert("Error looking up address.");
+      alert("Error looking up that address.");
     });
 }
 
-function showOnMap(lat, lon) {
-  map.setView([lat, lon], 12);
-  if (marker) map.removeLayer(marker);
-  marker = L.marker([lat, lon]).addTo(map);
-}
-
-/**
- * Fetch EVC details
- */
 function fetchEVCData(lat, lon) {
   const d = 0.02;
   const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
@@ -70,45 +53,37 @@ function fetchEVCData(lat, lon) {
     `&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
 
   fetch(url)
-    .then(r => r.json())
+    .then(res => res.json())
     .then(data => {
       if (!data.features || !data.features.length) {
         alert("No EVC data found.");
         return;
       }
+
+      // pick the polygon containing the point
       const pt = turf.point([lon, lat]);
-      let feat = data.features.find(f =>
-        f.geometry.type === "Polygon"
-        && turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
-      ) || data.features[0];
+      let feat = data.features.find(f => {
+        return f.geometry.type === "Polygon" &&
+               turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates));
+      }) || data.features[0];
 
       const p = feat.properties;
-      displayEVCInfo(
-        p.x_evcname || "Unknown",
-        p.evc || "Unknown",
-        p.evc_bcs_desc || "Not specified",
-        p.bioregion || "Not specified"
-      );
+      document.getElementById("evc-details").innerHTML = `
+        <p><b>Your EVC:</b> ${p.x_evcname || "Unknown"}</p>
+        <p><b>EVC Code:</b> ${p.evc || "Unknown"}</p>
+        <p><b>Conservation Status:</b> ${p.evc_bcs_desc || "Not Specified"}</p>
+        <p><b>Bioregion:</b> ${p.bioregion || "Not Specified"}</p>
+      `;
+
+      // enable purchase button
+      const btn = document.getElementById("download-button");
+      btn.style.display = "block";
+      btn.onclick = () => {
+        window.location.href = `curated-plants.html?evcCode=${encodeURIComponent(p.evc)}`;
+      };
     })
     .catch(err => {
       console.error(err);
       alert("Error retrieving EVC data.");
     });
-}
-
-/**
- * Populate & show modal
- */
-function displayEVCInfo(name, code, status, region) {
-  currentEvcCode = code;
-  document.getElementById("modal-evc-name").textContent   = name;
-  document.getElementById("modal-evc-status").textContent = status;
-  document.getElementById("modal-evc-region").textContent = region;
-
-  // prefill form
-  document.getElementById("gf-address").value = 
-    document.getElementById("address-input").value.trim();
-  document.getElementById("gf-evcCode").value = code;
-
-  evcModal().style.display = "flex";
 }
