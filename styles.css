@@ -13,30 +13,7 @@ body {
    NAVIGATION MENU
    ======================= */
 nav {
-  position: sticky;
-  top: 0;
-  background-color: #3d4535;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 15px 20px;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-nav .menu {
-  display: flex;
-  gap: 15px;
-}
-nav a {
-  color: white;
-  text-decoration: none;
-  font-family: "IBM Plex Mono", monospace;
-  font-weight: 300;
-  font-size: 14px;
-}
-nav a:hover {
-  text-decoration: underline;
+  /* …your existing nav styles… */
 }
 
 /* =======================
@@ -46,249 +23,78 @@ nav a:hover {
   text-align: center;
   padding: 60px 20px;
 }
+
 #container h2 {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
   color: #3d4535;
   margin-bottom: 10px;
 }
-/* ↑ Increased gap between the two hero <p> elements */
+
+/* keep the 2em below the whole paragraph */
 #container p {
-  margin-bottom: 3em;
+  margin-bottom: 2em;
+}
+
+/* ↑ add extra space after the <br> line break */
+#container p br {
+  display: block;
+  margin-bottom: 2em;   /* adjust this value to taste */
+  content: "";
+}
+
+/* optional: ensure comfortable line-height overall */
+#container p {
+  line-height: 1.4;
 }
 
 /* =======================
    SEARCH CONTAINER & FORM
    ======================= */
 #search-container {
-  margin-bottom: 20px;
+  /* … */
 }
-#address-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-#address-input {
-  padding: 8px;
-  width: 300px;
-  border: 1px solid #3d4535;
-  border-radius: 4px;
-  font-family: "IBM Plex Mono", monospace;
-  color: #3d4535;
-}
-#search-button {
-  padding: 10px 20px;
-  background-color: #3d4535;
-  color: #fff0dc;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: "IBM Plex Mono", monospace;
-}
-#search-button:hover {
-  background-color: #2f3928;
-}
+#address-form { /* … */ }
+#address-input { /* … */ }
+#search-button { /* … */ }
 
 /* =======================
    EVC DETAILS SECTION
    ======================= */
-#evc-info {
-  margin-top: 20px;
-  font-size: 1.1em;
-  text-align: center;
-}
-#evc-details {
-  background-color: transparent;
-  padding: 15px;
-  border-radius: 5px;
-  box-shadow: none;
-  margin: 20px auto;
-  text-align: left;
-  max-width: 800px;
-}
+#evc-info { /* … */ }
+#evc-details { /* … */ }
 
 /* =======================
-   PURCHASE BUTTON (DOWNLOAD BUTTON)
+   PURCHASE BUTTON
    ======================= */
-.download-button {
-  display: none; /* Initially hidden */
-  padding: 10px 20px;
-  background-color: #3d4535;
-  color: #fff0dc;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  text-align: center;
-  margin: 10px auto;
-}
-.download-button:hover {
-  background-color: #2f3928;
-}
+.download-button { /* … */ }
 
 /* =======================
    MAP SECTION
    ======================= */
-#map-container {
-  width: 100%;
-  height: 400px;
-}
-#map {
-  height: 100%;
-  width: 100%;
-  border-radius: 5px;
-  background-color: #e0e0e0;
-}
+#map-container { /* … */ }
+#map { /* … */ }
 
 /* =======================
    GRID LAYOUT FOR EVC MAP PAGE
    ======================= */
-#evc-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  background-color: #3D4535;
-  color: #FFF0DC;
-  padding: 20px;
-  margin-top: 20px;
-}
-#evc-details-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-}
-/* Override download-button within grid */
-#evc-details-container .download-button {
-  margin-top: 20px;
-  background-color: #FFF0DC;
-  color: #3D4535;
-}
-#evc-details-container .download-button:hover {
-  background-color: #e0e0e0;
-}
+#evc-grid { /* … */ }
+#evc-details-container { /* … */ }
 
 /* =======================
    PLANT LIST PAGE STYLES
    ======================= */
-#plant-list-container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 0 20px;
-  text-align: center;
-}
-#plant-list-container h1 {
-  font-family: "Abril Fatface", serif;
-  font-size: 2rem;
-  color: #3d4535;
-  margin-bottom: 20px;
-}
-#plant-list {
-  margin-top: 20px;
-  padding: 0 20px;
-}
-.plant-item {
-  padding: 8px 12px;
-  margin: 6px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 1rem;
-  text-align: left;
-}
+#plant-list-container { /* … */ }
+.plant-item { /* … */ }
 
 /* =======================
    FOOTER STYLES
    ======================= */
-footer {
-  background-color: #3d4535;
-  color: #fff0dc;
-  padding: 20px;
-  text-align: left;
-  width: 100%;
-  box-sizing: border-box;
-  padding-left: 10%;
-  padding-right: 10%;
-}
-footer h3 {
-  font-size: 33px;
-  font-weight: 400;
-  letter-spacing: -0.2px;
-  margin-bottom: 10px;
-  font-family: "Abril Fatface", serif;
-}
-footer p {
-  margin: 5px 0;
-}
-.footer-details {
-  color: #888888;
-  font-weight: 500;
-  font-size: 21px;
-  letter-spacing: -0.5px;
-  line-height: 1.2em;
-}
-footer a {
-  color: #fff0dc;
-  text-decoration: none;
-  font-weight: bold;
-  margin-right: 10px;
-}
-footer a:hover {
-  text-decoration: underline;
-}
+footer { /* … */ }
 
 /* =======================
    MOBILE / RESPONSIVE STYLES
    ======================= */
 @media (max-width: 600px) {
-  /* Hide map on mobile */
-  #map-container,
-  #map {
-    display: none !important;
-  }
-
-  /* Stack EVC grid into one column */
-  #evc-grid {
-    display: block;
-  }
-  #evc-details-container {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  /* Stack and enlarge form */
-  #address-form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8em;
-    align-items: stretch;
-    margin-bottom: 1.5em;
-  }
-  #address-input,
-  #search-button {
-    width: 100%;
-    padding: 1em;
-    font-size: 1.1em;
-    box-sizing: border-box;
-  }
-
-  /* Full-width buttons */
-  button,
-  .download-button {
-    width: 100%;
-  }
-
-  /* Adjust heading spacing */
-  #container h2 {
-    letter-spacing: -2px;
-    line-height: 1.2em;
-  }
-
-  /* Adjust input width margin cleanup */
-  input[type="text"] {
-    margin: 0;
-  }
+  /* …all your existing mobile overrides… */
 }
