@@ -60,13 +60,13 @@ nav a:hover {
   border-radius: 0.2em;
 }
 
-/* ↑ extra space after the first <br> only */
+/* extra space after the first <br> */
 #container p br:first-of-type {
   display: block;
   margin-bottom: 4em;
 }
 
-/* space after the entire paragraph down to the form */
+/* space after the entire paragraph */
 #container p {
   margin-bottom: 1em;
   line-height: 1.4;
