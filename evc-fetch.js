@@ -1,16 +1,24 @@
 let currentEvcCode;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Wire up the search button
+  // Wire up the search button
   document.getElementById("search-button")
     .addEventListener("click", searchEVC);
 
-  // 2) Close modal on × or backdrop click
+  // Close modal on × or backdrop click
   document.getElementById("modal-close")
     .addEventListener("click", () => modal().style.display = "none");
   document.getElementById("evc-modal")
     .addEventListener("click", e => {
       if (e.target.id === "evc-modal") modal().style.display = "none";
+    });
+
+  // After the email form is submitted, reveal & populate the plant list
+  document.getElementById("gf-form")
+    .addEventListener("submit", function() {
+      fillPlantList(currentEvcCode);
+      document.getElementById("modal-plants").style.display = "block";
+      // allow form to continue submitting to Google
     });
 });
 
@@ -25,7 +33,6 @@ function searchEVC() {
     return;
   }
 
-  // Geocode
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}`)
     .then(r => r.json())
     .then(results => {
@@ -77,7 +84,11 @@ function displayEVCInfo(name, code, status, region, address) {
   document.getElementById("gf-address").value = address;
   document.getElementById("gf-evcCode").value = code;
 
-  fillPlantList(code);
+  // clear & hide any previous plant list
+  const plantsDiv = document.getElementById("modal-plants");
+  plantsDiv.innerHTML = "";
+  plantsDiv.style.display = "none";
+
   modal().style.display = "flex";
 }
 
