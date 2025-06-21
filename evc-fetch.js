@@ -3,14 +3,14 @@
 let modalMap, marker, currentEvcCode, currentAddress;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // initialize map for modal
+  // Initialize the modal’s Leaflet map
   modalMap = L.map("modal-map", { zoomControl: false })
     .setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
 
-  // address form submit
+  // Address‐search form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -19,16 +19,38 @@ document.addEventListener("DOMContentLoaded", () => {
     searchEVC(addr);
   });
 
-  // close modal
-  document.getElementById("modal-close")
-    .addEventListener("click", () => {
-      document.getElementById("evc-modal").style.display = "none";
+  // Close‐modal button
+  document.getElementById("modal-close").addEventListener("click", () => {
+    document.getElementById("evc-modal").style.display = "none";
+  });
+
+  // When the Google Form posts, load the plant list
+  const gfForm = document.getElementById("gf-form");
+  if (gfForm) {
+    gfForm.addEventListener("submit", () => {
+      // Delay slightly to allow the POST to fire
+      setTimeout(() => {
+        fetch("curated-plants.json")
+          .then(r => r.json())
+          .then(json => {
+            const entry = json[currentEvcCode];
+            const container = document.getElementById("modal-plants");
+            container.innerHTML = "";
+            entry?.recommendations.forEach(layer => {
+              const div = document.createElement("div");
+              div.className = "layer";
+              div.innerHTML = `
+                <h3>${layer.layer}</h3>
+                <ul>${layer.plants.map(p => `<li>${p}</li>`).join("")}</ul>
+              `;
+              container.appendChild(div);
+            });
+          });
+      }, 500);
     });
+  }
 });
 
-/**
- * Geocode & fetch EVC
- */
 function searchEVC(address) {
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
     .then(r => r.json())
@@ -51,7 +73,7 @@ function fetchEVCData(lat, lon) {
       if (!data.features?.length) throw new Error("No EVC data.");
       const pt = turf.point([lon, lat]);
       const feat = data.features.find(f =>
-        f.geometry?.type==="Polygon" &&
+        f.geometry?.type === "Polygon" &&
         turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
       ) || data.features[0];
 
@@ -63,13 +85,13 @@ function fetchEVCData(lat, lon) {
 }
 
 function showModal(name, status, bioregion, code, lat, lon) {
-  // ensure trailing period
+  // Ensure trailing period
   const dispName = name.endsWith('.') ? name : name + '.';
   document.getElementById("modal-evc-name").textContent   = dispName;
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = bioregion;
 
-  // description from curated-plants.json
+  // Load description
   fetch("curated-plants.json")
     .then(r => r.json())
     .then(json => {
@@ -77,37 +99,21 @@ function showModal(name, status, bioregion, code, lat, lon) {
         json[code]?.description || "";
     });
 
-  // populate hidden form fields
-  document.getElementById("gf-address").value  = currentAddress;
-  document.getElementById("gf-evcCode").value  = currentEvcCode;
+  // Safely populate hidden form fields
+  const addrField = document.getElementById("gf-address");
+  if (addrField) addrField.value = currentAddress;
 
-  // draw modal map marker
+  const codeField = document.getElementById("gf-evcCode");
+  if (codeField) codeField.value = currentEvcCode;
+
+  // Draw marker on modal map
   modalMap.setView([lat, lon], 12);
   if (marker) modalMap.removeLayer(marker);
   marker = L.marker([lat, lon]).addTo(modalMap);
 
-  // clear previous plant list
+  // Clear old plant list
   document.getElementById("modal-plants").innerHTML = "";
 
-  // show the modal
+  // Show the modal
   document.getElementById("evc-modal").style.display = "flex";
 }
-
-document.getElementById("gf-form")?.addEventListener("submit", () => {
-  // once form submits to Google, load plant list underneath
-  fetch("curated-plants.json")
-    .then(r => r.json())
-    .then(json => {
-      const entry = json[currentEvcCode];
-      const container = document.getElementById("modal-plants");
-      entry?.recommendations.forEach(layer => {
-        const div = document.createElement("div");
-        div.className = "layer";
-        div.innerHTML = `
-          <h3>${layer.layer}</h3>
-          <ul>${layer.plants.map(p=>`<li>${p}</li>`).join("")}</ul>
-        `;
-        container.appendChild(div);
-      });
-    });
-});
