@@ -7,10 +7,10 @@
   <link rel="stylesheet" href="styles.css"/>
   <style>
     body { font-family:"IBM Plex Mono",monospace; color:#3d4535; padding:2em; }
-    h1 { font-family:"Abril Fatface",serif; margin-bottom:0.5em; }
+    h1   { font-family:"Abril Fatface",serif; margin-bottom:0.5em; }
     table { width:100%; border-collapse:collapse; margin-top:1em; }
     th,td { border:1px solid #ccc; padding:0.5em; text-align:left; }
-    th { background:#3d4535; color:#fff0dc; }
+    th    { background:#3d4535; color:#fff0dc; }
     .error { color:red; text-align:center; }
   </style>
 </head>
@@ -47,7 +47,7 @@
       });
     }
 
-    // JSONP injection
+    // Inject JSONP script for listing
     const script = document.createElement("script");
     script.src = SCRIPT_URL + "?callback=handleSubs";
     document.body.appendChild(script);
