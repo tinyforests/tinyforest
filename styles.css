@@ -52,9 +52,9 @@ nav a:hover {
   color: #3d4535;
   margin-bottom: 10px;
 }
-/* ↑ Increased gap between hero paragraphs to 2em */
+/* ↑ Increased gap between hero paragraphs to 10em */
 #container p {
-  margin-bottom: 2em;
+  margin-bottom: 10em;
 }
 
 /* =======================
