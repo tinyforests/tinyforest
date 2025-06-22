@@ -91,8 +91,8 @@ body {
 }
 #modal-evc-name {
   font-family: "Abril Fatface", serif;
-  font-size: 2.5rem;    /* matched to main title size */
-  margin-top: 0;        /* reset so it sits right below the title text */
+  font-size: 2.5rem;
+  margin-top: 0;
   margin-bottom: 0.5em;
 }
 .status,
@@ -104,7 +104,7 @@ body {
   font-family: "IBM Plex Mono", monospace;
   font-weight: 500;
   font-size: 21px;
-  color: #888888;
+  color: #cccccc;     /* updated to light grey */
   margin: 0.5em 0 1em;
   font-style: normal;
 }
