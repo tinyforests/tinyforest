@@ -10,7 +10,7 @@ body {
 /* HERO */
 #container {
   text-align: center;
-  padding: 30px 20px; /* reduced top padding per your earlier tweak */
+  padding: 30px 20px; /* reduced top padding */
 }
 #container h2 {
   font-family: "Abril Fatface", serif;
@@ -21,11 +21,12 @@ body {
   background-color: #ffffff;
   padding: 0.2em 0.4em;
   border-radius: 0.2em;
+  line-height: 1.6;  /* increased line height for breathing room */
 }
-/* increase gap between the two hero sentences */
+/* gap between the two hero sentences */
 #container p br:first-of-type {
   display: block;
-  margin-bottom: 3em; /* was 2em, now 3em */
+  margin-bottom: 3em;
 }
 
 /* SEARCH */
