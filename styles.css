@@ -26,7 +26,7 @@ body {
 /* increase gap between the two hero sentences */
 #container p br:first-of-type {
   display: block;
-  margin-bottom: 4em; /* increased from 3em to 4em */
+  margin-bottom: 6em; /* increased from 4em to 6em */
 }
 
 /* SEARCH */
