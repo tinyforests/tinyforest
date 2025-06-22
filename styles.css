@@ -9,7 +9,8 @@ body {
 /* HERO */
 #container {
   text-align: center;
-  padding: 60px 20px;
+  /* reduced top/bottom padding from 60px to 30px */
+  padding: 30px 20px;
 }
 #container h2 {
   font-family: "Abril Fatface", serif;
