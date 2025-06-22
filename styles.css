@@ -91,8 +91,8 @@ body {
 }
 #modal-evc-name {
   font-family: "Abril Fatface", serif;
-  font-size: 2rem;
-  margin-top: -30px;       /* moved up 30px closer to the title */
+  font-size: 2.5rem;    /* matched to #container h2 */
+  margin-top: -30px;
   margin-bottom: 0.5em;
 }
 .status,
