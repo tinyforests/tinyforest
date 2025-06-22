@@ -103,8 +103,8 @@ body {
 #modal-evc-description {
   font-family: "IBM Plex Mono", monospace;
   font-weight: 500;
-  font-size: 21px;
-  color: #cccccc;     /* updated to light grey */
+  font-size: 20px;       /* adjusted from 21px to 20px */
+  color: #cccccc;
   margin: 0.5em 0 1em;
   font-style: normal;
 }
