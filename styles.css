@@ -1,7 +1,8 @@
 /* GENERAL */
 body {
   font-family: "IBM Plex Mono", monospace;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   color: #3d4535;
   background-color: #fff0dc;
 }
@@ -9,8 +10,7 @@ body {
 /* HERO */
 #container {
   text-align: center;
-  /* reduced top/bottom padding from 60px to 30px */
-  padding: 30px 20px;
+  padding: 30px 20px; /* reduced top padding per your earlier tweak */
 }
 #container h2 {
   font-family: "Abril Fatface", serif;
@@ -22,9 +22,10 @@ body {
   padding: 0.2em 0.4em;
   border-radius: 0.2em;
 }
+/* increase gap between the two hero sentences */
 #container p br:first-of-type {
   display: block;
-  margin-bottom: 2em;
+  margin-bottom: 3em; /* was 2em, now 3em */
 }
 
 /* SEARCH */
@@ -66,16 +67,21 @@ body {
   background: #3d4535;
   color: #fff0dc;
   border-radius: 6px;
-  width: 90%; max-width: 800px;
-  max-height: 90%; overflow-y: auto;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90%;
+  overflow-y: auto;
   padding: 1.5em;
   position: relative;
 }
 #modal-close {
   position: absolute;
-  top: 0.5em; right: 0.5em;
-  background: transparent; border: none;
-  font-size: 1.5em; color: #fff0dc;
+  top: 0.5em;
+  right: 0.5em;
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  color: #fff0dc;
   cursor: pointer;
 }
 .title {
@@ -88,7 +94,8 @@ body {
   font-size: 2rem;
   margin-bottom: 0.5em;
 }
-.status, .region {
+.status,
+.region {
   font-family: "IBM Plex Mono", monospace;
   margin: 0.2em 0;
 }
@@ -113,19 +120,24 @@ body {
 }
 #email-section input,
 #email-section button {
-  width: 100%; padding: 0.8em;
-  font-size: 1.1em; border-radius: 6px;
+  width: 100%;
+  padding: 0.8em;
+  font-size: 1.1em;
+  border-radius: 6px;
   box-sizing: border-box;
   font-family: "IBM Plex Mono", monospace;
 }
 #email-section input {
   border: 2px solid #fff0dc;
-  background: transparent; color: #fff0dc;
+  background: transparent;
+  color: #fff0dc;
   margin-bottom: 0.5em;
 }
 #email-section button {
-  background: #fff0dc; color: #3d4535;
-  border: none; font-weight: bold;
+  background: #fff0dc;
+  color: #3d4535;
+  border: none;
+  font-weight: bold;
   cursor: pointer;
 }
 #email-section button:hover {
@@ -152,8 +164,11 @@ body {
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
-  #address-input, #search-button {
-    display: block; width: 80%; margin: 0.5em auto;
+  #address-input,
+  #search-button {
+    display: block;
+    width: 80%;
+    margin: 0.5em auto;
   }
   .modal-content {
     width: 95%;
