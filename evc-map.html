@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
 
-  <!-- Fonts & CSS -->
+  <!-- Fonts & Leaflet CSS -->
   <link
     href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;500;700&display=swap"
     rel="stylesheet"
@@ -19,37 +19,53 @@
 <body>
   <div id="container">
     <h2>Find Your Ecological Garden.</h2>
+    <p class="hero-highlight">
+      Planting ecological species helps restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
+    </p>
     <p>
-      <span class="hero-highlight">
-        Planting ecological species helps restore local biodiversity, support native wildlife,
-        and build climate resilience right from your own garden.
-      </span><br>
       Enter your address to discover your Ecological Vegetation and find what plants belong in your garden.
     </p>
+
     <div id="search-container">
-      <input
-        type="text"
-        id="address-input"
-        placeholder="Enter your address"
-      />
-      <button id="search-button" type="button">Find My Garden</button>
+      <form id="address-form">
+        <input
+          type="text"
+          id="address-input"
+          placeholder="Enter your address"
+          required
+        />
+        <button id="search-button" type="submit">
+          Find My Garden
+        </button>
+      </form>
     </div>
+
+    <!-- Map -->
+    <div id="map"></div>
   </div>
 
-  <!-- Modal with email form -->
+  <!-- Modal -->
   <div id="evc-modal">
     <div class="modal-content">
       <button id="modal-close">&times;</button>
       <div id="modal-info">
         <p class="title">Your Ecological Vegetation is:</p>
         <p id="modal-evc-name"></p>
-        <p class="status"><strong>Status:</strong> <span id="modal-evc-status"></span></p>
-        <p class="region"><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
+        <p class="status">
+          <strong>Status:</strong>
+          <span id="modal-evc-status"></span>
+        </p>
+        <p class="region">
+          <strong>Bioregion:</strong>
+          <span id="modal-evc-region"></span>
+        </p>
         <p id="modal-evc-description"></p>
       </div>
 
-      <!-- Email form to collect address, EVC code, email -->
+      <div id="modal-plants"></div>
+
       <div id="email-section">
+        <p>Enter your email address to display your curated plant list.</p>
         <form
           id="gf-form"
           action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
@@ -59,7 +75,6 @@
           <input type="hidden" name="entry.2031982455" id="gf-address"/>
           <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
 
-          <p>Enter your email address to display your curated plant list.</p>
           <input
             type="email"
             name="entry.48659416"
@@ -71,12 +86,10 @@
         </form>
         <iframe name="gf-iframe" style="display:none;"></iframe>
       </div>
-
-      <div id="modal-plants"></div>
     </div>
   </div>
 
-  <!-- Libraries & Logic -->
+  <!-- Leaflet, Turf & your fetch logic -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
