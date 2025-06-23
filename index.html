@@ -1,53 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Find Your Ecological Garden</title>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plant Your Own Tiny Forest</title>
-    <link rel="stylesheet" href="styles.css">
+  <!-- Fonts & Leaflet CSS -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="styles.css"/>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
 </head>
 <body>
-    <!-- Placeholder for the universal menu -->
-    <div id="menu-placeholder"></div>
+  <div id="container">
+    <h2>Find Your Ecological Garden.</h2>
+    <p class="hero-highlight">
+      Planting ecological species helps restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
+    </p>
+    <p>
+      Enter your address to discover your Ecological Vegetation and find what plants belong in your garden.
+    </p>
 
-    <!-- Page-specific content -->
-    <div id="content">
-        <h1>Plant your own Tiny Forest</h1>
-        <p>Ecologically informed forest planting kits tailored to your location.</p>
-        <a href="evc-map.html" class="cta-button">Find my Forest</a>
+    <div id="search-container">
+      <form id="address-form">
+        <input
+          type="text"
+          id="address-input"
+          placeholder="Enter your address"
+          required
+        />
+        <button id="search-button" type="submit">
+          Find My Garden
+        </button>
+      </form>
     </div>
 
-    <!-- Features Section -->
-    <div id="features">
-        <div class="feature">
-            <img src="images/tiny-forest-pack.jpg" alt="Tiny Forest Pack">
-            <h3>Purchase a Tiny Forest Pack</h3>
-            <p>Get everything you need to plant your very own tiny forest, complete with local seeds and instructions.</p>
-        </div>
-        <div class="feature">
-            <img src="images/tshirt.jpg" alt="T-Shirt">
-            <h3>Plus a T-Shirt</h3>
-            <p>Receive an exclusive Tiny Forest t-shirt to show your support for reforestation efforts.</p>
-        </div>
-        <div class="feature">
-            <img src="images/donation.jpg" alt="Donation">
-            <h3>Donation Included</h3>
-            <p>Your purchase includes a donation to support environmental conservation projects.</p>
-        </div>
-    </div>
+    <!-- Map -->
+    <div id="map"></div>
+  </div>
 
-    <!-- Script to dynamically load the menu -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            fetch('menu.html')
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById('menu-placeholder').innerHTML = data;
-                })
-                .catch(error => console.error("Error loading menu:", error));
-        });
-    </script>
+  <!-- Modal -->
+  <div id="evc-modal">
+    <div class="modal-content">
+      <button id="modal-close">&times;</button>
+      <div id="modal-info">
+        <p class="title">Your Ecological Vegetation is:</p>
+        <p id="modal-evc-name"></p>
+        <p class="status">
+          <strong>Status:</strong>
+          <span id="modal-evc-status"></span>
+        </p>
+        <p class="region">
+          <strong>Bioregion:</strong>
+          <span id="modal-evc-region"></span>
+        </p>
+        <p id="modal-evc-description"></p>
+      </div>
+
+      <div id="modal-plants"></div>
+
+      <div id="email-section">
+        <p>Enter your email address to display your curated plant list.</p>
+        <form
+          id="gf-form"
+          action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
+          method="POST"
+          target="gf-iframe"
+        >
+          <input type="hidden" name="entry.2031982455" id="gf-address"/>
+          <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
+
+          <input
+            type="email"
+            name="entry.48659416"
+            id="gf-email"
+            placeholder="you@example.com"
+            required
+          />
+          <button type="submit">Display plant list</button>
+        </form>
+        <iframe name="gf-iframe" style="display:none;"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet, Turf & your fetch logic -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+  <script src="evc-fetch.js"></script>
 </body>
 </html>
