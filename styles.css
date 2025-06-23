@@ -21,17 +21,17 @@ body {
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
-#container p {
-  line-height: 1.5;
-}
-#container p br:first-of-type {
-  display: block;
-  margin-bottom: 6em;
-}
 .hero-highlight {
   background-color: #ffffff;
   padding: 0.2em 0.4em;
   border-radius: 0.2em;
+  line-height: 1.6;
+}
+#container p {
+  line-height: 1.5;
+}
+#container p + p {
+  margin-top: 6em;
 }
 
 /* =======================
@@ -73,6 +73,17 @@ body {
 }
 
 /* =======================
+   MAP SECTION
+   ======================= */
+#map {
+  height: 400px;
+  margin: 20px auto;
+  max-width: 800px;
+  border-radius: 5px;
+  background-color: #e0e0e0;
+}
+
+/* =======================
    MODAL STYLES
    ======================= */
 #evc-modal {
@@ -105,8 +116,6 @@ body {
   color: #fff0dc;
   cursor: pointer;
 }
-
-/* Modal header text */
 .title {
   font: italic 18px "IBM Plex Mono", monospace;
   color: #888888;
@@ -115,8 +124,7 @@ body {
 #modal-evc-name {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
-  margin-top: 0;
-  margin-bottom: 0.5em;
+  margin: 0 0 0.5em;
 }
 .status,
 .region {
@@ -130,6 +138,23 @@ body {
   color: #cccccc;
   margin: 0.5em 0 1em;
   font-style: normal;
+}
+
+/* =======================
+   PLANT LIST (JS‐controlled)
+   ======================= */
+#modal-plants .layer {
+  margin-top: 1em;
+}
+#modal-plants h3 {
+  color: #fff0dc;
+  margin-bottom: 0.3em;
+}
+#modal-plants ul {
+  padding-left: 1.2em;
+}
+#modal-plants li {
+  margin-bottom: 0.2em;
 }
 
 /* =======================
@@ -168,24 +193,6 @@ body {
 }
 #email-section button:hover {
   background: #e0e0e0;
-}
-
-/* =======================
-   PLANT LIST
-   now controlled 100% by JS
-   ======================= */
-#modal-plants .layer {
-  margin-top: 1em;
-}
-#modal-plants h3 {
-  color: #fff0dc;
-  margin-bottom: 0.3em;
-}
-#modal-plants ul {
-  padding-left: 1.2em;
-}
-#modal-plants li {
-  margin-bottom: 0.2em;
 }
 
 /* =======================
