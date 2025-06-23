@@ -38,6 +38,14 @@ body {
   width: 300px;
   border: 1px solid #3d4535;
   border-radius: 4px;
+  font-family: inherit;    /* match paragraph font */
+  font-size: 1rem;         /* match paragraph size */
+  line-height: 1.5;        /* match paragraph line height */
+  color: inherit;          /* match paragraph color */
+}
+#address-input::placeholder {
+  color: #3d4535;
+  opacity: 0.6;
 }
 #search-button {
   padding: 10px 20px;
@@ -103,7 +111,7 @@ body {
 #modal-evc-description {
   font-family: "IBM Plex Mono", monospace;
   font-weight: 500;
-  font-size: 20px;       /* adjusted from 21px to 20px */
+  font-size: 20px;
   color: #cccccc;
   margin: 0.5em 0 1em;
   font-style: normal;
