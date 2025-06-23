@@ -1,6 +1,6 @@
 // evc-fetch.js
 
-// — your curated plant & description data —
+// — curated plant & description data —
 const curatedPlants = {
   "175": {
     description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
@@ -10,70 +10,56 @@ const curatedPlants = {
       /* …etc… */
     ]
   },
-  "47": {
-    /* …etc… */
-  },
-  "55": {
-    /* …etc… */
-  },
-  "180": {
-    /* …etc… */
-  }
+  "47": { /* …etc… */ },
+  "55": { /* …etc… */ },
+  "180": { /* …etc… */ }
 };
 
-// these get assigned in init()
 let map, marker;
 
 function initEvcFetch() {
   console.log("🗺️  evc-fetch initialized");
 
-  // 1) initialize Leaflet map
+  // Initialize map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) wire up form + button both ways
-  const form = document.getElementById("address-form");
-  form.addEventListener("submit", e => {
+  // Form + button
+  document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     searchEVC();
   });
-
   document.getElementById("search-button").addEventListener("click", e => {
     e.preventDefault();
     searchEVC();
   });
 
-  // 3) close button on modal
+  // Modal close
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 }
 
-//
-// Ensure init runs even if we load after DOMContentLoaded
-//
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", initEvcFetch);
 } else {
   initEvcFetch();
 }
 
-
 function searchEVC() {
   console.log("🔍 searchEVC()");
-  const address = document.getElementById("address-input").value.trim();
-  if (!address) {
+  const addr = document.getElementById("address-input").value.trim();
+  if (!addr) {
     alert("Please enter an address.");
     return;
   }
-
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(addr)}`)
     .then(r => r.json())
-    .then(results => {
-      if (!results.length) throw new Error("Address not found.");
-      const { lat, lon } = results[0];
+    .then(res => {
+      if (!res.length) throw new Error("Address not found.");
+      const { lat, lon } = res[0];
       map.setView([lat, lon], 12);
       if (marker) map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
@@ -86,7 +72,7 @@ function searchEVC() {
 }
 
 function fetchEVCData(lat, lon) {
-  console.log("🛰️  fetchEVCData()", lat, lon);
+  console.log("🛰️ fetchEVCData()", lat, lon);
   const d = 0.02;
   const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
   const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
@@ -96,11 +82,10 @@ function fetchEVCData(lat, lon) {
     .then(data => {
       if (!data.features.length) throw new Error("No EVC data found.");
       const pt = turf.point([lon, lat]);
-      const feat =
-        data.features.find(f =>
-          f.geometry?.type === "Polygon" &&
-          turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
-        ) || data.features[0];
+      const feat = data.features.find(f =>
+        f.geometry?.type === "Polygon" &&
+        turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+      ) || data.features[0];
       const p = feat.properties;
       displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc);
     })
