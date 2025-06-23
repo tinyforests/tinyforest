@@ -38,10 +38,10 @@ body {
   width: 300px;
   border: 1px solid #3d4535;
   border-radius: 4px;
-  font-family: inherit;    /* match paragraph font */
-  font-size: 1rem;         /* match paragraph size */
-  line-height: 1.5;        /* match paragraph line height */
-  color: inherit;          /* match paragraph color */
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: inherit;
 }
 #address-input::placeholder {
   color: #3d4535;
@@ -153,10 +153,7 @@ body {
   background: #e0e0e0;
 }
 
-/* PLANT LIST (hidden until submission) */
-#modal-plants {
-  display: none;
-}
+/* PLANT LIST (now shown by JS when populated) */
 #modal-plants .layer {
   margin-top: 1em;
 }
