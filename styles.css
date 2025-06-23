@@ -1,4 +1,6 @@
-/* GENERAL */
+/* =======================
+   GENERAL PAGE STYLES
+   ======================= */
 body {
   font-family: "IBM Plex Mono", monospace;
   margin: 0;
@@ -7,7 +9,9 @@ body {
   background-color: #fff0dc;
 }
 
-/* HERO */
+/* =======================
+   HERO / HEADER SECTION
+   ======================= */
 #container {
   text-align: center;
   padding: 30px 20px;
@@ -17,21 +21,29 @@ body {
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
-.hero-highlight {
-  background-color: #ffffff;
-  padding: 0.2em 0.4em;
-  border-radius: 0.2em;
-  line-height: 1.6;
+#container p {
+  line-height: 1.5;
 }
 #container p br:first-of-type {
   display: block;
   margin-bottom: 6em;
 }
+.hero-highlight {
+  background-color: #ffffff;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+}
 
-/* SEARCH */
+/* =======================
+   SEARCH CONTAINER & FORM
+   ======================= */
 #search-container {
-  text-align: center;
   margin-bottom: 20px;
+}
+#address-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
 }
 #address-input {
   padding: 8px;
@@ -49,8 +61,7 @@ body {
 }
 #search-button {
   padding: 10px 20px;
-  margin-left: 10px;
-  background: #3d4535;
+  background-color: #3d4535;
   color: #fff0dc;
   border: none;
   border-radius: 4px;
@@ -58,10 +69,12 @@ body {
   font-weight: bold;
 }
 #search-button:hover {
-  background: #2f3928;
+  background-color: #2f3928;
 }
 
-/* MODAL */
+/* =======================
+   MODAL STYLES
+   ======================= */
 #evc-modal {
   display: none;
   position: fixed;
@@ -92,6 +105,8 @@ body {
   color: #fff0dc;
   cursor: pointer;
 }
+
+/* Modal header text */
 .title {
   font: italic 18px "IBM Plex Mono", monospace;
   color: #888888;
@@ -117,7 +132,9 @@ body {
   font-style: normal;
 }
 
-/* EMAIL SECTION */
+/* =======================
+   EMAIL‐TO‐FORM SECTION
+   ======================= */
 #email-section {
   margin: 1em 0;
 }
@@ -153,7 +170,10 @@ body {
   background: #e0e0e0;
 }
 
-/* PLANT LIST (now shown by JS when populated) */
+/* =======================
+   PLANT LIST
+   now controlled 100% by JS
+   ======================= */
 #modal-plants .layer {
   margin-top: 1em;
 }
@@ -168,7 +188,9 @@ body {
   margin-bottom: 0.2em;
 }
 
-/* RESPONSIVE */
+/* =======================
+   RESPONSIVE
+   ======================= */
 @media (max-width: 600px) {
   #address-input,
   #search-button {
