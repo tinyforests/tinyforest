@@ -1,6 +1,6 @@
 // evc-fetch.js
 
-// Your curated descriptions & plant-lists
+// Curated data for each EVC
 const curatedPlants = {
   "175": {
     description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
@@ -71,20 +71,17 @@ const curatedPlants = {
 let map, marker;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // map initialization
-  map = L.map("map").setView([-37.8136,144.9631],8);
+  // init map
+  map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:"© OpenStreetMap contributors"
+    attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // form submit
-  const form = document.getElementById("address-form");
-  form.addEventListener("submit", e => {
+  // wire up form & button
+  document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     searchEVC();
   });
-
-  // button click fallback
   document.getElementById("search-button").addEventListener("click", e => {
     e.preventDefault();
     searchEVC();
@@ -114,13 +111,13 @@ function searchEVC() {
     })
     .catch(err => {
       console.error(err);
-      alert(err.message || "Error finding address.");
+      alert(err.message);
     });
 }
 
 function fetchEVCData(lat, lon) {
-  const bboxSize = 0.02;
-  const bbox = [lon - bboxSize, lat - bboxSize, lon + bboxSize, lat + bboxSize].join(",");
+  const d = 0.02;
+  const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
   const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
 
   fetch(url)
@@ -129,7 +126,8 @@ function fetchEVCData(lat, lon) {
       if (!data.features.length) throw new Error("No EVC data found.");
       const pt = turf.point([lon, lat]);
       const feat = data.features.find(f =>
-        f.geometry && f.geometry.type === "Polygon" &&
+        f.geometry &&
+        f.geometry.type === "Polygon" &&
         turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
       ) || data.features[0];
       const p = feat.properties;
@@ -137,7 +135,7 @@ function fetchEVCData(lat, lon) {
     })
     .catch(err => {
       console.error(err);
-      alert(err.message || "Error retrieving EVC data.");
+      alert(err.message);
     });
 }
 
@@ -145,7 +143,6 @@ function displayModal(name, status, region, code) {
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status || "Not specified";
   document.getElementById("modal-evc-region").textContent = region || "Not specified";
-
   const info = curatedPlants[code];
   document.getElementById("modal-evc-description").textContent =
     info ? info.description : "No description available.";
