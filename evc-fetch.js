@@ -5,9 +5,7 @@ const curatedPlants = {
   "175": {
     description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
     recommendations: [
-      { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus microcarpa (Grey Box)"] },
-      { layer: "Understorey Tree / Large Shrub", plants: ["Acacia mearnsii (Black Wattle)", "Allocasuarina littoralis (Black Sheoak)", "Exocarpos cupressiformis (Cherry Ballart)"] },
-      /* …etc… */
+      /* … */
     ]
   },
   "47": { /* … */ },
@@ -18,8 +16,6 @@ const curatedPlants = {
 let map, marker;
 
 function initEvcFetch() {
-  console.log("🗺️  evc-fetch initialized");
-
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
@@ -46,7 +42,6 @@ if (document.readyState === "loading") {
 }
 
 function searchEVC() {
-  console.log("🔍 searchEVC()");
   const addr = document.getElementById("address-input").value.trim();
   if (!addr) {
     alert("Please enter an address.");
@@ -69,17 +64,18 @@ function searchEVC() {
 }
 
 function fetchEVCData(lat, lon) {
-  console.log("🛰️ fetchEVCData()", lat, lon);
   const d = 0.02;
-  const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
-  const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+  const minx = lon - d, miny = lat - d, maxx = lon + d, maxy = lat + d;
+  const bbox = `${minx},${miny},${maxx},${maxy}`;
+  const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeNames=open-data-platform:nv2005_evcbcs&bbox=${bbox}&srsName=EPSG:4326&outputFormat=application/json`;
 
   fetch(url)
-    .then(r => r.json())
+    .then(r => {
+      if (!r.ok) throw new Error(`EVC request failed (${r.status})`);
+      return r.json();
+    })
     .then(data => {
-      if (!data.features || !data.features.length) {
-        throw new Error("No EVC data found.");
-      }
+      if (!data.features?.length) throw new Error("No EVC data found.");
       const pt = turf.point([lon, lat]);
       const feat = data.features.find(f =>
         f.geometry?.type === "Polygon" &&
@@ -95,7 +91,6 @@ function fetchEVCData(lat, lon) {
 }
 
 function displayModal(name, status, region, code) {
-  console.log("📋 displayModal()", name, status, region, code);
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status || "Not specified";
   document.getElementById("modal-evc-region").textContent = region || "Not specified";
