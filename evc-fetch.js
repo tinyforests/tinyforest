@@ -4,7 +4,11 @@
 const curatedPlants = {
   "175": {
     description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
-    recommendations: [ /* … */ ]
+    recommendations: [
+      { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus microcarpa (Grey Box)"] },
+      { layer: "Understorey Tree / Large Shrub", plants: ["Acacia mearnsii (Black Wattle)", "Allocasuarina littoralis (Black Sheoak)", "Exocarpos cupressiformis (Cherry Ballart)"] },
+      /* …etc… */
+    ]
   },
   "47": { /* … */ },
   "55": { /* … */ },
@@ -16,13 +20,11 @@ let map, marker;
 function initEvcFetch() {
   console.log("🗺️  evc-fetch initialized");
 
-  // Initialize map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Form + button
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     searchEVC();
@@ -32,7 +34,6 @@ function initEvcFetch() {
     searchEVC();
   });
 
-  // Modal close
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
@@ -71,25 +72,19 @@ function fetchEVCData(lat, lon) {
   console.log("🛰️ fetchEVCData()", lat, lon);
   const d = 0.02;
   const bbox = [lon - d, lat - d, lon + d, lat + d].join(",");
-  const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
+  const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=open-data-platform:nv2005_evcbcs&bbox=${bbox},EPSG:4326&outputFormat=application/json`;
 
   fetch(url)
-    .then(r => r.text())
-    .then(text => {
-      if (text.trim().startsWith("<?xml")) {
-        console.error("WFS returned XML:", text);
-        throw new Error("EVC service error (returned XML). Try again later.");
-      }
-      const data = JSON.parse(text);
+    .then(r => r.json())
+    .then(data => {
       if (!data.features || !data.features.length) {
         throw new Error("No EVC data found.");
       }
       const pt = turf.point([lon, lat]);
-      const feat =
-        data.features.find(f =>
-          f.geometry?.type === "Polygon" &&
-          turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
-        ) || data.features[0];
+      const feat = data.features.find(f =>
+        f.geometry?.type === "Polygon" &&
+        turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+      ) || data.features[0];
       const p = feat.properties;
       displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc);
     })
