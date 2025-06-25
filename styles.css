@@ -27,11 +27,12 @@ body {
   border-radius: 0.2em;
   line-height: 1.6;
 }
+/* only tighten the gap between those two hero lines */
+#container .hero-highlight + p {
+  margin-top: 1em;
+}
 #container p {
   line-height: 1.5;
-}
-#container p + p {
-  margin-top: 6em;
 }
 
 /* =======================
@@ -73,14 +74,24 @@ body {
 }
 
 /* =======================
-   MAP SECTION
+   MERCH SQUARES
    ======================= */
-#map {
-  height: 400px;
+#merch-container {
+  display: flex;
+  gap: 1em;
   margin: 20px auto;
   max-width: 800px;
-  border-radius: 5px;
-  background-color: #e0e0e0;
+}
+.merch-square {
+  flex: 1;
+  background-color: #3d4535;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+}
+
+/* hide the page map (JS still binds to it) */
+#map {
+  display: none;
 }
 
 /* =======================
@@ -139,10 +150,6 @@ body {
   margin: 0.5em 0 1em;
   font-style: normal;
 }
-
-/* =======================
-   PLANT LIST (JS‐controlled)
-   ======================= */
 #modal-plants .layer {
   margin-top: 1em;
 }
@@ -156,10 +163,6 @@ body {
 #modal-plants li {
   margin-bottom: 0.2em;
 }
-
-/* =======================
-   EMAIL‐TO‐FORM SECTION
-   ======================= */
 #email-section {
   margin: 1em 0;
 }
@@ -217,7 +220,18 @@ body {
     margin: 0;
   }
 
-  /* tighten up modal padding on small screens */
+  /* title matches modal EVC name style */
+  #page-title {
+    font-family: "Abril Fatface", serif;
+    font-size: 2.5rem;
+  }
+
+  /* stack merch squares */
+  #merch-container {
+    flex-direction: column;
+  }
+
+  /* tighten modal padding */
   .modal-content {
     width: 95%;
     padding: 1em;
