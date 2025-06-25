@@ -18,7 +18,7 @@
 </head>
 <body>
   <div id="container">
-    <h2>Find Your Ecological Garden.</h2>
+    <h2 id="page-title">Find Your Ecological Garden.</h2>
     <p class="hero-highlight">
       Planting ecological species helps restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
     </p>
@@ -40,10 +40,18 @@
       </form>
     </div>
 
+    <!-- three green merch squares -->
+    <div id="merch-container">
+      <div class="merch-square"></div>
+      <div class="merch-square"></div>
+      <div class="merch-square"></div>
+    </div>
+
+    <!-- hidden so JS can still bind without error -->
     <div id="map"></div>
   </div>
 
-  <!-- Modal -->
+  <!-- Modal (unchanged) -->
   <div id="evc-modal">
     <div class="modal-content">
       <button id="modal-close">&times;</button>
@@ -73,7 +81,6 @@
         >
           <input type="hidden" name="entry.2031982455" id="gf-address"/>
           <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
-
           <input
             type="email"
             name="entry.48659416"
