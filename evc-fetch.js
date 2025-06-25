@@ -1,14 +1,15 @@
 // evc-fetch.js
 
-// — your curated-plants lookup (abbreviated here) —
+// — curated‐plants lookup (shortened for brevity) —
 const curatedPlants = {
   "175": {
     description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
-    recommendations: [ /* … */ ]
+    recommendations: [
+      { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus microcarpa (Grey Box)"] },
+      /* … */
+    ]
   },
-  "47": { /* … */ },
-  "55": { /* … */ },
-  "180": { /* … */ }
+  /* other EVC codes… */
 };
 
 let map, marker;
@@ -66,14 +67,13 @@ function fetchEVCData(lat, lon) {
   const minx = lon - d, miny = lat - d, maxx = lon + d, maxy = lat + d;
   const bbox = `${minx},${miny},${maxx},${maxy}`;
 
-  // NEW OWS endpoint for GeoJSON output:
+  // **KEY CHANGE**: use /ows?service=WFS and 'typeName' under version=1.0.0
   const url = [
     "https://opendata.maps.vic.gov.au/geoserver/ows?service=WFS",
-    "version=1.1.0",
+    "version=1.0.0",
     "request=GetFeature",
-    "typeNames=open-data-platform:nv2005_evcbcs",
-    `bbox=${bbox}`,
-    "srsName=EPSG:4326",
+    "typeName=open-data-platform:nv2005_evcbcs",
+    `bbox=${bbox},EPSG:4326`,
     "outputFormat=application/json"
   ].join("&");
 
