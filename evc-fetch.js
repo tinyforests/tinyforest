@@ -1,12 +1,10 @@
 // evc-fetch.js
 
-// — curated plant & description data —
+// — your curated-plants lookup (abbreviated here) —
 const curatedPlants = {
   "175": {
     description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
-    recommendations: [
-      /* … */
-    ]
+    recommendations: [ /* … */ ]
   },
   "47": { /* … */ },
   "55": { /* … */ },
@@ -67,7 +65,17 @@ function fetchEVCData(lat, lon) {
   const d = 0.02;
   const minx = lon - d, miny = lat - d, maxx = lon + d, maxy = lat + d;
   const bbox = `${minx},${miny},${maxx},${maxy}`;
-  const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?service=WFS&version=1.1.0&request=GetFeature&typeNames=open-data-platform:nv2005_evcbcs&bbox=${bbox}&srsName=EPSG:4326&outputFormat=application/json`;
+
+  // NEW OWS endpoint for GeoJSON output:
+  const url = [
+    "https://opendata.maps.vic.gov.au/geoserver/ows?service=WFS",
+    "version=1.1.0",
+    "request=GetFeature",
+    "typeNames=open-data-platform:nv2005_evcbcs",
+    `bbox=${bbox}`,
+    "srsName=EPSG:4326",
+    "outputFormat=application/json"
+  ].join("&");
 
   fetch(url)
     .then(r => {
@@ -81,6 +89,7 @@ function fetchEVCData(lat, lon) {
         f.geometry?.type === "Polygon" &&
         turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
       ) || data.features[0];
+
       const p = feat.properties;
       displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc);
     })
