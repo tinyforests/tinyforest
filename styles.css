@@ -14,25 +14,16 @@ body {
    ======================= */
 #container {
   text-align: center;
-  padding: 30px 20px;
+  padding: 20px;
 }
 #container h2 {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
-  margin-bottom: 10px;
-}
-.hero-highlight {
-  background-color: #ffffff;
-  padding: 0.2em 0.4em;
-  border-radius: 0.2em;
-  line-height: 1.6;
-}
-/* tighten gap between hero lines */
-#container .hero-highlight + p {
-  margin-top: 1em;
+  margin-bottom: 0.5em;
 }
 #container p {
   line-height: 1.5;
+  margin-bottom: 1em;
 }
 
 /* =======================
@@ -51,10 +42,7 @@ body {
   width: 300px;
   border: 1px solid #3d4535;
   border-radius: 4px;
-  font-family: inherit;
   font-size: 1rem;
-  line-height: 1.5;
-  color: inherit;
 }
 #address-input::placeholder {
   color: #3d4535;
@@ -188,7 +176,6 @@ body {
   margin: 1em 0;
 }
 #email-section p {
-  font-family: "IBM Plex Mono", monospace;
   font-size: 1.1em;
   color: #fff0dc;
   padding-left: 0.25em;
@@ -236,13 +223,6 @@ body {
     width: 100% !important;
     padding: 1em;
     font-size: 1.2em;
-    box-sizing: border-box;
-    margin: 0;
-  }
-
-  #page-title {
-    font-family: "Abril Fatface", serif;
-    font-size: 2.5rem;
   }
 
   #merch-container {
