@@ -20,7 +20,7 @@ body {
   margin-bottom: 10px;
 }
 #container p {
-  font-size: 1.1rem;
+  font-size: 1.1em;
   margin-bottom: 20px;
 }
 
@@ -52,97 +52,8 @@ body {
   background-color: #2f3928;
 }
 
-/* MAP */
-#map-container {
-  width: 100%;
-  height: 400px;
-}
+/* HIDE STANDALONE MAP */
+#map-container,
 #map {
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  background-color: #e0e0e0;
-}
-
-/* MODAL */
-#evc-modal {
   display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-}
-.modal-content {
-  background: #3d4535;
-  color: #fff0dc;
-  border-radius: 6px;
-  width: 90%;
-  max-width: 600px;
-  padding: 1.5em;
-  position: relative;
-}
-#modal-close {
-  position: absolute;
-  top: 0.5em;
-  right: 0.5em;
-  background: transparent;
-  border: none;
-  font-size: 1.5em;
-  color: #fff0dc;
-  cursor: pointer;
-}
-.modal-content .title {
-  font-family: "IBM Plex Mono", monospace;
-  font-style: italic;
-  color: #888888;
-  margin-bottom: 0.5em;
-}
-#modal-evc-name {
-  font-family: "Abril Fatface", serif;
-  font-size: 2rem;
-  margin: 0 0 0.5em;
-}
-.modal-content p.status,
-.modal-content p.region {
-  font-family: "IBM Plex Mono", monospace;
-  margin: 0.2em 0;
-}
-#modal-evc-description {
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 1rem;
-  color: #cccccc;
-  margin: 0.5em 0 1em;
-}
-.download-button {
-  padding: 10px 20px;
-  background-color: #fff0dc;
-  color: #3d4535;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-}
-.download-button:hover {
-  background-color: #e0e0e0;
-}
-
-/* RESPONSIVE */
-@media (max-width: 600px) {
-  #address-form {
-    flex-direction: column;
-    gap: 1em;
-  }
-  #address-input,
-  #search-button {
-    width: 100%;
-  }
-  .modal-content {
-    width: 95%;
-    padding: 1em;
-  }
-  #map-container {
-    height: 250px;
-  }
 }
