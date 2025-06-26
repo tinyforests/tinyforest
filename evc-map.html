@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- 1) Bootstrap CSS (must come first) -->
   <link
     rel="stylesheet"
     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -13,20 +13,18 @@
     crossorigin="anonymous"
   />
 
-  <!-- Google Fonts & Leaflet CSS -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;500;700&display=swap"
-    rel="stylesheet"
-  />
+  <!-- 2) Your custom styles -->
   <link rel="stylesheet" href="styles.css"/>
+
+  <!-- 3) Leaflet CSS -->
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
   />
 </head>
 <body>
-  <div id="container">
-    <!-- ALERT: full sentence must be inside this div -->
+  <div id="container" class="p-4 text-center">
+    <!-- ALERT: full sentence inside this div -->
     <div
       id="hero-alert"
       class="alert alert-success alert-dismissible fade show"
@@ -39,38 +37,78 @@
     </div>
 
     <h2 id="page-title">Find Your Ecological Garden.</h2>
-    <p>
+    <p class="mb-4">
       Enter your address to discover your Ecological Vegetation and find what plants belong in your garden.
     </p>
 
-    <div id="search-container">
-      <form id="address-form">
+    <div id="search-container" class="mb-5">
+      <form id="address-form" class="d-inline-flex align-items-center">
         <input
           type="text"
           id="address-input"
+          class="form-control"
+          style="width:300px;"
           placeholder="Enter your address"
           required
         />
-        <button id="search-button" type="submit">
+        <button id="search-button" class="btn btn-dark ml-2" type="submit">
           Find My Garden
         </button>
       </form>
     </div>
 
     <h3 id="merch-title">Support Ecological Gardens with our Merch.</h3>
-    <div id="merch-container">
-      <div class="merch-square"></div>
-      <div class="merch-square"></div>
-      <div class="merch-square"></div>
+    <div id="merch-container" class="d-flex justify-content-center mb-5">
+      <div class="merch-square mx-2"></div>
+      <div class="merch-square mx-2"></div>
+      <div class="merch-square mx-2"></div>
     </div>
 
+    <!-- legacy map container hidden via CSS -->
     <div id="map"></div>
   </div>
 
-  <!-- Modal stays unchanged -->
-  <div id="evc-modal">…</div>
+  <!-- Modal (unchanged) -->
+  <div id="evc-modal">
+    <div class="modal-content">
+      <div id="modal-map"></div>
+      <button id="modal-close">&times;</button>
+      <div id="modal-info">
+        <p class="title">Your Ecological Vegetation is:</p>
+        <p id="modal-evc-name"></p>
+        <p class="status"><strong>Status:</strong> <span id="modal-evc-status"></span></p>
+        <p class="region"><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
+        <p id="modal-evc-description"></p>
+      </div>
+      <div id="modal-plants"></div>
+      <div id="email-section">
+        <p>Enter your email address to display your curated plant list.</p>
+        <form
+          id="gf-form"
+          action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
+          method="POST"
+          target="gf-iframe"
+        >
+          <input type="hidden" name="entry.2031982455" id="gf-address"/>
+          <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
+          <input
+            type="email"
+            name="entry.48659416"
+            id="gf-email"
+            class="form-control mb-2"
+            placeholder="you@example.com"
+            required
+          />
+          <button class="btn btn-light btn-block" type="submit">
+            Display plant list
+          </button>
+        </form>
+        <iframe name="gf-iframe" style="display:none;"></iframe>
+      </div>
+    </div>
+  </div>
 
-  <!-- Bootstrap JS + dependencies -->
+  <!-- 1) jQuery, 2) Popper.js, 3) Bootstrap JS -->
   <script
     src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
