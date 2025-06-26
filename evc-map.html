@@ -40,31 +40,33 @@
       </form>
     </div>
 
-    <!-- three green merch squares -->
+    <!-- merch placeholders -->
     <div id="merch-container">
       <div class="merch-square"></div>
       <div class="merch-square"></div>
       <div class="merch-square"></div>
     </div>
 
-    <!-- hidden so JS can still bind without error -->
+    <!-- hidden main map (for legacy binding) -->
     <div id="map"></div>
   </div>
 
-  <!-- Modal (unchanged) -->
+  <!-- Modal with in‐modal map -->
   <div id="evc-modal">
     <div class="modal-content">
+      <!-- NEW modal map -->
+      <div id="modal-map"></div>
+
       <button id="modal-close">&times;</button>
+
       <div id="modal-info">
         <p class="title">Your Ecological Vegetation is:</p>
         <p id="modal-evc-name"></p>
         <p class="status">
-          <strong>Status:</strong>
-          <span id="modal-evc-status"></span>
+          <strong>Status:</strong> <span id="modal-evc-status"></span>
         </p>
         <p class="region">
-          <strong>Bioregion:</strong>
-          <span id="modal-evc-region"></span>
+          <strong>Bioregion:</strong> <span id="modal-evc-region"></span>
         </p>
         <p id="modal-evc-description"></p>
       </div>
@@ -95,7 +97,7 @@
     </div>
   </div>
 
-  <!-- Leaflet, Turf & fetch logic -->
+  <!-- Leaflet, Turf & our fetch logic -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
