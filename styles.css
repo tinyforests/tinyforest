@@ -72,11 +72,10 @@ body {
 .merch-item {
   background-color: #3d4535;
   width: 30%;
-  padding-top: 30%;       /* square aspect ratio */
+  padding-top: 30%;
   border-radius: 8px;
   position: relative;
 }
-/* On mobile, full-width squares */
 @media (max-width: 600px) {
   .merch-item {
     width: 80%;
