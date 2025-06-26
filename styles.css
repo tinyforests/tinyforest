@@ -89,9 +89,7 @@ body {
   border-radius: 4px;
 }
 
-/* =======================
-   HIDE LEGACY MAP
-   ======================= */
+/* Hide the legacy main map container */
 #map {
   display: none;
 }
