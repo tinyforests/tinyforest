@@ -1,97 +1,165 @@
-// Global variables
-let map, marker, currentEvcCode;
+// evc-fetch.js
+
+// — curated‐plants data (abbreviated for brevity) —
+const curatedPlants = {
+  "175": {
+    description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
+    recommendations: [
+      { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus microcarpa (Grey Box)"] },
+      /* …other layers… */
+    ]
+  },
+  "47": {
+    description: "Valley Grassy Forest occurs under moderate rainfall regimes of 700-800 mm per annum on fertile well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts, usually species which prefer more moist or more fertile conditions over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer but at the drier end of the spectrum the ground layer may be sparse and slightly less diverse, but with the moisture-loving species still remaining.",
+    recommendations: [
+      { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus leucoxylon (Yellow Gum)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus rubida (Candlebark)"] },
+      { layer: "Understorey Tree / Large Shrub (T)", plants: ["Acacia mearnsii (Black Wattle)"] },
+      /* …etc… */
+    ]
+  },
+  /* add 55, 180, etc. */
+};
+
+let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // handle address form
+  // Initialize hidden main page map (for backward compatibility)
+  map = L.map("map").setView([-37.8136, 144.9631], 8);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(map);
+
+  // Hook address form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
-    geocodeAndFetchEVC();
+    const addr = document.getElementById("address-input").value.trim();
+    if (!addr) {
+      alert("Please enter an address.");
+      return;
+    }
+    geocodeAddress(addr);
   });
 
-  // close modal
+  // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
-
-  // email button → show plants
-  document.getElementById("email-submit").addEventListener("click", () => {
-    displayPlants();
-  });
 });
 
-function geocodeAndFetchEVC() {
-  const address = document.getElementById("address-input").value;
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
-    .then(r => r.json())
-    .then(res => {
-      if (!res.length) throw "Address not found";
-      const lat = +res[0].lat, lon = +res[0].lon;
-      openModal(lat, lon);
+function geocodeAddress(address) {
+  fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      address
+    )}`
+  )
+    .then(r => {
+      if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
+      return r.json();
     })
-    .catch(err => alert(err));
-}
-
-function openModal(lat, lon) {
-  // show modal
-  document.getElementById("evc-modal").style.display = "flex";
-
-  // init modal map once
-  if (!map) {
-    map = L.map("modal-map").setView([lat, lon], 12);
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "© OpenStreetMap contributors"
-    }).addTo(map);
-  } else {
-    map.setView([lat, lon], 12);
-    if (marker) map.removeLayer(marker);
-  }
-  marker = L.marker([lat, lon]).addTo(map);
-
-  // fetch EVC data
-  fetchEVCData(lat, lon);
-}
-
-function fetchEVCData(lat, lon) {
-  const size = 0.02;
-  const bbox = [lon - size, lat - size, lon + size, lat + size].join(",");
-  const url = `https://opendata.maps.vic.gov.au/geoserver/wfs?
-    service=WFS&version=1.0.0&request=GetFeature
-    &typeName=open-data-platform:nv2005_evcbcs
-    &bbox=${bbox},EPSG:4326
-    &outputFormat=application/json`.replace(/\s+/g,"");
-
-  fetch(url)
-    .then(r => r.json())
-    .then(data => {
-      if (!data.features.length) throw "No EVC here";
-      const pt = turf.point([lon, lat]);
-      let feat = data.features.find(f =>
-        f.geometry.type === "Polygon" &&
-        turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
-      ) || data.features[0];
-
-      const p = feat.properties;
-      showEVC(p.x_evcname, p.evc, p.evc_bcs_desc, p.bioregion);
+    .then(results => {
+      if (!results.length) throw new Error("Address not found.");
+      const lat = +results[0].lat;
+      const lon = +results[0].lon;
+      map.setView([lat, lon], 12);
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lon]).addTo(map);
+      fetchEVCData(lat, lon);
     })
     .catch(err => {
-      alert("Error retrieving EVC data.");
       console.error(err);
+      alert(err.message);
     });
 }
 
-function showEVC(name, code, status, region) {
-  currentEvcCode = code;
-  document.getElementById("modal-evc-name").textContent = name;
-  document.getElementById("modal-evc-status").textContent = status;
-  document.getElementById("modal-evc-region").textContent = region;
-  document.getElementById("modal-evc-description").textContent = "";
-  document.getElementById("modal-plants").innerHTML = "";
+function fetchEVCData(lat, lon) {
+  const d = 0.02;
+  const bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`;
+  const url =
+    `https://opendata.maps.vic.gov.au/geoserver/wfs` +
+    `?service=WFS` +
+    `&version=1.0.0` +
+    `&request=GetFeature` +
+    `&typeName=open-data-platform:nv2005_evcbcs` +
+    `&bbox=${bbox},EPSG:4326` +
+    `&outputFormat=application/json`;
+
+  fetch(url)
+    .then(res => res.text())
+    .then(text => {
+      if (text.trim().startsWith("<")) {
+        console.error("EVC WFS returned HTML:", text.slice(0, 200));
+        throw new Error("Error retrieving EVC data. Please try again later.");
+      }
+      return JSON.parse(text);
+    })
+    .then(data => {
+      if (!data.features?.length) {
+        throw new Error("No EVC data found for this location.");
+      }
+      const pt = turf.point([lon, lat]);
+      const feat =
+        data.features.find(
+          f =>
+            f.geometry?.type === "Polygon" &&
+            turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+        ) || data.features[0];
+
+      const p = feat.properties;
+      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
+    })
+    .catch(err => {
+      console.error(err);
+      alert(err.message);
+    });
 }
 
-function displayPlants() {
-  // Replace with actual plant-list generation
-  document.getElementById("modal-plants").innerHTML =
-    `<div class="layer"><h3>Plants for EVC ${currentEvcCode}</h3>
-      <ul><li>Sample Plant 1</li><li>Sample Plant 2</li></ul>
-     </div>`;
+function displayModal(name, status, region, code, lat, lon) {
+  // Text fields
+  document.getElementById("modal-evc-name").textContent = name || "Unknown";
+  document.getElementById("modal-evc-status").textContent =
+    status || "Not specified";
+  document.getElementById("modal-evc-region").textContent =
+    region || "Not specified";
+
+  const info = curatedPlants[code];
+  document.getElementById("modal-evc-description").textContent = info
+    ? info.description
+    : "No description available.";
+
+  // Plant layers
+  const plantsDiv = document.getElementById("modal-plants");
+  plantsDiv.innerHTML = "";
+  if (info?.recommendations) {
+    info.recommendations.forEach(layerObj => {
+      const row = document.createElement("div");
+      row.className = "layer";
+      const h3 = document.createElement("h3");
+      h3.textContent = layerObj.layer + ".";
+      row.appendChild(h3);
+      const ul = document.createElement("ul");
+      layerObj.plants.forEach(p => {
+        const li = document.createElement("li");
+        li.textContent = p;
+        ul.appendChild(li);
+      });
+      row.appendChild(ul);
+      plantsDiv.appendChild(row);
+    });
+    plantsDiv.style.display = "block";
+  } else {
+    plantsDiv.style.display = "none";
+  }
+
+  // In-modal map
+  if (modalMap) {
+    modalMap.remove();
+  }
+  modalMap = L.map("modal-map").setView([lat, lon], 12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(modalMap);
+  L.marker([lat, lon]).addTo(modalMap);
+
+  // Show modal
+  document.getElementById("evc-modal").style.display = "flex";
 }
