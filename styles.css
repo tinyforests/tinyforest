@@ -74,6 +74,16 @@ body {
 }
 
 /* =======================
+   MERCH HEADING
+   ======================= */
+#merch-title {
+  font-family: "Abril Fatface", serif;
+  font-size: 1.75rem;
+  color: #3d4535;
+  margin: 2em 0 0.5em;
+}
+
+/* =======================
    MERCH SQUARES
    ======================= */
 #merch-container {
