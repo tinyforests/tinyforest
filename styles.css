@@ -9,35 +9,56 @@ body {
   background-color: #fff0dc;
 }
 
-/* HERO / HEADER */
+/* =======================
+   HERO / HEADER SECTION
+   ======================= */
 #container {
   text-align: center;
-  padding: 60px 20px;
+  padding: 30px 20px;
 }
 #container h2 {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
   margin-bottom: 10px;
 }
+.hero-highlight {
+  background-color: #ffffff;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  line-height: 1.6;
+}
+/* tighten gap between hero lines */
+#container .hero-highlight + p {
+  margin-top: 1em;
+}
 #container p {
-  font-size: 1.1em;
-  margin-bottom: 20px;
+  line-height: 1.5;
 }
 
-/* SEARCH FORM */
+/* =======================
+   SEARCH CONTAINER & FORM
+   ======================= */
 #search-container {
   margin-bottom: 20px;
 }
 #address-form {
   display: inline-flex;
+  align-items: center;
   gap: 10px;
 }
 #address-input {
   padding: 8px;
+  width: 300px;
   border: 1px solid #3d4535;
   border-radius: 4px;
-  font-family: "IBM Plex Mono", monospace;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: inherit;
+}
+#address-input::placeholder {
   color: #3d4535;
+  opacity: 0.6;
 }
 #search-button {
   padding: 10px 20px;
@@ -52,44 +73,51 @@ body {
   background-color: #2f3928;
 }
 
-/* MERCH SECTION */
-.merch-section {
-  text-align: center;
-  padding: 40px 20px;
-}
-.merch-section h3 {
+/* =======================
+   MERCH HEADING
+   ======================= */
+#merch-title {
   font-family: "Abril Fatface", serif;
-  font-size: 1.8rem;
+  font-size: 1.75rem;
   color: #3d4535;
-  margin-bottom: 20px;
-}
-.merch-grid {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-.merch-item {
-  background-color: #3d4535;
-  width: 30%;
-  padding-top: 30%;
-  border-radius: 8px;
-  position: relative;
-}
-@media (max-width: 600px) {
-  .merch-item {
-    width: 80%;
-    padding-top: 80%;
-  }
+  margin: 2em 0 0.5em;
 }
 
-/* HIDE STANDALONE MAP */
-#map-container,
+/* =======================
+   MERCH SQUARES
+   ======================= */
+#merch-container {
+  display: flex;
+  gap: 1em;
+  margin: 20px auto;
+  max-width: 800px;
+}
+.merch-square {
+  flex: 1;
+  background-color: #3d4535;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+}
+
+/* hide the legacy main map */
 #map {
   display: none;
 }
 
-/* MODAL STYLES */
+/* =======================
+   MODAL MAP
+   ======================= */
+#modal-map {
+  width: 100%;
+  height: 200px;
+  margin-bottom: 1em;
+  border-radius: 4px;
+  background: #e0e0e0;
+}
+
+/* =======================
+   MODAL STYLES
+   ======================= */
 #evc-modal {
   display: none;
   position: fixed;
@@ -120,32 +148,33 @@ body {
   color: #fff0dc;
   cursor: pointer;
 }
-#modal-info .title {
+.title {
   font: italic 18px "IBM Plex Mono", monospace;
   color: #888888;
   margin-bottom: 0.5em;
 }
 #modal-evc-name {
   font-family: "Abril Fatface", serif;
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin: 0 0 0.5em;
 }
-#modal-info p.status,
-#modal-info p.region {
+.status,
+.region {
   font-family: "IBM Plex Mono", monospace;
   margin: 0.2em 0;
 }
 #modal-evc-description {
   font-family: "IBM Plex Mono", monospace;
   font-weight: 500;
-  font-size: 21px;
+  font-size: 20px;
   color: #cccccc;
   margin: 0.5em 0 1em;
+  font-style: normal;
 }
 #modal-plants .layer {
   margin-top: 1em;
 }
-#modal-plants .layer h3 {
+#modal-plants h3 {
   color: #fff0dc;
   margin-bottom: 0.3em;
 }
@@ -155,20 +184,14 @@ body {
 #modal-plants li {
   margin-bottom: 0.2em;
 }
-#modal-map {
-  width: 100%;
-  height: 300px;
+#email-section {
   margin: 1em 0;
-  border: 1px solid #fff0dc;
-  border-radius: 4px;
 }
-
-/* EMAIL FORM INSIDE MODAL */
 #email-section p {
   font-family: "IBM Plex Mono", monospace;
-  color: #fff0dc;
   font-size: 1.1em;
-  margin-bottom: 0.5em;
+  color: #fff0dc;
+  padding-left: 0.25em;
 }
 #email-section input,
 #email-section button {
@@ -196,18 +219,38 @@ body {
   background: #e0e0e0;
 }
 
-/* RESPONSIVE */
-@media (max-width:600px) {
-  #address-form,
-  #email-section form {
-    display: flex;
+/* =======================
+   RESPONSIVE / MOBILE
+   ======================= */
+@media (max-width: 600px) {
+  #address-form {
+    display: flex !important;
     flex-direction: column;
-    gap: 0.8em;
+    gap: 1em;
+    align-items: stretch;
+    padding: 0 1em;
   }
-  #address-input, #search-button,
-  #email-section input, #email-section button {
-    width: 100%;
+
+  #address-input,
+  #search-button {
+    width: 100% !important;
     padding: 1em;
-    font-size: 1.1em;
+    font-size: 1.2em;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  #page-title {
+    font-family: "Abril Fatface", serif;
+    font-size: 2.5rem;
+  }
+
+  #merch-container {
+    flex-direction: column;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 1em;
   }
 }
