@@ -1,11 +1,13 @@
 // evc-fetch.js
 
-// — curated‐plants data (abbreviated for brevity) —
+// — Curated plants data (add all your EVC entries here) —
 const curatedPlants = {
   "175": {
     description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
     recommendations: [
       { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus microcarpa (Grey Box)"] },
+      { layer: "Understorey Tree / Large Shrub (T)", plants: ["Acacia mearnsii (Black Wattle)", "Allocasuarina littoralis (Black Sheoak)", "Exocarpos cupressiformis (Cherry Ballart)"] },
+      { layer: "Medium Shrub (MS)", plants: ["Leptospermum continentale (Prickly Tea-tree)", "Epacris impressa (Common Heath)", "Cassinia aculeata (Common Cassinia)", "Acacia paradoxa (Hedge Wattle)"] },
       /* …other layers… */
     ]
   },
@@ -13,23 +15,23 @@ const curatedPlants = {
     description: "Valley Grassy Forest occurs under moderate rainfall regimes of 700-800 mm per annum on fertile well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts, usually species which prefer more moist or more fertile conditions over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer but at the drier end of the spectrum the ground layer may be sparse and slightly less diverse, but with the moisture-loving species still remaining.",
     recommendations: [
       { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus leucoxylon (Yellow Gum)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus rubida (Candlebark)"] },
-      { layer: "Understorey Tree / Large Shrub (T)", plants: ["Acacia mearnsii (Black Wattle)"] },
+      { layer: "Understorey Tree / Large Shrub (T)", plants: ["Acacia mearnsii (Black Wattle)", "Acacia melanoxylon (Blackwood)"] },
       /* …etc… */
     ]
   },
-  /* add 55, 180, etc. */
+  /* Add your other EVC codes here */
 };
 
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Initialize hidden main page map (for backward compatibility)
+  // 1) Initialize hidden main map (for legacy)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Hook address form
+  // 2) Hook up address form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -40,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // Close modal
+  // 3) Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
@@ -52,9 +54,9 @@ function geocodeAddress(address) {
       address
     )}`
   )
-    .then(r => {
-      if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
-      return r.json();
+    .then(res => {
+      if (!res.ok) throw new Error(`Geocode failed (${res.status})`);
+      return res.json();
     })
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
@@ -114,7 +116,7 @@ function fetchEVCData(lat, lon) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Text fields
+  // --- Populate text ---
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent =
     status || "Not specified";
@@ -126,7 +128,7 @@ function displayModal(name, status, region, code, lat, lon) {
     ? info.description
     : "No description available.";
 
-  // Plant layers
+  // --- Build plant list ---
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -150,7 +152,7 @@ function displayModal(name, status, region, code, lat, lon) {
     plantsDiv.style.display = "none";
   }
 
-  // In-modal map
+  // --- Initialize in-modal map ---
   if (modalMap) {
     modalMap.remove();
   }
@@ -160,6 +162,12 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // Show modal
-  document.getElementById("evc-modal").style.display = "flex";
+  // --- Show modal and fix Leaflet sizing ---
+  const modal = document.getElementById("evc-modal");
+  modal.style.display = "flex";
+
+  // Leaflet needs a size invalidation when container was hidden
+  setTimeout(() => {
+    modalMap.invalidateSize();
+  }, 0);
 }
