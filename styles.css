@@ -1,3 +1,8 @@
+/* Force the Bootstrap “light” alert to be pure white */
+.alert-light {
+  background-color: #ffffff;
+}
+
 /* =======================
    GENERAL PAGE STYLES
    ======================= */
@@ -87,7 +92,7 @@ body {
   border-radius: 4px;
 }
 
-/* hide the legacy main map */
+/* hide the legacy main map container */
 #map {
   display: none;
 }
@@ -217,18 +222,15 @@ body {
     align-items: stretch;
     padding: 0 1em;
   }
-
   #address-input,
   #search-button {
     width: 100% !important;
     padding: 1em;
     font-size: 1.2em;
   }
-
   #merch-container {
     flex-direction: column;
   }
-
   .modal-content {
     width: 95%;
     padding: 1em;
