@@ -28,6 +28,7 @@
   <div id="container">
     <!-- White Bootstrap alert -->
     <div
+      id="hero-alert"
       class="alert alert-light alert-dismissible fade show"
       role="alert"
     >
@@ -71,7 +72,7 @@
       <div class="merch-square"></div>
     </div>
 
-    <!-- hidden legacy map -->
+    <!-- legacy map placeholder, now hidden via CSS -->
     <div id="map"></div>
   </div>
 
@@ -85,12 +86,10 @@
         <p class="title">Your Ecological Vegetation is:</p>
         <p id="modal-evc-name"></p>
         <p class="status">
-          <strong>Status:</strong>
-          <span id="modal-evc-status"></span>
+          <strong>Status:</strong> <span id="modal-evc-status"></span>
         </p>
         <p class="region">
-          <strong>Bioregion:</strong>
-          <span id="modal-evc-region"></span>
+          <strong>Bioregion:</strong> <span id="modal-evc-region"></span>
         </p>
         <p id="modal-evc-description"></p>
       </div>
@@ -105,16 +104,8 @@
           method="POST"
           target="gf-iframe"
         >
-          <input
-            type="hidden"
-            name="entry.2031982455"
-            id="gf-address"
-          />
-          <input
-            type="hidden"
-            name="entry.1421103858"
-            id="gf-evcCode"
-          />
+          <input type="hidden" name="entry.2031982455" id="gf-address"/>
+          <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
           <input
             type="email"
             name="entry.48659416"
@@ -129,10 +120,12 @@
     </div>
   </div>
 
-  <!-- Dependencies -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  <!-- Bootstrap JS + dependencies -->
+  <script
+    src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
+    crossorigin="anonymous"
+  ></script>
   <script
     src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
     integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H+OGUstPnR+nuZB+8abtTE1Pi6jizo"
@@ -143,6 +136,8 @@
     integrity="sha384-B0UglyR+LyA2X+qv+LQTVozP+4moV6E3kaC67lYl5nYpHv3l94WdiPYgt1L"
     crossorigin="anonymous"
   ></script>
+
+  <!-- Leaflet, Turf & fetch logic -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
