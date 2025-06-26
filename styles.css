@@ -29,67 +29,24 @@ body {
 /* =======================
    SEARCH CONTAINER & FORM
    ======================= */
-#search-container {
-  margin-bottom: 20px;
-}
-#address-form {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-#address-input {
-  padding: 8px;
-  width: 300px;
+#address-form input {
   border: 1px solid #3d4535;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-family: "IBM Plex Mono", monospace;
-}
-#address-input::placeholder {
-  color: #3d4535;
-  opacity: 0.6;
 }
 #search-button {
-  padding: 10px 20px;
   background-color: #3d4535;
   color: #fff0dc;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: "IBM Plex Mono", monospace;
-}
-#search-button:hover {
-  background-color: #2f3928;
-}
-
-/* =======================
-   MERCH HEADING
-   ======================= */
-#merch-title {
-  font-family: "Abril Fatface", serif;
-  font-size: 1.75rem;
-  color: #3d4535;
-  margin: 2em 0 0.5em;
 }
 
 /* =======================
    MERCH SQUARES
    ======================= */
-#merch-container {
-  display: flex;
-  gap: 1em;
-  margin: 20px auto;
-  max-width: 800px;
-}
-.merch-square {
-  flex: 1;
+#merch-container .merch-square {
   background-color: #3d4535;
   aspect-ratio: 1 / 1;
   border-radius: 4px;
 }
 
-/* Hide the legacy main map container */
+/* Hide legacy map */
 #map {
   display: none;
 }
@@ -166,7 +123,6 @@ body {
 }
 #modal-plants h3 {
   color: #fff0dc;
-  margin-bottom: 0.3em;
 }
 #modal-plants ul {
   padding-left: 1.2em;
@@ -178,43 +134,15 @@ body {
 /* =======================
    EMAIL SECTION
    ======================= */
-#email-section {
-  margin: 1em 0;
-}
 #email-section p {
-  font-size: 1.1em;
   color: #fff0dc;
-  padding-left: 0.25em;
 }
 #email-section input,
 #email-section button {
-  width: 100%;
-  padding: 0.8em;
-  font-size: 1.1em;
-  border-radius: 6px;
-  box-sizing: border-box;
   font-family: "IBM Plex Mono", monospace;
 }
-#email-section input {
-  border: 2px solid #fff0dc;
-  background: transparent;
-  color: #fff0dc;
-  margin-bottom: 0.5em;
-}
-#email-section button {
-  background: #fff0dc;
-  color: #3d4535;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-#email-section button:hover {
-  background: #e0e0e0;
-}
 
-/* =======================
-   RESPONSIVE / MOBILE
-   ======================= */
+/* RESPONSIVE */
 @media (max-width: 600px) {
   #address-form {
     display: flex !important;
@@ -226,11 +154,6 @@ body {
   #address-input,
   #search-button {
     width: 100% !important;
-    padding: 1em;
-    font-size: 1.2em;
-  }
-  #merch-container {
-    flex-direction: column;
   }
   .modal-content {
     width: 95%;
