@@ -1,4 +1,4 @@
-/* Force the Bootstrap “light” alert to be pure white */
+/* Force pure‐white background on that Bootstrap “light” alert */
 .alert-light {
   background-color: #ffffff;
 }
@@ -48,6 +48,7 @@ body {
   border: 1px solid #3d4535;
   border-radius: 4px;
   font-size: 1rem;
+  font-family: "IBM Plex Mono", monospace;
 }
 #address-input::placeholder {
   color: #3d4535;
@@ -61,6 +62,7 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  font-family: "IBM Plex Mono", monospace;
 }
 #search-button:hover {
   background-color: #2f3928;
@@ -92,7 +94,7 @@ body {
   border-radius: 4px;
 }
 
-/* hide the legacy main map container */
+/* Hide the legacy main map container */
 #map {
   display: none;
 }
@@ -177,6 +179,10 @@ body {
 #modal-plants li {
   margin-bottom: 0.2em;
 }
+
+/* =======================
+   EMAIL SECTION
+   ======================= */
 #email-section {
   margin: 1em 0;
 }
