@@ -1,8 +1,102 @@
-/* …keep all your existing styles… */
+/* =======================
+   GENERAL PAGE STYLES
+   ======================= */
+body {
+  font-family: "IBM Plex Mono", monospace;
+  margin: 0;
+  padding: 0;
+  color: #3d4535;
+  background-color: #fff0dc;
+}
 
-/* ----------------------
+/* =======================
+   HERO / HEADER SECTION
+   ======================= */
+#container {
+  text-align: center;
+  padding: 30px 20px;
+}
+#container h2 {
+  font-family: "Abril Fatface", serif;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+.hero-highlight {
+  background-color: #ffffff;
+  padding: 0.2em 0.4em;
+  border-radius: 0.2em;
+  line-height: 1.6;
+}
+/* tighten gap between hero lines */
+#container .hero-highlight + p {
+  margin-top: 1em;
+}
+#container p {
+  line-height: 1.5;
+}
+
+/* =======================
+   SEARCH CONTAINER & FORM
+   ======================= */
+#search-container {
+  margin-bottom: 20px;
+}
+#address-form {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+#address-input {
+  padding: 8px;
+  width: 300px;
+  border: 1px solid #3d4535;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: inherit;
+}
+#address-input::placeholder {
+  color: #3d4535;
+  opacity: 0.6;
+}
+#search-button {
+  padding: 10px 20px;
+  background-color: #3d4535;
+  color: #fff0dc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+#search-button:hover {
+  background-color: #2f3928;
+}
+
+/* =======================
+   MERCH SQUARES
+   ======================= */
+#merch-container {
+  display: flex;
+  gap: 1em;
+  margin: 20px auto;
+  max-width: 800px;
+}
+.merch-square {
+  flex: 1;
+  background-color: #3d4535;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+}
+
+/* hide the legacy main map */
+#map {
+  display: none;
+}
+
+/* =======================
    MODAL MAP
-   ---------------------- */
+   ======================= */
 #modal-map {
   width: 100%;
   height: 200px;
@@ -11,9 +105,142 @@
   background: #e0e0e0;
 }
 
-/* hide the legacy #map */
-#map {
+/* =======================
+   MODAL STYLES
+   ======================= */
+#evc-modal {
   display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+.modal-content {
+  background: #3d4535;
+  color: #fff0dc;
+  border-radius: 6px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90%;
+  overflow-y: auto;
+  padding: 1.5em;
+  position: relative;
+}
+#modal-close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  color: #fff0dc;
+  cursor: pointer;
+}
+.title {
+  font: italic 18px "IBM Plex Mono", monospace;
+  color: #888888;
+  margin-bottom: 0.5em;
+}
+#modal-evc-name {
+  font-family: "Abril Fatface", serif;
+  font-size: 2.5rem;
+  margin: 0 0 0.5em;
+}
+.status,
+.region {
+  font-family: "IBM Plex Mono", monospace;
+  margin: 0.2em 0;
+}
+#modal-evc-description {
+  font-family: "IBM Plex Mono", monospace;
+  font-weight: 500;
+  font-size: 20px;
+  color: #cccccc;
+  margin: 0.5em 0 1em;
+  font-style: normal;
+}
+#modal-plants .layer {
+  margin-top: 1em;
+}
+#modal-plants h3 {
+  color: #fff0dc;
+  margin-bottom: 0.3em;
+}
+#modal-plants ul {
+  padding-left: 1.2em;
+}
+#modal-plants li {
+  margin-bottom: 0.2em;
+}
+#email-section {
+  margin: 1em 0;
+}
+#email-section p {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1.1em;
+  color: #fff0dc;
+  padding-left: 0.25em;
+}
+#email-section input,
+#email-section button {
+  width: 100%;
+  padding: 0.8em;
+  font-size: 1.1em;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-family: "IBM Plex Mono", monospace;
+}
+#email-section input {
+  border: 2px solid #fff0dc;
+  background: transparent;
+  color: #fff0dc;
+  margin-bottom: 0.5em;
+}
+#email-section button {
+  background: #fff0dc;
+  color: #3d4535;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+#email-section button:hover {
+  background: #e0e0e0;
 }
 
-/* (rest of your CSS unchanged) */
+/* =======================
+   RESPONSIVE / MOBILE
+   ======================= */
+@media (max-width: 600px) {
+  #address-form {
+    display: flex !important;
+    flex-direction: column;
+    gap: 1em;
+    align-items: stretch;
+    padding: 0 1em;
+  }
+
+  #address-input,
+  #search-button {
+    width: 100% !important;
+    padding: 1em;
+    font-size: 1.2em;
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  #page-title {
+    font-family: "Abril Fatface", serif;
+    font-size: 2.5rem;
+  }
+
+  #merch-container {
+    flex-direction: column;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 1em;
+  }
+}
