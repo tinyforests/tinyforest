@@ -1,23 +1,68 @@
-// — Curated plants data (add all your EVC entries here) —
+// evc-fetch.js
+
+// — Curated plants data (add your four-layer structure here) —
 const curatedPlants = {
-  "175": {
-    description: "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
-    recommendations: [
-      { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus microcarpa (Grey Box)"] },
-      { layer: "Understorey Tree / Large Shrub (T)", plants: ["Acacia mearnsii (Black Wattle)", "Allocasuarina littoralis (Black Sheoak)", "Exocarpos cupressiformis (Cherry Ballart)"] },
-      { layer: "Medium Shrub (MS)", plants: ["Leptospermum continentale (Prickly Tea-tree)", "Epacris impressa (Common Heath)", "Cassinia aculeata (Common Cassinia)", "Acacia paradoxa (Hedge Wattle)"] },
-      /* …other layers… */
-    ]
-  },
   "47": {
-    description: "Valley Grassy Forest occurs under moderate rainfall regimes of 700-800 mm per annum on fertile well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts, usually species which prefer more moist or more fertile conditions over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer but at the drier end of the spectrum the ground layer may be sparse and slightly less diverse, but with the moisture-loving species still remaining.",
+    description:
+      "Valley Grassy Forest occurs under moderate rainfall regimes of 700–800 mm per annum on fertile, well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer.",
+    // re-categorized into 4 layers:
     recommendations: [
-      { layer: "Tree Canopy", plants: ["Eucalyptus radiata s.l. (Narrow-leaf Peppermint)", "Eucalyptus leucoxylon (Yellow Gum)", "Eucalyptus melliodora (Yellow Box)", "Eucalyptus rubida (Candlebark)"] },
-      { layer: "Understorey Tree / Large Shrub (T)", plants: ["Acacia mearnsii (Black Wattle)", "Acacia melanoxylon (Blackwood)"] },
-      /* …etc… */
+      {
+        layer: "Canopy Layer",
+        plants: [
+          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
+          "Allocasuarina verticillata (Drooping Sheoak)"
+        ]
+      },
+      {
+        layer: "Sub-Canopy Layer",
+        plants: [
+          "Acacia mearnsii (Black Wattle)",
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Exocarpos cupressiformis (Cherry Ballart)"
+        ]
+      },
+      {
+        layer: "Shrub Layer",
+        plants: [
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Epacris impressa (Common Heath)",
+          "Cassinia aculeata (Common Cassinia)",
+          "Acacia paradoxa (Hedge Wattle)",
+          "Pimelea humilis (Common Rice-flower)",
+          "Hibbertia riparia (Erect Guinea-flower)",
+          "Bossiaea prostrata (Creeping Bossiaea)",
+          "Astroloma humifusum (Cranberry Heath)",
+          "Acrotriche serrulata (Honey-pots)"
+        ]
+      },
+      {
+        layer: "Herb Layer",
+        plants: [
+          "Pterostylis longifolia s.l. (Tall Greenhood)",
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)",
+          "Dichondra repens (Kidney-weed)",
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera whittakeri ssp. aberrans (Scented Sundew)",
+          "Deyeuxia quadriseta (Reed Bent-grass)",
+          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
+          "Gahnia radula (Thatch Saw-sedge)",
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Poa sieberiana (Grey Tussock-grass)",
+          "Lepidosperma laterale (Variable Sword-sedge)",
+          "Microlaena stipoides var. stipoides (Weeping Grass)",
+          "Pteridium esculentum (Austral Bracken)",
+          "Comesperma volubile (Love Creeper)",
+          "Billardiera scandens (Common Apple-berry)"
+        ]
+      }
     ]
   },
-  /* Add your other EVC codes here */
+
+  // …you can add more EVC codes here…
 };
 
 let map, marker, modalMap;
@@ -30,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }).addTo(map);
 
   // 2) Hook up address form
-  document.getElementById("address-form").addEventListener("submit", e => {
+  document.getElementById("address-form").addEventListener("submit", (e) => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
     if (!addr) {
@@ -44,17 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
-
-  // 4) Gate-keeper: intercept email submit
-  document.getElementById("gf-form").addEventListener("submit", e => {
-    e.preventDefault();
-    // reveal the plants
-    document.getElementById("modal-plants").style.display = "block";
-    // optionally hide the email form
-    document.getElementById("email-section").style.display = "none";
-    // later you can remove the preventDefault to actually post to Google Forms
-  });
 });
+
+// helper to turn a plant name into a URL-friendly slug
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
 
 function geocodeAddress(address) {
   fetch(
@@ -62,26 +106,26 @@ function geocodeAddress(address) {
       address
     )}`
   )
-    .then(res => {
+    .then((res) => {
       if (!res.ok) throw new Error(`Geocode failed (${res.status})`);
       return res.json();
     })
-    .then(results => {
+    .then((results) => {
       if (!results.length) throw new Error("Address not found.");
       const lat = +results[0].lat;
       const lon = +results[0].lon;
       map.setView([lat, lon], 12);
       if (marker) map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
-      fetchEVCData(lat, lon, address);
+      fetchEVCData(lat, lon);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       alert(err.message);
     });
 }
 
-function fetchEVCData(lat, lon, address) {
+function fetchEVCData(lat, lon) {
   const d = 0.02;
   const bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`;
   const url =
@@ -94,81 +138,107 @@ function fetchEVCData(lat, lon, address) {
     `&outputFormat=application/json`;
 
   fetch(url)
-    .then(res => res.text())
-    .then(text => {
+    .then((res) => res.text())
+    .then((text) => {
       if (text.trim().startsWith("<")) {
+        console.error("EVC WFS returned HTML:", text.slice(0, 200));
         throw new Error("Error retrieving EVC data. Please try again later.");
       }
       return JSON.parse(text);
     })
-    .then(data => {
+    .then((data) => {
       if (!data.features?.length) {
         throw new Error("No EVC data found for this location.");
       }
       const pt = turf.point([lon, lat]);
       const feat =
         data.features.find(
-          f =>
+          (f) =>
             f.geometry?.type === "Polygon" &&
             turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
         ) || data.features[0];
 
       const p = feat.properties;
-      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon, address);
+      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       alert(err.message);
     });
 }
 
-function displayModal(name, status, region, code, lat, lon, address) {
-  // populate
+function displayModal(name, status, region, code, lat, lon) {
+  // --- Populate text ---
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent = status || "Not specified";
-  document.getElementById("modal-evc-region").textContent = region || "Not specified";
+  document.getElementById("modal-evc-status").textContent =
+    status || "Not specified";
+  document.getElementById("modal-evc-region").textContent =
+    region || "Not specified";
 
   const info = curatedPlants[code];
   document.getElementById("modal-evc-description").textContent = info
     ? info.description
     : "No description available.";
 
-  // build & hide plant list
+  // --- Build plant list with Add buttons ---
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
-    info.recommendations.forEach(layerObj => {
-      const row = document.createElement("div");
-      row.className = "layer";
+    info.recommendations.forEach((layerObj) => {
+      const section = document.createElement("div");
+      section.className = "layer";
+
       const h3 = document.createElement("h3");
       h3.textContent = layerObj.layer + ".";
-      row.appendChild(h3);
+      section.appendChild(h3);
+
       const ul = document.createElement("ul");
-      layerObj.plants.forEach(p => {
+      layerObj.plants.forEach((p) => {
         const li = document.createElement("li");
-        li.textContent = p;
+        const span = document.createElement("span");
+        span.textContent = p;
+        li.appendChild(span);
+
+        const btn = document.createElement("button");
+        btn.className = "add-btn";
+        btn.textContent = "Add to Forest";
+        btn.dataset.plant = p;
+        btn.dataset.layer = layerObj.layer;
+        btn.addEventListener("click", () => {
+          const forest = JSON.parse(localStorage.getItem("myForest") || "[]");
+          forest.push({
+            slug: slugify(p),
+            label: p,
+            layer: layerObj.layer
+          });
+          localStorage.setItem("myForest", JSON.stringify(forest));
+          btn.textContent = "Added";
+          btn.disabled = true;
+        });
+
+        li.appendChild(btn);
         ul.appendChild(li);
       });
-      row.appendChild(ul);
-      plantsDiv.appendChild(row);
+
+      section.appendChild(ul);
+      plantsDiv.appendChild(section);
     });
+    plantsDiv.style.display = "block";
+  } else {
+    plantsDiv.style.display = "none";
   }
-  plantsDiv.style.display = "none";
 
-  // fill gate-keeper form fields
-  document.getElementById("gf-address").value = address;
-  document.getElementById("gf-evcCode").value = code;
-  document.getElementById("email-section").style.display = "block";
-
-  // in-modal map
-  if (modalMap) modalMap.remove();
+  // --- Initialize in-modal map ---
+  if (modalMap) {
+    modalMap.remove();
+  }
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // show
+  // --- Show modal and fix Leaflet sizing ---
   const modal = document.getElementById("evc-modal");
   modal.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
