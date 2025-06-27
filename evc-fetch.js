@@ -1,11 +1,10 @@
 // evc-fetch.js
 
-// — Curated plants data (add your four-layer structure here) —
+// — Curated plants data (re-categorised into your four layers) —
 const curatedPlants = {
   "47": {
     description:
       "Valley Grassy Forest occurs under moderate rainfall regimes of 700–800 mm per annum on fertile, well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer.",
-    // re-categorized into 4 layers:
     recommendations: [
       {
         layer: "Canopy Layer",
@@ -60,45 +59,42 @@ const curatedPlants = {
         ]
       }
     ]
-  },
-
-  // …you can add more EVC codes here…
+  }
+  // …other EVCs…
 };
 
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Initialize hidden main map (for legacy)
+  // Legacy map (hidden)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) Hook up address form
-  document.getElementById("address-form").addEventListener("submit", (e) => {
+  // Address lookup
+  document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
-    if (!addr) {
-      alert("Please enter an address.");
-      return;
-    }
+    if (!addr) return alert("Please enter an address.");
     geocodeAddress(addr);
   });
 
-  // 3) Close modal
+  // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
-});
 
-// helper to turn a plant name into a URL-friendly slug
-function slugify(text) {
-  return text
-    .toString()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
+  // Email gatekeeper: reveal plants on submit
+  document.getElementById("gf-form").addEventListener("submit", e => {
+    e.preventDefault();
+    // TODO: wire this into your backend / Google Form
+    document.getElementById("modal-plants").style.display = "block";
+    // Optionally disable the button so they can't re-submit:
+    e.target.querySelector("button").textContent = "Plants Shown";
+    e.target.querySelector("button").disabled = true;
+  });
+});
 
 function geocodeAddress(address) {
   fetch(
@@ -106,140 +102,95 @@ function geocodeAddress(address) {
       address
     )}`
   )
-    .then((res) => {
-      if (!res.ok) throw new Error(`Geocode failed (${res.status})`);
-      return res.json();
+    .then(r => {
+      if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
+      return r.json();
     })
-    .then((results) => {
+    .then(results => {
       if (!results.length) throw new Error("Address not found.");
-      const lat = +results[0].lat;
-      const lon = +results[0].lon;
+      const lat = +results[0].lat,
+            lon = +results[0].lon;
       map.setView([lat, lon], 12);
-      if (marker) map.removeLayer(marker);
+      marker && map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
       fetchEVCData(lat, lon);
     })
-    .catch((err) => {
-      console.error(err);
-      alert(err.message);
-    });
+    .catch(err => alert(err.message));
 }
 
 function fetchEVCData(lat, lon) {
-  const d = 0.02;
-  const bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`;
-  const url =
-    `https://opendata.maps.vic.gov.au/geoserver/wfs` +
-    `?service=WFS` +
-    `&version=1.0.0` +
-    `&request=GetFeature` +
-    `&typeName=open-data-platform:nv2005_evcbcs` +
-    `&bbox=${bbox},EPSG:4326` +
-    `&outputFormat=application/json`;
+  const d = 0.02,
+        bbox = `${lon-d},${lat-d},${lon+d},${lat+d}`,
+        url =
+          "https://opendata.maps.vic.gov.au/geoserver/wfs" +
+          "?service=WFS&version=1.0.0&request=GetFeature" +
+          "&typeName=open-data-platform:nv2005_evcbcs" +
+          `&bbox=${bbox},EPSG:4326` +
+          "&outputFormat=application/json";
 
   fetch(url)
-    .then((res) => res.text())
-    .then((text) => {
-      if (text.trim().startsWith("<")) {
-        console.error("EVC WFS returned HTML:", text.slice(0, 200));
-        throw new Error("Error retrieving EVC data. Please try again later.");
-      }
-      return JSON.parse(text);
+    .then(r => r.text())
+    .then(txt => {
+      if (txt.startsWith("<")) throw new Error("EVC service error");
+      return JSON.parse(txt);
     })
-    .then((data) => {
-      if (!data.features?.length) {
-        throw new Error("No EVC data found for this location.");
-      }
-      const pt = turf.point([lon, lat]);
-      const feat =
-        data.features.find(
-          (f) =>
-            f.geometry?.type === "Polygon" &&
-            turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
-        ) || data.features[0];
+    .then(data => {
+      if (!data.features?.length) throw new Error("No EVC found here.");
+      const pt = turf.point([lon, lat]),
+            feat =
+              data.features.find(f =>
+                f.geometry.type === "Polygon" &&
+                turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+              ) || data.features[0],
+            p = feat.properties;
 
-      const p = feat.properties;
-      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
+      displayModal(
+        p.x_evcname,
+        p.evc_bcs_desc,
+        p.bioregion,
+        p.evc,
+        lat, lon
+      );
     })
-    .catch((err) => {
-      console.error(err);
-      alert(err.message);
-    });
+    .catch(err => alert(err.message));
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // --- Populate text ---
+  // header text
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent =
-    status || "Not specified";
-  document.getElementById("modal-evc-region").textContent =
-    region || "Not specified";
-
+  document.getElementById("modal-evc-status").textContent = status;
+  document.getElementById("modal-evc-region").textContent = region;
+  // description
   const info = curatedPlants[code];
-  document.getElementById("modal-evc-description").textContent = info
-    ? info.description
-    : "No description available.";
+  document.getElementById("modal-evc-description").textContent =
+    info ? info.description : "No description available.";
 
-  // --- Build plant list with Add buttons ---
+  // build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
-    info.recommendations.forEach((layerObj) => {
-      const section = document.createElement("div");
-      section.className = "layer";
-
-      const h3 = document.createElement("h3");
-      h3.textContent = layerObj.layer + ".";
-      section.appendChild(h3);
-
-      const ul = document.createElement("ul");
-      layerObj.plants.forEach((p) => {
-        const li = document.createElement("li");
-        const span = document.createElement("span");
-        span.textContent = p;
-        li.appendChild(span);
-
-        const btn = document.createElement("button");
-        btn.className = "add-btn";
-        btn.textContent = "Add to Forest";
-        btn.dataset.plant = p;
-        btn.dataset.layer = layerObj.layer;
-        btn.addEventListener("click", () => {
-          const forest = JSON.parse(localStorage.getItem("myForest") || "[]");
-          forest.push({
-            slug: slugify(p),
-            label: p,
-            layer: layerObj.layer
-          });
-          localStorage.setItem("myForest", JSON.stringify(forest));
-          btn.textContent = "Added";
-          btn.disabled = true;
-        });
-
-        li.appendChild(btn);
-        ul.appendChild(li);
-      });
-
-      section.appendChild(ul);
-      plantsDiv.appendChild(section);
+    info.recommendations.forEach(sec => {
+      const wr = document.createElement("div");
+      wr.className = "layer";
+      wr.innerHTML = `<h3>${sec.layer}.</h3>` +
+        "<ul>" +
+        sec.plants.map(p => `<li>${p}</li>`).join("") +
+        "</ul>";
+      plantsDiv.appendChild(wr);
     });
-    plantsDiv.style.display = "block";
-  } else {
-    plantsDiv.style.display = "none";
   }
+  plantsDiv.style.display = "none";  // keep hidden until e-mail
 
-  // --- Initialize in-modal map ---
-  if (modalMap) {
-    modalMap.remove();
-  }
+  // in-modal map
+  modalMap && modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // --- Show modal and fix Leaflet sizing ---
-  const modal = document.getElementById("evc-modal");
-  modal.style.display = "flex";
+  // show modal
+  const m = document.getElementById("evc-modal");
+  m.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
 }
