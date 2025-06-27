@@ -1,20 +1,22 @@
 // evc-fetch.js
 
-// — Curated plants data (re-categorised into your four layers) —
+// — Curated plants data (Grassy Woodland is EVC 175) —
 const curatedPlants = {
-  "47": {
+  "175": {
     description:
-      "Valley Grassy Forest occurs under moderate rainfall regimes of 700–800 mm per annum on fertile, well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer.",
+      "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
     recommendations: [
       {
-        layer: "Canopy Layer",
+        layer:
+          "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
         plants: [
           "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
           "Allocasuarina verticillata (Drooping Sheoak)"
         ]
       },
       {
-        layer: "Sub-Canopy Layer",
+        layer:
+          "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
         plants: [
           "Acacia mearnsii (Black Wattle)",
           "Allocasuarina littoralis (Black Sheoak)",
@@ -22,7 +24,8 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Shrub Layer",
+        layer:
+          "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
         plants: [
           "Leptospermum continentale (Prickly Tea-tree)",
           "Epacris impressa (Common Heath)",
@@ -36,7 +39,8 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer",
+        layer:
+          "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
         plants: [
           "Pterostylis longifolia s.l. (Tall Greenhood)",
           "Gonocarpus tetragynus (Common Raspwort)",
@@ -60,19 +64,19 @@ const curatedPlants = {
       }
     ]
   }
-  // …other EVCs…
+  // …you can add other EVCs here…
 };
 
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Legacy map (hidden)
+  // Legacy map (hidden via CSS)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Address lookup
+  // 1) Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -80,19 +84,19 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // Close modal
+  // 2) Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // Email gatekeeper: reveal plants on submit
+  // 3) Email gate: reveal plants on submit
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
-    // TODO: wire this into your backend / Google Form
     document.getElementById("modal-plants").style.display = "block";
-    // Optionally disable the button so they can't re-submit:
-    e.target.querySelector("button").textContent = "Plants Shown";
-    e.target.querySelector("button").disabled = true;
+    const btn = e.target.querySelector("button");
+    btn.textContent = "Plants Shown";
+    btn.disabled = true;
+    // TODO: wire this into your backend or Google Form
   });
 });
 
@@ -120,7 +124,7 @@ function geocodeAddress(address) {
 
 function fetchEVCData(lat, lon) {
   const d = 0.02,
-        bbox = `${lon-d},${lat-d},${lon+d},${lat+d}`,
+        bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`,
         url =
           "https://opendata.maps.vic.gov.au/geoserver/wfs" +
           "?service=WFS&version=1.0.0&request=GetFeature" +
@@ -131,16 +135,21 @@ function fetchEVCData(lat, lon) {
   fetch(url)
     .then(r => r.text())
     .then(txt => {
-      if (txt.startsWith("<")) throw new Error("EVC service error");
+      if (txt.trim().startsWith("<"))
+        throw new Error("EVC service error. Try again later.");
       return JSON.parse(txt);
     })
     .then(data => {
-      if (!data.features?.length) throw new Error("No EVC found here.");
+      if (!data.features?.length)
+        throw new Error("No EVC data found for this location.");
       const pt = turf.point([lon, lat]),
             feat =
               data.features.find(f =>
                 f.geometry.type === "Polygon" &&
-                turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+                turf.booleanPointInPolygon(
+                  pt,
+                  turf.polygon(f.geometry.coordinates)
+                )
               ) || data.features[0],
             p = feat.properties;
 
@@ -149,39 +158,43 @@ function fetchEVCData(lat, lon) {
         p.evc_bcs_desc,
         p.bioregion,
         p.evc,
-        lat, lon
+        lat,
+        lon
       );
     })
     .catch(err => alert(err.message));
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // header text
+  // Header text
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = region;
-  // description
-  const info = curatedPlants[code];
-  document.getElementById("modal-evc-description").textContent =
-    info ? info.description : "No description available.";
 
-  // build & hide plant list
+  // Description
+  const info = curatedPlants[code];
+  document.getElementById("modal-evc-description").textContent = info
+    ? info.description
+    : "No description available.";
+
+  // Build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
     info.recommendations.forEach(sec => {
       const wr = document.createElement("div");
       wr.className = "layer";
-      wr.innerHTML = `<h3>${sec.layer}.</h3>` +
+      wr.innerHTML =
+        `<h3>${sec.layer}</h3>` +
         "<ul>" +
         sec.plants.map(p => `<li>${p}</li>`).join("") +
         "</ul>";
       plantsDiv.appendChild(wr);
     });
   }
-  plantsDiv.style.display = "none";  // keep hidden until e-mail
+  plantsDiv.style.display = "none";
 
-  // in-modal map
+  // In-modal map
   modalMap && modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -189,7 +202,7 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // show modal
+  // Show modal
   const m = document.getElementById("evc-modal");
   m.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
