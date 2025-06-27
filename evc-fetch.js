@@ -1,5 +1,3 @@
-// evc-fetch.js
-
 // — Curated plants data (add all your EVC entries here) —
 const curatedPlants = {
   "175": {
@@ -46,6 +44,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
+
+  // 4) Gate-keeper: intercept email submit
+  document.getElementById("gf-form").addEventListener("submit", e => {
+    e.preventDefault();
+    // reveal the plants
+    document.getElementById("modal-plants").style.display = "block";
+    // optionally hide the email form
+    document.getElementById("email-section").style.display = "none";
+    // later you can remove the preventDefault to actually post to Google Forms
+  });
 });
 
 function geocodeAddress(address) {
@@ -65,7 +73,7 @@ function geocodeAddress(address) {
       map.setView([lat, lon], 12);
       if (marker) map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
-      fetchEVCData(lat, lon);
+      fetchEVCData(lat, lon, address);
     })
     .catch(err => {
       console.error(err);
@@ -73,7 +81,7 @@ function geocodeAddress(address) {
     });
 }
 
-function fetchEVCData(lat, lon) {
+function fetchEVCData(lat, lon, address) {
   const d = 0.02;
   const bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`;
   const url =
@@ -89,7 +97,6 @@ function fetchEVCData(lat, lon) {
     .then(res => res.text())
     .then(text => {
       if (text.trim().startsWith("<")) {
-        console.error("EVC WFS returned HTML:", text.slice(0, 200));
         throw new Error("Error retrieving EVC data. Please try again later.");
       }
       return JSON.parse(text);
@@ -107,7 +114,7 @@ function fetchEVCData(lat, lon) {
         ) || data.features[0];
 
       const p = feat.properties;
-      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
+      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon, address);
     })
     .catch(err => {
       console.error(err);
@@ -115,20 +122,18 @@ function fetchEVCData(lat, lon) {
     });
 }
 
-function displayModal(name, status, region, code, lat, lon) {
-  // --- Populate text ---
+function displayModal(name, status, region, code, lat, lon, address) {
+  // populate
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent =
-    status || "Not specified";
-  document.getElementById("modal-evc-region").textContent =
-    region || "Not specified";
+  document.getElementById("modal-evc-status").textContent = status || "Not specified";
+  document.getElementById("modal-evc-region").textContent = region || "Not specified";
 
   const info = curatedPlants[code];
   document.getElementById("modal-evc-description").textContent = info
     ? info.description
     : "No description available.";
 
-  // --- Build plant list ---
+  // build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -147,27 +152,24 @@ function displayModal(name, status, region, code, lat, lon) {
       row.appendChild(ul);
       plantsDiv.appendChild(row);
     });
-    plantsDiv.style.display = "block";
-  } else {
-    plantsDiv.style.display = "none";
   }
+  plantsDiv.style.display = "none";
 
-  // --- Initialize in-modal map ---
-  if (modalMap) {
-    modalMap.remove();
-  }
+  // fill gate-keeper form fields
+  document.getElementById("gf-address").value = address;
+  document.getElementById("gf-evcCode").value = code;
+  document.getElementById("email-section").style.display = "block";
+
+  // in-modal map
+  if (modalMap) modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // --- Show modal and fix Leaflet sizing ---
+  // show
   const modal = document.getElementById("evc-modal");
   modal.style.display = "flex";
-
-  // Leaflet needs a size invalidation when container was hidden
-  setTimeout(() => {
-    modalMap.invalidateSize();
-  }, 0);
+  setTimeout(() => modalMap.invalidateSize(), 0);
 }
