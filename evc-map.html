@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
 
-  <!-- Fonts & Leaflet CSS -->
+  <!-- your fonts & CSS -->
   <link
     href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;500;700&display=swap"
     rel="stylesheet"
@@ -40,26 +40,20 @@
       </form>
     </div>
 
-    <!-- NEW Merch Heading -->
     <h3 id="merch-title">Support Ecological Gardens with our Merch.</h3>
-
-    <!-- merch placeholders -->
     <div id="merch-container">
       <div class="merch-square"></div>
       <div class="merch-square"></div>
       <div class="merch-square"></div>
     </div>
 
-    <!-- hidden main map (for legacy binding) -->
+    <!-- legacy map hidden by CSS -->
     <div id="map"></div>
   </div>
 
-  <!-- Modal with in-modal map -->
   <div id="evc-modal">
     <div class="modal-content">
-      <!-- in-modal mini-map -->
       <div id="modal-map"></div>
-
       <button id="modal-close">&times;</button>
 
       <div id="modal-info">
@@ -74,7 +68,7 @@
         <p id="modal-evc-description"></p>
       </div>
 
-      <div id="modal-plants"></div>
+      <div id="modal-plants"><!-- hidden until email submit --></div>
 
       <div id="email-section">
         <p>Enter your email address to display your curated plant list.</p>
@@ -100,7 +94,7 @@
     </div>
   </div>
 
-  <!-- Leaflet, Turf & fetch logic -->
+  <!-- scripts -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
