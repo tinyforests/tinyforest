@@ -1,6 +1,6 @@
 // evc-fetch.js
 
-// — Curated plants data (Grassy Woodland is EVC 175) —
+// — Curated plants data, now with slug+label for each plant —
 const curatedPlants = {
   "175": {
     description:
@@ -10,73 +10,73 @@ const curatedPlants = {
         layer:
           "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
         plants: [
-          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
-          "Allocasuarina verticillata (Drooping Sheoak)"
+          { slug: "eucalyptus-radiata", label: "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)" },
+          { slug: "allocasuarina-verticillata", label: "Allocasuarina verticillata (Drooping Sheoak)" }
         ]
       },
       {
         layer:
           "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
         plants: [
-          "Acacia mearnsii (Black Wattle)",
-          "Allocasuarina littoralis (Black Sheoak)",
-          "Exocarpos cupressiformis (Cherry Ballart)"
+          { slug: "acacia-mearnsii", label: "Acacia mearnsii (Black Wattle)" },
+          { slug: "allocasuarina-littoralis", label: "Allocasuarina littoralis (Black Sheoak)" },
+          { slug: "exocarpos-cupressiformis", label: "Exocarpos cupressiformis (Cherry Ballart)" }
         ]
       },
       {
         layer:
           "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
         plants: [
-          "Leptospermum continentale (Prickly Tea-tree)",
-          "Epacris impressa (Common Heath)",
-          "Cassinia aculeata (Common Cassinia)",
-          "Acacia paradoxa (Hedge Wattle)",
-          "Pimelea humilis (Common Rice-flower)",
-          "Hibbertia riparia (Erect Guinea-flower)",
-          "Bossiaea prostrata (Creeping Bossiaea)",
-          "Astroloma humifusum (Cranberry Heath)",
-          "Acrotriche serrulata (Honey-pots)"
+          { slug: "leptospermum-continentale", label: "Leptospermum continentale (Prickly Tea-tree)" },
+          { slug: "epacris-impressa", label: "Epacris impressa (Common Heath)" },
+          { slug: "cassinia-aculeata", label: "Cassinia aculeata (Common Cassinia)" },
+          { slug: "acacia-paradoxa", label: "Acacia paradoxa (Hedge Wattle)" },
+          { slug: "pimelea-humilis", label: "Pimelea humilis (Common Rice-flower)" },
+          { slug: "hibbertia-riparia", label: "Hibbertia riparia (Erect Guinea-flower)" },
+          { slug: "bossiaea-prostrata", label: "Bossiaea prostrata (Creeping Bossiaea)" },
+          { slug: "astroloma-humifusum", label: "Astroloma humifusum (Cranberry Heath)" },
+          { slug: "acrotriche-serrulata", label: "Acrotriche serrulata (Honey-pots)" }
         ]
       },
       {
         layer:
           "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
         plants: [
-          "Pterostylis longifolia s.l. (Tall Greenhood)",
-          "Gonocarpus tetragynus (Common Raspwort)",
-          "Drosera peltata ssp. auriculata (Tall Sundew)",
-          "Dichondra repens (Kidney-weed)",
-          "Opercularia varia (Variable Stinkweed)",
-          "Drosera whittakeri ssp. aberrans (Scented Sundew)",
-          "Deyeuxia quadriseta (Reed Bent-grass)",
-          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
-          "Lomandra longifolia (Spiny-headed Mat-rush)",
-          "Gahnia radula (Thatch Saw-sedge)",
-          "Lomandra filiformis (Wattle Mat-rush)",
-          "Themeda triandra (Kangaroo Grass)",
-          "Poa sieberiana (Grey Tussock-grass)",
-          "Lepidosperma laterale (Variable Sword-sedge)",
-          "Microlaena stipoides var. stipoides (Weeping Grass)",
-          "Pteridium esculentum (Austral Bracken)",
-          "Comesperma volubile (Love Creeper)",
-          "Billardiera scandens (Common Apple-berry)"
+          { slug: "pterostylis-longifolia", label: "Pterostylis longifolia s.l. (Tall Greenhood)" },
+          { slug: "gonocarpus-tetragynus", label: "Gonocarpus tetragynus (Common Raspwort)" },
+          { slug: "drosera-peltata", label: "Drosera peltata ssp. auriculata (Tall Sundew)" },
+          { slug: "dichondra-repens", label: "Dichondra repens (Kidney-weed)" },
+          { slug: "opercularia-varia", label: "Opercularia varia (Variable Stinkweed)" },
+          { slug: "drosera-whittakeri", label: "Drosera whittakeri ssp. aberrans (Scented Sundew)" },
+          { slug: "deyeuxia-quadriseta", label: "Deyeuxia quadriseta (Reed Bent-grass)" },
+          { slug: "xanthorrhoea-minor", label: "Xanthorrhoea minor ssp. lutea (Small Grass-tree)" },
+          { slug: "lomandra-longifolia", label: "Lomandra longifolia (Spiny-headed Mat-rush)" },
+          { slug: "gahnia-radula", label: "Gahnia radula (Thatch Saw-sedge)" },
+          { slug: "lomandra-filiformis", label: "Lomandra filiformis (Wattle Mat-rush)" },
+          { slug: "themeda-triandra", label: "Themeda triandra (Kangaroo Grass)" },
+          { slug: "poa-sieberiana", label: "Poa sieberiana (Grey Tussock-grass)" },
+          { slug: "lepidosperma-laterale", label: "Lepidosperma laterale (Variable Sword-sedge)" },
+          { slug: "microlaena-stipoides", label: "Microlaena stipoides var. stipoides (Weeping Grass)" },
+          { slug: "pteridium-esculentum", label: "Pteridium esculentum (Austral Bracken)" },
+          { slug: "comesperma-volubile", label: "Comesperma volubile (Love Creeper)" },
+          { slug: "billardiera-scandens", label: "Billardiera scandens (Common Apple-berry)" }
         ]
       }
     ]
   }
-  // …you can add other EVCs here…
+  // …you can add further EVC codes here…
 };
 
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Legacy map (hidden via CSS)
+  // legacy hidden map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 1) Address lookup
+  // 1) Address form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -84,19 +84,19 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // 2) Close modal
+  // 2) Close
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 3) Email gate: reveal plants on submit
+  // 3) Email gate → reveal plants
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
     document.getElementById("modal-plants").style.display = "block";
     const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: wire this into your backend or Google Form
+    // later: send to backend / Google Form here
   });
 });
 
@@ -106,10 +106,7 @@ function geocodeAddress(address) {
       address
     )}`
   )
-    .then(r => {
-      if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
-      return r.json();
-    })
+    .then(r => r.json())
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
       const lat = +results[0].lat,
@@ -152,7 +149,6 @@ function fetchEVCData(lat, lon) {
                 )
               ) || data.features[0],
             p = feat.properties;
-
       displayModal(
         p.x_evcname,
         p.evc_bcs_desc,
@@ -166,18 +162,18 @@ function fetchEVCData(lat, lon) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Header text
-  document.getElementById("modal-evc-name").textContent = name || "Unknown";
+  // header
+  document.getElementById("modal-evc-name").textContent = name;
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = region;
 
-  // Description
+  // description
   const info = curatedPlants[code];
   document.getElementById("modal-evc-description").textContent = info
     ? info.description
     : "No description available.";
 
-  // Build & hide plant list
+  // build & hide plant links
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -187,14 +183,19 @@ function displayModal(name, status, region, code, lat, lon) {
       wr.innerHTML =
         `<h3>${sec.layer}</h3>` +
         "<ul>" +
-        sec.plants.map(p => `<li>${p}</li>`).join("") +
+        sec.plants
+          .map(
+            p =>
+              `<li><a href="plant.html?slug=${p.slug}">${p.label}</a></li>`
+          )
+          .join("") +
         "</ul>";
       plantsDiv.appendChild(wr);
     });
   }
   plantsDiv.style.display = "none";
 
-  // In-modal map
+  // in-modal map
   modalMap && modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -202,7 +203,7 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // Show modal
+  // show
   const m = document.getElementById("evc-modal");
   m.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
