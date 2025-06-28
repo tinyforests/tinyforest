@@ -241,8 +241,8 @@ body {
     margin: 0;
   }
 
-  /* match modal EVC-title style on mobile */
-  #page-title {
+  /* now matches the modal title specificity */
+  #container h2#page-title {
     font-family: "Abril Fatface", serif;
     font-size: 2.5rem;
     margin: 0 0 0.5em;
