@@ -16,11 +16,16 @@ body {
   text-align: center;
   padding: 30px 20px;
 }
-#container h2 {
+
+/* Page & merch titles now match modal EVC title */
+#page-title,
+#merch-title {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
-  margin-bottom: 10px;
+  color: #3d4535;
+  margin-bottom: 0.5em;
 }
+
 .hero-highlight {
   background-color: #ffffff;
   padding: 0.2em 0.4em;
@@ -74,16 +79,6 @@ body {
 }
 
 /* =======================
-   MERCH HEADING
-   ======================= */
-#merch-title {
-  font-family: "Abril Fatface", serif;
-  font-size: 1.75rem;
-  color: #3d4535;
-  margin: 2em 0 0.5em;
-}
-
-/* =======================
    MERCH SQUARES
    ======================= */
 #merch-container {
@@ -110,7 +105,7 @@ body {
 #modal-map {
   width: 100%;
   height: 200px;
-  margin-top: 10px;      /* cleared down for close button */
+  margin-top: 10px;
   margin-bottom: 1em;
   border-radius: 4px;
   background: #e0e0e0;
@@ -245,16 +240,16 @@ body {
     margin: 0;
   }
 
-  /* Page & merch titles match modal evc title style */
+  /* Maintain title styling on mobile */
   #page-title,
   #merch-title {
     font-family: "Abril Fatface", serif;
     font-size: 2.5rem;
-    letter-spacing: -2px;
-    line-height: 1.2em;
+    color: #3d4535;
+    margin-bottom: 0.5em;
   }
 
-  /* Stack merch squares on narrow screens */
+  /* Stack merch squares */
   #merch-container {
     flex-direction: column;
   }
@@ -264,32 +259,4 @@ body {
     width: 95%;
     padding: 1em;
   }
-}
-
-/* =======================
-   BETA RIBBON
-   ======================= */
-.ribbon {
-  width: 80px;
-  height: 80px;
-  overflow: hidden;
-  position: absolute;
-  top: 5px;    /* moved down 5px */
-  left: 0;
-  pointer-events: none;
-  z-index: 3000;
-}
-.ribbon span {
-  position: absolute;
-  display: block;
-  width: 120px;
-  padding: 5px 0;
-  background-color: #3d4535;   /* Gardener green */
-  box-shadow: 0 0 3px rgba(0,0,0,0.3);
-  color: #fff0dc;              /* Nostalgic beige */
-  font: bold 0.75rem "IBM Plex Mono", monospace;
-  text-align: center;
-  text-transform: uppercase;
-  transform: rotate(-45deg);
-  transform-origin: 0 0;
 }
