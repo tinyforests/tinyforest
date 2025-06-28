@@ -221,18 +221,9 @@ body {
 }
 
 /* =======================
-   BETA RIBBON
-   ======================= */
-/* ensure the “BETA” text is visible in nostalgic beige */
-.ribbon span {
-  color: #fff0dc !important;
-}
-
-/* =======================
    RESPONSIVE / MOBILE
    ======================= */
 @media (max-width: 600px) {
-  /* Address form full-width on mobile */
   #address-form {
     display: flex !important;
     flex-direction: column;
@@ -240,6 +231,7 @@ body {
     align-items: stretch;
     padding: 0 1em;
   }
+
   #address-input,
   #search-button {
     width: 100% !important;
@@ -249,23 +241,45 @@ body {
     margin: 0;
   }
 
-  /* Page title & merch title match modal title style */
-  #page-title,
-  #merch-title {
+  #page-title {
     font-family: "Abril Fatface", serif;
     font-size: 2.5rem;
-    letter-spacing: -2px;
-    line-height: 1.2em;
   }
 
-  /* Stack merch squares */
   #merch-container {
     flex-direction: column;
   }
 
-  /* Slightly tighter modal padding on mobile */
   .modal-content {
     width: 95%;
     padding: 1em;
   }
+}
+
+/* =======================
+   BETA RIBBON
+   ======================= */
+.ribbon {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 3000;
+}
+.ribbon span {
+  position: absolute;
+  display: block;
+  width: 120px;
+  padding: 5px 0;
+  background-color: #3d4535;
+  box-shadow: 0 0 3px rgba(0,0,0,0.3);
+  color: #fff0dc;
+  font: bold 0.75rem "IBM Plex Mono", monospace;
+  text-align: center;
+  text-transform: uppercase;
+  transform: rotate(-45deg);
+  transform-origin: 0 0;
 }
