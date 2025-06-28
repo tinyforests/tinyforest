@@ -1,6 +1,6 @@
 // evc-fetch.js
 
-// — Curated plants data (Grassy Woodland is EVC 175) —
+// — Curated plants data (Grassy Woodland is EVC 175; Stream Bank Shrubland is EVC 851) —
 const curatedPlants = {
   "175": {
     description:
@@ -8,7 +8,7 @@ const curatedPlants = {
     recommendations: [
       {
         layer:
-          "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
+          "Canopy Layer (tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
         plants: [
           "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
           "Allocasuarina verticillata (Drooping Sheoak)"
@@ -63,20 +63,74 @@ const curatedPlants = {
         ]
       }
     ]
+  },
+
+  "851": {
+    description:
+      "Tall shrubland to 8 m tall above a ground layer of sedges and herbs. A sparse eucalypt overstorey to 15 m tall may sometimes be present. Occurs along rivers and major streams where the watercourse consists of either rocky banks, a flat rocky stream bed or broad gravel banks which are often dry but are also regularly flooded by fast-flowing waters.",
+    recommendations: [
+      {
+        layer:
+          "Canopy Layer (tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
+        plants: [
+          "Eucalyptus camaldulensis (River Red-gum)"
+        ]
+      },
+      {
+        layer:
+          "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
+        plants: [
+          "Acacia mearnsii (Black Wattle)",
+          "Acacia melanoxylon (Blackwood)"
+        ]
+      },
+      {
+        layer:
+          "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
+        plants: [
+          "Leptospermum lanigerum (Woolly Tea-tree)",
+          "Hymenanthera dentata s.l. (Tree Violet)",
+          "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
+          "Callistemon sieberi (River Bottlebrush)"
+        ]
+      },
+      {
+        layer:
+          "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
+        plants: [
+          "Persicaria decipiens (Slender Knotweed)",
+          "Epilobium billardierianum (Variable Willow-herb)",
+          "Acaena novae-zelandiae (Bidgee-widgee)",
+          "Hydrocotyle verticillata (Shield Pennywort)",
+          "Oxalis perennans (Grassland Wood-sorrel)",
+          "Crassula helmsii (Swamp Crassula)",
+          "Dichondra repens (Kidney-weed)",
+          "Apium prostratum ssp. prostratum (Sea Celery)",
+          "Poa labillardierei (Common Tussock-grass)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
+          "Phragmites australis (Common Reed)",
+          "Schoenoplectus tabernaemontani (River Club-sedge)",
+          "Triglochin procerum s.l. (Water Ribbons)",
+          "Microlaena stipoides var. stipoides (Weeping Grass)",
+          "Ficinia nodosa (Knobby Club-sedge)",
+          "Calystegia sepium (Large Bindweed)"
+        ]
+      }
+    ]
   }
-  // …you can add other EVCs here…
+  // …you can keep adding more EVCs here…
 };
 
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Legacy map (hidden via CSS)
+  // 1) Legacy hidden map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 1) Address lookup
+  // 2) Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -84,19 +138,19 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // 2) Close modal
+  // 3) Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 3) Email gate: reveal plants on submit
+  // 4) Email gate: reveal plants on submit
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
     document.getElementById("modal-plants").style.display = "block";
     const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: wire this into your backend or Google Form
+    // TODO: hook this into your backend / Google Form later
   });
 });
 
@@ -166,7 +220,7 @@ function fetchEVCData(lat, lon) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Header text
+  // Header
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = region;
@@ -177,7 +231,7 @@ function displayModal(name, status, region, code, lat, lon) {
     ? info.description
     : "No description available.";
 
-  // Build & hide plant list
+  // Build plant list (hidden initially)
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
