@@ -17,13 +17,15 @@ body {
   padding: 30px 20px;
 }
 
-/* Page & merch titles now match modal EVC title */
+/* Page & merch titles match modal EVC title exactly */
 #page-title,
 #merch-title {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
   color: #3d4535;
   margin-bottom: 0.5em;
+  letter-spacing: -2px;
+  line-height: 1.2em;
 }
 
 .hero-highlight {
@@ -247,6 +249,8 @@ body {
     font-size: 2.5rem;
     color: #3d4535;
     margin-bottom: 0.5em;
+    letter-spacing: -2px;
+    line-height: 1.2em;
   }
 
   /* Stack merch squares */
