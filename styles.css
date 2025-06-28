@@ -9,6 +9,32 @@ body {
   background-color: #fff0dc;
 }
 
+/* ================
+   BETA CORNER RIBBON
+   ================ */
+.beta-ribbon {
+  width: 0;
+  height: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 3000;
+  border-top: 60px solid #3d4535;    /* ribbon triangle size & color */
+  border-left: 60px solid transparent;
+}
+.beta-ribbon::before {
+  content: "BETA";
+  position: absolute;
+  top: 6px;
+  right: -30px;
+  width: 100px;
+  text-align: center;
+  transform: rotate(45deg);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.75rem;
+  color: #fff0dc;
+}
+
 /* =======================
    HERO / HEADER SECTION
    ======================= */
