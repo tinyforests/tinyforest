@@ -110,7 +110,7 @@ body {
 #modal-map {
   width: 100%;
   height: 200px;
-  margin-top: 10px;      /* cleared down for close button */
+  margin-top: 10px;      /* dropped 5px to clear close button */
   margin-bottom: 1em;
   border-radius: 4px;
   background: #e0e0e0;
@@ -185,6 +185,10 @@ body {
 #modal-plants li {
   margin-bottom: 0.2em;
 }
+
+/* =======================
+   EMAIL SECTION
+   ======================= */
 #email-section {
   margin: 1em 0;
 }
@@ -244,6 +248,15 @@ body {
   #page-title {
     font-family: "Abril Fatface", serif;
     font-size: 2.5rem;
+    /* same letter-spacing / line-height as modal evc title */
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  #merch-title {
+    font-family: "Abril Fatface", serif;
+    font-size: 1.75rem;
+    letter-spacing: 0;
   }
 
   #merch-container {
@@ -274,9 +287,9 @@ body {
   display: block;
   width: 120px;
   padding: 5px 0;
-  background-color: #3d4535;
+  background-color: #3d4535;     /* Gardener green */
   box-shadow: 0 0 3px rgba(0,0,0,0.3);
-  color: #fff0dc;
+  color: #fff0dc;                /* Nostalgic beige */
   font: bold 0.75rem "IBM Plex Mono", monospace;
   text-align: center;
   text-transform: uppercase;
