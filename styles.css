@@ -221,6 +221,14 @@ body {
 }
 
 /* =======================
+   BETA RIBBON
+   ======================= */
+/* ensure the “BETA” text is visible in nostalgic beige */
+.ribbon span {
+  color: #fff0dc !important;
+}
+
+/* =======================
    RESPONSIVE / MOBILE
    ======================= */
 @media (max-width: 600px) {
@@ -241,7 +249,7 @@ body {
     margin: 0;
   }
 
-  /* Page title matches modal evc title style */
+  /* Page title & merch title match modal title style */
   #page-title,
   #merch-title {
     font-family: "Abril Fatface", serif;
