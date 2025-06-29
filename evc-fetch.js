@@ -1,6 +1,6 @@
 // evc-fetch.js
 
-// — Curated plants data (Grassy Woodland is EVC 175; Stream Bank Shrubland is EVC 851) —
+// — Curated plants data (add your EVC entries here) —
 const curatedPlants = {
   "175": {
     description:
@@ -8,7 +8,7 @@ const curatedPlants = {
     recommendations: [
       {
         layer:
-          "Canopy Layer (tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
+          "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
         plants: [
           "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
           "Allocasuarina verticillata (Drooping Sheoak)"
@@ -65,28 +65,44 @@ const curatedPlants = {
     ]
   },
 
-  "851": {
+  "47": {
     description:
-      "Tall shrubland to 8 m tall above a ground layer of sedges and herbs. A sparse eucalypt overstorey to 15 m tall may sometimes be present. Occurs along rivers and major streams where the watercourse consists of either rocky banks, a flat rocky stream bed or broad gravel banks which are often dry but are also regularly flooded by fast-flowing waters.",
+      "Valley Grassy Forest occurs under moderate rainfall regimes of 700–800 mm per annum on fertile well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts, usually species which prefer more moist or more fertile conditions over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses and sedges dominate the ground layer but at the drier end of the spectrum the ground layer may be sparse and slightly less diverse, but with the moisture-loving species still remaining.",
     recommendations: [
       {
-        layer:
-          "Canopy Layer (tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
+        layer: "Canopy Layer",
         plants: [
-          "Eucalyptus camaldulensis (River Red-gum)"
+          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
+          "Eucalyptus leucoxylon (Yellow Gum)",
+          "Eucalyptus melliodora (Yellow Box)",
+          "Eucalyptus rubida (Candlebark)"
         ]
       },
       {
-        layer:
-          "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
+        layer: "Sub-Canopy Layer",
+        plants: ["Acacia mearnsii (Black Wattle)", "Acacia melanoxylon (Blackwood)"]
+      }
+      // …etc…
+    ]
+  },
+
+  "851": {
+    description:
+      "This rare and endangered plant community once lined the small rivers and ephemeral creeks of Victoria’s volcanic plains. Shaped by flood and stone, Stream Bank Shrubland thrives in rocky or gravelly streambeds where water flows seasonally. It’s defined by tall, moisture-loving shrubs like Sweet Bursaria, Tree Violet, and Silver Wattle, often beneath a scattered overstorey of River Red Gum. These green ribbons form vital wildlife corridors and are home to an understory of sedges, native grasses, and fast-growing herbs that respond quickly after floods. Restoring this EVC brings habitat, resilience, and cultural continuity back to our waterways.",
+    recommendations: [
+      {
+        layer: "Canopy Layer",
+        plants: ["Eucalyptus camaldulensis (River Red-gum)"]
+      },
+      {
+        layer: "Sub-Canopy Layer",
         plants: [
           "Acacia mearnsii (Black Wattle)",
           "Acacia melanoxylon (Blackwood)"
         ]
       },
       {
-        layer:
-          "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
+        layer: "Shrub Layer",
         plants: [
           "Leptospermum lanigerum (Woolly Tea-tree)",
           "Hymenanthera dentata s.l. (Tree Violet)",
@@ -95,8 +111,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer:
-          "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
+        layer: "Herb Layer",
         plants: [
           "Persicaria decipiens (Slender Knotweed)",
           "Epilobium billardierianum (Variable Willow-herb)",
@@ -118,19 +133,20 @@ const curatedPlants = {
       }
     ]
   }
-  // …you can keep adding more EVCs here…
+
+  // …add more EVCs as needed…
 };
 
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Legacy hidden map
+  // Legacy map (hidden via CSS)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) Address lookup
+  // Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -138,19 +154,19 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // 3) Close modal
+  // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 4) Email gate: reveal plants on submit
+  // Email gate: reveal plants on submit
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
     document.getElementById("modal-plants").style.display = "block";
     const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: hook this into your backend / Google Form later
+    // TODO: wire this into your backend or Google Form
   });
 });
 
@@ -220,7 +236,7 @@ function fetchEVCData(lat, lon) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Header
+  // Header text
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = region;
@@ -231,7 +247,7 @@ function displayModal(name, status, region, code, lat, lon) {
     ? info.description
     : "No description available.";
 
-  // Build plant list (hidden initially)
+  // Build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -248,7 +264,7 @@ function displayModal(name, status, region, code, lat, lon) {
   }
   plantsDiv.style.display = "none";
 
-  // In-modal map
+  // In‐modal map
   modalMap && modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
