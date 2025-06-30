@@ -1,6 +1,6 @@
 // evc-fetch.js
 
-// — Curated plants data —
+// — Curated plants data (add all your EVC entries here) —
 const curatedPlants = {
   "175": {
     description:
@@ -65,161 +65,53 @@ const curatedPlants = {
     ]
   },
 
-  "851": {
+  "934": {
     description:
-      "This rare and endangered plant community once lined the small rivers and ephemeral creeks of Victoria’s volcanic plains. Shaped by flood and stone, Stream Bank Shrubland thrives in rocky or gravelly streambeds where water flows seasonally. It’s defined by tall, moisture-loving shrubs like Sweet Bursaria, Tree Violet, and Silver Wattle, often beneath a scattered overstorey of River Red Gum. These green ribbons form vital wildlife corridors and are home to an understory of sedges, native grasses, and fast-growing herbs that respond quickly after floods. Restoring this EVC brings habitat, resilience, and cultural continuity back to our waterways.",
+      "Brackish Grassland is a salt-tolerant grassy ecosystem found in low-lying areas of the Gippsland Plain, where saline groundwater or estuarine flooding influences the soil. These open, wind-exposed grasslands are dominated by saltbushes, low sedges, and halophytic herbs, with few or no trees. Though sparse in appearance, this EVC supports high biodiversity, including rare orchids, seasonal wetland species, and migratory bird habitat. Brackish Grassland is highly threatened, with much of its extent cleared, drained, or grazed. Its remaining fragments survive in coastal flats, behind dunes, and around salt lakes, telling stories of salinity, resilience, and edge dwelling.",
     recommendations: [
-      {
-        layer: "Canopy Layer",
-        plants: [
-          "Eucalyptus camaldulensis (River Red-gum)"
-        ]
-      },
-      {
-        layer: "Sub-Canopy Layer",
-        plants: [
-          "Acacia mearnsii (Black Wattle)",
-          "Acacia melanoxylon (Blackwood)"
-        ]
-      },
-      {
-        layer: "Shrub Layer",
-        plants: [
-          "Leptospermum lanigerum (Woolly Tea-tree)",
-          "Hymenanthera dentata s.l. (Tree Violet)",
-          "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
-          "Callistemon sieberi (River Bottlebrush)"
-        ]
-      },
-      {
-        layer: "Herb Layer",
-        plants: [
-          "Persicaria decipiens (Slender Knotweed)",
-          "Epilobium billardierianum (Variable Willow-herb)",
-          "Acaena novae-zelandiae (Bidgee-widgee)",
-          "Hydrocotyle verticillata (Shield Pennywort)",
-          "Oxalis perennans (Grassland Wood-sorrel)",
-          "Crassula helmsii (Swamp Crassula)",
-          "Dichondra repens (Kidney-weed)",
-          "Apium prostratum ssp. prostratum (Sea Celery)",
-          "Poa labillardierei (Common Tussock-grass)",
-          "Lomandra longifolia (Spiny-headed Mat-rush)",
-          "Phragmites australis (Common Reed)",
-          "Schoenoplectus tabernaemontani (River Club-sedge)",
-          "Triglochin procerum s.l. (Water Ribbons)",
-          "Microlaena stipoides var. stipoides (Weeping Grass)",
-          "Ficinia nodosa (Knobby Club-sedge)",
-          "Calystegia sepium (Large Bindweed)"
-        ]
-      }
-    ]
-  },
-
-  "55_61": {
-    description:
-      "Plains Grassy Woodland is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums, Grey Box, and Yellow Gums form a broad canopy over a ground layer rich with kangaroo grass, native lilies, wildflowers, and seasonal herbs. This EVC thrives in landscapes with seasonal waterlogging and cracking clay soils, and is shaped by a long history of fire management and Aboriginal cultivation. Today, less than 3% of this ecosystem remains, making it one of Victoria’s most threatened woodland communities. With a low shrub layer and high herb diversity, Plains Grassy Woodland forms a vital link between grassland and forest — a spacious, grassy ecosystem built on story, fire, and deep time.",
-    recommendations: [
-      {
-        layer: "Canopy Layer",
-        plants: [
-          "Eucalyptus camaldulensis (River Red-gum)"
-        ]
-      },
-      {
-        layer: "Shrub Layer",
-        plants: [
-          "Acacia pycnantha (Golden Wattle)",
-          "Acacia paradoxa (Hedge Wattle)",
-          "Pimelea humilis (Common Rice-flower)",
-          "Astroloma humifusum (Cranberry Heath)",
-          "Bossiaea prostrata (Creeping Bossiaea)"
-        ]
-      },
-      {
-        layer: "Herb Layer",
-        plants: [
-          "Oxalis perennans (Grassland Wood-sorrel)",
-          "Gonocarpus tetragynus (Common Raspwort)",
-          "Acaena echinata (Sheep’s Burr)",
-          "Dichondra repens (Kidney-weed)",
-          "Hydrocotyle laxiflora (Stinking Pennywort)",
-          "Austrostipa mollis (Supple Spear-grass)",
-          "Austrostipa bigeniculata (Kneed Spear-grass)",
-          "Themeda triandra (Kangaroo Grass)",
-          "Elymus scaber var. scaber (Common Wheat-grass)",
-          "Austrodanthonia setacea (Bristly Wallaby-grass)",
-          "Austrodanthonia racemosa var. racemosa (Stiped Wallaby-grass)",
-          "Microlaena stipoides var. stipoides (Weeping Grass)"
-        ]
-      }
-    ]
-  },
-
-  "53": {
-    description:
-      "Swamp Scrub is a dense, wetland-edge vegetation community found across the low-lying floodplains, soaks, and swamp margins of the Gippsland Plain. It’s dominated by thickets of woolly tea-tree, swamp paperbark, and coastal bottlebrush, often growing around permanent or seasonal wetlands. Beneath the tangled canopy, the ground is cool and shaded, supporting sedges, mosses, and ferns adapted to waterlogged soils. These scrubs play a vital role in water purification, erosion control, and wildlife habitat. Once common across Gippsland, Swamp Scrub is now classified as endangered, with most remnants surviving in small, fragmented pockets near creeks, estuaries, and floodplain depressions.",
-    recommendations: [
-      {
-        layer: "Canopy Layer (tallest woody stems over 5 m)",
-        plants: [
-          "Leptospermum lanigerum (Woolly Tea-tree)",
-          "Melaleuca ericifolia (Swamp Paperbark)"
-        ]
-      },
-      {
-        layer: "Sub-Canopy Layer",
-        plants: [
-          // none—this community is tall shrubland
-        ]
-      },
-      {
-        layer: "Shrub Layer (understorey shrubs < 5 m)",
-        plants: [
-          "Coprosma quadrifida (Prickly Currant-bush)",
-          "Leptospermum continentale (Prickly Tea-tree)"
-        ]
-      },
       {
         layer:
-          "Herb Layer (ground-level herbs, sedges, rushes & ferns stabilising soils)",
+          "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
         plants: [
-          "Lycopus australis (Australian Gipsywort)",
-          "Lythrum salicaria (Purple Loosestrife)",
-          "Persicaria praetermissa (Spotted Knotweed)",
-          "Hydrocotyle pterocarpa (Wing Pennywort)",
-          "Stellaria angustifolia (Swamp Starwort)",
-          "Lobelia anceps (Angled Lobelia)",
-          "Crassula helmsii (Swamp Crassula)",
-          "Juncus procerus (Tall Rush)",
+          "Senecio glomeratus (Annual Fireweed)",
+          "Sarcocornia quinqueflora (Beaded Glasswort)",
+          "Samolus repens (Creeping Brookweed)",
+          "Sebaea albidiflora (White Sebaea)",
+          "Calocephalus lacteus (Milky Beauty-heads)",
+          "Selliera radicans (Shiny Swamp-mat)",
+          "Utricularia tenella (Pink Bladderwort)",
+          "Gahnia filum (Chaffy Saw-sedge)",
+          "Gahnia trifida (Coast Saw-sedge)",
           "Poa labillardierei (Common Tussock-grass)",
-          "Gahnia radula (Thatch Saw-sedge)",
-          "Phragmites australis (Common Reed)",
-          "Baumea rubiginosa s.l. (Soft Twig-rush)",
-          "Triglochin procerum s.l. (Water Ribbons)",
-          "Juncus gregiflorus (Green Rush)",
-          "Eleocharis acuta (Common Spike-sedge)",
-          "Blechnum cartilagineum (Gristle Fern)",
-          "Calystegia sepium (Large Bindweed)"
+          "Poa poiformis (Blue Tussock-grass)",
+          "Schoenus apogon (Common Bog-sedge)",
+          "Austrodanthonia geniculata (Kneed Wallaby-grass)",
+          "Distichlis distichophylla (Australian Salt-grass)"
         ]
       }
     ]
   }
+
+  // …you can add other EVC entries here…
 };
 
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Initialize hidden legacy map
+  // 1) Initialize hidden main map (for legacy)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) Address lookup
+  // 2) Hook up address form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
-    if (!addr) return alert("Please enter an address.");
+    if (!addr) {
+      alert("Please enter an address.");
+      return;
+    }
     geocodeAddress(addr);
   });
 
@@ -228,14 +120,14 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 4) Email-gate: reveal plant list
+  // 4) Email gate: reveal plants on submit
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
-    const btn = e.target.querySelector("button");
     document.getElementById("modal-plants").style.display = "block";
+    const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: wire up real submission
+    // TODO: wire this to your backend or Google Form later
   });
 });
 
@@ -245,17 +137,18 @@ function geocodeAddress(address) {
       address
     )}`
   )
-    .then(r => {
-      if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
-      return r.json();
+    .then(res => {
+      if (!res.ok) throw new Error(`Geocode failed (${res.status})`);
+      return res.json();
     })
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
-      const { lat, lon } = results[0];
-      map.setView([+lat, +lon], 12);
+      const lat = +results[0].lat;
+      const lon = +results[0].lon;
+      map.setView([lat, lon], 12);
       marker && map.removeLayer(marker);
-      marker = L.marker([+lat, +lon]).addTo(map);
-      fetchEVCData(+lat, +lon);
+      marker = L.marker([lat, lon]).addTo(map);
+      fetchEVCData(lat, lon);
     })
     .catch(err => alert(err.message));
 }
@@ -271,44 +164,37 @@ function fetchEVCData(lat, lon) {
     "&outputFormat=application/json";
 
   fetch(url)
-    .then(r => r.text())
+    .then(res => res.text())
     .then(text => {
-      if (text.trim().startsWith("<"))
-        throw new Error("EVC service error. Try again later.");
+      if (text.trim().startsWith("<")) {
+        console.error("EVC WFS returned HTML:", text.slice(0, 200));
+        throw new Error("Error retrieving EVC data. Please try again later.");
+      }
       return JSON.parse(text);
     })
     .then(data => {
-      if (!data.features?.length)
+      if (!data.features?.length) {
         throw new Error("No EVC data found for this location.");
+      }
       const pt = turf.point([lon, lat]);
       const feat =
         data.features.find(
           f =>
-            f.geometry.type === "Polygon" &&
-            turf.booleanPointInPolygon(
-              pt,
-              turf.polygon(f.geometry.coordinates)
-            )
+            f.geometry?.type === "Polygon" &&
+            turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
         ) || data.features[0];
+
       const p = feat.properties;
-      displayModal(
-        p.x_evcname,
-        p.evc_bcs_desc,
-        p.bioregion,
-        p.evc,
-        lat,
-        lon
-      );
+      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
     .catch(err => alert(err.message));
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Header
-  document.getElementById("modal-evc-name").textContent =
-    name || "Unknown";
-  document.getElementById("modal-evc-status").textContent = status || "";
-  document.getElementById("modal-evc-region").textContent = region || "";
+  // Populate header
+  document.getElementById("modal-evc-name").textContent = name || "Unknown";
+  document.getElementById("modal-evc-status").textContent = status;
+  document.getElementById("modal-evc-region").textContent = region;
 
   // Description
   const info = curatedPlants[code];
@@ -316,7 +202,7 @@ function displayModal(name, status, region, code, lat, lon) {
     ? info.description
     : "No description available.";
 
-  // Build & hide plant list
+  // Build & initially hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -325,7 +211,9 @@ function displayModal(name, status, region, code, lat, lon) {
       wr.className = "layer";
       wr.innerHTML =
         `<h3>${sec.layer}</h3>` +
-        `<ul>${sec.plants.map(p => `<li>${p}</li>`).join("")}</ul>`;
+        "<ul>" +
+        sec.plants.map(p => `<li>${p}</li>`).join("") +
+        "</ul>";
       plantsDiv.appendChild(wr);
     });
   }
