@@ -1,15 +1,15 @@
 // evc-fetch.js
 
-// — Curated plants data (add all your EVC entries here) —
+// — Curated plants data —
 const curatedPlants = {
-  // Grassy Woodland (EVC 175)
+  // 175 – Grassy Woodland
   "175": {
     description:
       "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
     recommendations: [
       {
         layer:
-          "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
+          "Canopy Layer (tallest, mature trees providing shade, regulating temperature & supporting wildlife)",
         plants: [
           "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
           "Allocasuarina verticillata (Drooping Sheoak)"
@@ -17,7 +17,7 @@ const curatedPlants = {
       },
       {
         layer:
-          "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
+          "Sub-Canopy Layer (shorter trees beneath the canopy contributing to structure & biodiversity)",
         plants: [
           "Acacia mearnsii (Black Wattle)",
           "Allocasuarina littoralis (Black Sheoak)",
@@ -26,7 +26,7 @@ const curatedPlants = {
       },
       {
         layer:
-          "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
+          "Shrub Layer (various shrubs offering habitat & food for smaller animals & insects)",
         plants: [
           "Leptospermum continentale (Prickly Tea-tree)",
           "Epacris impressa (Common Heath)",
@@ -41,7 +41,7 @@ const curatedPlants = {
       },
       {
         layer:
-          "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
+          "Herb Layer (ground-level herbs, grasses & ferns stabilising soils & retaining moisture)",
         plants: [
           "Pterostylis longifolia s.l. (Tall Greenhood)",
           "Gonocarpus tetragynus (Common Raspwort)",
@@ -66,17 +66,17 @@ const curatedPlants = {
     ]
   },
 
-  // Stream Bank Shrubland (EVC 851)
+  // 851 – Stream Bank Shrubland
   "851": {
     description:
-      "Tall shrubland to 8 m tall above a ground layer of sedges and herbs. A sparse eucalypt overstorey to 15 m tall may sometimes be present. Occurs along rivers and major streams with rocky or gravel banks that dry but are regularly flooded by fast-flowing waters.",
+      "This rare and endangered plant community once lined the small rivers and ephemeral creeks of Victoria’s volcanic plains. Shaped by flood and stone, Stream Bank Shrubland thrives in rocky or gravelly streambeds where water flows seasonally. It’s defined by tall, moisture-loving shrubs like Sweet Bursaria, Tree Violet, and Silver Wattle, often beneath a scattered overstorey of River Red Gum. These green ribbons form vital ecological corridors, supporting movement across otherwise cleared or open landscapes. The understory hosts sedges, grasses, and fast-growing herbs that respond quickly to flood or disturbance. Restoring this EVC brings back habitat, resilience, and cultural continuity to waterways across the volcanic plain.",
     recommendations: [
       {
-        layer: "Tree Canopy Cover",
+        layer: "Canopy Layer",
         plants: ["Eucalyptus camaldulensis (River Red-gum)"]
       },
       {
-        layer: "Shrub Layer (understorey trees & shrubs)",
+        layer: "Shrub Layer",
         plants: [
           "Acacia mearnsii (Black Wattle)",
           "Acacia melanoxylon (Blackwood)",
@@ -87,7 +87,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer (sedges, grasses & herbs)",
+        layer: "Herb & Sedge Layer",
         plants: [
           "Persicaria decipiens (Slender Knotweed)",
           "Epilobium billardierianum (Variable Willow-herb)",
@@ -110,13 +110,52 @@ const curatedPlants = {
     ]
   },
 
-  // Floodplain Riparian Woodland (EVC 56)
+  // 55_61 – Plains Grassy Woodland (Victorian Volcanic Plain)
+  "55_61": {
+    description:
+      "Plains Grassy Woodland is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums, Grey Box, and Yellow Gums form a broad canopy over a ground layer rich with kangaroo grass, native lilies, wildflowers, and seasonal herbs. This EVC thrives in landscapes with seasonal waterlogging and cracking clay soils, and is shaped by a long history of fire management and Aboriginal cultivation. Today, less than 3 % of this ecosystem remains, making it one of Victoria’s most threatened woodland communities. With a low shrub layer and high herb diversity, Plains Grassy Woodland forms a vital link between grassland and forest — a spacious, grassy ecosystem built on story, fire, and deep time.",
+    recommendations: [
+      {
+        layer: "Canopy Layer",
+        plants: ["Eucalyptus camaldulensis (River Red Gum)"]
+      },
+      {
+        layer: "Shrub Layer",
+        plants: [
+          "Acacia pycnantha (Golden Wattle)",
+          "Acacia paradoxa (Hedge Wattle)",
+          "Pimelea humilis (Common Rice-flower)",
+          "Astroloma humifusum (Cranberry Heath)",
+          "Bossiaea prostrata (Creeping Bossiaea)"
+        ]
+      },
+      {
+        layer: "Herb Layer",
+        plants: [
+          "Oxalis perennans (Grassland Wood-sorrel)",
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Acaena echinata (Sheep’s Burr)",
+          "Dichondra repens (Kidney-weed)",
+          "Hydrocotyle laxiflora (Stinking Pennywort)",
+          "Austrostipa mollis (Supple Spear-grass)",
+          "Austrostipa bigeniculata (Kneed Spear-grass)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Elymus scaber var. scaber (Common Wheat-grass)",
+          "Austrodanthonia setacea (Bristly Wallaby-grass)",
+          "Austrodanthonia racemosa var. racemosa (Stiped Wallaby-grass)",
+          "Microlaena stipoides var. stipoides (Weeping Grass)"
+        ]
+      }
+    ]
+  },
+
+  // 56 – Floodplain Riparian Woodland
   "56": {
     description:
       "Floodplain Riparian Woodland occurs along the broad, seasonally inundated river valleys of the Gippsland Plain — including the Avon, Latrobe, Mitchell, and Thomson Rivers. These woodlands are shaped by floods, sediment, and groundwater, supporting tall River Red Gums over a complex understorey of grasses, sedges, and moisture-tolerant herbs. The canopy provides critical habitat for birds, gliders, and microbats, while the ground layer responds dynamically to both flood and fire. Much of this ecosystem has been lost to clearing, levee construction, or grazing. Today, it remains in narrow bands along rivers — holding ecological richness and cultural knowledge in its flood-sculpted form.",
     recommendations: [
       {
-        layer: "Tree Canopy Cover",
+        layer: "Canopy Layer",
         plants: [
           "Eucalyptus camaldulensis (River Red-gum)",
           "Eucalyptus tereticornis ssp. mediana (Gippsland Red Gum)",
@@ -124,10 +163,15 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Shrub Layer (understorey trees & shrubs)",
+        layer: "Sub-Canopy Layer",
         plants: [
           "Acacia implexa (Lightwood)",
-          "Acacia melanoxylon (Blackwood)",
+          "Acacia melanoxylon (Blackwood)"
+        ]
+      },
+      {
+        layer: "Shrub Layer",
+        plants: [
           "Ozothamnus ferrugineus (Tree Everlasting)",
           "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
           "Hymenanthera dentata s.l. (Tree Violet)"
@@ -162,13 +206,13 @@ const curatedPlants = {
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Initialize hidden main map (for legacy)
+  // 1) Legacy map init (hidden via CSS)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) Hook up address form
+  // 2) Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -181,14 +225,15 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 4) Email gate: reveal plants on submit
+  // 4) Email gate: show plants only after form submit
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
-    document.getElementById("modal-plants").style.display = "block";
+    const plantsDiv = document.getElementById("modal-plants");
+    plantsDiv.style.display = "block";
     const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: wire this into your backend or Google Form
+    // TODO: hook this into your backend / Google Form
   });
 });
 
@@ -207,7 +252,7 @@ function geocodeAddress(address) {
       const lat = +results[0].lat,
         lon = +results[0].lon;
       map.setView([lat, lon], 12);
-      marker && map.removeLayer(marker);
+      if (marker) map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
       fetchEVCData(lat, lon);
     })
@@ -227,8 +272,7 @@ function fetchEVCData(lat, lon) {
   fetch(url)
     .then(r => r.text())
     .then(txt => {
-      if (txt.trim().startsWith("<"))
-        throw new Error("EVC service error. Try again later.");
+      if (txt.trim().startsWith("<")) throw new Error("EVC service error.");
       return JSON.parse(txt);
     })
     .then(data => {
@@ -238,39 +282,35 @@ function fetchEVCData(lat, lon) {
         feat =
           data.features.find(
             f =>
-              f.geometry?.type === "Polygon" &&
+              f.geometry.type === "Polygon" &&
               turf.booleanPointInPolygon(
                 pt,
                 turf.polygon(f.geometry.coordinates)
               )
           ) || data.features[0],
         p = feat.properties;
-
-      displayModal(
-        p.x_evcname,
-        p.evc_bcs_desc,
-        p.bioregion,
-        String(p.evc),
-        lat,
-        lon
-      );
+      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
     .catch(err => alert(err.message));
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // — Header —
-  document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent = status;
-  document.getElementById("modal-evc-region").textContent = region;
+  // Header
+  document.getElementById("modal-evc-name").textContent =
+    name || "Unknown";
+  document.getElementById("modal-evc-status").textContent =
+    status || "Not specified";
+  document.getElementById("modal-evc-region").textContent =
+    region || "Not specified";
 
-  // — Description —
-  const info = curatedPlants[code];
+  // Description & look up plants
+  const key = String(code).replace(".", "_");
+  const info = curatedPlants[key];
   document.getElementById("modal-evc-description").textContent = info
     ? info.description
     : "No description available.";
 
-  // — Plant list (initially hidden) —
+  // Build plant list (initially hidden until email submitted)
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -284,10 +324,12 @@ function displayModal(name, status, region, code, lat, lon) {
         "</ul>";
       plantsDiv.appendChild(wr);
     });
+    plantsDiv.style.display = "none";
+  } else {
+    plantsDiv.style.display = "none";
   }
-  plantsDiv.style.display = "none";
 
-  // — In-modal map —
+  // In‐modal map
   if (modalMap) modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -295,7 +337,7 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // — Show modal and refresh map size —
+  // Show modal & fix sizing
   const m = document.getElementById("evc-modal");
   m.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
