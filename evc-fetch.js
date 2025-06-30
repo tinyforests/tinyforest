@@ -2,7 +2,7 @@
 
 // — Curated plants data —
 //    Grassy Woodland is EVC 175
-//    Plains Grassy Woodland is EVC 55.61
+//    Plains Grassy Woodland is EVC 55.61 / 55_61
 const curatedPlants = {
   "175": {
     description:
@@ -66,6 +66,8 @@ const curatedPlants = {
       }
     ]
   },
+
+  // Plains Grassy Woodland (variant)
   "55.61": {
     description:
       "Plains Grassy Woodland is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums, Grey Box, and Yellow Gums form a broad canopy over a ground layer rich with kangaroo grass, native lilies, wildflowers, and seasonal herbs. This EVC thrives in landscapes with seasonal waterlogging and cracking clay soils, and is shaped by a long history of fire management and Aboriginal cultivation. Today, less than 3% of this ecosystem remains, making it one of Victoria’s most threatened woodland communities. With a low shrub layer and high herb diversity, Plains Grassy Woodland forms a vital link between grassland and forest — a spacious, grassy ecosystem built on story, fire, and deep time.",
@@ -80,9 +82,7 @@ const curatedPlants = {
       {
         layer:
           "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
-        plants: [
-          // none specifically listed for sub-canopy in this EVC
-        ]
+        plants: [] // none explicitly listed
       },
       {
         layer:
@@ -114,8 +114,14 @@ const curatedPlants = {
         ]
       }
     ]
-  }
+  },
+
+  // also alias under underscore key so code.replace('_','.') or vice versa will match:
+  "55_61": null
 };
+
+// copy the 55.61 entry over to 55_61
+curatedPlants["55_61"] = curatedPlants["55.61"];
 
 let map, marker, modalMap;
 
@@ -215,15 +221,20 @@ function displayModal(name, status, region, code, lat, lon) {
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = region;
 
-  // Description
+  // grab description via either "." or "_" key
+  let info =
+    curatedPlants[code] ||
+    curatedPlants[code.replace("_", ".")] ||
+    curatedPlants[code.replace(".", "_")];
+
   document.getElementById("modal-evc-description").textContent =
-    curatedPlants[code]?.description || "No description available.";
+    (info && info.description) || "No description available.";
 
   // Build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
-  if (curatedPlants[code]?.recommendations) {
-    curatedPlants[code].recommendations.forEach(sec => {
+  if (info?.recommendations) {
+    info.recommendations.forEach(sec => {
       const wr = document.createElement("div");
       wr.className = "layer";
       wr.innerHTML =
