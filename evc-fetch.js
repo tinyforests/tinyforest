@@ -1,8 +1,8 @@
 // evc-fetch.js
 
 // — Curated plants data —
-//    Grassy Woodland is EVC 175
-//    Plains Grassy Woodland is EVC 55.61 / 55_61
+//   Grassy Woodland is EVC 175
+//   Plains Grassy Woodland variant is EVC 55_61
 const curatedPlants = {
   "175": {
     description:
@@ -67,22 +67,19 @@ const curatedPlants = {
     ]
   },
 
-  // Plains Grassy Woodland (variant)
-  "55.61": {
+  "55_61": {
     description:
       "Plains Grassy Woodland is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums, Grey Box, and Yellow Gums form a broad canopy over a ground layer rich with kangaroo grass, native lilies, wildflowers, and seasonal herbs. This EVC thrives in landscapes with seasonal waterlogging and cracking clay soils, and is shaped by a long history of fire management and Aboriginal cultivation. Today, less than 3% of this ecosystem remains, making it one of Victoria’s most threatened woodland communities. With a low shrub layer and high herb diversity, Plains Grassy Woodland forms a vital link between grassland and forest — a spacious, grassy ecosystem built on story, fire, and deep time.",
     recommendations: [
       {
         layer:
           "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
-        plants: [
-          "Eucalyptus camaldulensis (River Red Gum)"
-        ]
+        plants: ["Eucalyptus camaldulensis (River Red Gum)"]
       },
       {
         layer:
           "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
-        plants: [] // none explicitly listed
+        plants: []
       },
       {
         layer:
@@ -114,14 +111,8 @@ const curatedPlants = {
         ]
       }
     ]
-  },
-
-  // also alias under underscore key so code.replace('_','.') or vice versa will match:
-  "55_61": null
+  }
 };
-
-// copy the 55.61 entry over to 55_61
-curatedPlants["55_61"] = curatedPlants["55.61"];
 
 let map, marker, modalMap;
 
@@ -132,7 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 1) Address lookup
+  // Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -140,28 +131,24 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // 2) Close modal
+  // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 3) Email gate: reveal plants on submit
+  // Email gate: reveal plants
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
     document.getElementById("modal-plants").style.display = "block";
     const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: wire this into your backend or Google Form
+    // TODO: hook into your backend or Google Form
   });
 });
 
 function geocodeAddress(address) {
-  fetch(
-    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-      address
-    )}`
-  )
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
     .then(r => {
       if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
       return r.json();
@@ -169,7 +156,7 @@ function geocodeAddress(address) {
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
       const lat = +results[0].lat,
-        lon = +results[0].lon;
+            lon = +results[0].lon;
       map.setView([lat, lon], 12);
       marker && map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
@@ -180,35 +167,28 @@ function geocodeAddress(address) {
 
 function fetchEVCData(lat, lon) {
   const d = 0.02,
-    bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`,
-    url =
-      "https://opendata.maps.vic.gov.au/geoserver/wfs" +
-      "?service=WFS&version=1.0.0&request=GetFeature" +
-      "&typeName=open-data-platform:nv2005_evcbcs" +
-      `&bbox=${bbox},EPSG:4326` +
-      "&outputFormat=application/json";
+        bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`,
+        url =
+          "https://opendata.maps.vic.gov.au/geoserver/wfs" +
+          "?service=WFS&version=1.0.0&request=GetFeature" +
+          "&typeName=open-data-platform:nv2005_evcbcs" +
+          `&bbox=${bbox},EPSG:4326` +
+          "&outputFormat=application/json";
 
   fetch(url)
     .then(r => r.text())
     .then(txt => {
-      if (txt.trim().startsWith("<"))
-        throw new Error("EVC service error. Try again later.");
+      if (txt.trim().startsWith("<")) throw new Error("EVC service error. Try again later.");
       return JSON.parse(txt);
     })
     .then(data => {
-      if (!data.features?.length)
-        throw new Error("No EVC data found for this location.");
-      const pt = turf.point([lon, lat]),
-        feat =
-          data.features.find(
-            f =>
-              f.geometry.type === "Polygon" &&
-              turf.booleanPointInPolygon(
-                pt,
-                turf.polygon(f.geometry.coordinates)
-              )
-          ) || data.features[0],
-        p = feat.properties;
+      if (!data.features?.length) throw new Error("No EVC data found for this location.");
+      const pt   = turf.point([lon, lat]),
+            feat = data.features.find(f =>
+                    f.geometry.type === "Polygon" &&
+                    turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+                  ) || data.features[0],
+            p    = feat.properties;
 
       displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
@@ -216,21 +196,18 @@ function fetchEVCData(lat, lon) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Header text
-  document.getElementById("modal-evc-name").textContent = name || "Unknown";
+  document.getElementById("modal-evc-name").textContent   = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status;
   document.getElementById("modal-evc-region").textContent = region;
 
-  // grab description via either "." or "_" key
-  let info =
-    curatedPlants[code] ||
-    curatedPlants[code.replace("_", ".")] ||
-    curatedPlants[code.replace(".", "_")];
+  // normalize code to string with underscores
+  const codeStr = String(code).replace(/\./g, "_"),
+        info    = curatedPlants[codeStr];
 
   document.getElementById("modal-evc-description").textContent =
     (info && info.description) || "No description available.";
 
-  // Build & hide plant list
+  // build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -238,16 +215,15 @@ function displayModal(name, status, region, code, lat, lon) {
       const wr = document.createElement("div");
       wr.className = "layer";
       wr.innerHTML =
-        `<h3>${sec.layer}</h3>` +
-        "<ul>" +
+        `<h3>${sec.layer}</h3><ul>` +
         sec.plants.map(p => `<li>${p}</li>`).join("") +
-        "</ul>";
+        `</ul>`;
       plantsDiv.appendChild(wr);
     });
   }
-  plantsDiv.style.display = "none"; // remain hidden until email submit
+  plantsDiv.style.display = "none";
 
-  // In-modal map
+  // in-modal map
   modalMap && modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -255,7 +231,7 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // Show modal
+  // show modal
   const m = document.getElementById("evc-modal");
   m.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
