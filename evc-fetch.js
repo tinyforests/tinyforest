@@ -4,54 +4,62 @@
 const curatedPlants = {
   "175": {
     description:
-      "Grassy Woodland is a lightly treed, herb-rich ecosystem once widespread across the undulating volcanic plains of western and central Victoria. It features scattered eucalypts, especially Grey Box and Yellow Gum, over an open ground layer rich with native grasses, wildflowers, and tuberous lilies. On fertile soils, this ecosystem bursts into colour through spring and early summer. It is highly threatened, with most remnants cleared for agriculture. Today, only small, fragmented patches remain, often along roadsides, rail reserves, and public lands. Grassy Woodland holds immense value for pollinators, woodland birds, and traditional seasonal foods.",
+      "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
     recommendations: [
       {
         layer:
           "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
         plants: [
-          "Eucalyptus ovata (Swamp Gum)",
           "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
-          "Eucalyptus viminalis (Manna Gum)"
+          "Allocasuarina verticillata (Drooping Sheoak)"
         ]
       },
       {
         layer:
           "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
         plants: [
-          "Allocasuarina verticillata (Drooping Sheoak)",
-          "Acacia implexa (Lightwood)",
-          "Acacia mearnsii (Black Wattle)"
+          "Acacia mearnsii (Black Wattle)",
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Exocarpos cupressiformis (Cherry Ballart)"
         ]
       },
       {
         layer:
           "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
         plants: [
-          "Bursaria spinosa (Sweet Bursaria)",
-          "Cassinia arcuata (Drooping Cassinia)",
-          "Acacia pycnantha (Golden Wattle)",
-          "Hymenanthera dentata s.l. (Tree Violet)",
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Epacris impressa (Common Heath)",
+          "Cassinia aculeata (Common Cassinia)",
+          "Acacia paradoxa (Hedge Wattle)",
           "Pimelea humilis (Common Rice-flower)",
-          "Atriplex semibaccata (Berry Saltbush)"
+          "Hibbertia riparia (Erect Guinea-flower)",
+          "Bossiaea prostrata (Creeping Bossiaea)",
+          "Astroloma humifusum (Cranberry Heath)",
+          "Acrotriche serrulata (Honey-pots)"
         ]
       },
       {
         layer:
           "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
         plants: [
-          "Oxalis perennans (Grassland Wood-sorrel)",
+          "Pterostylis longifolia s.l. (Tall Greenhood)",
           "Gonocarpus tetragynus (Common Raspwort)",
-          "Acaena echinata (Sheep’s Burr)",
-          "Einadia nutans ssp. nutans (Nodding Saltbush)",
-          "Crassula sieberiana (Sieber Crassula)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)",
           "Dichondra repens (Kidney-weed)",
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera whittakeri ssp. aberrans (Scented Sundew)",
+          "Deyeuxia quadriseta (Reed Bent-grass)",
+          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
+          "Gahnia radula (Thatch Saw-sedge)",
           "Lomandra filiformis (Wattle Mat-rush)",
-          "Austrostipa scabra (Rough Spear-grass)",
-          "Austrodanthonia caespitosa (Common Wallaby-grass)",
-          "Dianella revoluta s.l. (Black-anther Flax-lily)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Poa sieberiana (Grey Tussock-grass)",
+          "Lepidosperma laterale (Variable Sword-sedge)",
           "Microlaena stipoides var. stipoides (Weeping Grass)",
-          "Clematis microphylla (Small-leaved Clematis)"
+          "Pteridium esculentum (Austral Bracken)",
+          "Comesperma volubile (Love Creeper)",
+          "Billardiera scandens (Common Apple-berry)"
         ]
       }
     ]
@@ -84,7 +92,7 @@ const curatedPlants = {
     ]
   }
 
-  // …add your other EVCs here…
+  // …you can add other EVC entries here…
 };
 
 let map, marker, modalMap;
@@ -159,6 +167,7 @@ function fetchEVCData(lat, lon) {
     .then(res => res.text())
     .then(text => {
       if (text.trim().startsWith("<")) {
+        console.error("EVC WFS returned HTML:", text.slice(0, 200));
         throw new Error("Error retrieving EVC data. Please try again later.");
       }
       return JSON.parse(text);
