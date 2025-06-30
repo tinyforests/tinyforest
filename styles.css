@@ -17,15 +17,19 @@ body {
   padding: 30px 20px;
 }
 
-/* Page & merch titles match modal EVC title exactly */
+/* Page & merch titles now match the modal EVC title exactly */
 #page-title,
 #merch-title {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
-  color: #3d4535;
+  color: #fff0dc;         /* same pale/beige color as in-modal title */
   margin-bottom: 0.5em;
   letter-spacing: -2px;
   line-height: 1.2em;
+  background-color: #3d4535; /* add same dark bg behind them */
+  display: inline-block;
+  padding: 0.2em 0.4em;       /* optional padding to mimic modal look */
+  border-radius: 0.2em;
 }
 
 .hero-highlight {
@@ -154,7 +158,10 @@ body {
 #modal-evc-name {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
+  color: #fff0dc;
   margin: 0 0 0.5em;
+  letter-spacing: -2px;
+  line-height: 1.2em;
 }
 .status,
 .region {
@@ -242,15 +249,19 @@ body {
     margin: 0;
   }
 
-  /* Maintain title styling on mobile */
+  /* Maintain exact same title styling on mobile */
   #page-title,
   #merch-title {
     font-family: "Abril Fatface", serif;
     font-size: 2.5rem;
-    color: #3d4535;
+    color: #fff0dc;
     margin-bottom: 0.5em;
     letter-spacing: -2px;
     line-height: 1.2em;
+    background-color: #3d4535;
+    display: inline-block;
+    padding: 0.2em 0.4em;
+    border-radius: 0.2em;
   }
 
   /* Stack merch squares */
