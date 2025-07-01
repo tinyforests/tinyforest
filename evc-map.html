@@ -17,9 +17,6 @@
   />
 </head>
 <body>
-
-  
-
   <div id="container">
     <h2 id="page-title">Find Your Ecological Garden.</h2>
     <p class="hero-highlight">
@@ -29,6 +26,7 @@
       Enter your address to discover your Ecological Vegetation and find what plants belong in your garden.
     </p>
 
+    <!-- SEARCH FORM -->
     <div id="search-container">
       <form id="address-form">
         <input
@@ -43,6 +41,7 @@
       </form>
     </div>
 
+    <!-- MERCH SECTION -->
     <h3 id="merch-title">Support Ecological Gardens with our Merch.</h3>
     <div id="merch-container">
       <div class="merch-square"></div>
@@ -50,10 +49,14 @@
       <div class="merch-square"></div>
     </div>
 
-    <!-- legacy map hidden by CSS -->
+    <!-- CALL TO ACTION -->
+    <h3 id="movement-title">Join the Ecological Movement.</h3>
+
+    <!-- (legacy map hidden via CSS) -->
     <div id="map"></div>
   </div>
 
+  <!-- MODAL -->
   <div id="evc-modal">
     <div class="modal-content">
       <div id="modal-map"></div>
@@ -97,7 +100,7 @@
     </div>
   </div>
 
-  <!-- scripts -->
+  <!-- SCRIPTS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
