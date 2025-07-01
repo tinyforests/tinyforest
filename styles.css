@@ -17,9 +17,10 @@ body {
   padding: 30px 20px;
 }
 
-/* Page & merch titles match modal EVC title letter-spacing */
+/* Page, merch & movement titles match modal EVC title exactly */
 #page-title,
-#merch-title {
+#merch-title,
+#movement-title {
   font-family: "Abril Fatface", serif;
   font-size: 2.5rem;
   color: #3d4535;
@@ -242,10 +243,16 @@ body {
     margin: 0;
   }
 
-  /* Maintain same letter-spacing on mobile */
+  /* Maintain title styling on mobile */
   #page-title,
-  #merch-title {
+  #merch-title,
+  #movement-title {
+    font-family: "Abril Fatface", serif;
+    font-size: 2.5rem;
+    color: #3d4535;
+    margin-bottom: 0.5em;
     letter-spacing: -2px;
+    line-height: 1.2em;
   }
 
   /* Stack merch squares */
