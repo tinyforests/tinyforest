@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
 
-  <!-- your fonts & CSS -->
+  <!-- Fonts & Leaflet CSS -->
   <link
     href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;500;700&display=swap"
     rel="stylesheet"
@@ -17,11 +17,9 @@
   />
 </head>
 <body>
-
-  
-
   <div id="container">
     <h2 id="page-title">Find Your Ecological Garden.</h2>
+
     <p class="hero-highlight">
       Planting ecological species helps restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
     </p>
@@ -50,10 +48,13 @@
       <div class="merch-square"></div>
     </div>
 
-    <!-- legacy map hidden by CSS -->
+    <h3 id="join-title">Join the Ecological Movement.</h3>
+
+    <!-- legacy map (hidden via CSS) -->
     <div id="map"></div>
   </div>
 
+  <!-- Modal with in-modal map -->
   <div id="evc-modal">
     <div class="modal-content">
       <div id="modal-map"></div>
@@ -62,16 +63,12 @@
       <div id="modal-info">
         <p class="title">Your Ecological Vegetation is:</p>
         <p id="modal-evc-name"></p>
-        <p class="status">
-          <strong>Status:</strong> <span id="modal-evc-status"></span>
-        </p>
-        <p class="region">
-          <strong>Bioregion:</strong> <span id="modal-evc-region"></span>
-        </p>
+        <p class="status"><strong>Status:</strong> <span id="modal-evc-status"></span></p>
+        <p class="region"><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
         <p id="modal-evc-description"></p>
       </div>
 
-      <div id="modal-plants"><!-- hidden until email submit --></div>
+      <div id="modal-plants"></div>
 
       <div id="email-section">
         <p>Enter your email address to display your curated plant list.</p>
@@ -97,7 +94,7 @@
     </div>
   </div>
 
-  <!-- scripts -->
+  <!-- Leaflet, Turf & fetch logic -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
