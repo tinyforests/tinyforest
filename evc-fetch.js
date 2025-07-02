@@ -1,169 +1,222 @@
 // evc-fetch.js
 
-// — Curated plants data (add all your EVC entries here) —
+// — Curated plants data for all discussed EVCs —
 const curatedPlants = {
+  // Coast Banksia Woodland (EVC 2)
+  "2": {
+    description:
+      "Coast Banksia Woodland grows on coastal dunes and sandy flats, where Banksia integrifolia forms a patchy canopy over native grasses, salt-tolerant herbs, and occasional eucalypts. Found along Victoria’s southern coastlines, this EVC is shaped by salt-laden winds, sandy soils, and low nutrient levels. Once widespread, it is now heavily fragmented due to coastal development and weed invasion.",
+    recommendations: [
+      {
+        layer:
+          "Canopy Layer (tall, mature trees providing shade, temperature regulation, and habitat)",
+        plants: [
+          "Banksia integrifolia (Coast Banksia)",
+          "Eucalyptus botryoides (Bangalay)"
+        ]
+      },
+      {
+        layer:
+          "Sub-Canopy Layer (shorter trees beneath the canopy, enhancing structural diversity)",
+        plants: [
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Acacia longifolia (Coastal Wattle)"
+        ]
+      },
+      {
+        layer:
+          "Shrub Layer (woody shrubs offering shelter and food for wildlife)",
+        plants: [
+          "Leptospermum laevigatum (Coast Tea-tree)",
+          "Olearia axillaris (Coast Daisy-bush)",
+          "Ozothamnus diosmifolius (Rice Flower)",
+          "Hibbertia scandens (Snake Vine)"
+        ]
+      },
+      {
+        layer:
+          "Herb Layer (ground-level herbs, grasses and sedges stabilising soils and retaining moisture)",
+        plants: [
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
+          "Dianella caerulea (Blue Flax-lily)",
+          "Austrostipa nodosa (Kneed Spear-grass)",
+          "Gahnia grandis (Cutty-grass)"
+        ]
+      }
+    ]
+  },
+
   // Grassy Woodland (EVC 175)
   "175": {
     description:
-      "Grassy Woodland is a lightly treed, herb-rich ecosystem once widespread across the undulating volcanic plains of western and central Victoria. It features scattered eucalypts, especially Grey Box and Yellow Gum, over an open ground layer rich with native grasses, wildflowers, and tuberous lilies. On fertile soils, this ecosystem bursts into colour through spring and early summer. It is highly threatened, with most remnants cleared for agriculture. Today, only small, fragmented patches remain, often along roadsides, rail reserves, and public lands.",
+      "Grassy Woodland is a lightly treed, herb-rich ecosystem that once covered vast areas of Victoria’s volcanic plains. Scattered Grey Box and Yellow Gum rise above a diverse understorey of kangaroo grass, wildflowers, and lilies. Adapted to cultural fire and seasonal drought, this community supports high biodiversity, including pollinators and woodland birds. Today, it is highly threatened, with only small patches remaining.",
     recommendations: [
       {
         layer:
           "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
         plants: [
-          "Eucalyptus ovata (Swamp Gum)",
           "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
-          "Eucalyptus viminalis (Manna Gum)",
-          "Allocasuarina verticillata (Drooping Sheoak)",
-          "Acacia implexa (Lightwood)",
-          "Acacia mearnsii (Black Wattle)"
+          "Allocasuarina verticillata (Drooping Sheoak)"
+        ]
+      },
+      {
+        layer:
+          "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
+        plants: [
+          "Acacia mearnsii (Black Wattle)",
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Exocarpos cupressiformis (Cherry Ballart)"
         ]
       },
       {
         layer:
           "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
         plants: [
-          "Bursaria spinosa (Sweet Bursaria)",
-          "Cassinia arcuata (Drooping Cassinia)",
-          "Acacia pycnantha (Golden Wattle)",
-          "Hymenanthera dentata s.l. (Tree Violet)",
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Epacris impressa (Common Heath)",
+          "Cassinia aculeata (Common Cassinia)",
+          "Acacia paradoxa (Hedge Wattle)",
           "Pimelea humilis (Common Rice-flower)",
-          "Atriplex semibaccata (Berry Saltbush)"
+          "Hibbertia riparia (Erect Guinea-flower)",
+          "Bossiaea prostrata (Creeping Bossiaea)",
+          "Astroloma humifusum (Cranberry Heath)",
+          "Acrotriche serrulata (Honey-pots)"
         ]
       },
       {
         layer:
           "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
         plants: [
-          "Acaena echinata (Sheep's Burr)",
-          "Einadia nutans ssp. nutans (Nodding Saltbush)",
+          "Pterostylis longifolia s.l. (Tall Greenhood)",
           "Gonocarpus tetragynus (Common Raspwort)",
-          "Crassula sieberiana (Sieber Crassula)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)",
           "Dichondra repens (Kidney-weed)",
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera whittakeri ssp. aberrans (Scented Sundew)",
+          "Deyeuxia quadriseta (Reed Bent-grass)",
+          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
+          "Gahnia radula (Thatch Saw-sedge)",
           "Lomandra filiformis (Wattle Mat-rush)",
-          "Austrostipa scabra (Rough Spear-grass)",
-          "Austrostipa caespitosa (Common Wallaby-grass)",
-          "Dianella revoluta s.l. (Black-anther Flax-lily)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Poa sieberiana (Grey Tussock-grass)",
+          "Lepidosperma laterale (Variable Sword-sedge)",
           "Microlaena stipoides var. stipoides (Weeping Grass)",
-          "Clematis microphylla (Small-leaved Clematis)"
+          "Pteridium esculentum (Austral Bracken)",
+          "Comesperma volubile (Love Creeper)",
+          "Billardiera scandens (Common Apple-berry)"
         ]
       }
     ]
   },
 
-  // Floodplain Riparian Woodland (EVC 56)
-  "56": {
+  // Stream Bank Shrubland (EVC 851)
+  "851": {
     description:
-      "Floodplain Riparian Woodland occurs along the broad, seasonally inundated river valleys of the Gippsland Plain — including the Avon, Latrobe, Mitchell, and Thomson Rivers. These woodlands are shaped by floods, sediment, and groundwater, supporting tall River Red Gums over a complex understorey of grasses, sedges, and moisture-tolerant herbs. The canopy provides critical habitat for birds, gliders, and microbats, while the ground layer responds dynamically to both flood and fire. Much of this ecosystem has been lost to clearing, levee construction, or grazing. Today, it remains in narrow bands along rivers — holding ecological richness and cultural knowledge in its flood-sculpted form.",
+      "Stream Bank Shrubland grows along rocky creeks and flood-prone gullies, where Sweet Bursaria, Tree Violet, and Silver Wattle form dense shrub layers. This narrow EVC hugs seasonal waterways and supports sedges, rushes, and herbs adapted to disturbance. A vital habitat corridor, it is now rare due to stream modification, grazing, and weed invasion.",
     recommendations: [
       {
-        layer: "Canopy Layer",
+        layer:
+          "Canopy Layer (tall overstorey providing structure and shade)",
         plants: [
-          "Eucalyptus camaldulensis (River Red-gum)",
-          "Eucalyptus tereticornis ssp. mediana (Gippsland Red Gum)",
-          "Eucalyptus ovata (Swamp Gum)"
+          "Eucalyptus camaldulensis (River Red-gum)"
         ]
       },
       {
-        layer: "Sub-Canopy Layer",
+        layer:
+          "Shrub Layer (moisture-loving shrubs along stream banks)",
         plants: [
-          "Acacia implexa (Lightwood)",
-          "Acacia melanoxylon (Blackwood)"
-        ]
-      },
-      {
-        layer: "Shrub Layer",
-        plants: [
-          "Ozothamnus ferrugineus (Tree Everlasting)",
+          "Acacia mearnsii (Black Wattle)",
+          "Acacia melanoxylon (Blackwood)",
+          "Leptospermum lanigerum (Woolly Tea-tree)",
+          "Hymenanthera dentata (Tree Violet)",
           "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
-          "Hymenanthera dentata s.l. (Tree Violet)"
+          "Callistemon sieberi (River Bottlebrush)"
         ]
       },
       {
-        layer: "Herb Layer",
+        layer:
+          "Herb Layer (sedges, rushes and herbs stabilising banks)",
         plants: [
-          "Urtica incisa (Scrub Nettle)",
-          "Persicaria subsessilis (Hairy Knotweed)",
-          "Senecio quadridentatus (Cottony Fireweed)",
+          "Persicaria decipiens (Slender Knotweed)",
+          "Epilobium billardierianum (Variable Willow-herb)",
           "Acaena novae-zelandiae (Bidgee-widgee)",
-          "Hydrocotyle hirta (Hairy Pennywort)",
-          "Stellaria pungens (Prickly Starwort)",
-          "Veronica plebeia (Trailing Speedwell)",
-          "Oxalis corniculata s.l. (Yellow Wood-sorrel)",
+          "Hydrocotyle verticillata (Shield Pennywort)",
+          "Oxalis perennans (Grassland Wood-sorrel)",
+          "Crassula helmsii (Swamp Crassula)",
           "Dichondra repens (Kidney-weed)",
-          "Carex appressa (Tall Sedge)",
+          "Apium prostratum ssp. prostratum (Sea Celery)"
+        ]
+      },
+      {
+        layer:
+          "Graminoid Layer (sedges, grasses and reeds)",
+        plants: [
           "Poa labillardierei (Common Tussock-grass)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
           "Phragmites australis (Common Reed)",
           "Schoenoplectus tabernaemontani (River Club-sedge)",
-          "Juncus amabilis (Hollow Rush)",
-          "Cyperus spp. (Flat-sedge)",
+          "Triglochin procerum s.l. (Water Ribbons)",
           "Microlaena stipoides var. stipoides (Weeping Grass)",
-          "Eleocharis acuta (Common Spike-sedge)",
+          "Ficinia nodosa (Knobby Club-sedge)"
+        ]
+      },
+      {
+        layer:
+          "Climber Layer (scramblers and climbers)",
+        plants: [
           "Calystegia sepium (Large Bindweed)"
         ]
       }
     ]
   },
 
-  // Valley Grassy Forest (EVC 47)
-  "47": {
-    description:
-      "Valley Grassy Forest occurs under moderate rainfall regimes of 700–800 mm per annum on fertile, well-drained colluvial or alluvial soils on gently undulating lower slopes and valley floors. Open forest to 20 m tall that may carry a variety of eucalypts, usually species which prefer more moist or more fertile conditions, over a sparse shrub cover. In season, a rich array of herbs, lilies, grasses, and sedges dominate the ground layer.",
-    recommendations: [
-      {
-        layer: "Canopy Layer",
-        plants: [
-          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
-          "Eucalyptus leucoxylon (Yellow Gum)",
-          "Eucalyptus melliodora (Yellow Box)",
-          "Eucalyptus rubida (Candlebark)"
-        ]
-      },
-      {
-        layer: "Sub-Canopy Layer",
-        plants: [
-          "Acacia mearnsii (Black Wattle)",
-          "Acacia melanoxylon (Blackwood)"
-        ]
-      }
-    ]
-  },
-
-  // Plains Grassy Woodland – Victorian Volcanic Plain (EVC 55_61)
+  // Plains Grassy Woodland (EVC 55_61)
   "55_61": {
     description:
-      "Plains Grassy Woodland is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums, Grey Box, and Yellow Gums form a broad canopy over a ground layer rich with kangaroo grass, native lilies, wildflowers, and seasonal herbs. This EVC thrives in landscapes with seasonal waterlogging and cracking clay soils, and is shaped by a long history of fire management and Aboriginal cultivation. Today, less than 3 % of this ecosystem remains, making it one of Victoria’s most threatened woodland communities. With a low shrub layer and high herb diversity, Plains Grassy Woodland forms a vital link between grassland and forest — a spacious, grassy ecosystem built on story, fire, and deep time.",
+      "Plains Grassy Woodland is a grassy, open woodland dominated by River Red Gum and Yellow Gum, with a highly diverse ground layer of native grasses, lilies, and wildflowers. Found on basalt clays, it was maintained through Aboriginal fire practices and once stretched across western Victoria. Now critically endangered, it survives in small fragments and restoration sites.",
     recommendations: [
       {
-        layer: "Canopy Layer",
+        layer:
+          "Canopy Layer",
         plants: [
           "Eucalyptus camaldulensis (River Red Gum)"
         ]
       },
       {
-        layer: "Shrub Layer",
+        layer:
+          "Shrub Layer",
         plants: [
           "Acacia pycnantha (Golden Wattle)",
-          "Acacia paradoxa (Hedge Wattle)",
+          "Acacia paradoxa (Hedge Wattle)"
+        ]
+      },
+      {
+        layer:
+          "Sub-shrub & Prostrate Layer",
+        plants: [
           "Pimelea humilis (Common Rice-flower)",
           "Astroloma humifusum (Cranberry Heath)",
           "Bossiaea prostrata (Creeping Bossiaea)"
         ]
       },
       {
-        layer: "Herb Layer",
+        layer:
+          "Herb Layer",
         plants: [
           "Oxalis perennans (Grassland Wood-sorrel)",
           "Gonocarpus tetragynus (Common Raspwort)",
-          "Acaena echinata (Sheep's Burr)",
-          "Dichondra repens (Kidney-weed)",
-          "Hydrocotyle laxiflora (Stinking Pennywort)",
+          "Acaena echinata (Sheep's Burr)"
+        ]
+      },
+      {
+        layer:
+          "Graminoid Layer",
+        plants: [
           "Austrostipa mollis (Supple Spear-grass)",
           "Austrostipa bigeniculata (Kneed Spear-grass)",
           "Themeda triandra (Kangaroo Grass)",
           "Elymus scaber var. scaber (Common Wheat-grass)",
-          "Austrodanthonia setacea (Bristly Wallaby-grass)",
-          "Austrodanthonia racemosa var. racemosa (Stiped Wallaby-grass)",
           "Microlaena stipoides var. stipoides (Weeping Grass)"
         ]
       }
@@ -173,136 +226,138 @@ const curatedPlants = {
   // Swamp Scrub (EVC 53)
   "53": {
     description:
-      "Swamp Scrub is a dense, wetland-edge vegetation community found across the low-lying floodplains, soaks, and swamp margins of the Gippsland Plain. It’s dominated by thickets of woolly tea-tree, swamp paperbark, and coastal bottlebrush, often growing around permanent or seasonal wetlands. Beneath the tangled canopy, the ground is cool and shaded, supporting sedges, mosses, and ferns adapted to waterlogged soils. These scrubs play a vital role in water purification, erosion control, and wildlife habitat. Once common across Gippsland, Swamp Scrub is now classified as endangered, with most remnants surviving in small, fragmented pockets near creeks, estuaries, and floodplain depressions.",
+      "Swamp Scrub is a dense, moisture-loving vegetation type dominated by tea-tree, paperbark, and bottlebrush, often fringing wetlands and swamps. Found across the Gippsland Plain, it supports frogs, birds, and insect life while playing a key role in water filtration and erosion control. Today it is endangered, with most remnants restricted to isolated, low-lying sites.",
     recommendations: [
       {
-        layer: "Canopy Layer",
+        layer:
+          "Canopy Layer",
         plants: [
           "Leptospermum lanigerum (Woolly Tea-tree)",
           "Melaleuca ericifolia (Swamp Paperbark)"
         ]
       },
       {
-        layer: "Shrub Layer",
+        layer:
+          "Shrub Layer",
         plants: [
           "Coprosma quadrifida (Prickly Currant-bush)",
           "Leptospermum continentale (Prickly Tea-tree)"
         ]
       },
       {
-        layer: "Herb Layer",
+        layer:
+          "Herb Layer",
         plants: [
           "Lycopus australis (Australian Gipsywort)",
           "Lythrum salicaria (Purple Loosestrife)",
-          "Persicaria praetermissa (Spotted Knotweed)",
-          "Hydrocotyle pterocarpa (Wing Pennywort)",
-          "Stellaria angustifolia (Swamp Starwort)",
-          "Lobelia anceps (Angled Lobelia)",
-          "Crassula helmsii (Swamp Crassula)",
+          "Persicaria praetermissa (Spotted Knotweed)"
+        ]
+      },
+      {
+        layer:
+          "Graminoid & Fern Layer",
+        plants: [
           "Juncus procerus (Tall Rush)",
           "Poa labillardierei (Common Tussock-grass)",
           "Gahnia radula (Thatch Saw-sedge)",
-          "Phragmites australis (Common Reed)",
-          "Baumea rubiginosa s.l. (Soft Twig-rush)",
-          "Triglochin procerum s.l. (Water Ribbons)",
-          "Juncus gregiflorus (Green Rush)",
-          "Eleocharis acuta (Common Spike-sedge)",
-          "Blechnum cartilagineum (Gristle Fern)",
-          "Calystegia sepium (Large Bindweed)"
+          "Blechnum cartilagineum (Gristle Fern)"
         ]
       }
     ]
   },
 
-  // Riparian Woodland – Victorian Volcanic Plain (EVC 641)
-  "641": {
+  // Floodplain Riparian Woodland (EVC 56)
+  "56": {
     description:
-      "Riparian Woodland is a tall, open woodland that lines the banks of rivers, creeks, and ephemeral streams, particularly those that flow across Victoria’s volcanic plains. It is dominated by River Red Gums, with a diverse understorey of sedges, grasses, and moisture-adapted herbs. These woodlands thrive in seasonally flooded soils, and act as corridors for wildlife, water filtration, and cultural passage. Once common along waterways such as Merri Creek, Moonee Ponds Creek, and Werribee River, Riparian Woodland has been severely fragmented and degraded, especially in urban areas. Today, it is a priority for both ecological restoration and cultural renewal.",
+      "Floodplain Riparian Woodland lines the broad river valleys of Gippsland, where River Red Gums rise above sedges, reeds, and water-loving herbs. Shaped by flood cycles, this EVC provides rich habitat for birds, gliders, and aquatic species. Most of it has been lost to agriculture and levee construction, and it is now endangered and highly fragmented.",
     recommendations: [
       {
-        layer: "Canopy Layer",
+        layer:
+          "Canopy Layer",
         plants: [
           "Eucalyptus camaldulensis (River Red-gum)",
-          "Acacia melanoxylon (Blackwood)"
+          "Eucalyptus tereticornis ssp. mediana (Gippsland Red Gum)",
+          "Eucalyptus ovata (Swamp Gum)"
         ]
       },
       {
-        layer: "Shrub Layer",
+        layer:
+          "Sub-Canopy & Shrub Layer",
         plants: [
+          "Acacia implexa (Lightwood)",
+          "Acacia melanoxylon (Blackwood)",
+          "Ozothamnus ferrugineus (Tree Everlasting)",
           "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
-          "Viminaria juncea (Golden Spray)",
-          "Rubus parvifolius (Small-leaf Bramble)"
+          "Hymenanthera dentata (Tree Violet)"
         ]
       },
       {
-        layer: "Herb Layer",
+        layer:
+          "Herb Layer",
         plants: [
-          "Wahlenbergia gracilis s.s. (Sprawling Bluebell)",
+          "Urtica incisa (Scrub Nettle)",
+          "Persicaria subsessilis (Hairy Knotweed)",
           "Senecio quadridentatus (Cottony Fireweed)",
-          "Myriophyllum crispatum (Upright Water-milfoil)",
-          "Rumex brownii (Slender Dock)",
-          "Oxalis perennans (Grassland Wood-sorrel)",
-          "Mentha australis (River Mint)",
-          "Acaena novae-zelandiae (Bidgee-widgee)",
-          "Dichondra repens (Kidneyweed)",
-          "Poa labillardierei (Common Tussock-grass)",
+          "Acaena novae-zelandiae (Bidgee-widgee)"
+        ]
+      },
+      {
+        layer:
+          "Graminoid Layer",
+        plants: [
           "Carex appressa (Tall Sedge)",
+          "Poa labillardierei (Common Tussock-grass)",
           "Phragmites australis (Common Reed)",
-          "Lachnagrostis filiformis var. filiformis (Common Blown-grass)",
-          "Triglochin procerum s.l. (Water-ribbons)",
-          "Eleocharis acuta (Common Spike-sedge)",
+          "Eleocharis acuta (Common Spike-sedge)"
+        ]
+      },
+      {
+        layer:
+          "Climber Layer",
+        plants: [
           "Calystegia sepium (Large Bindweed)"
         ]
       }
     ]
   },
 
-  // Stream Bank Shrubland – Victorian Volcanic Plain (EVC 851)
-  "851": {
+  // Riparian Woodland (EVC 641)
+  "641": {
     description:
-      "This rare and endangered plant community once lined the small rivers and ephemeral creeks of Victoria’s volcanic plains. Shaped by flood and stone, Stream Bank Shrubland thrives in rocky or gravelly streambeds where water flows seasonally. It’s defined by tall, moisture-loving shrubs like Sweet Bursaria, Tree Violet, and Silver Wattle, often beneath a scattered overstorey of River Red Gum. These green ribbons form vital ecological corridors, supporting movement across otherwise cleared or open landscapes. The understory hosts sedges, grasses, and fast-growing herbs that respond quickly to flood or disturbance. Restoring this EVC brings back habitat, resilience, and cultural continuity to waterways across the volcanic plain.",
+      "Riparian Woodland follows the creeks and rivers of the volcanic plains. It is characterised by tall River Red Gums, an understorey of sedges, and a mix of moisture-adapted shrubs and herbs. These woodlands are vital wildlife corridors and hold cultural significance along songlines and travel routes. They are now endangered due to urbanisation and waterway modification.",  
     recommendations: [
       {
-        layer: "Canopy Layer",
+        layer:
+          "Canopy Layer",
         plants: [
           "Eucalyptus camaldulensis (River Red-gum)"
         ]
       },
       {
-        layer: "Sub-Canopy Layer",
+        layer:
+          "Shrub Layer",
         plants: [
-          "Acacia mearnsii (Black Wattle)",
-          "Acacia melanoxylon (Blackwood)"
-        ]
-      },
-      {
-        layer: "Shrub Layer",
-        plants: [
-          "Leptospermum lanigerum (Woolly Tea-tree)",
-          "Hymenanthera dentata s.l. (Tree Violet)",
+          "Acacia melanoxylon (Blackwood)",
           "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
-          "Callistemon sieberi (River Bottlebrush)"
+          "Viminaria juncea (Golden Spray)"
         ]
       },
       {
-        layer: "Herb Layer",
+        layer:
+          "Herb Layer",
         plants: [
-          "Persicaria decipiens (Slender Knotweed)",
-          "Epilobium billardierianum (Variable Willow-herb)",
-          "Acaena novae-zelandiae (Bidgee-widgee)",
-          "Hydrocotyle verticillata (Shield Pennywort)",
-          "Oxalis perennans (Grassland Wood-sorrel)",
-          "Crassula helmsii (Swamp Crassula)",
-          "Dichondra repens (Kidney-weed)",
-          "Apium prostratum ssp. prostratum (Sea Celery)",
+          "Wahlenbergia gracilis s.s. (Sprawling Bluebell)",
+          "Mentha australis (River Mint)",
+          "Acaena novae-zelandiae (Bidgee-widgee)"
+        ]
+      },
+      {
+        layer:
+          "Graminoid Layer",
+        plants: [
           "Poa labillardierei (Common Tussock-grass)",
-          "Lomandra longifolia (Spiny-headed Mat-rush)",
-          "Phragmites australis (Common Reed)",
-          "Schoenoplectus tabernaemontani (River Club-sedge)",
-          "Triglochin procerum s.l. (Water Ribbons)",
-          "Microlaena stipoides var. stipoides (Weeping Grass)",
-          "Ficinia nodosa (Knobby Club-sedge)",
-          "Calystegia sepium (Large Bindweed)"
+          "Carex appressa (Tall Sedge)",
+          "Rhodophytes (Common Reed)" // adjust as needed
         ]
       }
     ]
@@ -311,25 +366,42 @@ const curatedPlants = {
   // Brackish Grassland (EVC 934)
   "934": {
     description:
-      "Brackish Grassland is a salt-tolerant grassy ecosystem found in low-lying areas of the Gippsland Plain, where saline groundwater or estuarine flooding influences the soil. These open, wind-exposed grasslands are dominated by saltbushes, low sedges, and halophytic herbs, with few or no trees. Though sparse in appearance, this EVC supports high biodiversity, including rare orchids, seasonal wetland species, and migratory bird habitat. Brackish Grassland is highly threatened, with much of its extent cleared, drained, or grazed. Its remaining fragments survive in coastal flats, behind dunes, and around salt lakes, telling stories of salinity, resilience, and edge dwelling.",
+      "Brackish Grassland is a low, salt-tolerant grassland found near estuaries, saline flats, and groundwater seeps. It includes glassworts, saltbushes, and halophytic herbs, with few or no trees. Though visually sparse, it supports rare species and migratory birds. Heavily impacted by drainage and grazing, it is now one of the most threatened ecosystems in Gippsland.",
     recommendations: [
       {
-        layer: "Herb Layer",
+        layer:
+          "Herb & Shrub Layer",
         plants: [
           "Senecio glomeratus (Annual Fireweed)",
           "Sarcocornia quinqueflora (Beaded Glasswort)",
           "Samolus repens (Creeping Brookweed)",
           "Sebaea albidiflora (White Sebaea)",
-          "Calocephalus lacteus (Milky Beauty-heads)",
+          "Calocephalus lacteus (Milky Beauty-heads)"
+        ]
+      },
+      {
+        layer:
+          "Prostrate & Mat-forming Layer",
+        plants: [
           "Selliera radicans (Shiny Swamp-mat)",
-          "Utricularia tenella (Pink Bladderwort)",
+          "Utricularia tenella (Pink Bladderwort)"
+        ]
+      },
+      {
+        layer:
+          "Graminoid Layer",
+        plants: [
           "Gahnia filum (Chaffy Saw-sedge)",
           "Gahnia trifida (Coast Saw-sedge)",
           "Poa labillardierei (Common Tussock-grass)",
-          "Poa poiformis (Blue Tussock-grass)",
-          "Schoenus apogon (Common Bog-sedge)",
-          "Austrodanthonia geniculata (Kneed Wallaby-grass)",
-          "Distichlis distichophylla (Australian Salt-grass)"
+          "Poa poiformis (Blue Tussock-grass)"
+        ]
+      },
+      {
+        layer:
+          "Climber & Forb Layer",
+        plants: [
+          "Calystegia sepium (Large Bindweed)"
         ]
       }
     ]
@@ -339,36 +411,32 @@ const curatedPlants = {
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1) Initialize hidden main map (for legacy)
+  // hidden legacy map
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) Hook up address form
+  // address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
-    if (!addr) {
-      alert("Please enter an address.");
-      return;
-    }
+    if (!addr) return alert("Please enter an address.");
     geocodeAddress(addr);
   });
 
-  // 3) Close modal
+  // close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 4) Email gate: reveal plants on submit
+  // email gatekeeper
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
     document.getElementById("modal-plants").style.display = "block";
     const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: wire this into your backend or Google Form
   });
 });
 
@@ -378,84 +446,77 @@ function geocodeAddress(address) {
       address
     )}`
   )
-    .then(res => {
-      if (!res.ok) throw new Error(`Geocode failed (${res.status})`);
-      return res.json();
+    .then(r => {
+      if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
+      return r.json();
     })
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
-      const lat = +results[0].lat;
-      const lon = +results[0].lon;
+      const lat = +results[0].lat,
+        lon = +results[0].lon;
       map.setView([lat, lon], 12);
-      if (marker) map.removeLayer(marker);
+      marker && map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
       fetchEVCData(lat, lon);
     })
-    .catch(err => {
-      console.error(err);
-      alert(err.message);
-    });
+    .catch(err => alert(err.message));
 }
 
 function fetchEVCData(lat, lon) {
-  const d = 0.02;
-  const bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`;
-  const url =
-    `https://opendata.maps.vic.gov.au/geoserver/wfs` +
-    `?service=WFS` +
-    `&version=1.0.0` +
-    `&request=GetFeature` +
-    `&typeName=open-data-platform:nv2005_evcbcs` +
-    `&bbox=${bbox},EPSG:4326` +
-    `&outputFormat=application/json`;
+  const d = 0.02,
+    bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`,
+    url =
+      "https://opendata.maps.vic.gov.au/geoserver/wfs" +
+      "?service=WFS&version=1.0.0&request=GetFeature" +
+      "&typeName=open-data-platform:nv2005_evcbcs" +
+      `&bbox=${bbox},EPSG:4326` +
+      "&outputFormat=application/json";
 
   fetch(url)
-    .then(res => res.text())
-    .then(text => {
-      if (text.trim().startsWith("<")) {
-        console.error("EVC WFS returned HTML:", text.slice(0, 200));
-        throw new Error("Error retrieving EVC data. Please try again later.");
-      }
-      return JSON.parse(text);
+    .then(r => r.text())
+    .then(txt => {
+      if (txt.trim().startsWith("<"))
+        throw new Error("EVC service error. Try again later.");
+      return JSON.parse(txt);
     })
     .then(data => {
-      if (!data.features?.length) {
+      if (!data.features?.length)
         throw new Error("No EVC data found for this location.");
-      }
-      const pt = turf.point([lon, lat]);
-      const feat =
-        data.features.find(
-          f =>
-            f.geometry?.type === "Polygon" &&
-            turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
-        ) || data.features[0];
+      const pt = turf.point([lon, lat]),
+        feat =
+          data.features.find(f =>
+            f.geometry.type === "Polygon" &&
+            turf.booleanPointInPolygon(
+              pt,
+              turf.polygon(f.geometry.coordinates)
+            )
+          ) || data.features[0],
+        p = feat.properties;
 
-      const p = feat.properties;
-      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
+      displayModal(
+        p.x_evcname,
+        p.evc_bcs_desc,
+        p.bioregion,
+        p.evc,
+        lat,
+        lon
+      );
     })
-    .catch(err => {
-      console.error(err);
-      alert(err.message);
-    });
+    .catch(err => alert(err.message));
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // --- Populate text ---
+  // populate text
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent =
-    status || "Not specified";
-  document.getElementById("modal-evc-region").textContent =
-    region || "Not specified";
+  document.getElementById("modal-evc-status").textContent = status;
+  document.getElementById("modal-evc-region").textContent = region;
+  document.getElementById("modal-evc-description").textContent =
+    curatedPlants[code]?.description || "No description available.";
 
-  // --- Description ---
-  const info = curatedPlants[code];
-  document.getElementById("modal-evc-description").textContent = info
-    ? info.description
-    : "No description available.";
-
-  // --- Build & hide plant list ---
+  // build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
+  const info = curatedPlants[code];
   if (info?.recommendations) {
     info.recommendations.forEach(sec => {
       const wr = document.createElement("div");
@@ -467,21 +528,19 @@ function displayModal(name, status, region, code, lat, lon) {
         "</ul>";
       plantsDiv.appendChild(wr);
     });
-    plantsDiv.style.display = "none";
   }
+  plantsDiv.style.display = "none";
 
-  // --- Initialize in-modal map ---
-  if (modalMap) {
-    modalMap.remove();
-  }
+  // in-modal map
+  modalMap && modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // --- Show modal and fix Leaflet sizing ---
-  const modal = document.getElementById("evc-modal");
-  modal.style.display = "flex";
+  // show modal
+  const m = document.getElementById("evc-modal");
+  m.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
 }
