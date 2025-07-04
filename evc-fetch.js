@@ -1,85 +1,299 @@
 // evc-fetch.js
 
-// — Curated plants data (add all your EVC entries here) —
+// — Curated plants data —
 const curatedPlants = {
-  // … your other EVCs (2,3,6,6_61,47,53,55_61,56,175,641,851,934…) …
-
-  // EVC 8 – Wet Heathland
-  "8": {
+  // Grassy Woodland (EVC 175)
+  "175": {
     description:
-      "This EVC occupies poorly drained sandy soils and peaty flats. Dominated by swamp-loving heath species, sedges, and tea-trees, it supports diverse flora including orchids and carnivorous plants. Often waterlogged in winter and dry in summer.",
+      "A variable open eucalypt woodland to 15 m tall or occasionally Sheoak woodland to 10 m tall over a diverse ground layer of grasses and herbs. The shrub component is usually sparse. It occurs on sites with moderate fertility on gentle slopes or undulating hills on a range of geologies.",
     recommendations: [
       {
-        layer: "Shrub Layer (woody heath species)",
+        layer:
+          "Canopy Layer (topmost layer: tallest, mature trees providing shade, regulating temperature, and supporting wildlife)",
         plants: [
-          "Melaleuca squarrosa (Scented Paperbark)",
+          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
+          "Allocasuarina verticillata (Drooping Sheoak)"
+        ]
+      },
+      {
+        layer:
+          "Sub-Canopy Layer (shorter trees beneath the canopy contributing to forest structure and biodiversity)",
+        plants: [
+          "Acacia mearnsii (Black Wattle)",
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Exocarpos cupressiformis (Cherry Ballart)"
+        ]
+      },
+      {
+        layer:
+          "Shrub Layer (various shrubs offering habitat and food for smaller animals and insects)",
+        plants: [
           "Leptospermum continentale (Prickly Tea-tree)",
-          "Banksia marginata (Silver Banksia)",
-          "Epacris impressa (Common Heath)"
+          "Epacris impressa (Common Heath)",
+          "Cassinia aculeata (Common Cassinia)",
+          "Acacia paradoxa (Hedge Wattle)",
+          "Pimelea humilis (Common Rice-flower)",
+          "Hibbertia riparia (Erect Guinea-flower)",
+          "Bossiaea prostrata (Creeping Bossiaea)",
+          "Astroloma humifusum (Cranberry Heath)",
+          "Acrotriche serrulata (Honey-pots)"
         ]
       },
       {
-        layer: "Herb Layer (forbs, orchids & sundews)",
+        layer:
+          "Herb Layer (ground-level herbs, grasses and ferns stabilising soils and retaining moisture)",
         plants: [
+          "Pterostylis longifolia s.l. (Tall Greenhood)",
+          "Gonocarpus tetragynus (Common Raspwort)",
           "Drosera peltata ssp. auriculata (Tall Sundew)",
-          "Acianthus spp. (Mosquito Orchid)",
-          "Wahlenbergia gracilis (Sprawling Bluebell)",
-          "Goodenia lanata (Trailing Goodenia)"
-        ]
-      },
-      {
-        layer: "Graminoid Layer (sedges & rushes)",
-        plants: [
-          "Xanthorrhoea australis (Austral Grass-tree)",
-          "Gymnoschoenus sphaerocephalus (Button Grass)",
-          "Gahnia sieberiana (Red-fruit Saw-sedge)",
-          "Lomandra longifolia (Spiny-headed Mat-rush)"
-        ]
-      },
-      {
-        layer: "Fern & Ground Layer",
-        plants: [
-          "Lindsaea linearis (Screw Fern)",
+          "Dichondra repens (Kidney-weed)",
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera whittakeri ssp. aberrans (Scented Sundew)",
+          "Deyeuxia quadriseta (Reed Bent-grass)",
+          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)",
+          "Gahnia radula (Thatch Saw-sedge)",
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Poa sieberiana (Grey Tussock-grass)",
+          "Lepidosperma laterale (Variable Sword-sedge)",
+          "Microlaena stipoides var. stipoides (Weeping Grass)",
           "Pteridium esculentum (Austral Bracken)",
-          "Lycopodium deuterodensum (Bushy Clubmoss)"
+          "Comesperma volubile (Love Creeper)",
+          "Billardiera scandens (Common Apple-berry)"
         ]
       }
     ]
   },
 
-  // EVC 9 – Coastal Saltmarsh
-  "9": {
+  // Estuarine Wetland (EVC 10)
+  "10": {
     description:
-      "Located in the intertidal zone, Coastal Saltmarsh is dominated by succulent herbs and salt-tolerant shrubs. It forms vital shorebird habitat and tidal filtration systems, but is highly sensitive to hydrological change.",
+      "Estuarine Wetland is a brackish to saline wetland system found where tidal estuaries meet floodplains. It includes salt-tolerant reeds, sedges, and succulent herbs adapted to fluctuating salinity and water levels. Dominant species include Phragmites australis and Sarcocornia quinqueflora. These wetlands are vital nurseries for fish, feeding grounds for migratory birds, and natural filters for coastal catchments. Now threatened by reclamation, pollution, and hydrological alteration.",
+    recruitment:
+      "Episodic/Flood: desirable period of disturbance is every five years",
+    organicLitter: "10% cover",
     recommendations: [
       {
-        layer: "Shrub Layer (salt-tolerant shrubs)",
+        layer: "Medium Shrub (1% cover)",
+        plants: ["Leptospermum lanigerum (Woolly Tea-tree)"]
+      },
+      {
+        layer: "Large Herb (10% cover)",
         plants: [
-          "Sarcocornia quinqueflora (Beaded Glasswort)",
-          "Suaeda australis (Austral Seablite)",
-          "Tecticornia arbuscula (Shrubby Glasswort)"
+          "Persicaria decipiens (Slender Knotweed)",
+          "Epilobium billardierianum (Variable Willow-herb)",
+          "Mimulus repens (Creeping Monkey-flower)",
+          "Leptinella reptans s.l. (Creeping Cotula)"
         ]
       },
       {
-        layer: "Herb Layer (succulent herbs)",
+        layer: "Medium Herb (10% cover)",
+        plants: ["Samolus repens (Creeping Brookweed)", "Lobelia anceps (Angled Lobelia)"]
+      },
+      {
+        layer: "Small/Prostrate Herb (15% cover)",
+        plants: ["Selliera radicans (Shiny Swamp-mat)", "Crassula helmsii (Swamp Crassula)"]
+      },
+      {
+        layer: "Large Tufted Graminoid (10% cover)",
+        plants: ["Poa labillardierei (Common Tussock-grass)"]
+      },
+      {
+        layer: "Large Non-tufted Graminoid (25% cover)",
+        plants: ["Phragmites australis (Common Reed)"]
+      },
+      {
+        layer: "Medium/Tiny Non-tufted Graminoid (1% cover)",
+        plants: ["Triglochin striatum (Streaked Arrowgrass)"]
+      },
+      {
+        layer: "Scrambler/Climber (5% cover)",
+        plants: ["Calystegia sepium (Large Bindweed)"]
+      }
+    ]
+  },
+
+  // Lowland Forest (EVC 16)
+  "16": {
+    description:
+      "Lowland Forest is a tall, open eucalypt forest that grows on moderately fertile soils in lower elevation foothills and flats. Dominated by Messmate, Mountain Grey Gum, or Swamp Gum, its understorey includes a mix of shrubs, grasses, ferns, and wildflowers. These forests support a wide range of birdlife, fungi, and insects and are adapted to moderate fire regimes. Once extensive across southern Victoria, they are now fragmented by agriculture and plantation forestry.",
+    recommendations: [
+      {
+        layer: "Tree Canopy (30% cover)",
         plants: [
-          "Atriplex prostrata ssp. prostrata (Spear Saltbush)",
-          "Triglochin procerum (Water Ribbons)"
+          "Eucalyptus obliqua (Messmate Stringybark)",
+          "Eucalyptus willisii (Shining Peppermint)",
+          "Eucalyptus baxteri s.s. (Brown Stringybark)"
         ]
       },
       {
-        layer: "Graminoid Layer (sedges & rushes)",
+        layer: "Understorey Tree / Large Shrub (10% cover)",
+        plants: ["Exocarpos cupressiformis (Cherry Ballart)", "Acacia melanoxylon (Blackwood)"]
+      },
+      {
+        layer: "Medium Shrub (15% cover)",
         plants: [
-          "Juncus kraussii (Sea Rush)",
-          "Phragmites australis (Common Reed)"
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Correa reflexa (Common Correa)",
+          "Banksia marginata (Silver Banksia)",
+          "Acacia verticillata (Prickly Moses)"
         ]
       },
       {
-        layer: "Groundcover",
+        layer: "Small Shrub (5% cover)",
         plants: [
-          "Salicornia blackii (Black Glasswort)",
-          "Suaeda australis (Austral Seablite)"
+          "Tetratheca ciliata (Pink-bells)",
+          "Hibbertia riparia (Erect Guinea-flower)",
+          "Platylobium obtusangulum (Common Flat-pea)",
+          "Pultenaea stricta (Rigid Bush-pea)"
         ]
+      },
+      {
+        layer: "Prostrate Shrub (1% cover)",
+        plants: [
+          "Acrotriche serrulata (Honey-pots)",
+          "Xanthosia dissecta s.l. (Cut-leaf Xanthosia)",
+          "Astroloma humifusum (Cranberry Heath)"
+        ]
+      },
+      {
+        layer: "Large Herb (5% cover)",
+        plants: [
+          "Senecio tenuiflorus (Slender Fireweed)",
+          "Dipodium punctatum s.l. (Hyacinth Orchid)",
+          "Senecio glomeratus (Annual Fireweed)"
+        ]
+      },
+      {
+        layer: "Medium Herb (20% cover)",
+        plants: [
+          "Viola hederacea sensu Entwisle (Ivy-leaf Violet)",
+          "Burchardia umbellata (Milkmaids)",
+          "Helichrysum scorpioides (Button Everlasting)",
+          "Lagenophora stipitata (Common Bottle-daisy)"
+        ]
+      },
+      {
+        layer: "Small/Prostrate Herb (5% cover)",
+        plants: ["Hydrocotyle laxiflora (Stinking Pennywort)"]
+      },
+      {
+        layer: "Large Tufted Graminoid (5% cover)",
+        plants: [
+          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+          "Deyeuxia quadriseta (Reed Bent-grass)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)"
+        ]
+      },
+      {
+        layer: "Large Non-tufted Graminoid (10% cover)",
+        plants: ["Gahnia radula (Thatch Saw-sedge)", "Austrostipa muelleri (Wiry Spear-grass)"]
+      },
+      {
+        layer: "Medium/Small Tufted Graminoid (10% cover)",
+        plants: [
+          "Dianella revoluta s.s. (Black-anther Flax-lily)",
+          "Lepidosperma filiforme (Common Rapier-sedge)",
+          "Dichelachne rara (Common Plume-grass)",
+          "Poa morrisii (Soft Tussock-grass)"
+        ]
+      },
+      {
+        layer: "Medium/Tiny Non-tufted Graminoid (5% cover)",
+        plants: [
+          "Poa tenera (Slender Tussock-grass)",
+          "Microlaena stipoides var. stipoides (Weeping Grass)"
+        ]
+      },
+      {
+        layer: "Ground Fern (5% cover)",
+        plants: ["Pteridium esculentum (Austral Bracken)"]
+      },
+      {
+        layer: "Scrambler / Climber (1% cover)",
+        plants: [
+          "Cassytha pubescens s.s. (Downy Dodder-laurel)",
+          "Billardiera scandens (Common Apple-berry)",
+          "Comesperma volubile (Love Creeper)",
+          "Clematis aristata (Mountain Clematis)"
+        ]
+      }
+    ]
+  },
+
+  // Riparian Forest (EVC 18)
+  "18": {
+    description:
+      "Riparian Forest occurs along permanent or semi-permanent streams in sheltered valleys and lower slopes. Dominated by Manna Gum, Mountain Ash, or Silver Wattle, it features a complex understorey of ferns, grasses, and moisture-loving herbs. These forests serve as wildlife corridors, filter runoff, and are vital for flood resilience.",
+    recommendations: [
+      {
+        layer: "Tree Canopy (40% cover)",
+        plants: ["Eucalyptus viminalis (Manna Gum)"]
+      },
+      {
+        layer: "Understorey Tree / Large Shrub (20% cover)",
+        plants: [
+          "Pomaderris aspera (Hazel Pomaderris)",
+          "Acacia melanoxylon (Blackwood)",
+          "Notelaea ligustrina (Privet Mock-olive)"
+        ]
+      },
+      {
+        layer: "Medium Shrub (20% cover)",
+        plants: [
+          "Olearia lirata (Snowy Daisy-bush)",
+          "Leptospermum lanigerum (Woolly Tea-tree)",
+          "Ozothamnus ferrugineus (Tree Everlasting)",
+          "Melaleuca squarrosa (Scented Paperbark)"
+        ]
+      },
+      {
+        layer: "Large Herb (5% cover)",
+        plants: ["Urtica incisa (Scrub Nettle)"]
+      },
+      {
+        layer: "Medium Herb (10% cover)",
+        plants: ["Austrocynoglossum latifolium (Forest Hound's-tongue)"]
+      },
+      {
+        layer: "Small/Prostrate Herb (1% cover)",
+        plants: [
+          "Lobelia pedunculata s.l. (Matted Pratia)",
+          "Lobelia pratioides (Poison Lobelia)"
+        ]
+      },
+      {
+        layer: "Large Tufted Graminoid (20% cover)",
+        plants: [
+          "Gahnia clarkei (Tall Saw-sedge)",
+          "Lepidosperma laterale var. majus (Variable Sword-sedge)",
+          "Carex appressa (Tall Sedge)"
+        ]
+      },
+      {
+        layer: "Medium/Small Tufted Graminoid (15% cover)",
+        plants: [
+          "Poa ensiformis (Sword Tussock-grass)",
+          "Carex gaudichaudiana (Fen Sedge)",
+          "Isolepis inundata (Swamp Club-sedge)"
+        ]
+      },
+      {
+        layer: "Medium/Tiny Non-tufted Graminoid (5% cover)",
+        plants: ["Poa tenera (Slender Tussock-grass)"]
+      },
+      {
+        layer: "Ground Fern (10% cover)",
+        plants: [
+          "Pteridium esculentum (Austral Bracken)",
+          "Blechnum wattsii (Hard Water-fern)",
+          "Blechnum nudum (Fishbone Water-fern)"
+        ]
+      },
+      {
+        layer: "Scrambler / Climber (5% cover)",
+        plants: ["Clematis aristata (Mountain Clematis)"]
       }
     ]
   }
@@ -88,32 +302,29 @@ const curatedPlants = {
 let map, marker, modalMap;
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Legacy map (hidden via CSS)
+  // 1) Initialize hidden main map (for legacy)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 1) Address lookup
+  // 2) Hook up address form
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
-    if (!addr) return alert("Please enter an address.");
+    if (!addr) {
+      alert("Please enter an address.");
+      return;
+    }
     geocodeAddress(addr);
   });
 
-  // 2) Close modal
+  // 3) Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
-    // reset plant-gate
-    const plantsDiv = document.getElementById("modal-plants");
-    plantsDiv.style.display = "none";
-    const btn = document.querySelector("#gf-form button");
-    btn.textContent = "Display plant list";
-    btn.disabled = false;
   });
 
-  // 3) Email gate: reveal plants on submit
+  // 4) Email gate: reveal plant list
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
     const plantsDiv = document.getElementById("modal-plants");
@@ -131,53 +342,62 @@ function geocodeAddress(address) {
       address
     )}`
   )
-    .then(r => {
-      if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
-      return r.json();
+    .then(res => {
+      if (!res.ok) throw new Error(`Geocode failed (${res.status})`);
+      return res.json();
     })
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
-      const lat = +results[0].lat,
-            lon = +results[0].lon;
+      const lat = +results[0].lat;
+      const lon = +results[0].lon;
       map.setView([lat, lon], 12);
-      marker && map.removeLayer(marker);
+      if (marker) map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
       fetchEVCData(lat, lon);
     })
-    .catch(err => alert(err.message));
+    .catch(err => {
+      console.error(err);
+      alert(err.message);
+    });
 }
 
 function fetchEVCData(lat, lon) {
-  const d = 0.02,
-        bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`,
-        url =
-          "https://opendata.maps.vic.gov.au/geoserver/wfs" +
-          "?service=WFS&version=1.0.0&request=GetFeature" +
-          "&typeName=open-data-platform:nv2005_evcbcs" +
-          `&bbox=${bbox},EPSG:4326` +
-          "&outputFormat=application/json";
+  const d = 0.02;
+  const bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`;
+  const url =
+    `https://opendata.maps.vic.gov.au/geoserver/wfs` +
+    `?service=WFS` +
+    `&version=1.0.0` +
+    `&request=GetFeature` +
+    `&typeName=open-data-platform:nv2005_evcbcs` +
+    `&bbox=${bbox},EPSG:4326` +
+    `&outputFormat=application/json`;
 
   fetch(url)
-    .then(r => r.text())
-    .then(txt => {
-      if (txt.trim().startsWith("<"))
-        throw new Error("EVC service error. Try again later.");
-      return JSON.parse(txt);
+    .then(res => res.text())
+    .then(text => {
+      if (text.trim().startsWith("<")) {
+        console.error("EVC WFS returned HTML:", text.slice(0, 200));
+        throw new Error("Error retrieving EVC data. Please try again later.");
+      }
+      return JSON.parse(text);
     })
     .then(data => {
-      if (!data.features?.length)
+      if (!data.features?.length) {
         throw new Error("No EVC data found for this location.");
-      const pt = turf.point([lon, lat]),
-            feat =
-              data.features.find(f =>
-                f.geometry.type === "Polygon" &&
-                turf.booleanPointInPolygon(
-                  pt,
-                  turf.polygon(f.geometry.coordinates)
-                )
-              ) || data.features[0],
-            p = feat.properties;
+      }
+      const pt = turf.point([lon, lat]);
+      const feat =
+        data.features.find(
+          f =>
+            f.geometry?.type === "Polygon" &&
+            turf.booleanPointInPolygon(
+              pt,
+              turf.polygon(f.geometry.coordinates)
+            )
+        ) || data.features[0];
 
+      const p = feat.properties;
       displayModal(
         p.x_evcname,
         p.evc_bcs_desc,
@@ -187,16 +407,21 @@ function fetchEVCData(lat, lon) {
         lon
       );
     })
-    .catch(err => alert(err.message));
+    .catch(err => {
+      console.error(err);
+      alert(err.message);
+    });
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Header text
+  // Populate header
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent = status;
-  document.getElementById("modal-evc-region").textContent = region;
+  document.getElementById("modal-evc-status").textContent =
+    status || "Not specified";
+  document.getElementById("modal-evc-region").textContent =
+    region || "Not specified";
 
-  // Description
+  // Set description
   const info = curatedPlants[code];
   document.getElementById("modal-evc-description").textContent = info
     ? info.description
@@ -206,13 +431,13 @@ function displayModal(name, status, region, code, lat, lon) {
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
-    info.recommendations.forEach(sec => {
+    info.recommendations.forEach(section => {
       const wr = document.createElement("div");
       wr.className = "layer";
       wr.innerHTML =
-        `<h3>${sec.layer}</h3>` +
+        `<h3>${section.layer}</h3>` +
         "<ul>" +
-        sec.plants.map(p => `<li>${p}</li>`).join("") +
+        section.plants.map(p => `<li>${p}</li>`).join("") +
         "</ul>";
       plantsDiv.appendChild(wr);
     });
@@ -220,15 +445,15 @@ function displayModal(name, status, region, code, lat, lon) {
   plantsDiv.style.display = "none";
 
   // In-modal map
-  modalMap && modalMap.remove();
+  if (modalMap) modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // Show modal
-  const m = document.getElementById("evc-modal");
-  m.style.display = "flex";
+  // Show modal and fix sizing
+  const modal = document.getElementById("evc-modal");
+  modal.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
 }
