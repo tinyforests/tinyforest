@@ -71,7 +71,7 @@ const curatedPlants = {
     description:
       "Estuarine Wetland is a brackish to saline wetland system found where tidal estuaries meet floodplains. It includes salt-tolerant reeds, sedges, and succulent herbs adapted to fluctuating salinity and water levels. Dominant species include Phragmites australis and Sarcocornia quinqueflora. These wetlands are vital nurseries for fish, feeding grounds for migratory birds, and natural filters for coastal catchments. Now threatened by reclamation, pollution, and hydrological alteration.",
     recruitment:
-      "Episodic/Flood: desirable period of disturbance is every five years",
+      "Episodic/flood disturbance every ~5 years is beneficial",
     organicLitter: "10% cover",
     recommendations: [
       {
@@ -296,6 +296,78 @@ const curatedPlants = {
         plants: ["Clematis aristata (Mountain Clematis)"]
       }
     ]
+  },
+
+  // Heathy Dry Forest (EVC 20)
+  "20": {
+    description:
+      "Heathy Dry Forest grows on nutrient-poor soils and is characterised by stringybark eucalypts and a dense understorey of heaths, peas, and grasses. Common species include Brown Stringybark and Blackwood. It supports high biodiversity and responds strongly to fire cycles.",
+    recommendations: [
+      {
+        layer: "Tree Canopy (30% cover)",
+        plants: [
+          "Eucalyptus goniocalyx s.l. (Bundy)",
+          "Eucalyptus macrorhyncha (Red Stringybark)",
+          "Eucalyptus dives (Broad-leaved Peppermint)",
+          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)"
+        ]
+      },
+      {
+        layer: "Medium Shrub (15% cover)",
+        plants: [
+          "Monotoca scoparia (Prickly Broom-heath)",
+          "Acacia pycnantha (Golden Wattle)",
+          "Acacia paradoxa (Hedge Wattle)"
+        ]
+      },
+      {
+        layer: "Small Shrub (20% cover)",
+        plants: [
+          "Phyllanthus hirtellus (Thyme Spurge)",
+          "Hovea heterophylla (Common Hovea)",
+          "Leucopogon virgatus (Common Beard-heath)",
+          "Tetratheca labillardierei (Glandular Pink-bells)"
+        ]
+      },
+      {
+        layer: "Prostrate Shrub (1% cover)",
+        plants: ["Bossiaea prostrata (Creeping Bossiaea)"]
+      },
+      {
+        layer: "Large Herb (1% cover)",
+        plants: ["Senecio tenuiflorus (Slender Fireweed)"]
+      },
+      {
+        layer: "Medium Herb (5% cover)",
+        plants: [
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Wahlenbergia gracilis s.l. (Sprawling Bluebell)"
+        ]
+      },
+      {
+        layer: "Small/Prostrate Herb (5% cover)",
+        plants: [
+          "Opercularia varia (Variable Stinkweed)",
+          "Goodenia lanata (Trailing Goodenia)"
+        ]
+      },
+      {
+        layer: "Large Tufted Graminoid (1% cover)",
+        plants: ["Joycea pallida (Silvertop Wallaby-grass)"]
+      },
+      {
+        layer: "Medium/Small Tufted Graminoid (20% cover)",
+        plants: [
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Stylidium graminifolium s.l. (Grass Trigger-plant)",
+          "Poa sieberiana (Grey Tussock-grass)"
+        ]
+      },
+      {
+        layer: "Medium/Tiny Non-tufted Graminoid (1% cover)",
+        plants: ["Microlaena stipoides var. stipoides (Weeping Grass)"]
+      }
+    ]
   }
 };
 
@@ -391,21 +463,10 @@ function fetchEVCData(lat, lon) {
         data.features.find(
           f =>
             f.geometry?.type === "Polygon" &&
-            turf.booleanPointInPolygon(
-              pt,
-              turf.polygon(f.geometry.coordinates)
-            )
+            turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
         ) || data.features[0];
-
       const p = feat.properties;
-      displayModal(
-        p.x_evcname,
-        p.evc_bcs_desc,
-        p.bioregion,
-        p.evc,
-        lat,
-        lon
-      );
+      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
     .catch(err => {
       console.error(err);
@@ -414,20 +475,19 @@ function fetchEVCData(lat, lon) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
-  // Populate header
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent =
     status || "Not specified";
   document.getElementById("modal-evc-region").textContent =
     region || "Not specified";
 
-  // Set description
+  // description
   const info = curatedPlants[code];
   document.getElementById("modal-evc-description").textContent = info
     ? info.description
     : "No description available.";
 
-  // Build & hide plant list
+  // build & hide plant list
   const plantsDiv = document.getElementById("modal-plants");
   plantsDiv.innerHTML = "";
   if (info?.recommendations) {
@@ -436,15 +496,13 @@ function displayModal(name, status, region, code, lat, lon) {
       wr.className = "layer";
       wr.innerHTML =
         `<h3>${section.layer}</h3>` +
-        "<ul>" +
-        section.plants.map(p => `<li>${p}</li>`).join("") +
-        "</ul>";
+        `<ul>${section.plants.map(p => `<li>${p}</li>`).join("")}</ul>`;
       plantsDiv.appendChild(wr);
     });
   }
   plantsDiv.style.display = "none";
 
-  // In-modal map
+  // in-modal map
   if (modalMap) modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -452,7 +510,7 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // Show modal and fix sizing
+  // show modal
   const modal = document.getElementById("evc-modal");
   modal.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
