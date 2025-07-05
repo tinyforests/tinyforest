@@ -368,67 +368,6 @@ const curatedPlants = {
         plants: ["Microlaena stipoides var. stipoides (Weeping Grass)"]
       }
     ]
-  },
-
-  // Shrubby Dry Forest (EVC 21)
-  "21": {
-    description:
-      "Found on rocky, well-drained ridges and slopes, Shrubby Dry Forest has a sparse eucalypt canopy (such as Red Ironbark) above a rich shrub layer of wattles, peas, and tea-trees. It provides habitat for small mammals, honeyeaters, and invertebrates and thrives under low-intensity fire regimes.",
-    recommendations: [
-      {
-        layer: "Tree Canopy (30% cover)",
-        plants: [
-          "Eucalyptus tricarpa (Red Ironbark)",
-          "Eucalyptus baxteri (Brown Stringybark)",
-          "Eucalyptus polyanthemos (Red Box)"
-        ]
-      },
-      {
-        layer: "Understorey Tree / Large Shrub (5% cover)",
-        plants: ["Acacia pycnantha (Golden Wattle)"]
-      },
-      {
-        layer: "Shrub Layer (20% cover)",
-        plants: [
-          "Spyridium parvifolium (Dusty Miller)",
-          "Acacia myrtifolia (Myrtle Wattle)",
-          "Daviesia leptophylla (Narrow-leaf Hop-bush)",
-          "Pultenaea daphnoides (Large-leaf Bush-pea)"
-        ]
-      },
-      {
-        layer: "Small Shrub Layer (10% cover)",
-        plants: [
-          "Hibbertia stricta s.l. (Upright Guinea-flower)",
-          "Platylobium obtusangulum (Common Flat-pea)",
-          "Isopogon ceratophyllus (Horny Cone-bush)",
-          "Pultenaea humilis (Dwarf Bush-pea)"
-        ]
-      },
-      {
-        layer: "Prostrate Shrub (1% cover)",
-        plants: ["Acrotriche serrulata (Honey-pots)"]
-      },
-      {
-        layer: "Herb Layer (1% cover)",
-        plants: ["Drosera peltata ssp. auriculata (Tall Sundew)"]
-      },
-      {
-        layer: "Large Tufted Graminoid (15% cover)",
-        plants: [
-          "Xanthorrhoea australis (Austral Grass-tree)",
-          "Joycea pallida (Silvertop Wallaby-grass)"
-        ]
-      },
-      {
-        layer: "Medium to Small Tufted Graminoid (10% cover)",
-        plants: [
-          "Dianella revoluta (Black-anther Flax-lily)",
-          "Lepidosperma semiteres (Wire Rapier-sedge)",
-          "Poa australis spp. agg. (Tussock Grass)"
-        ]
-      }
-    ]
   }
 };
 
@@ -457,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // 4) Email gate­keep­er: reveal plant list
+  // 4) Email gate: reveal plant list
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
     const plantsDiv = document.getElementById("modal-plants");
@@ -469,4 +408,110 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// … the rest of your geocode/fetch/displayModal functions remain unchanged …
+function geocodeAddress(address) {
+  fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      address
+    )}`
+  )
+    .then(res => {
+      if (!res.ok) throw new Error(`Geocode failed (${res.status})`);
+      return res.json();
+    })
+    .then(results => {
+      if (!results.length) throw new Error("Address not found.");
+      const lat = +results[0].lat;
+      const lon = +results[0].lon;
+      map.setView([lat, lon], 12);
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lon]).addTo(map);
+      fetchEVCData(lat, lon);
+    })
+    .catch(err => {
+      console.error(err);
+      alert(err.message);
+    });
+}
+
+function fetchEVCData(lat, lon) {
+  const d = 0.02;
+  const bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`;
+  const url =
+    `https://opendata.maps.vic.gov.au/geoserver/wfs` +
+    `?service=WFS` +
+    `&version=1.0.0` +
+    `&request=GetFeature` +
+    `&typeName=open-data-platform:nv2005_evcbcs` +
+    `&bbox=${bbox},EPSG:4326` +
+    `&outputFormat=application/json`;
+
+  fetch(url)
+    .then(res => res.text())
+    .then(text => {
+      if (text.trim().startsWith("<")) {
+        console.error("EVC WFS returned HTML:", text.slice(0, 200));
+        throw new Error("Error retrieving EVC data. Please try again later.");
+      }
+      return JSON.parse(text);
+    })
+    .then(data => {
+      if (!data.features?.length) {
+        throw new Error("No EVC data found for this location.");
+      }
+      const pt = turf.point([lon, lat]);
+      const feat =
+        data.features.find(
+          f =>
+            f.geometry?.type === "Polygon" &&
+            turf.booleanPointInPolygon(pt, turf.polygon(f.geometry.coordinates))
+        ) || data.features[0];
+      const p = feat.properties;
+      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
+    })
+    .catch(err => {
+      console.error(err);
+      alert(err.message);
+    });
+}
+
+function displayModal(name, status, region, code, lat, lon) {
+  document.getElementById("modal-evc-name").textContent = name || "Unknown";
+  document.getElementById("modal-evc-status").textContent =
+    status || "Not specified";
+  document.getElementById("modal-evc-region").textContent =
+    region || "Not specified";
+
+  // description
+  const info = curatedPlants[code];
+  document.getElementById("modal-evc-description").textContent = info
+    ? info.description
+    : "No description available.";
+
+  // build & hide plant list
+  const plantsDiv = document.getElementById("modal-plants");
+  plantsDiv.innerHTML = "";
+  if (info?.recommendations) {
+    info.recommendations.forEach(section => {
+      const wr = document.createElement("div");
+      wr.className = "layer";
+      wr.innerHTML =
+        `<h3>${section.layer}</h3>` +
+        `<ul>${section.plants.map(p => `<li>${p}</li>`).join("")}</ul>`;
+      plantsDiv.appendChild(wr);
+    });
+  }
+  plantsDiv.style.display = "none";
+
+  // in-modal map
+  if (modalMap) modalMap.remove();
+  modalMap = L.map("modal-map").setView([lat, lon], 12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(modalMap);
+  L.marker([lat, lon]).addTo(modalMap);
+
+  // show modal
+  const modal = document.getElementById("evc-modal");
+  modal.style.display = "flex";
+  setTimeout(() => modalMap.invalidateSize(), 0);
+}
