@@ -2,10 +2,10 @@
 
 // — Curated plants data (add all your EVC entries here) —
 const curatedPlants = {
-  // … other EVC entries …
+  // … your other EVC entries up to 22 …
 
   "22": {
-    // Grassy Dry Forest (Victorian Volcanic Plain) – EVC 22
+    // Grassy Dry Forest (Victorian Volcanic Plain)
     description:
       "Grassy Dry Forest is a light-filled forest on lower slopes and ranges, where open canopies of Stringybark eucalypts shelter a grassy understorey. Lacking dense shrubs, it’s dominated by wallaby grasses, wildflowers, and sun orchids.",
     recommendations: [
@@ -19,15 +19,11 @@ const curatedPlants = {
       },
       {
         layer: "Understorey Tree / Large Shrub (5% cover)",
-        plants: [
-          "Acacia dealbata (Silver Wattle)"
-        ]
+        plants: ["Acacia dealbata (Silver Wattle)"]
       },
       {
         layer: "Medium Shrub (10% cover)",
-        plants: [
-          "Epacris impressa (Common Heath)"
-        ]
+        plants: ["Epacris impressa (Common Heath)"]
       },
       {
         layer: "Small Shrub (5% cover)",
@@ -39,15 +35,11 @@ const curatedPlants = {
       },
       {
         layer: "Prostrate Shrub (1% cover)",
-        plants: [
-          "Acrotriche serrulata (Honey-pots)"
-        ]
+        plants: ["Acrotriche serrulata (Honey-pots)"]
       },
       {
         layer: "Large Herb (5% cover)",
-        plants: [
-          "Senecio tenuiflorus (Slender Fireweed)"
-        ]
+        plants: ["Senecio tenuiflorus (Slender Fireweed)"]
       },
       {
         layer: "Medium Herb (20% cover)",
@@ -67,9 +59,7 @@ const curatedPlants = {
       },
       {
         layer: "Large Tufted Grass (5% cover)",
-        plants: [
-          "Joycea pallida (Silvertop Wallaby-grass)"
-        ]
+        plants: ["Joycea pallida (Silvertop Wallaby-grass)"]
       },
       {
         layer: "Medium / Small Tufted Grass (30% cover)",
@@ -81,27 +71,115 @@ const curatedPlants = {
       },
       {
         layer: "Tiny / Non-tufted Grass (1% cover)",
-        plants: [
-          "Microlaena stipoides var. stipoides (Weeping Grass)"
-        ]
+        plants: ["Microlaena stipoides var. stipoides (Weeping Grass)"]
       },
       {
         layer: "Ground Fern (1% cover)",
-        plants: [
-          "Pteridium esculentum (Austral Bracken)"
-        ]
+        plants: ["Pteridium esculentum (Austral Bracken)"]
       },
       {
         layer: "Scrambler / Climber (1% cover)",
+        plants: ["Hardenbergia violacea (Purple Coral-pea)"]
+      }
+    ]
+    // you can add recruitment, organicLitter, logs here if you like
+  },
+
+  "23": {
+    // Herb-rich Foothill Forest (Victorian Volcanic Plain) – EVC 23
+    description:
+      "This diverse forest occurs on moderate slopes with fertile loamy soils. A tall canopy of Messmate (Eucalyptus obliqua), Mountain Grey Gum (Eucalyptus cypellocarpa), and Manna Gum (Eucalyptus viminalis) shades a lush understorey teeming with grasses, ferns, orchids, lilies, and tuberous herbs.\n\nThe open structure and rich plant diversity are the result of regular low-intensity fire, shallow nutrient cycling, and a long history of Aboriginal land care. Though less common now due to logging and fragmentation, this EVC remains a stronghold of southern Victoria’s botanical richness.",
+    recruitment: "Continuous",
+    organicLitter: "40% cover",
+    logs: "20 m per 0.1 ha",
+    recommendations: [
+      {
+        layer: "Tree Canopy (40% cover)",
         plants: [
-          "Hardenbergia violacea (Purple Coral-pea)"
+          "Eucalyptus ovata (Swamp Gum)",
+          "Eucalyptus obliqua (Messmate Stringybark)",
+          "Eucalyptus viminalis ssp. viminalis (Manna Gum)"
+        ]
+      },
+      {
+        layer: "Understorey Tree / Large Shrub (10% cover)",
+        plants: ["Acacia melanoxylon (Blackwood)"]
+      },
+      {
+        layer: "Medium Shrub (20% cover)",
+        plants: [
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Acacia verticillata (Prickly Moses)",
+          "Ozothamnus ferrugineus (Tree Everlasting)",
+          "Bursaria spinosa (Sweet Bursaria)"
+        ]
+      },
+      {
+        layer: "Small Shrub (1% cover)",
+        plants: ["Pimelea humilis (Common Rice-flower)"]
+      },
+      {
+        layer: "Large Herb (5% cover)",
+        plants: [
+          "Senecio tenuiflorus (Slender Fireweed)",
+          "Pterostylis longifolia s.l. (Tall Greenhood)"
+        ]
+      },
+      {
+        layer: "Medium Herb (15% cover)",
+        plants: [
+          "Euchiton collinus s.s. (Creeping Cudweed)",
+          "Hypericum gramineum (Small St John’s Wort)",
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Viola hederacea sensu Willis (Ivy-leaf Violet)"
+        ]
+      },
+      {
+        layer: "Small / Prostrate Herb (5% cover)",
+        plants: ["Hydrocotyle laxiflora (Stinking Pennywort)"]
+      },
+      {
+        layer: "Large Tufted Grass (20% cover)",
+        plants: [
+          "Juncus procerus (Tall Rush)",
+          "Lepidosperma laterale var. majus (Variable Sword-sedge)",
+          "Deyeuxia quadriseta (Reed Bent-grass)"
+        ]
+      },
+      {
+        layer: "Large Non-tufted Grass (5% cover)",
+        plants: ["Lepidosperma longitudinale (Pithy Sword-sedge)"]
+      },
+      {
+        layer: "Medium / Small Tufted Grass (10% cover)",
+        plants: [
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Lomandra sororia (Small Mat-rush)",
+          "Lepidosperma laterale var. laterale (Variable Sword-sedge)"
+        ]
+      },
+      {
+        layer: "Tiny / Non-tufted Grass (10% cover)",
+        plants: [
+          "Microlaena stipoides var. stipoides (Weeping Grass)",
+          "Poa tenera (Slender Tussock-grass)"
+        ]
+      },
+      {
+        layer: "Ground Fern (5% cover)",
+        plants: ["Pteridium esculentum (Austral Bracken)"]
+      },
+      {
+        layer: "Scrambler / Climber (5% cover)",
+        plants: [
+          "Clematis aristata (Mountain Clematis)",
+          "Billardiera scandens (Common Apple-berry)"
         ]
       }
     ]
-    // you can add recruitment, organicLitter, logs here when ready
-  },
+  }
 
-  // … any further EVCs …
+  // …add any further EVCs here…
 };
 
 let map, marker, modalMap;
@@ -113,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // 2) Address form
+  // 2) Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -228,7 +306,7 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  // Show modal & fix Leaflet
+  // Show modal & fix Leaflet sizing
   const m = document.getElementById("evc-modal");
   m.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
