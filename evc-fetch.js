@@ -56,10 +56,7 @@ const curatedPlants = {
         layer: "Medium–Tiny Non-tufted Graminoid (10% cover)",
         plants: ["Microlaena stipoides var. stipoides (Weeping Grass)"]
       },
-      {
-        layer: "Bryophytes/Lichens (10% cover)",
-        plants: []
-      }
+      { layer: "Bryophytes/Lichens (10% cover)", plants: [] }
     ]
   },
 
@@ -212,7 +209,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Small or Prostrate Herb (5% cover)",
+        layer: "Small/Prostrate Herb (5% cover)",
         plants: [
           "Dichondra repens (Kidney-weed)",
           "Opercularia varia (Variable Stinkweed)",
@@ -249,16 +246,97 @@ const curatedPlants = {
         plants: ["Pteridium esculentum (Austral Bracken)"]
       },
       {
-        layer: "Scrambler or Climber (5% cover)",
+        layer: "Scrambler/Climber (5% cover)",
         plants: [
           "Comesperma volubile (Love Creeper)",
           "Billardiera scandens (Common Apple-berry)"
         ]
       },
+      { layer: "Bryophytes/Lichens (10% cover)", plants: [] }
+    ]
+  },
+
+  // Valley Grassy Forest (EVC 47)
+  "47": {
+    description:
+      "Valley Grassy Forest is a species-rich open forest that occurs on lower slopes, valleys, and gentle rises, where soils are fertile and rainfall moderate. It typically features a tall but scattered canopy of Candlebark, Swamp Gum, or Messmate, over a diverse ground layer of tussock grasses, lilies, orchids, and herbs. Shrubs are generally sparse, allowing for a light-filled understory that bursts into colour in spring. Once common across central and eastern Victoria, this forest type is now vulnerable due to agriculture, weed pressure, and soil disturbance.",
+    recommendations: [
       {
-        layer: "Bryophytes/Lichens (10% cover)",
-        plants: []
-      }
+        layer: "Tree Canopy (20% cover)",
+        plants: [
+          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
+          "Eucalyptus leucoxylon (Yellow Gum)",
+          "Eucalyptus melliodora (Yellow Box)",
+          "Eucalyptus rubida (Candlebark)"
+        ]
+      },
+      { layer: "Immature Canopy Tree (5% cover)", plants: [] },
+      {
+        layer: "Understorey Tree / Large Shrub (10% cover)",
+        plants: ["Acacia mearnsii (Black Wattle)"]
+      },
+      {
+        layer: "Medium Shrub (15% cover)",
+        plants: [
+          "Myoporum sp.1 (Sticky Boobialla)",
+          "Acacia pycnantha (Golden Wattle)",
+          "Bursaria spinosa ssp. spinosa (Sweet Bursaria)"
+        ]
+      },
+      {
+        layer: "Prostrate Shrub (1% cover)",
+        plants: ["Bossiaea prostrata (Creeping Bossiaea)"]
+      },
+      {
+        layer: "Large Herb (5% cover)",
+        plants: ["Veronica gracilis (Slender Speedwell)"]
+      },
+      {
+        layer: "Medium Herb (25% cover)",
+        plants: [
+          "Poranthera microphylla (Small Poranthera)",
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)"
+        ]
+      },
+      {
+        layer: "Small/Prostrate Herb (5% cover)",
+        plants: [
+          "Solenogyne dominii (Smooth Solenogyne)",
+          "Oxalis corniculata s.l. (Yellow Wood-sorrel)",
+          "Oxalis exilis (Shady Wood-sorrel)",
+          "Opercularia varia (Variable Stinkweed)"
+        ]
+      },
+      {
+        layer: "Large Tufted Graminoid (5% cover)",
+        plants: [
+          "Austrostipa rudis (Veined Spear-grass)",
+          "Austrostipa mollis (Supple Spear-grass)"
+        ]
+      },
+      {
+        layer: "Large Non-tufted Graminoid (10% cover)",
+        plants: ["Gahnia radula (Thatch Saw-sedge)"]
+      },
+      {
+        layer: "Medium–Small Tufted Graminoid (40% cover)",
+        plants: [
+          "Themeda triandra (Kangaroo Grass)",
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Tricoryne elatior (Yellow Rush-lily)",
+          "Arthropodium strictum s.l. (Chocolate Lily)"
+        ]
+      },
+      {
+        layer: "Medium–Tiny Non-tufted Graminoid (5% cover)",
+        plants: ["Microlaena stipoides var. stipoides (Weeping Grass)"]
+      },
+      {
+        layer: "Scrambler/Climber (1% cover)",
+        plants: ["Billardiera scandens (Common Apple-berry)"]
+      },
+      { layer: "Bryophytes/Lichens (20% cover)", plants: [] }
     ]
   },
 
@@ -310,7 +388,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Small or Prostrate Herb (5% cover)",
+        layer: "Small/Prostrate Herb (5% cover)",
         plants: [
           "Oxalis corniculata s.l. (Yellow Wood-sorrel)",
           "Dichondra repens (Kidney-weed)"
@@ -318,34 +396,33 @@ const curatedPlants = {
       },
       {
         layer: "Large Tufted Graminoid (10% cover)",
-        plants: ["Carex appressa (Tall Sedge)", "Poa labillardierei (Common Tussock-grass)"]
+        plants: [
+          "Carex appressa (Tall Sedge)",
+          "Poa labillardierei (Common Tussock-grass)"
+        ]
       },
       {
         layer: "Large Non-tufted Graminoid (10% cover)",
         plants: ["Phragmites australis (Common Reed)"]
       },
       {
-        layer: "Medium to Small Tufted Graminoid (10% cover)",
+        layer: "Medium–Small Tufted Graminoid (10% cover)",
         plants: ["Juncus amabilis (Hollow Rush)", "Cyperus spp. (Flat-sedge)"]
       },
       {
-        layer: "Medium to Tiny Non-tufted Graminoid (10% cover)",
+        layer: "Medium–Tiny Non-tufted Graminoid (10% cover)",
         plants: [
           "Microlaena stipoides var. stipoides (Weeping Grass)",
           "Eleocharis acuta (Common Spike-sedge)"
         ]
       },
       {
-        layer: "Scrambler or Climber (5% cover)",
+        layer: "Scrambler/Climber (5% cover)",
         plants: ["Calystegia sepium (Large Bindweed)"]
       },
-      {
-        layer: "Bryophytes/Lichens (10% cover)",
-        plants: []
-      }
+      { layer: "Bryophytes/Lichens (10% cover)", plants: [] }
     ]
   }
-
   // …add further EVCs here…
 };
 
