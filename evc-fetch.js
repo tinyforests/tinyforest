@@ -2,7 +2,7 @@
 
 // — Curated plants data —
 const curatedPlants = {
-  // EVC 55 – Plains Grassy Woodland
+  // Plains Grassy Woodland (EVC 55)
   "55": {
     description:
       "Plains Grassy Woodland is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums and Gippsland Red Gums form a broad canopy over a ground layer rich with kangaroo grass, native lilies, wildflowers, and seasonal herbs. This EVC thrives where seasonal waterlogging and cracking clays occur, shaped by Aboriginal fire practices and deep time. Today, less than 3% remains, making it one of the most threatened ecosystems yet vital for biodiversity and cultural continuity.",
@@ -11,13 +11,11 @@ const curatedPlants = {
         layer: "Tree Canopy (20% cover)",
         plants: [
           "Eucalyptus tereticornis ssp. mediana (Gippsland Red-gum)",
-          "Eucalyptus camaldulensis (River Red-gum)"
+          "Eucalyptus camaldulensis (River Red-gum)",
+          "Eucalyptus ovata (Swamp Gum)"
         ]
       },
-      {
-        layer: "Immature Canopy Tree (5% cover)",
-        plants: []
-      },
+      { layer: "Immature Canopy Tree (5% cover)", plants: [] },
       {
         layer: "Understorey Tree / Large Shrub (5% cover)",
         plants: [
@@ -26,22 +24,13 @@ const curatedPlants = {
           "Acacia melanoxylon (Blackwood)"
         ]
       },
-      {
-        layer: "Medium Shrub (10% cover)",
-        plants: ["Kunzea ericoides (Burgan)"]
-      },
-      {
-        layer: "Small Shrub (1% cover)",
-        plants: ["Pimelea humilis (Common Rice-flower)"]
-      },
-      {
-        layer: "Prostrate Shrub (1% cover)",
-        plants: ["Bossiaea prostrata (Creeping Bossiaea)"]
-      },
+      { layer: "Medium Shrub (10% cover)", plants: ["Kunzea ericoides (Burgan)"] },
+      { layer: "Small Shrub (1% cover)", plants: ["Pimelea humilis (Common Rice-flower)"] },
+      { layer: "Prostrate Shrub (1% cover)", plants: ["Bossiaea prostrata (Creeping Bossiaea)"] },
       {
         layer: "Medium Herb (20% cover)",
         plants: [
-          "Hypericum gramineum (Small St John's Wort)",
+          "Hypericum gramineum (Small St John’s Wort)",
           "Oxalis perennans (Grassland Wood-sorrel)"
         ]
       },
@@ -52,14 +41,8 @@ const curatedPlants = {
           "Poranthera microphylla (Small Poranthera)"
         ]
       },
-      {
-        layer: "Large Tufted Graminoid (5% cover)",
-        plants: ["Austrostipa rudis (Veined Spear-grass)"]
-      },
-      {
-        layer: "Large Non-tufted Graminoid (10% cover)",
-        plants: ["Gahnia radula (Thatch Saw-sedge)"]
-      },
+      { layer: "Large Tufted Graminoid (5% cover)", plants: ["Austrostipa rudis (Veined Spear-grass)"] },
+      { layer: "Large Non-tufted Graminoid (10% cover)", plants: ["Gahnia radula (Thatch Saw-sedge)"] },
       {
         layer: "Medium–Small Tufted Graminoid (35% cover)",
         plants: [
@@ -80,7 +63,7 @@ const curatedPlants = {
     ]
   },
 
-  // EVC 43 – Shrubby Foothill Forest
+  // Shrubby Foothill Forest (EVC 43)
   "43": {
     description:
       "Shrubby Foothill Forest is a tall eucalypt forest that grows on upper slopes and ridges, typically featuring a canopy of Messmate and Broad-leaved Peppermint above a dense and diverse shrubby understorey of wattles, peas, and tea-trees. The ground layer includes ferns, lilies, and native grasses, forming a structurally rich habitat that supports birds, insects, and small mammals. It responds well to low-intensity fire and forms part of a mosaic with both dry and wet forest types across foothill landscapes.",
@@ -169,7 +152,7 @@ const curatedPlants = {
     ]
   },
 
-  // EVC 175 – Grassy Woodland
+  // Grassy Woodland (EVC 175)
   "175": {
     description:
       "Grassy Woodland is a scattered open woodland found on gentle slopes and undulating plains, typically with a sparse canopy of Grey Box, Yellow Box, or Red Gum over a species-rich ground layer of grasses, lilies, and wildflowers. The shrub layer is usually sparse, giving way to a light-filled understorey dominated by Themeda triandra (Kangaroo Grass) and seasonal herbs. Once widespread across the Victorian Volcanic Plain, this community has been heavily cleared, with remnants now vital for supporting threatened woodland birds and grassland invertebrates.",
@@ -184,10 +167,7 @@ const curatedPlants = {
           "Allocasuarina verticillata (Drooping Sheoak)"
         ]
       },
-      {
-        layer: "Immature Canopy Tree (5% cover)",
-        plants: []
-      },
+      { layer: "Immature Canopy Tree (5% cover)", plants: [] },
       {
         layer: "Understorey Tree / Large Shrub (10% cover)",
         plants: [
@@ -280,9 +260,89 @@ const curatedPlants = {
         plants: []
       }
     ]
+  },
+
+  // Floodplain Riparian Woodland (EVC 56)
+  "56": {
+    description:
+      "Floodplain Riparian Woodland occurs on the seasonally flooded river flats and lower terraces of large watercourses, often forming a transition between wetland and drier woodland types. It is typically dominated by River Red Gum (Eucalyptus camaldulensis) with a sparse to moderate shrub layer of Blackwood, River Bottlebrush, or Sweet Bursaria, and a diverse understorey of grasses, sedges, and herbs. These woodlands are crucial for bank stability, flood mitigation, and as faunal corridors, but have been heavily impacted by river regulation, weed invasion, and grazing.",
+    recommendations: [
+      {
+        layer: "Tree Canopy (20% cover)",
+        plants: [
+          "Eucalyptus camaldulensis (River Red-gum)",
+          "Eucalyptus tereticornis ssp. mediana (Gippsland Red Gum)",
+          "Eucalyptus ovata (Swamp Gum)"
+        ]
+      },
+      { layer: "Immature Canopy Tree (5% cover)", plants: [] },
+      {
+        layer: "Understorey Tree / Large Shrub (10% cover)",
+        plants: ["Acacia implexa (Lightwood)", "Acacia melanoxylon (Blackwood)"]
+      },
+      {
+        layer: "Medium Shrub (15% cover)",
+        plants: [
+          "Ozothamnus ferrugineus (Tree Everlasting)",
+          "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
+          "Hymenanthera dentata s.l. (Tree Violet)"
+        ]
+      },
+      {
+        layer: "Large Herb (15% cover)",
+        plants: [
+          "Urtica incisa (Scrub Nettle)",
+          "Persicaria subsessilis (Hairy Knotweed)",
+          "Senecio quadridentatus (Cottony Fireweed)"
+        ]
+      },
+      {
+        layer: "Medium Herb (10% cover)",
+        plants: [
+          "Acaena novae-zelandiae (Bidgee-widgee)",
+          "Hydrocotyle hirta (Hairy Pennywort)",
+          "Stellaria pungens (Prickly Starwort)",
+          "Veronica plebeia (Trailing Speedwell)"
+        ]
+      },
+      {
+        layer: "Small or Prostrate Herb (5% cover)",
+        plants: [
+          "Oxalis corniculata s.l. (Yellow Wood-sorrel)",
+          "Dichondra repens (Kidney-weed)"
+        ]
+      },
+      {
+        layer: "Large Tufted Graminoid (10% cover)",
+        plants: ["Carex appressa (Tall Sedge)", "Poa labillardierei (Common Tussock-grass)"]
+      },
+      {
+        layer: "Large Non-tufted Graminoid (10% cover)",
+        plants: ["Phragmites australis (Common Reed)"]
+      },
+      {
+        layer: "Medium to Small Tufted Graminoid (10% cover)",
+        plants: ["Juncus amabilis (Hollow Rush)", "Cyperus spp. (Flat-sedge)"]
+      },
+      {
+        layer: "Medium to Tiny Non-tufted Graminoid (10% cover)",
+        plants: [
+          "Microlaena stipoides var. stipoides (Weeping Grass)",
+          "Eleocharis acuta (Common Spike-sedge)"
+        ]
+      },
+      {
+        layer: "Scrambler or Climber (5% cover)",
+        plants: ["Calystegia sepium (Large Bindweed)"]
+      },
+      {
+        layer: "Bryophytes/Lichens (10% cover)",
+        plants: []
+      }
+    ]
   }
 
-  // …add further EVCs here…
+  // …add further EVCs as needed…
 };
 
 let map, marker, modalMap;
