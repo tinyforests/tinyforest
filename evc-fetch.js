@@ -266,6 +266,10 @@ const curatedPlants = {
   "56": {
     description:
       "Floodplain Riparian Woodland occurs on the seasonally flooded river flats and lower terraces of large watercourses, often forming a transition between wetland and drier woodland types. It is typically dominated by River Red Gum (Eucalyptus camaldulensis) with a sparse to moderate shrub layer of Blackwood, River Bottlebrush, or Sweet Bursaria, and a diverse understorey of grasses, sedges, and herbs. These woodlands are crucial for bank stability, flood mitigation, and as faunal corridors, but have been heavily impacted by river regulation, weed invasion, and grazing.",
+    recruitment:
+      "Episodic/Flood. Desirable period between disturbances is 5 years.",
+    organicLitter: "40% cover",
+    logs: "30 m per 0.1 ha",
     recommendations: [
       {
         layer: "Tree Canopy (20% cover)",
@@ -342,7 +346,7 @@ const curatedPlants = {
     ]
   }
 
-  // …add further EVCs as needed…
+  // …add further EVCs here…
 };
 
 let map, marker, modalMap;
