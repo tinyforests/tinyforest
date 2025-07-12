@@ -39,10 +39,6 @@ const curatedPlants = {
         plants: ["Bossiaea prostrata (Creeping Bossiaea)"]
       },
       {
-        layer: "Large Herb (5% cover)",
-        plants: []
-      },
-      {
         layer: "Medium Herb (20% cover)",
         plants: [
           "Hypericum gramineum (Small St John's Wort)",
@@ -171,9 +167,122 @@ const curatedPlants = {
         plants: ["Billardiera scandens (Common Apple-berry)"]
       }
     ]
+  },
+
+  // EVC 175 – Grassy Woodland
+  "175": {
+    description:
+      "Grassy Woodland is a scattered open woodland found on gentle slopes and undulating plains, typically with a sparse canopy of Grey Box, Yellow Box, or Red Gum over a species-rich ground layer of grasses, lilies, and wildflowers. The shrub layer is usually sparse, giving way to a light-filled understorey dominated by Themeda triandra (Kangaroo Grass) and seasonal herbs. Once widespread across the Victorian Volcanic Plain, this community has been heavily cleared, with remnants now vital for supporting threatened woodland birds and grassland invertebrates.",
+    recruitment: "Continuous",
+    organicLitter: "20% cover",
+    logs: "15 m per 0.1 ha",
+    recommendations: [
+      {
+        layer: "Tree Canopy (15% cover)",
+        plants: [
+          "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)",
+          "Allocasuarina verticillata (Drooping Sheoak)"
+        ]
+      },
+      {
+        layer: "Immature Canopy Tree (5% cover)",
+        plants: []
+      },
+      {
+        layer: "Understorey Tree / Large Shrub (10% cover)",
+        plants: [
+          "Acacia mearnsii (Black Wattle)",
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Exocarpos cupressiformis (Cherry Ballart)"
+        ]
+      },
+      {
+        layer: "Medium Shrub (15% cover)",
+        plants: [
+          "Leptospermum continentale (Prickly Tea-tree)",
+          "Epacris impressa (Common Heath)",
+          "Cassinia aculeata (Common Cassinia)",
+          "Acacia paradoxa (Hedge Wattle)"
+        ]
+      },
+      {
+        layer: "Small Shrub (5% cover)",
+        plants: [
+          "Pimelea humilis (Common Rice-flower)",
+          "Hibbertia riparia (Erect Guinea-flower)"
+        ]
+      },
+      {
+        layer: "Prostrate Shrub (1% cover)",
+        plants: [
+          "Bossiaea prostrata (Creeping Bossiaea)",
+          "Astroloma humifusum (Cranberry Heath)",
+          "Acrotriche serrulata (Honey-pots)"
+        ]
+      },
+      {
+        layer: "Large Herb (5% cover)",
+        plants: ["Pterostylis longifolia s.l. (Tall Greenhood)"]
+      },
+      {
+        layer: "Medium Herb (10% cover)",
+        plants: [
+          "Gonocarpus tetragynus (Common Raspwort)",
+          "Drosera peltata ssp. auriculata (Tall Sundew)"
+        ]
+      },
+      {
+        layer: "Small or Prostrate Herb (5% cover)",
+        plants: [
+          "Dichondra repens (Kidney-weed)",
+          "Opercularia varia (Variable Stinkweed)",
+          "Drosera whittakeri ssp. aberrans (Scented Sundew)"
+        ]
+      },
+      {
+        layer: "Large Tufted Graminoid (10% cover)",
+        plants: [
+          "Deyeuxia quadriseta (Reed Bent-grass)",
+          "Xanthorrhoea minor ssp. lutea (Small Grass-tree)",
+          "Lomandra longifolia (Spiny-headed Mat-rush)"
+        ]
+      },
+      {
+        layer: "Large Non-tufted Graminoid (10% cover)",
+        plants: ["Gahnia radula (Thatch Saw-sedge)"]
+      },
+      {
+        layer: "Medium–Small Tufted Graminoid (20% cover)",
+        plants: [
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Poa sieberiana (Grey Tussock-grass)",
+          "Lepidosperma laterale (Variable Sword-sedge)"
+        ]
+      },
+      {
+        layer: "Medium–Tiny Non-tufted Graminoid (10% cover)",
+        plants: ["Microlaena stipoides var. stipoides (Weeping Grass)"]
+      },
+      {
+        layer: "Ground Fern (5% cover)",
+        plants: ["Pteridium esculentum (Austral Bracken)"]
+      },
+      {
+        layer: "Scrambler or Climber (5% cover)",
+        plants: [
+          "Comesperma volubile (Love Creeper)",
+          "Billardiera scandens (Common Apple-berry)"
+        ]
+      },
+      {
+        layer: "Bryophytes/Lichens (10% cover)",
+        plants: []
+      }
+    ]
   }
 
-  // …you can continue adding other EVC codes here…
+  // …add further EVCs here…
 };
 
 let map, marker, modalMap;
@@ -206,7 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const btn = e.target.querySelector("button");
     btn.textContent = "Plants Shown";
     btn.disabled = true;
-    // TODO: wire this into your backend or Google Form
+    // TODO: integrate with your backend or form service
   });
 });
 
@@ -306,10 +415,7 @@ function displayModal(name, status, region, code, lat, lon) {
       row.appendChild(ul);
       plantsDiv.appendChild(row);
     });
-    // plants are shown only after email gate
-    plantsDiv.style.display = "none";
-  } else {
-    plantsDiv.style.display = "none";
+    plantsDiv.style.display = "none"; // hidden until email gate
   }
 
   if (modalMap) modalMap.remove();
@@ -319,7 +425,6 @@ function displayModal(name, status, region, code, lat, lon) {
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
-  const m = document.getElementById("evc-modal");
-  m.style.display = "flex";
+  document.getElementById("evc-modal").style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
 }
