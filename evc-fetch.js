@@ -14,7 +14,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Sub-Canopy Layer (shorter trees and large shrubs)",
+        layer: "Sub-Canopy Layer (shorter trees & shrubs)",
         plants: [
           "Acacia mearnsii (Black Wattle)",
           "Allocasuarina littoralis (Black Sheoak)",
@@ -36,7 +36,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer (ground-level herbs, grasses & ferns)",
+        layer: "Herb Layer (ground-level herbs & grasses)",
         plants: [
           "Pterostylis longifolia s.l. (Tall Greenhood)",
           "Gonocarpus tetragynus (Common Raspwort)",
@@ -75,7 +75,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Sub-Canopy Layer (understorey trees)",
+        layer: "Sub-Canopy Layer (smaller trees)",
         plants: [
           "Acacia mearnsii (Black Wattle)"
         ]
@@ -185,7 +185,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Shrub Layer (medium shrubs)",
+        layer: "Shrub Layer",
         plants: [
           "Bursaria spinosa ssp. spinosa (Sweet Bursaria)"
         ]
@@ -215,18 +215,62 @@ const curatedPlants = {
     ]
   },
 
-  "55_61": {
+  "55": {
     description:
-      "Plains Grassy Woodland is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums and Yellow Gums form a broad canopy over a ground layer rich with kangaroo grass, lilies, wildflowers and seasonal herbs. This community is now critically endangered, with small fragments persisting in remnant reserves and roadsides.",
+      "Plains Grassy Woodland is a scattered woodland of River Red Gum, Yellow Box, or Grey Box, with a grassy and herb-rich ground layer and few shrubs. It occurs on flat to gently undulating fertile plains, where natural grassland merges with light canopy cover. The ground layer includes diverse species such as Kangaroo Grass, Billy Buttons, Yam Daisy, and seasonal lilies and orchids. Once widespread across Victoria’s volcanic and sedimentary plains, less than 3% remains, making its remnants vital for the survival of woodland birds, native bees, and grassland flora.",
     recommendations: [
       {
-        layer: "Canopy Layer (scattered river red-gums)",
+        layer: "Canopy Layer (mature trees)",
         plants: [
-          "Eucalyptus camaldulensis (River Red Gum)"
+          "Eucalyptus tereticornis ssp. mediana (Gippsland Red-gum)",
+          "Eucalyptus camaldulensis (River Red-gum)"
         ]
       },
       {
-        layer: "Shrub Layer (golden wattles & heath-shrubs)",
+        layer: "Sub-Canopy Layer (understorey trees & large shrubs)",
+        plants: [
+          "Allocasuarina littoralis (Black Sheoak)",
+          "Acacia mearnsii (Black Wattle)",
+          "Acacia melanoxylon (Blackwood)"
+        ]
+      },
+      {
+        layer: "Shrub Layer (small & medium shrubs)",
+        plants: [
+          "Kunzea ericoides (Burgan)",
+          "Pimelea humilis (Common Rice-flower)",
+          "Bossiaea prostrata (Creeping Bossiaea)"
+        ]
+      },
+      {
+        layer: "Herb Layer (grasses, herbs & groundcovers)",
+        plants: [
+          "Hypericum gramineum (Small St John’s Wort)",
+          "Oxalis perennans (Grassland Wood-sorrel)",
+          "Dichondra repens (Kidney-weed)",
+          "Poranthera microphylla (Small Poranthera)",
+          "Austrostipa rudis (Veined Spear-grass)",
+          "Gahnia radula (Thatch Saw-sedge)",
+          "Themeda triandra (Kangaroo Grass)",
+          "Carex breviculmis (Common Grass-sedge)",
+          "Lomandra filiformis (Wattle Mat-rush)",
+          "Schoenus apogon (Common Bog-sedge)",
+          "Microlaena stipoides var. stipoides (Weeping Grass)"
+        ]
+      }
+    ]
+  },
+
+  "55_61": {
+    description:
+      "Plains Grassy Woodland (VVP variant) is an open, sunlit woodland once widespread across the heavy basalt clays of western Victoria. Scattered River Red Gums and Yellow Gums form a broad canopy over a ground layer rich with kangaroo grass, lilies, wildflowers and seasonal herbs. This community is now critically endangered, with small fragments persisting in remnant reserves and roadsides.",
+    recommendations: [
+      {
+        layer: "Canopy Layer",
+        plants: ["Eucalyptus camaldulensis (River Red Gum)"]
+      },
+      {
+        layer: "Shrub Layer",
         plants: [
           "Acacia pycnantha (Golden Wattle)",
           "Acacia paradoxa (Hedge Wattle)",
@@ -236,7 +280,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer (grasses & wildflowers)",
+        layer: "Herb Layer",
         plants: [
           "Oxalis perennans (Grassland Wood-sorrel)",
           "Gonocarpus tetragynus (Common Raspwort)",
@@ -257,22 +301,18 @@ const curatedPlants = {
 
   "164": {
     description:
-      "Creekline Herb-rich Woodland occurs along minor drainage lines and ephemeral creeks, where fertile soils and intermittent moisture support a sparse eucalypt canopy above a highly diverse ground layer of grasses, sedges and forbs. The open shrub layer allows light to reach a herb-rich understorey of orchids, lilies, and tuberous herbs. These corridors are now rare due to grazing, erosion and exotic weeds.",
+      "Creekline Herb-rich Woodland occurs along minor drainage lines and ephemeral creeks, where fertile soils and intermittent moisture support a sparse eucalypt canopy above a highly diverse ground layer of grasses, sedges and forbs. The open shrub layer allows light to reach a herb-rich understorey of orchids, lilies and tuberous herbs. These corridors are now rare due to grazing, erosion and exotic weeds.",
     recommendations: [
       {
-        layer: "Canopy Layer (scattered gums)",
-        plants: [
-          "Eucalyptus ovata (Swamp Gum)"
-        ]
+        layer: "Canopy Layer",
+        plants: ["Eucalyptus ovata (Swamp Gum)"]
       },
       {
-        layer: "Sub-Canopy Layer (large shrubs & trees)",
-        plants: [
-          "Acacia melanoxylon (Blackwood)"
-        ]
+        layer: "Sub-Canopy Layer",
+        plants: ["Acacia melanoxylon (Blackwood)"]
       },
       {
-        layer: "Shrub Layer (mixed shrubs)",
+        layer: "Shrub Layer",
         plants: [
           "Acacia stricta (Hop Wattle)",
           "Ozothamnus ferrugineus (Tree Everlasting)",
@@ -284,7 +324,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer (grasses, orchids & forbs)",
+        layer: "Herb Layer",
         plants: [
           "Pterostylis longifolia s.l. (Tall Greenhood)",
           "Senecio quadridentatus (Cottony Fireweed)",
@@ -315,17 +355,17 @@ const curatedPlants = {
 
   "83": {
     description:
-      "Swampy Riparian Woodland occupies low-lying stream margins and seasonally waterlogged flats, where fluctuating water tables support a mix of wetland and woodland species. Dominated by Swamp Gum and Peppermint over a patchy shrub layer, it underpins frog habitat and water filtration. This EVC is now rare and vulnerable.",
+      "Swampy Riparian Woodland occupies low-lying stream margins and seasonally waterlogged flats, where fluctuating water tables support a mix of wetland and woodland species. Dominated by Swamp Gum and Peppermints over a patchy shrub layer, it underpins frog habitat and water filtration. This EVC is now rare and vulnerable.",
     recommendations: [
       {
-        layer: "Canopy Layer (river-flat gums)",
+        layer: "Canopy Layer",
         plants: [
           "Eucalyptus ovata (Swamp Gum)",
           "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)"
         ]
       },
       {
-        layer: "Sub-Canopy Layer (large shrubs & trees)",
+        layer: "Sub-Canopy Layer",
         plants: [
           "Acacia melanoxylon (Blackwood)",
           "Melaleuca ericifolia (Swamp Paperbark)",
@@ -333,15 +373,15 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Shrub Layer (medium shrubs)",
+        layer: "Shrub Layer",
         plants: [
           "Leptospermum continentale (Prickly Tea-tree)",
           "Coprosma quadrifida (Prickly Currant-bush)",
-          "Bursaria spinosa (Sweet Bursaria)"
+          "Bursaria spinosa ssp. spinosa (Sweet Bursaria)"
         ]
       },
       {
-        layer: "Herb Layer (sedges, rushes & grasses)",
+        layer: "Herb Layer",
         plants: [
           "Senecio minimus (Shrubby Fireweed)",
           "Gonocarpus tetragynus (Common Raspwort)",
@@ -367,19 +407,15 @@ const curatedPlants = {
       "Riparian Woodland is a tall, open woodland lining rivers, creeks and ephemeral streams on the volcanic plains. Dominated by River Red Gum with an understorey of sedges, rushes and moisture-adapted herbs, these corridors support wildlife, filter runoff and hold cultural significance along waterways.",
     recommendations: [
       {
-        layer: "Canopy Layer (river gums)",
-        plants: [
-          "Eucalyptus camaldulensis (River Red-gum)"
-        ]
+        layer: "Canopy Layer",
+        plants: ["Eucalyptus camaldulensis (River Red-gum)"]
       },
       {
-        layer: "Sub-Canopy Layer (large shrubs)",
-        plants: [
-          "Acacia melanoxylon (Blackwood)"
-        ]
+        layer: "Sub-Canopy Layer",
+        plants: ["Acacia melanoxylon (Blackwood)"]
       },
       {
-        layer: "Shrub Layer (shrubs & vines)",
+        layer: "Shrub Layer",
         plants: [
           "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
           "Viminaria juncea (Golden Spray)",
@@ -387,7 +423,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer (sedges, grasses & herbs)",
+        layer: "Herb Layer",
         plants: [
           "Wahlenbergia gracilis s.s. (Sprawling Bluebell)",
           "Senecio quadridentatus (Cottony Fireweed)",
@@ -414,20 +450,15 @@ const curatedPlants = {
       "Stream Bank Shrubland grows on rocky or gravelly stream-banks and flood-prone gullies of the volcanic plains. It is defined by shrubs like Sweet Bursaria, Tree Violet and Woolly Tea-tree beneath scattered River Red Gums, with an understorey of rushes, sedges and fast-growing herbs that respond quickly after floods.",
     recommendations: [
       {
-        layer: "Canopy Layer (river red-gum)",
-        plants: [
-          "Eucalyptus camaldulensis (River Red-gum)"
-        ]
+        layer: "Canopy Layer",
+        plants: ["Eucalyptus camaldulensis (River Red-gum)"]
       },
       {
-        layer: "Sub-Canopy Layer (large shrubs)",
-        plants: [
-          "Acacia mearnsii (Black Wattle)",
-          "Acacia melanoxylon (Blackwood)"
-        ]
+        layer: "Sub-Canopy Layer",
+        plants: ["Acacia mearnsii (Black Wattle)", "Acacia melanoxylon (Blackwood)"]
       },
       {
-        layer: "Shrub Layer (wetland shrubs)",
+        layer: "Shrub Layer",
         plants: [
           "Leptospermum lanigerum (Woolly Tea-tree)",
           "Hymenanthera dentata s.l. (Tree Violet)",
@@ -436,7 +467,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer (rushes, sedges & herbs)",
+        layer: "Herb Layer",
         plants: [
           "Persicaria decipiens (Slender Knotweed)",
           "Epilobium billardierianum (Variable Willow-herb)",
@@ -464,7 +495,7 @@ const curatedPlants = {
       "Brackish Grassland is a salt-tolerant grassy ecosystem found in low-lying flats of the Gippsland Plain. Dominated by halophytic herbs and low saltbushes, it supports rare orchids, migratory bird habitat and high overall biodiversity despite its sparse appearance. Heavily impacted by drainage and grazing, it is now one of Gippsland’s most threatened ecosystems.",
     recommendations: [
       {
-        layer: "Shrub & Succulent Layer (salt-tolerant shrubs)",
+        layer: "Shrub & Succulent Layer",
         plants: [
           "Sarcocornia quinqueflora (Beaded Glasswort)",
           "Samolus repens (Creeping Brookweed)",
@@ -473,7 +504,7 @@ const curatedPlants = {
         ]
       },
       {
-        layer: "Herb Layer (low herbs & grasses)",
+        layer: "Herb Layer",
         plants: [
           "Senecio glomeratus (Annual Fireweed)",
           "Selliera radicans (Shiny Swamp-mat)",
@@ -581,7 +612,14 @@ function fetchEVCData(lat, lon) {
             )
         ) || data.features[0];
       const p = feat.properties;
-      displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, String(p.evc), lat, lon);
+      displayModal(
+        p.x_evcname,
+        p.evc_bcs_desc,
+        p.bioregion,
+        String(p.evc),
+        lat,
+        lon
+      );
     })
     .catch(err => alert(err.message));
 }
@@ -609,7 +647,7 @@ function displayModal(name, status, region, code, lat, lon) {
         "</ul>";
       plantsDiv.appendChild(row);
     });
-    plantsDiv.style.display = "none";  // will be revealed on email submit
+    plantsDiv.style.display = "none"; // revealed on email submit
   }
 
   // in-modal mini-map
