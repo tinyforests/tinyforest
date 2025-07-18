@@ -266,3 +266,14 @@ body {
     padding: 1em;
   }
 }
+
+/* constrain hero paragraphs to merch width on desktop */
+@media (min-width: 601px) {
+  #container .hero-highlight,
+  #container .hero-highlight + p {
+    max-width: 800px;
+    margin: 0 auto 1em; /* center + add a bit of bottom spacing */
+    padding: 0 1em;     /* optional: give them some side-padding */
+    box-sizing: border-box;
+  }
+}
