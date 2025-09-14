@@ -11,33 +11,10 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="styles.css"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-
-  <!-- Tee preview minimal styles (safe to keep here; or move to styles.css) -->
-  <style>
-    /* Tee preview */
-    .tee-preview-wrap { margin-bottom: 12px; }
-    .tee-preview { display: grid; place-items: center; width: 100%; }
-    .tee-body {
-      position: relative; width: min(360px, 100%); aspect-ratio: 3 / 4;
-      background: #ffffff; border: 1px solid #e5e5e5; border-radius: 18px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.08); display: grid; place-items: center; overflow: hidden;
-    }
-    .tee-body::before, .tee-body::after {
-      content: ""; position: absolute; top: 12%; width: 28%; height: 22%;
-      background: inherit; border: 1px solid #e5e5e5; box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-    }
-    .tee-body::before { left: -10%; transform: rotate(6deg); border-top-left-radius: 14px; }
-    .tee-body::after  { right: -10%; transform: rotate(-6deg); border-top-right-radius: 14px; }
-    .tee-print {
-      width: 78%; height: 38%; display: grid; place-items: center; text-align: center;
-      font-family: "Abril Fatface", serif; line-height: 1.05; padding: 8px;
-      font-size: clamp(18px, 5.2vw, 40px); color: #111111;
-    }
-    .tee-controls { display: flex; gap: 10px; margin-top: 10px; }
-    .tee-color { display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; }
-    .tee-color input { accent-color: #111; }
-  </style>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
 </head>
 <body>
   <div id="container">
@@ -52,8 +29,15 @@
 
     <div id="search-container">
       <form id="address-form">
-        <input type="text" id="address-input" placeholder="Enter your address" required/>
-        <button id="search-button" type="submit">Find My Garden</button>
+        <input
+          type="text"
+          id="address-input"
+          placeholder="Enter your address"
+          required
+        />
+        <button id="search-button" type="submit">
+          Find My Garden
+        </button>
       </form>
     </div>
 
@@ -84,29 +68,35 @@
         <p id="modal-evc-description"></p>
       </div>
 
-      <!-- EMAIL CAPTURE (Google Form as-is) -->
+      <div id="modal-plants"></div>
+
       <div id="email-section">
-        <p>Enter your email address and we’ll send a hand-picked plant list for your EVC.</p>
+        <p>Enter your email address to display your curated plant list.</p>
         <form
           id="gf-form"
           action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
           method="POST"
           target="gf-iframe"
-          novalidate
         >
           <input type="hidden" name="entry.2031982455" id="gf-address"/>
           <input type="hidden" name="entry.1421103858" id="gf-evcCode"/>
-          <input type="email" name="entry.48659416" id="gf-email" placeholder="you@example.com" required/>
-          <button type="submit">Email me the list</button>
+          <input
+            type="email"
+            name="entry.48659416"
+            id="gf-email"
+            placeholder="you@example.com"
+            required
+          />
+          <button type="submit">Display plant list</button>
         </form>
         <iframe name="gf-iframe" style="display:none;"></iframe>
       </div>
+    </div>
+  </div>
 
-      <!-- EVC Tee Purchase -->
-      <section id="tee-section" class="card" style="margin-top:16px">
-        <h3>Buy your EVC Tee</h3>
-        <p class="muted">Printed with <strong id="tee-evc-text">Your EVC</strong> on the front.</p>
-
-        <!-- Tee mock preview -->
-        <div class="tee-preview-wrap">
-          <div class="t
+  <!-- Leaflet, Turf & fetch logic -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+  <script src="evc-fetch.js"></script>
+</body>
+</html>
