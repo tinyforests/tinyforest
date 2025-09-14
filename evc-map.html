@@ -54,7 +54,7 @@
     <div id="map"></div>
   </div>
 
-  <!-- Modal with in-modal map -->
+  <!-- Modal -->
   <div id="evc-modal">
     <div class="modal-content">
       <div id="modal-map"></div>
@@ -68,10 +68,9 @@
         <p id="modal-evc-description"></p>
       </div>
 
-      <div id="modal-plants"></div>
-
+      <!-- EMAIL CAPTURE (Google Form as-is, can swap to Formspree later) -->
       <div id="email-section">
-        <p>Enter your email address to display your curated plant list.</p>
+        <p>Enter your email address and we’ll send a hand-picked plant list for your EVC.</p>
         <form
           id="gf-form"
           action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
@@ -87,10 +86,28 @@
             placeholder="you@example.com"
             required
           />
-          <button type="submit">Display plant list</button>
+          <button type="submit">Email me the list</button>
         </form>
         <iframe name="gf-iframe" style="display:none;"></iframe>
       </div>
+
+      <!-- EVC Tee Purchase -->
+      <section id="tee-section" class="card" style="margin-top:16px">
+        <h3>Buy your EVC Tee</h3>
+        <p class="muted">Printed with <strong id="tee-evc-text">Your EVC</strong> on the front.</p>
+        <div style="display:flex; gap:8px; align-items:center;">
+          <select id="tee-size" aria-label="Size" required>
+            <option value="" selected disabled>Choose size</option>
+            <option>XS</option><option>S</option><option>M</option>
+            <option>L</option><option>XL</option><option>XXL</option>
+          </select>
+          <button id="buy-tee-btn" type="button">Buy now</button>
+        </div>
+        <div id="tee-toast" role="status" aria-live="polite" style="margin-top:8px; display:none;"></div>
+        <div class="hint" style="margin-top:6px; color:#666;">
+          We’ll copy your EVC text automatically for checkout.
+        </div>
+      </section>
     </div>
   </div>
 
@@ -98,5 +115,53 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
+
+  <!-- Tee + email helper -->
+  <script>
+  (function(){
+    // Grab EVC name once it’s been set by your evc-fetch.js logic
+    function updateTeeBlock(){
+      const evcName = (document.getElementById('modal-evc-name')?.textContent || '').trim() || 'Your EVC';
+      const teeLabel = document.getElementById('tee-evc-text');
+      if (teeLabel) teeLabel.textContent = evcName;
+    }
+
+    // Call whenever modal opens / evc is known
+    const observer = new MutationObserver(updateTeeBlock);
+    const target = document.getElementById('modal-evc-name');
+    if (target) observer.observe(target, { childList: true });
+
+    // Stripe link (replace with your real one)
+    const STRIPE_LINK = "https://buy.stripe.com/YOUR_PAYMENT_LINK";
+
+    const buyBtn  = document.getElementById('buy-tee-btn');
+    const sizeSel = document.getElementById('tee-size');
+    const toast   = document.getElementById('tee-toast');
+
+    function showToast(msg, ok=true){
+      toast.style.display = 'block';
+      toast.textContent = msg;
+      toast.style.color = ok ? 'inherit' : '#b00020';
+      setTimeout(()=> toast.style.display = 'none', 4000);
+    }
+
+    buyBtn?.addEventListener('click', async () => {
+      const size = sizeSel?.value;
+      if (!size) return showToast("Please choose a size.", false);
+
+      const evcText = (document.getElementById('modal-evc-name')?.textContent || '').trim() || 'Your EVC';
+
+      // Copy EVC name so user can paste it if Stripe field isn’t prefilled
+      try { await navigator.clipboard.writeText(evcText); } catch {}
+
+      if (!STRIPE_LINK.includes('YOUR_PAYMENT_LINK')) {
+        return showToast("Add your Stripe Payment Link URL in the code.", false);
+      }
+
+      const qs = new URLSearchParams({ evc: evcText, size }).toString();
+      window.location.href = `${STRIPE_LINK}?${qs}`;
+    });
+  })();
+  </script>
 </body>
 </html>
