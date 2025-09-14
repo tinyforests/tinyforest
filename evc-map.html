@@ -98,5 +98,33 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
+
+  <!-- Loading state for search button -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("address-form");
+      const btn = document.getElementById("search-button");
+
+      if (form && btn) {
+        form.addEventListener("submit", () => {
+          // Change button to loading state
+          btn.disabled = true;
+          btn.textContent = "Finding…";
+
+          // Reset back once evc-fetch.js work finishes
+          // Listen for modal open as a signal
+          const modal = document.getElementById("evc-modal");
+          const observer = new MutationObserver(() => {
+            if (modal.style.display !== "none") {
+              btn.disabled = false;
+              btn.textContent = "Find My Garden";
+              observer.disconnect();
+            }
+          });
+          observer.observe(modal, { attributes: true, attributeFilter: ["style"] });
+        });
+      }
+    });
+  </script>
 </body>
 </html>
