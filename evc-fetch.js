@@ -22,14 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // Email gate: reveal plants on submit
+  // Email form - just for lead capture now, plants show immediately
   document.getElementById("gf-form").addEventListener("submit", e => {
     e.preventDefault();
-    document.getElementById("modal-plants").style.display = "block";
     const btn = e.target.querySelector("button");
-    btn.textContent = "Plants Shown";
+    btn.textContent = "Thanks! Check your email soon.";
     btn.disabled = true;
-    // TODO: wire this into your backend or Google Form
+    // Form still submits to Google Forms in background via iframe
   });
 });
 
@@ -111,31 +110,109 @@ function displayModal(name, status, region, code, lat, lon) {
       plantsDiv.innerHTML = "";
       
       if (evcInfo?.recommendations && evcInfo.recommendations.length > 0) {
+        // Add title
+        const titleEl = document.createElement("h2");
+        titleEl.textContent = "Here's your plant list";
+        titleEl.style.fontFamily = "'Abril Fatface', serif";
+        titleEl.style.fontSize = "28px";
+        titleEl.style.marginTop = "30px";
+        titleEl.style.marginBottom = "20px";
+        titleEl.style.color = "#2d3748";
+        plantsDiv.appendChild(titleEl);
+
+        // Add plant layers
         evcInfo.recommendations.forEach(sec => {
           const layerDiv = document.createElement("div");
           layerDiv.className = "layer";
+          layerDiv.style.marginBottom = "20px";
           
           const heading = document.createElement("h3");
           heading.textContent = sec.layer;
+          heading.style.fontWeight = "700";
+          heading.style.fontSize = "16px";
+          heading.style.marginBottom = "10px";
+          heading.style.color = "#4a5568";
           layerDiv.appendChild(heading);
           
           const list = document.createElement("ul");
+          list.style.listStyle = "none";
+          list.style.padding = "0";
+          list.style.margin = "0";
+          
           sec.plants.forEach(plant => {
             const item = document.createElement("li");
             item.textContent = plant;
+            item.style.padding = "8px 0";
+            item.style.borderBottom = "1px solid #e2e8f0";
+            item.style.fontSize = "14px";
             list.appendChild(item);
           });
           layerDiv.appendChild(list);
           
           plantsDiv.appendChild(layerDiv);
         });
+
+        // Add Forest Kit section
+        const kitSection = document.createElement("div");
+        kitSection.style.marginTop = "40px";
+        kitSection.style.padding = "30px";
+        kitSection.style.background = "#f7fafc";
+        kitSection.style.borderRadius = "8px";
+        kitSection.style.border = "2px solid #e2e8f0";
+        
+        const kitTitle = document.createElement("h2");
+        kitTitle.textContent = "Get your forest kit";
+        kitTitle.style.fontFamily = "'Abril Fatface', serif";
+        kitTitle.style.fontSize = "28px";
+        kitTitle.style.marginBottom = "15px";
+        kitTitle.style.color = "#2d3748";
+        kitSection.appendChild(kitTitle);
+        
+        const kitDescription = document.createElement("p");
+        kitDescription.textContent = "A curated selection of plants from your EVC, ready to plant in your garden.";
+        kitDescription.style.marginBottom = "20px";
+        kitDescription.style.color = "#4a5568";
+        kitDescription.style.fontSize = "16px";
+        kitSection.appendChild(kitDescription);
+        
+        const kitButton = document.createElement("button");
+        kitButton.textContent = "Buy Forest Kit";
+        kitButton.style.background = "#48bb78";
+        kitButton.style.color = "white";
+        kitButton.style.border = "none";
+        kitButton.style.padding = "14px 28px";
+        kitButton.style.borderRadius = "6px";
+        kitButton.style.fontSize = "16px";
+        kitButton.style.fontWeight = "600";
+        kitButton.style.cursor = "pointer";
+        kitButton.style.transition = "all 0.2s";
+        
+        kitButton.addEventListener("mouseover", () => {
+          kitButton.style.background = "#38a169";
+          kitButton.style.transform = "translateY(-2px)";
+        });
+        
+        kitButton.addEventListener("mouseout", () => {
+          kitButton.style.background = "#48bb78";
+          kitButton.style.transform = "translateY(0)";
+        });
+        
+        kitButton.addEventListener("click", () => {
+          // Replace with your actual forest kit purchase link
+          alert("Forest Kit purchase coming soon! This would link to your store.");
+          // window.location.href = "https://your-store.com/forest-kit?evc=" + code;
+        });
+        
+        kitSection.appendChild(kitButton);
+        plantsDiv.appendChild(kitSection);
+        
       } else {
         // No plant data available yet
         plantsDiv.innerHTML = '<p style="color: #666; font-style: italic; padding: 20px;">Plant recommendations coming soon for this EVC.</p>';
       }
       
-      // Hide plants initially (show after email submission)
-      plantsDiv.style.display = "none";
+      // Show plants immediately (no email gate)
+      plantsDiv.style.display = "block";
     })
     .catch(err => {
       console.error('Failed to load plant data:', err);
