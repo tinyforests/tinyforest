@@ -48,6 +48,10 @@ body {
    ======================= */
 #search-container {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 }
 #address-form {
   display: inline-flex;
@@ -68,7 +72,8 @@ body {
   color: #3d4535;
   opacity: 0.6;
 }
-#search-button {
+#search-button,
+#location-button {
   padding: 10px 20px;
   background-color: #3d4535;
   color: #fff0dc;
@@ -76,9 +81,17 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 1rem;
 }
-#search-button:hover {
+#search-button:hover,
+#location-button:hover {
   background-color: #2f3928;
+}
+#location-button:disabled {
+  background-color: #888888;
+  cursor: not-allowed;
+  opacity: 0.6;
 }
 
 /* =======================
@@ -235,7 +248,8 @@ body {
     padding: 0 1em;
   }
   #address-input,
-  #search-button {
+  #search-button,
+  #location-button {
     width: 100% !important;
     padding: 1em;
     font-size: 1.2em;
