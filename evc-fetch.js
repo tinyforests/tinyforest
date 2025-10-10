@@ -9,25 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Address lookup
-  document.getElementById("address-form").addEventListener("submit", e => {
-    e.preventDefault();
-    const addr = document.getElementById("address-input").value.trim();
-    if (!addr) return alert("Please enter an address.");
-    geocodeAddress(addr);
-  });
-
-  // Geolocation button
-  document.getElementById("location-button").addEventListener("click", () => {
-    if (!navigator.geolocation) {
-      alert("Geolocation is not supported by your browser.");
-      return;
-    }
-
-    const btn = document.getElementById("location-button");
-    btn.textContent = "📍 Getting location...";
-    btn.disabled = true;
-
+  // Auto-request location on page load
+  if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const lat = position.coords.latitude;
@@ -35,45 +18,90 @@ document.addEventListener("DOMContentLoaded", () => {
         
         // Update map
         map.setView([lat, lon], 12);
-        marker && map.removeLayer(marker);
         marker = L.marker([lat, lon]).addTo(map);
         
-        // Fetch EVC data
+        // Fetch EVC data automatically
         fetchEVCData(lat, lon);
-        
-        // Reset button
-        btn.textContent = "📍 Use My Location";
-        btn.disabled = false;
       },
       (error) => {
-        console.error("Geolocation error:", error);
-        let errorMsg = "Unable to get your location. ";
-        
-        switch(error.code) {
-          case error.PERMISSION_DENIED:
-            errorMsg += "Please allow location access in your browser settings and try again.";
-            break;
-          case error.POSITION_UNAVAILABLE:
-            errorMsg += "Location information is unavailable.";
-            break;
-          case error.TIMEOUT:
-            errorMsg += "Location request timed out.";
-            break;
-          default:
-            errorMsg += "An unknown error occurred.";
-        }
-        
-        alert(errorMsg + " Please enter your address instead.");
-        btn.textContent = "📍 Use My Location";
-        btn.disabled = false;
+        console.log("Geolocation not available or denied - user can search manually");
+        // Silent fail - user can still search by address
       },
       {
         enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 0
+        timeout: 10000,
+        maximumAge: 60000
       }
     );
+  }
+
+  // Address lookup (still available as backup)
+  document.getElementById("address-form").addEventListener("submit", e => {
+    e.preventDefault();
+    const addr = document.getElementById("address-input").value.trim();
+    if (!addr) return alert("Please enter an address.");
+    geocodeAddress(addr);
   });
+
+  // Geolocation button (manual trigger if auto-request was denied)
+  const locationBtn = document.getElementById("location-button");
+  if (locationBtn) {
+    locationBtn.addEventListener("click", () => {
+      if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+        return;
+      }
+
+      locationBtn.textContent = "📍 Getting location...";
+      locationBtn.disabled = true;
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          
+          // Update map
+          map.setView([lat, lon], 12);
+          marker && map.removeLayer(marker);
+          marker = L.marker([lat, lon]).addTo(map);
+          
+          // Fetch EVC data
+          fetchEVCData(lat, lon);
+          
+          // Reset button
+          locationBtn.textContent = "📍 Use My Location";
+          locationBtn.disabled = false;
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          let errorMsg = "Unable to get your location. ";
+          
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMsg += "Please allow location access in your browser settings and try again.";
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMsg += "Location information is unavailable.";
+              break;
+            case error.TIMEOUT:
+              errorMsg += "Location request timed out.";
+              break;
+            default:
+              errorMsg += "An unknown error occurred.";
+          }
+          
+          alert(errorMsg + " Please enter your address instead.");
+          locationBtn.textContent = "📍 Use My Location";
+          locationBtn.disabled = false;
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0
+        }
+      );
+    });
+  }
 
   // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
