@@ -292,6 +292,115 @@ function displayModal(name, status, region, code, lat, lon) {
         kitSection.appendChild(kitButton);
         plantsDiv.appendChild(kitSection);
         
+        // Add EVC Tee section
+        const teeSection = document.createElement("div");
+        teeSection.style.marginTop = "20px";
+        teeSection.style.padding = "30px";
+        teeSection.style.background = "#f7fafc";
+        teeSection.style.borderRadius = "8px";
+        teeSection.style.border = "2px solid #e2e8f0";
+        
+        const teeTitle = document.createElement("h2");
+        teeTitle.textContent = "Buy your EVC tee";
+        teeTitle.style.fontFamily = "'Abril Fatface', serif";
+        teeTitle.style.fontSize = "28px";
+        teeTitle.style.marginBottom = "15px";
+        teeTitle.style.color = "#3d4535";
+        teeSection.appendChild(teeTitle);
+        
+        const teeDescription = document.createElement("p");
+        teeDescription.innerHTML = `Printed with <strong>${name}</strong> on the front.`;
+        teeDescription.style.marginBottom = "20px";
+        teeDescription.style.color = "#3d4535";
+        teeDescription.style.fontSize = "16px";
+        teeSection.appendChild(teeDescription);
+        
+        // Size selector and button container
+        const teeControls = document.createElement("div");
+        teeControls.style.display = "flex";
+        teeControls.style.gap = "10px";
+        teeControls.style.alignItems = "center";
+        
+        const sizeSelect = document.createElement("select");
+        sizeSelect.id = "tee-size-select";
+        sizeSelect.style.flex = "1";
+        sizeSelect.style.padding = "12px";
+        sizeSelect.style.fontSize = "16px";
+        sizeSelect.style.border = "2px solid #e2e8f0";
+        sizeSelect.style.borderRadius = "6px";
+        sizeSelect.style.background = "white";
+        sizeSelect.style.cursor = "pointer";
+        sizeSelect.innerHTML = `
+          <option value="" disabled selected>Choose size</option>
+          <option value="XS">XS</option>
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        `;
+        teeControls.appendChild(sizeSelect);
+        
+        const teeButton = document.createElement("button");
+        teeButton.textContent = "Buy now";
+        teeButton.style.background = "#48bb78";
+        teeButton.style.color = "white";
+        teeButton.style.border = "none";
+        teeButton.style.padding = "12px 24px";
+        teeButton.style.borderRadius = "6px";
+        teeButton.style.fontSize = "16px";
+        teeButton.style.fontWeight = "600";
+        teeButton.style.cursor = "pointer";
+        teeButton.style.transition = "all 0.2s";
+        teeButton.style.whiteSpace = "nowrap";
+        
+        teeButton.addEventListener("mouseover", () => {
+          teeButton.style.background = "#38a169";
+          teeButton.style.transform = "translateY(-2px)";
+        });
+        
+        teeButton.addEventListener("mouseout", () => {
+          teeButton.style.background = "#48bb78";
+          teeButton.style.transform = "translateY(0)";
+        });
+        
+        teeButton.addEventListener("click", async () => {
+          const size = sizeSelect.value;
+          if (!size) {
+            alert("Please choose a size first.");
+            return;
+          }
+          
+          // Copy EVC name to clipboard
+          try {
+            await navigator.clipboard.writeText(name);
+          } catch (err) {
+            console.log("Could not copy to clipboard");
+          }
+          
+          // Replace with your actual Stripe payment link
+          const STRIPE_LINK = "https://buy.stripe.com/YOUR_PAYMENT_LINK";
+          
+          if (STRIPE_LINK.includes('YOUR_PAYMENT_LINK')) {
+            alert("Tee purchase coming soon! This would link to your Stripe checkout.");
+            // window.location.href = `${STRIPE_LINK}?evc=${encodeURIComponent(name)}&size=${size}`;
+          } else {
+            window.location.href = `${STRIPE_LINK}?evc=${encodeURIComponent(name)}&size=${size}`;
+          }
+        });
+        
+        teeControls.appendChild(teeButton);
+        teeSection.appendChild(teeControls);
+        
+        const teeHint = document.createElement("div");
+        teeHint.textContent = "We'll copy your EVC text automatically for checkout.";
+        teeHint.style.marginTop = "10px";
+        teeHint.style.fontSize = "14px";
+        teeHint.style.color = "#666";
+        teeSection.appendChild(teeHint);
+        
+        plantsDiv.appendChild(teeSection);
+        
       } else {
         // No plant data available yet
         plantsDiv.innerHTML = '<p style="color: #666; font-style: italic; padding: 20px;">Plant recommendations coming soon for this EVC.</p>';
