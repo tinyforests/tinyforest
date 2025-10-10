@@ -47,13 +47,29 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       (error) => {
         console.error("Geolocation error:", error);
-        alert("Unable to get your location. Please enter your address instead.");
+        let errorMsg = "Unable to get your location. ";
+        
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            errorMsg += "Please allow location access in your browser settings and try again.";
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMsg += "Location information is unavailable.";
+            break;
+          case error.TIMEOUT:
+            errorMsg += "Location request timed out.";
+            break;
+          default:
+            errorMsg += "An unknown error occurred.";
+        }
+        
+        alert(errorMsg + " Please enter your address instead.");
         btn.textContent = "📍 Use My Location";
         btn.disabled = false;
       },
       {
         enableHighAccuracy: true,
-        timeout: 10000,
+        timeout: 15000,
         maximumAge: 0
       }
     );
