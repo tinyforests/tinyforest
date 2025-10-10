@@ -66,11 +66,14 @@
         <p class="status"><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p class="region"><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
         <p id="modal-evc-description"></p>
+        
+        <!-- ✅ ADDED THIS - Plant list container -->
+        <div id="modal-plants"></div>
       </div>
 
       <!-- EMAIL CAPTURE (Google Form as-is, can swap to Formspree later) -->
       <div id="email-section">
-        <p>Enter your email address and we’ll send a hand-picked plant list for your EVC.</p>
+        <p>Enter your email address and we'll send a hand-picked plant list for your EVC.</p>
         <form
           id="gf-form"
           action="https://docs.google.com/forms/d/e/1_A5hwyk6EsMuE71yJp2TPed2THCnw3_6nfhE1qo5-Gc/formResponse"
@@ -105,7 +108,7 @@
         </div>
         <div id="tee-toast" role="status" aria-live="polite" style="margin-top:8px; display:none;"></div>
         <div class="hint" style="margin-top:6px; color:#666;">
-          We’ll copy your EVC text automatically for checkout.
+          We'll copy your EVC text automatically for checkout.
         </div>
       </section>
     </div>
@@ -119,7 +122,7 @@
   <!-- Tee + email helper -->
   <script>
   (function(){
-    // Grab EVC name once it’s been set by your evc-fetch.js logic
+    // Grab EVC name once it's been set by your evc-fetch.js logic
     function updateTeeBlock(){
       const evcName = (document.getElementById('modal-evc-name')?.textContent || '').trim() || 'Your EVC';
       const teeLabel = document.getElementById('tee-evc-text');
@@ -151,7 +154,7 @@
 
       const evcText = (document.getElementById('modal-evc-name')?.textContent || '').trim() || 'Your EVC';
 
-      // Copy EVC name so user can paste it if Stripe field isn’t prefilled
+      // Copy EVC name so user can paste it if Stripe field isn't prefilled
       try { await navigator.clipboard.writeText(evcText); } catch {}
 
       if (!STRIPE_LINK.includes('YOUR_PAYMENT_LINK')) {
