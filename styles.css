@@ -239,16 +239,31 @@ body {
    RESPONSIVE / MOBILE
    ======================= */
 @media (max-width: 600px) {
+  /* Search container and buttons full-width on mobile */
+  #search-container {
+    width: 100%;
+    padding: 0 1em;
+    box-sizing: border-box;
+  }
+  
   /* Address form full-width on mobile */
   #address-form {
     display: flex !important;
     flex-direction: column;
     gap: 1em;
     align-items: stretch;
-    padding: 0 1em;
+    width: 100%;
   }
   #address-input,
-  #search-button,
+  #search-button {
+    width: 100% !important;
+    padding: 1em;
+    font-size: 1.2em;
+    box-sizing: border-box;
+    margin: 0;
+  }
+  
+  /* Location button matches width */
   #location-button {
     width: 100% !important;
     padding: 1em;
