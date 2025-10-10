@@ -117,7 +117,7 @@ function displayModal(name, status, region, code, lat, lon) {
         titleEl.style.fontSize = "28px";
         titleEl.style.marginTop = "30px";
         titleEl.style.marginBottom = "20px";
-        titleEl.style.color = "#2d3748";
+        titleEl.style.color = "inherit"; // Match EVC title color
         plantsDiv.appendChild(titleEl);
 
         // Add plant layers
@@ -131,7 +131,7 @@ function displayModal(name, status, region, code, lat, lon) {
           heading.style.fontWeight = "700";
           heading.style.fontSize = "16px";
           heading.style.marginBottom = "10px";
-          heading.style.color = "#4a5568";
+          heading.style.color = "inherit"; // Match description text color
           layerDiv.appendChild(heading);
           
           const list = document.createElement("ul");
@@ -165,13 +165,13 @@ function displayModal(name, status, region, code, lat, lon) {
         kitTitle.style.fontFamily = "'Abril Fatface', serif";
         kitTitle.style.fontSize = "28px";
         kitTitle.style.marginBottom = "15px";
-        kitTitle.style.color = "#2d3748";
+        kitTitle.style.color = "inherit"; // Match EVC title color
         kitSection.appendChild(kitTitle);
         
         const kitDescription = document.createElement("p");
         kitDescription.textContent = "A curated selection of plants from your EVC, ready to plant in your garden.";
         kitDescription.style.marginBottom = "20px";
-        kitDescription.style.color = "#4a5568";
+        kitDescription.style.color = "inherit"; // Match description text color
         kitDescription.style.fontSize = "16px";
         kitSection.appendChild(kitDescription);
         
