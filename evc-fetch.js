@@ -165,13 +165,13 @@ function displayModal(name, status, region, code, lat, lon) {
         kitTitle.style.fontFamily = "'Abril Fatface', serif";
         kitTitle.style.fontSize = "28px";
         kitTitle.style.marginBottom = "15px";
-        kitTitle.style.color = "inherit"; // Match EVC title color
+        kitTitle.style.color = "#3d4535";
         kitSection.appendChild(kitTitle);
         
         const kitDescription = document.createElement("p");
         kitDescription.textContent = "A curated selection of plants from your EVC, ready to plant in your garden.";
         kitDescription.style.marginBottom = "20px";
-        kitDescription.style.color = "inherit"; // Match description text color
+        kitDescription.style.color = "#3d4535";
         kitDescription.style.fontSize = "16px";
         kitSection.appendChild(kitDescription);
         
