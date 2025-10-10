@@ -17,6 +17,48 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
+  // Geolocation button
+  document.getElementById("location-button").addEventListener("click", () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
+
+    const btn = document.getElementById("location-button");
+    btn.textContent = "📍 Getting location...";
+    btn.disabled = true;
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        
+        // Update map
+        map.setView([lat, lon], 12);
+        marker && map.removeLayer(marker);
+        marker = L.marker([lat, lon]).addTo(map);
+        
+        // Fetch EVC data
+        fetchEVCData(lat, lon);
+        
+        // Reset button
+        btn.textContent = "📍 Use My Location";
+        btn.disabled = false;
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        alert("Unable to get your location. Please enter your address instead.");
+        btn.textContent = "📍 Use My Location";
+        btn.disabled = false;
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 0
+      }
+    );
+  });
+
   // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
     document.getElementById("evc-modal").style.display = "none";
