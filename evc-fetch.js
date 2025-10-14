@@ -308,6 +308,36 @@ function displayModal(name, status, region, code, lat, lon) {
         teeTitle.style.color = "#3d4535";
         teeSection.appendChild(teeTitle);
         
+        // Create image filename from EVC name
+        const imageFilename = name.toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/['']/g, '')
+          .replace(/&/g, 'and')
+          + '.png';
+        
+        // Image container
+        const imageContainer = document.createElement("div");
+        imageContainer.style.marginBottom = "20px";
+        imageContainer.style.textAlign = "center";
+        
+        const teeImage = document.createElement("img");
+        teeImage.src = `images/tees/${imageFilename}`;
+        teeImage.alt = `${name} Tee`;
+        teeImage.style.maxWidth = "100%";
+        teeImage.style.height = "auto";
+        teeImage.style.borderRadius = "8px";
+        teeImage.style.maxHeight = "300px";
+        teeImage.style.objectFit = "contain";
+        
+        // Handle image load error
+        teeImage.onerror = function() {
+          this.style.display = 'none';
+          console.log(`Tee image not found: images/tees/${imageFilename}`);
+        };
+        
+        imageContainer.appendChild(teeImage);
+        teeSection.appendChild(imageContainer);
+        
         const teeDescription = document.createElement("p");
         teeDescription.innerHTML = `Printed with <strong>${name}</strong> on the front.`;
         teeDescription.style.marginBottom = "20px";
