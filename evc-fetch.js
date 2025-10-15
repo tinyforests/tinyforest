@@ -9,32 +9,6 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Auto-request location on page load
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const lat = position.coords.latitude;
-        const lon = position.coords.longitude;
-        
-        // Update map
-        map.setView([lat, lon], 12);
-        marker = L.marker([lat, lon]).addTo(map);
-        
-        // Fetch EVC data automatically
-        fetchEVCData(lat, lon);
-      },
-      (error) => {
-        console.log("Geolocation not available or denied - user can search manually");
-        // Silent fail - user can still search by address
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 10000,
-        maximumAge: 60000
-      }
-    );
-  }
-
   // Address lookup (still available as backup)
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
@@ -43,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // Geolocation button (manual trigger if auto-request was denied)
+  // Geolocation button (manual trigger only)
   const locationBtn = document.getElementById("location-button");
   if (locationBtn) {
     locationBtn.addEventListener("click", () => {
