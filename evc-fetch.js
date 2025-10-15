@@ -1,10 +1,4 @@
-// Build plant list
-      const plantsDiv = document.getElementById("modal-plants");
-      plantsDiv.innerHTML = "";
-      
-      if (evcInfo?.recommendations && evcInfo.recommendations.length > 0) {
-        // Add title
-        const titleEl = document.createElement("h2");// evc-fetch.js - Cleaned version with external JSON loading
+// evc-fetch.js - Cleaned version with external JSON loading
 
 let map, marker, modalMap;
 
@@ -15,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     attribution: "© OpenStreetMap contributors"
   }).addTo(map);
 
-  // Address lookup (still available as backup)
+  // Address lookup
   document.getElementById("address-form").addEventListener("submit", e => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
@@ -23,7 +17,20 @@ document.addEventListener("DOMContentLoaded", () => {
     geocodeAddress(addr);
   });
 
-  // Geolocation button (manual trigger only)
+  // Close modal
+  document.getElementById("modal-close").addEventListener("click", () => {
+    document.getElementById("evc-modal").style.display = "none";
+  });
+
+  // Email form - just for lead capture now, plants show immediately
+  document.getElementById("gf-form").addEventListener("submit", e => {
+    e.preventDefault();
+    const btn = e.target.querySelector("button");
+    btn.textContent = "Thanks! Check your email soon.";
+    btn.disabled = true;
+  });
+
+  // Geolocation button
   const locationBtn = document.getElementById("location-button");
   if (locationBtn) {
     locationBtn.addEventListener("click", () => {
@@ -40,15 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
           
-          // Update map
           map.setView([lat, lon], 12);
           marker && map.removeLayer(marker);
           marker = L.marker([lat, lon]).addTo(map);
           
-          // Fetch EVC data
           fetchEVCData(lat, lon);
           
-          // Reset button
           locationBtn.textContent = "📍 Use My Location";
           locationBtn.disabled = false;
         },
@@ -82,20 +86,6 @@ document.addEventListener("DOMContentLoaded", () => {
       );
     });
   }
-
-  // Close modal
-  document.getElementById("modal-close").addEventListener("click", () => {
-    document.getElementById("evc-modal").style.display = "none";
-  });
-
-  // Email form - just for lead capture now, plants show immediately
-  document.getElementById("gf-form").addEventListener("submit", e => {
-    e.preventDefault();
-    const btn = e.target.querySelector("button");
-    btn.textContent = "Thanks! Check your email soon.";
-    btn.disabled = true;
-    // Form still submits to Google Forms in background via iframe
-  });
 });
 
 function geocodeAddress(address) {
@@ -183,7 +173,7 @@ function displayModal(name, status, region, code, lat, lon) {
         titleEl.style.fontSize = "28px";
         titleEl.style.marginTop = "30px";
         titleEl.style.marginBottom = "20px";
-        titleEl.style.color = "inherit"; // Match EVC title color
+        titleEl.style.color = "inherit";
         plantsDiv.appendChild(titleEl);
 
         // Add plant layers
@@ -197,7 +187,7 @@ function displayModal(name, status, region, code, lat, lon) {
           heading.style.fontWeight = "700";
           heading.style.fontSize = "16px";
           heading.style.marginBottom = "10px";
-          heading.style.color = "inherit"; // Match description text color
+          heading.style.color = "inherit";
           layerDiv.appendChild(heading);
           
           const list = document.createElement("ul");
@@ -264,9 +254,7 @@ function displayModal(name, status, region, code, lat, lon) {
         });
         
         kitButton.addEventListener("click", () => {
-          // Replace with your actual forest kit purchase link
           alert("Forest Kit purchase coming soon! This would link to your store.");
-          // window.location.href = "https://your-store.com/forest-kit?evc=" + code;
         });
         
         kitSection.appendChild(kitButton);
@@ -388,15 +376,7 @@ function displayModal(name, status, region, code, lat, lon) {
             console.log("Could not copy to clipboard");
           }
           
-          // Replace with your actual Stripe payment link
-          const STRIPE_LINK = "https://buy.stripe.com/YOUR_PAYMENT_LINK";
-          
-          if (STRIPE_LINK.includes('YOUR_PAYMENT_LINK')) {
-            alert("Tee purchase coming soon! This would link to your Stripe checkout.");
-            // window.location.href = `${STRIPE_LINK}?evc=${encodeURIComponent(name)}&size=${size}`;
-          } else {
-            window.location.href = `${STRIPE_LINK}?evc=${encodeURIComponent(name)}&size=${size}`;
-          }
+          alert("Tee purchase coming soon! This would link to your Stripe checkout.");
         });
         
         teeControls.appendChild(teeButton);
@@ -458,9 +438,7 @@ function displayModal(name, status, region, code, lat, lon) {
         });
         
         ebookButton.addEventListener("click", () => {
-          // Replace with your actual preorder link
           alert("Ebook preorder coming soon! This would link to your preorder page.");
-          // window.location.href = "https://your-store.com/ebook-preorder?evc=" + code;
         });
         
         ebookSection.appendChild(ebookButton);
