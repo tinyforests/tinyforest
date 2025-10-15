@@ -1,4 +1,78 @@
-// evc-fetch.js - Cleaned version with external JSON loading
+// Build plant list
+      const plantsDiv = document.getElementById("modal-plants");
+      plantsDiv.innerHTML = "";
+      
+      if (evcInfo?.recommendations && evcInfo.recommendations.length > 0) {
+        // Add "Where to see" section if available
+        if (evcInfo.locations && evcInfo.locations.length > 0) {
+          const locationsSection = document.createElement("div");
+          locationsSection.style.marginTop = "30px";
+          locationsSection.style.marginBottom = "30px";
+          locationsSection.style.padding = "20px";
+          locationsSection.style.background = "#f7fafc";
+          locationsSection.style.borderRadius = "8px";
+          locationsSection.style.borderLeft = "4px solid #48bb78";
+          
+          const locationsTitle = document.createElement("h3");
+          locationsTitle.textContent = "Where to see this EVC";
+          locationsTitle.style.fontFamily = "'Abril Fatface', serif";
+          locationsTitle.style.fontSize = "20px";
+          locationsTitle.style.marginBottom = "15px";
+          locationsTitle.style.color = "#3d4535";
+          locationsSection.appendChild(locationsTitle);
+          
+          const locationsList = document.createElement("ul");
+          locationsList.style.listStyle = "none";
+          locationsList.style.padding = "0";
+          locationsList.style.margin = "0";
+          
+          evcInfo.locations.forEach(location => {
+            const item = document.createElement("li");
+            item.style.padding = "10px 0";
+            item.style.borderBottom = "1px solid #e2e8f0";
+            item.style.fontSize = "15px";
+            item.style.color = "#4a5568";
+            
+            if (location.url) {
+              const link = document.createElement("a");
+              link.href = location.url;
+              link.target = "_blank";
+              link.textContent = `📍 ${location.name}`;
+              link.style.color = "#48bb78";
+              link.style.textDecoration = "none";
+              link.style.fontWeight = "600";
+              link.addEventListener("mouseover", () => {
+                link.style.textDecoration = "underline";
+              });
+              link.addEventListener("mouseout", () => {
+                link.style.textDecoration = "none";
+              });
+              item.appendChild(link);
+              
+              if (location.description) {
+                const desc = document.createElement("div");
+                desc.textContent = location.description;
+                desc.style.fontSize = "14px";
+                desc.style.color = "#718096";
+                desc.style.marginTop = "5px";
+                item.appendChild(desc);
+              }
+            } else {
+              item.innerHTML = `<strong>📍 ${location.name}</strong>`;
+              if (location.description) {
+                item.innerHTML += `<br><span style="font-size: 14px; color: #718096;">${location.description}</span>`;
+              }
+            }
+            
+            locationsList.appendChild(item);
+          });
+          
+          locationsSection.appendChild(locationsList);
+          plantsDiv.appendChild(locationsSection);
+        }
+        
+        // Add title
+        const titleEl = document.createElement("h2");// evc-fetch.js - Cleaned version with external JSON loading
 
 let map, marker, modalMap;
 
@@ -404,6 +478,70 @@ function displayModal(name, status, region, code, lat, lon) {
         teeSection.appendChild(teeHint);
         
         plantsDiv.appendChild(teeSection);
+        
+        // Add Ebook Preorder section
+        const ebookSection = document.createElement("div");
+        ebookSection.style.marginTop = "20px";
+        ebookSection.style.padding = "30px";
+        ebookSection.style.background = "#f7fafc";
+        ebookSection.style.borderRadius = "8px";
+        ebookSection.style.border = "2px solid #e2e8f0";
+        
+        const ebookTitle = document.createElement("h2");
+        ebookTitle.textContent = "Preorder the ebook";
+        ebookTitle.style.fontFamily = "'Abril Fatface', serif";
+        ebookTitle.style.fontSize = "28px";
+        ebookTitle.style.marginBottom = "15px";
+        ebookTitle.style.color = "#3d4535";
+        ebookSection.appendChild(ebookTitle);
+        
+        const ebookDescription = document.createElement("p");
+        ebookDescription.textContent = `A comprehensive guide exploring ${name} through the lens of Aboriginal culture and ecological wisdom — featuring traditional plant uses, seasonal practices, where to see this EVC in Victoria, and regeneration techniques for modern gardeners.`;
+        ebookDescription.style.marginBottom = "20px";
+        ebookDescription.style.color = "#3d4535";
+        ebookDescription.style.fontSize = "16px";
+        ebookSection.appendChild(ebookDescription);
+        
+        const ebookButton = document.createElement("button");
+        ebookButton.textContent = "Preorder now";
+        ebookButton.style.background = "#48bb78";
+        ebookButton.style.color = "white";
+        ebookButton.style.border = "none";
+        ebookButton.style.padding = "14px 28px";
+        ebookButton.style.borderRadius = "6px";
+        ebookButton.style.fontSize = "16px";
+        ebookButton.style.fontWeight = "600";
+        ebookButton.style.cursor = "pointer";
+        ebookButton.style.transition = "all 0.2s";
+        ebookButton.style.width = "100%";
+        
+        ebookButton.addEventListener("mouseover", () => {
+          ebookButton.style.background = "#38a169";
+          ebookButton.style.transform = "translateY(-2px)";
+        });
+        
+        ebookButton.addEventListener("mouseout", () => {
+          ebookButton.style.background = "#48bb78";
+          ebookButton.style.transform = "translateY(0)";
+        });
+        
+        ebookButton.addEventListener("click", () => {
+          // Replace with your actual preorder link
+          alert("Ebook preorder coming soon! This would link to your preorder page.");
+          // window.location.href = "https://your-store.com/ebook-preorder?evc=" + code;
+        });
+        
+        ebookSection.appendChild(ebookButton);
+        
+        const ebookHint = document.createElement("div");
+        ebookHint.textContent = "Digital delivery upon release. Reserve your copy today.";
+        ebookHint.style.marginTop = "10px";
+        ebookHint.style.fontSize = "14px";
+        ebookHint.style.color = "#666";
+        ebookHint.style.textAlign = "center";
+        ebookSection.appendChild(ebookHint);
+        
+        plantsDiv.appendChild(ebookSection);
         
       } else {
         // No plant data available yet
