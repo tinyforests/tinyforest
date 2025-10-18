@@ -254,7 +254,8 @@ function displayModal(name, status, region, code, lat, lon) {
         });
         
         kitButton.addEventListener("click", () => {
-          alert("Forest Kit purchase coming soon! This would link to your store.");
+          // Open forest kits page in new tab
+          window.open('forest-kits.html#kits', '_blank');
         });
         
         kitSection.appendChild(kitButton);
