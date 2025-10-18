@@ -29,6 +29,77 @@
       padding: 2rem;
       position: relative;
       background: linear-gradient(135deg, #fff0dc 0%, #e8dcc5 100%);
+      overflow: hidden;
+    }
+
+    /* Animated growing plants */
+    .growing-plants {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 400px;
+      pointer-events: none;
+      z-index: 1;
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      padding: 0 2rem;
+    }
+
+    .plant {
+      width: 80px;
+      height: 0;
+      background: linear-gradient(to top, #3d4535 0%, #4a5640 50%, #5a6850 100%);
+      border-radius: 40px 40px 0 0;
+      position: relative;
+      opacity: 0;
+      transform-origin: bottom;
+      transition: height 1.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 1s ease;
+    }
+
+    .plant.grow {
+      opacity: 0.3;
+    }
+
+    .plant:nth-child(1) { width: 60px; transition-delay: 0s; }
+    .plant:nth-child(2) { width: 90px; transition-delay: 0.15s; }
+    .plant:nth-child(3) { width: 70px; transition-delay: 0.3s; }
+    .plant:nth-child(4) { width: 100px; transition-delay: 0.1s; }
+    .plant:nth-child(5) { width: 75px; transition-delay: 0.25s; }
+    .plant:nth-child(6) { width: 85px; transition-delay: 0.4s; }
+
+    .plant.grow:nth-child(1) { height: 220px; }
+    .plant.grow:nth-child(2) { height: 320px; }
+    .plant.grow:nth-child(3) { height: 260px; }
+    .plant.grow:nth-child(4) { height: 350px; }
+    .plant.grow:nth-child(5) { height: 280px; }
+    .plant.grow:nth-child(6) { height: 340px; }
+
+    /* Leaf details */
+    .plant::before,
+    .plant::after {
+      content: '';
+      position: absolute;
+      background: #4a5640;
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+
+    .plant::before {
+      width: 40px;
+      height: 60px;
+      top: 20%;
+      left: -15px;
+      transform: rotate(-20deg);
+    }
+
+    .plant::after {
+      width: 35px;
+      height: 55px;
+      top: 40%;
+      right: -12px;
+      transform: rotate(25deg);
     }
 
     .hero h1 {
@@ -115,85 +186,11 @@
       margin: 0 auto;
     }
 
-    /* Animated growing plants */
-    .growing-plants {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      width: 100%;
-      height: 400px;
-      pointer-events: none;
-      z-index: 50;
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-end;
-      background: rgba(255, 0, 0, 0.3);
-      padding: 0 2rem;
-    }
-
-    .plant {
-      width: 80px;
-      height: 250px;
-      background: #22aa22;
-      border-radius: 40px 40px 0 0;
-      position: relative;
-      opacity: 1;
-      transform-origin: bottom;
-      border: 3px solid #116611;
-    }
-
-    .plant.grow {
-      opacity: 1;
-    }
-
-    .plant:nth-child(1) { width: 60px; }
-    .plant:nth-child(2) { width: 90px; }
-    .plant:nth-child(3) { width: 70px; }
-    .plant:nth-child(4) { width: 100px; }
-    .plant:nth-child(5) { width: 75px; }
-    .plant:nth-child(6) { width: 85px; }
-
-    .plant.grow:nth-child(1) { height: 220px; }
-    .plant.grow:nth-child(2) { height: 320px; }
-    .plant.grow:nth-child(3) { height: 260px; }
-    .plant.grow:nth-child(4) { height: 350px; }
-    .plant.grow:nth-child(5) { height: 280px; }
-    .plant.grow:nth-child(6) { height: 340px; }
-
-    /* Leaf details */
-    .plant::before,
-    .plant::after {
-      content: '';
-      position: absolute;
-      background: #116611;
-      border-radius: 50%;
-      opacity: 1;
-    }
-
-    .plant::before {
-      width: 40px;
-      height: 60px;
-      top: 20%;
-      left: -15px;
-      transform: rotate(-20deg);
-    }
-
-    .plant::after {
-      width: 35px;
-      height: 55px;
-      top: 40%;
-      right: -12px;
-      transform: rotate(25deg);
-    }
-
     .method-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 3rem;
       margin-top: 4rem;
-      position: relative;
-      z-index: 1;
     }
 
     .method-card {
@@ -228,8 +225,6 @@
       letter-spacing: 0px;
       text-align: center;
       margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
     }
 
     /* Miyawaki Explainer */
@@ -440,6 +435,11 @@
       .kits-grid {
         grid-template-columns: 1fr;
       }
+
+      /* Hide growing plants on mobile */
+      .growing-plants {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -447,6 +447,14 @@
 
   <!-- Hero Section -->
   <section class="hero">
+    <div class="growing-plants">
+      <div class="plant"></div>
+      <div class="plant"></div>
+      <div class="plant"></div>
+      <div class="plant"></div>
+      <div class="plant"></div>
+      <div class="plant"></div>
+    </div>
     <h1>
       Grow a <span class="highlight">Tiny Forest</span>
     </h1>
@@ -738,11 +746,10 @@
       observer.observe(card);
     });
 
-    /* Growing plants animation on first scroll */
+    // Growing plants animation on scroll
     let hasScrolled = false;
     const plants = document.querySelectorAll('.plant');
-    
-    // Trigger on scroll
+
     window.addEventListener('scroll', function() {
       if (!hasScrolled && window.scrollY > 50) {
         hasScrolled = true;
@@ -751,13 +758,6 @@
         });
       }
     });
-
-    // Also trigger if user is already scrolled (for testing)
-    if (window.scrollY > 50) {
-      plants.forEach(plant => {
-        plant.classList.add('grow');
-      });
-    }
   </script>
 
 </body>
