@@ -641,4 +641,76 @@
             <li>10 indigenous plants per m²</li>
             <li>2 canopy, 5 shrub, 3 groundcover</li>
             <li>Wind and salt resistant</li>
-            <li>Full planting guide included
+            <li>Full planting guide included</li>
+          </ul>
+          <button class="kit-button" onclick="alert('Coming soon! Email us to pre-order.')">Pre-Order Kit</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="acknowledgement">
+      <h3>Gardener & Son Acknowledgement of Country and Lost Ecology</h3>
+      <p>
+        At Gardener & Son, we acknowledge the Wurundjeri Woi Wurrung people of the Kulin Nation, the Traditional Custodians of the land on which we live and work.
+      </p>
+      <p>
+        We pay deep respect to their Elders — past and present — and to all First Nations people whose enduring connection to Country continues to guide and inspire us.
+      </p>
+      <p>
+        We also acknowledge the ecologies that once thrived here — the grasslands, woodlands, and wetlands shaped by thousands of years of cultural care and ecological balance.
+      </p>
+      <p>
+        These living systems were not lost to time, but to disconnection. Our work seeks to rekindle that relationship, restoring native ecologies, honouring local geology, and weaving biodiversity back into the urban fabric.
+      </p>
+      <p>
+        Each garden we design is an act of remembrance and renewal — a gesture toward healing both Country and ecology.
+      </p>
+    </div>
+    
+    <p style="font-size: 1.2rem; margin-bottom: 1rem; margin-top: 2rem;">
+      Ready to grow your Tiny Forest?
+    </p>
+    <p>
+      <a href="evc-map.html">← Back to EVC Finder</a> | Contact: hello@tinyforest.com.au
+    </p>
+    <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">
+      © 2025 Tiny Forest. All indigenous species ethically sourced from Victorian nurseries.
+    </p>
+  </footer>
+
+  <script>
+    // Smooth scroll for CTA button
+    document.querySelector('a[href="#kits"]').addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector('#kits').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Add scroll animation for cards
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.method-card, .kit-card').forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
+      card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(card);
+    });
+  </script>
+
+</body>
+</html>
