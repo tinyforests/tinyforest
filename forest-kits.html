@@ -245,9 +245,10 @@
       font-size: 1.8rem;
       margin-bottom: 0.5rem;
       letter-spacing: 0px;
+      white-space: nowrap;
     }
 
-    .kit-header .evc-code {
+    .kit-header .evc-status {
       font-size: 0.9rem;
       opacity: 0.8;
       font-style: italic;
@@ -327,6 +328,28 @@
       text-decoration: underline;
     }
 
+    .acknowledgement {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background-color: rgba(255, 240, 220, 0.05);
+      border-radius: 8px;
+      text-align: left;
+      line-height: 1.8;
+    }
+
+    .acknowledgement h3 {
+      font-family: "Abril Fatface", serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .acknowledgement p {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
     /* Animations */
     @keyframes fadeInUp {
       from {
@@ -357,6 +380,11 @@
 
       .kits-grid {
         grid-template-columns: 1fr;
+      }
+
+      .kit-header h3 {
+        white-space: normal;
+        font-size: 1.5rem;
       }
     }
   </style>
@@ -445,32 +473,32 @@
         The secret? <strong>Dense planting</strong>. By planting 3-5 plants per square meter (compared to conventional 1 plant per 10m²), trees compete for light and grow vertically at accelerated rates. This density also:
       </p>
       
-    <div class="benefit-list">
-  <div class="benefit-item">
-    <h4>Suppresses Weeds</h4>
-    <p>Dense canopy prevents weed germination within 6-12 months</p>
-  </div>
-  <div class="benefit-item">
-    <h4>Self-Maintains</h4>
-    <p>Fallen leaves create natural mulch, eliminating need for maintenance</p>
-  </div>
-  <div class="benefit-item">
-    <h4>Builds Soil</h4>
-    <p>Rapid biomass production enriches soil carbon and microbial life</p>
-  </div>
-  <div class="benefit-item">
-    <h4>Instant Habitat</h4>
-    <p>Multi-layered structure provides immediate nesting and foraging sites</p>
-  </div>
-  <div class="benefit-item">
-    <h4>Sequesters Carbon</h4>
-    <p>Dense plantings capture significantly more CO₂—grasses store carbon in root systems while trees lock it away for decades</p>
-  </div>
-  <div class="benefit-item">
-    <h4>Restores Quiet</h4>
-    <p>Dense vegetation naturally buffers traffic noise and creates peaceful sanctuary spaces in urban environments</p>
-  </div>
-</div>
+      <div class="benefit-list">
+        <div class="benefit-item">
+          <h4>Suppresses Weeds</h4>
+          <p>Dense canopy prevents weed germination within 6-12 months</p>
+        </div>
+        <div class="benefit-item">
+          <h4>Self-Maintains</h4>
+          <p>Fallen leaves create natural mulch, eliminating need for maintenance</p>
+        </div>
+        <div class="benefit-item">
+          <h4>Builds Soil</h4>
+          <p>Rapid biomass production enriches soil carbon and microbial life</p>
+        </div>
+        <div class="benefit-item">
+          <h4>Instant Habitat</h4>
+          <p>Multi-layered structure provides immediate nesting and foraging sites</p>
+        </div>
+        <div class="benefit-item">
+          <h4>Sequesters Carbon</h4>
+          <p>Dense plantings capture significantly more CO₂—grasses store carbon in root systems while trees lock it away for decades</p>
+        </div>
+        <div class="benefit-item">
+          <h4>Restores Quiet</h4>
+          <p>Dense vegetation naturally buffers traffic noise and creates peaceful sanctuary spaces in urban environments</p>
+        </div>
+      </div>
 
       <p style="margin-top: 2rem; font-size: 1.3rem; font-style: italic;">
         Our Tiny Forest kits provide <strong>10 indigenous plants per m²</strong>—a carefully curated mix of canopy, understory, and groundcover species specific to your Ecological Vegetation Class.
@@ -492,7 +520,7 @@
         <img src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?w=800&h=600&fit=crop" alt="Plains Grassy Woodland" class="kit-image">
         <div class="kit-header">
           <h3>Plains Grassy Woodland</h3>
-          <p class="evc-code">EVC 55_61</p>
+          <p class="evc-status">Endangered</p>
         </div>
         <div class="kit-body">
           <div class="kit-price">$89 <span>per m²</span></div>
@@ -514,7 +542,7 @@
         <img src="https://images.unsplash.com/photo-1511497584788-876760111969?w=800&h=600&fit=crop" alt="Valley Grassy Forest" class="kit-image">
         <div class="kit-header">
           <h3>Valley Grassy Forest</h3>
-          <p class="evc-code">EVC 47</p>
+          <p class="evc-status">Endangered</p>
         </div>
         <div class="kit-body">
           <div class="kit-price">$89 <span>per m²</span></div>
@@ -536,7 +564,7 @@
         <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=800&h=600&fit=crop" alt="Grassy Dry Forest" class="kit-image">
         <div class="kit-header">
           <h3>Grassy Dry Forest</h3>
-          <p class="evc-code">EVC 22</p>
+          <p class="evc-status">Vulnerable</p>
         </div>
         <div class="kit-body">
           <div class="kit-price">$89 <span>per m²</span></div>
@@ -558,7 +586,7 @@
         <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&h=600&fit=crop" alt="Riparian Forest" class="kit-image">
         <div class="kit-header">
           <h3>Riparian Forest</h3>
-          <p class="evc-code">EVC 18</p>
+          <p class="evc-status">Depleted</p>
         </div>
         <div class="kit-body">
           <div class="kit-price">$89 <span>per m²</span></div>
@@ -580,7 +608,7 @@
         <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=800&h=600&fit=crop" alt="Heathy Woodland" class="kit-image">
         <div class="kit-header">
           <h3>Heathy Woodland</h3>
-          <p class="evc-code">EVC 48</p>
+          <p class="evc-status">Depleted</p>
         </div>
         <div class="kit-body">
           <div class="kit-price">$89 <span>per m²</span></div>
@@ -602,7 +630,7 @@
         <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop" alt="Coastal Scrub" class="kit-image">
         <div class="kit-header">
           <h3>Coastal Scrub</h3>
-          <p class="evc-code">EVC 161</p>
+          <p class="evc-status">Least Concern</p>
         </div>
         <div class="kit-body">
           <div class="kit-price">$89 <span>per m²</span></div>
@@ -624,7 +652,26 @@
 
   <!-- Footer -->
   <footer>
-    <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+    <div class="acknowledgement">
+      <h3>Gardener & Son Acknowledgement of Country and Lost Ecology</h3>
+      <p>
+        At Gardener & Son, we acknowledge the Wurundjeri Woi Wurrung people of the Kulin Nation, the Traditional Custodians of the land on which we live and work.
+      </p>
+      <p>
+        We pay deep respect to their Elders — past and present — and to all First Nations people whose enduring connection to Country continues to guide and inspire us.
+      </p>
+      <p>
+        We also acknowledge the ecologies that once thrived here — the grasslands, woodlands, and wetlands shaped by thousands of years of cultural care and ecological balance.
+      </p>
+      <p>
+        These living systems were not lost to time, but to disconnection. Our work seeks to rekindle that relationship, restoring native ecologies, honouring local geology, and weaving biodiversity back into the urban fabric.
+      </p>
+      <p>
+        Each garden we design is an act of remembrance and renewal — a gesture toward healing both Country and ecology.
+      </p>
+    </div>
+    
+    <p style="font-size: 1.2rem; margin-bottom: 1rem; margin-top: 2rem;">
       Ready to grow your Tiny Forest?
     </p>
     <p>
