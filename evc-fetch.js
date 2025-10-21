@@ -1,4 +1,4 @@
-// evc-fetch.js - Updated with image-based forest kit section
+// evc-fetch.js - Updated with full kit details in modal
 
 let map, marker, modalMap;
 
@@ -141,431 +141,52 @@ function getKitDetails(evcName) {
   const kits = {
     'Plains Grassy Woodland': {
       image: 'plains-grassy-woodland.png',
+      description: 'Iconic River Red Gums with a diverse grassland understory. Perfect for Melbourne\'s western suburbs.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
+      specialFeature: 'Drought-tolerant species mix',
       slug: 'plains-grassy-woodland'
     },
     'Valley Grassy Forest': {
       image: 'valley-grassy-forest.png',
+      description: 'Tall eucalypt forest with rich fern and herb layer. Ideal for shaded valley slopes.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
+      specialFeature: 'Shade-tolerant species mix',
       slug: 'valley-grassy-forest'
     },
     'Grassy Dry Forest': {
       image: 'grassy-dry-forest.png',
+      description: 'Open forest structure with colorful wildflowers. Thrives in well-drained soils.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
+      specialFeature: 'Low-maintenance once established',
       slug: 'grassy-dry-forest'
     },
     'Riparian Forest': {
       image: 'riparian-forest.png',
+      description: 'Waterway vegetation with deep-rooted trees. Stabilizes banks and filters runoff.',
       canopy: 4,
       shrub: 3,
       groundcover: 3,
+      specialFeature: 'Moisture-loving species',
       slug: 'riparian-forest'
     },
     'Heathy Woodland': {
       image: 'heathy-woodland.png',
+      description: 'Low open woodland with dense heath understory. Perfect for sandy soils.',
       canopy: 2,
       shrub: 4,
       groundcover: 4,
+      specialFeature: 'Year-round flowering species',
       slug: 'heathy-woodland'
     },
     'Coastal Scrub': {
       image: 'coastal-scrub.png',
+      description: 'Salt-tolerant coastal vegetation. Thrives in windy, exposed positions.',
       canopy: 2,
       shrub: 5,
       groundcover: 3,
-      slug: 'coastal-scrub'
-    }
-  };
-
-  return kits[evcName] || null;
-}
-
-function displayModal(name, status, region, code, lat, lon) {
-  // Set basic info from API
-  document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent = status || "Not specified";
-  document.getElementById("modal-evc-region").textContent = region || "Not specified";
-
-  // Fetch curated plant data from external JSON
-  fetch('curated-plants.json')
-    .then(r => {
-      if (!r.ok) throw new Error('Could not load plant data');
-      return r.json();
-    })
-    .then(data => {
-      const evcInfo = data.evcs[code];
-      
-      // Set description
-      const descriptionEl = document.getElementById("modal-evc-description");
-      if (evcInfo?.description) {
-        descriptionEl.textContent = evcInfo.description;
-      } else {
-        descriptionEl.textContent = "We're still researching plants for this EVC. Check back soon!";
-        descriptionEl.style.fontStyle = "italic";
-        descriptionEl.style.color = "#666";
-      }
-
-      // Build plant list
-      const plantsDiv = document.getElementById("modal-plants");
-      plantsDiv.innerHTML = "";
-      
-      if (evcInfo?.recommendations && evcInfo.recommendations.length > 0) {
-        // Add title
-        const titleEl = document.createElement("h2");
-        titleEl.textContent = "Here's your plant list";
-        titleEl.style.fontFamily = "'Abril Fatface', serif";
-        titleEl.style.fontSize = "28px";
-        titleEl.style.marginTop = "30px";
-        titleEl.style.marginBottom = "20px";
-        titleEl.style.color = "inherit";
-        plantsDiv.appendChild(titleEl);
-
-        // Add plant layers
-        evcInfo.recommendations.forEach(sec => {
-          const layerDiv = document.createElement("div");
-          layerDiv.className = "layer";
-          layerDiv.style.marginBottom = "20px";
-          
-          const heading = document.createElement("h3");
-          heading.textContent = sec.layer;
-          heading.style.fontWeight = "700";
-          heading.style.fontSize = "16px";
-          heading.style.marginBottom = "10px";
-          heading.style.color = "inherit";
-          layerDiv.appendChild(heading);
-          
-          const list = document.createElement("ul");
-          list.style.listStyle = "none";
-          list.style.padding = "0";
-          list.style.margin = "0";
-          
-          sec.plants.forEach(plant => {
-            const item = document.createElement("li");
-            item.textContent = plant;
-            item.style.padding = "8px 0";
-            item.style.borderBottom = "1px solid #e2e8f0";
-            item.style.fontSize = "14px";
-            list.appendChild(item);
-          });
-          layerDiv.appendChild(list);
-          
-          plantsDiv.appendChild(layerDiv);
-        });
-
-        // Add Forest Kit section with image
-        const kitDetails = getKitDetails(name);
-        
-        if (kitDetails) {
-          const kitSection = document.createElement("div");
-          kitSection.style.marginTop = "40px";
-          kitSection.style.padding = "30px";
-          kitSection.style.background = "#f7fafc";
-          kitSection.style.borderRadius = "8px";
-          kitSection.style.border = "2px solid #e2e8f0";
-          
-          const kitTitle = document.createElement("h2");
-          kitTitle.textContent = "Get your forest kit";
-          kitTitle.style.fontFamily = "'Abril Fatface', serif";
-          kitTitle.style.fontSize = "28px";
-          kitTitle.style.marginBottom = "20px";
-          kitTitle.style.color = "#3d4535";
-          kitSection.appendChild(kitTitle);
-          
-          // Kit image
-          const kitImageContainer = document.createElement("div");
-          kitImageContainer.style.marginBottom = "20px";
-          kitImageContainer.style.borderRadius = "8px";
-          kitImageContainer.style.overflow = "hidden";
-          
-          const kitImage = document.createElement("img");
-          kitImage.src = `images/evcs/${kitDetails.image}`;
-          kitImage.alt = `${name} Forest Kit`;
-          kitImage.style.width = "100%";
-          kitImage.style.height = "200px";
-          kitImage.style.objectFit = "cover";
-          kitImage.style.display = "block";
-          
-          kitImage.onerror = function() {
-            this.style.display = 'none';
-            console.log(`Kit image not found: images/evcs/${kitDetails.image}`);
-          };
-          
-          kitImageContainer.appendChild(kitImage);
-          kitSection.appendChild(kitImageContainer);
-          
-          // Price
-          const kitPrice = document.createElement("div");
-          kitPrice.style.fontFamily = "'Abril Fatface', serif";
-          kitPrice.style.fontSize = "2.5rem";
-          kitPrice.style.color = "#3d4535";
-          kitPrice.style.marginBottom = "10px";
-          kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per m²</span>';
-          kitSection.appendChild(kitPrice);
-          
-          // Plant breakdown
-          const plantBreakdown = document.createElement("p");
-          plantBreakdown.textContent = `${kitDetails.canopy} canopy, ${kitDetails.shrub} shrub, ${kitDetails.groundcover} groundcover`;
-          plantBreakdown.style.color = "#666";
-          plantBreakdown.style.fontSize = "16px";
-          plantBreakdown.style.marginBottom = "20px";
-          kitSection.appendChild(plantBreakdown);
-          
-          const kitButton = document.createElement("button");
-          kitButton.textContent = "View Full Details";
-          kitButton.style.background = "#48bb78";
-          kitButton.style.color = "white";
-          kitButton.style.border = "none";
-          kitButton.style.padding = "14px 28px";
-          kitButton.style.borderRadius = "6px";
-          kitButton.style.fontSize = "16px";
-          kitButton.style.fontWeight = "600";
-          kitButton.style.cursor = "pointer";
-          kitButton.style.transition = "all 0.2s";
-          kitButton.style.width = "100%";
-          
-          kitButton.addEventListener("mouseover", () => {
-            kitButton.style.background = "#38a169";
-            kitButton.style.transform = "translateY(-2px)";
-          });
-          
-          kitButton.addEventListener("mouseout", () => {
-            kitButton.style.background = "#48bb78";
-            kitButton.style.transform = "translateY(0)";
-          });
-          
-          kitButton.addEventListener("click", () => {
-            // Link to detail/purchase page (to be created)
-            window.open(`kit-detail.html?evc=${kitDetails.slug}`, '_blank');
-          });
-          
-          kitSection.appendChild(kitButton);
-          plantsDiv.appendChild(kitSection);
-        }
-        
-        // Add EVC Tee section
-        const teeSection = document.createElement("div");
-        teeSection.style.marginTop = "20px";
-        teeSection.style.padding = "30px";
-        teeSection.style.background = "#f7fafc";
-        teeSection.style.borderRadius = "8px";
-        teeSection.style.border = "2px solid #e2e8f0";
-        
-        const teeTitle = document.createElement("h2");
-        teeTitle.textContent = "Buy your EVC tee";
-        teeTitle.style.fontFamily = "'Abril Fatface', serif";
-        teeTitle.style.fontSize = "28px";
-        teeTitle.style.marginBottom = "15px";
-        teeTitle.style.color = "#3d4535";
-        teeSection.appendChild(teeTitle);
-        
-        // Create image filename from EVC name
-        const imageFilename = name.toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/['']/g, '')
-          .replace(/&/g, 'and')
-          + '.png';
-        
-        // Image container
-        const imageContainer = document.createElement("div");
-        imageContainer.style.marginBottom = "20px";
-        imageContainer.style.textAlign = "center";
-        
-        const teeImage = document.createElement("img");
-        teeImage.src = `images/tees/${imageFilename}`;
-        teeImage.alt = `${name} Tee`;
-        teeImage.style.maxWidth = "100%";
-        teeImage.style.height = "auto";
-        teeImage.style.borderRadius = "8px";
-        teeImage.style.maxHeight = "300px";
-        teeImage.style.objectFit = "contain";
-        
-        // Handle image load error
-        teeImage.onerror = function() {
-          this.style.display = 'none';
-          console.log(`Tee image not found: images/tees/${imageFilename}`);
-        };
-        
-        imageContainer.appendChild(teeImage);
-        teeSection.appendChild(imageContainer);
-        
-        const teeDescription = document.createElement("p");
-        teeDescription.innerHTML = `Printed with <strong>${name}</strong> on the front.`;
-        teeDescription.style.marginBottom = "20px";
-        teeDescription.style.color = "#3d4535";
-        teeDescription.style.fontSize = "16px";
-        teeSection.appendChild(teeDescription);
-        
-        // Size selector and button container
-        const teeControls = document.createElement("div");
-        teeControls.style.display = "flex";
-        teeControls.style.gap = "10px";
-        teeControls.style.alignItems = "center";
-        
-        const sizeSelect = document.createElement("select");
-        sizeSelect.id = "tee-size-select";
-        sizeSelect.style.flex = "1";
-        sizeSelect.style.padding = "12px";
-        sizeSelect.style.fontSize = "16px";
-        sizeSelect.style.border = "2px solid #e2e8f0";
-        sizeSelect.style.borderRadius = "6px";
-        sizeSelect.style.background = "white";
-        sizeSelect.style.cursor = "pointer";
-        sizeSelect.innerHTML = `
-          <option value="" disabled selected>Choose size</option>
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        `;
-        teeControls.appendChild(sizeSelect);
-        
-        const teeButton = document.createElement("button");
-        teeButton.textContent = "Buy now";
-        teeButton.style.background = "#48bb78";
-        teeButton.style.color = "white";
-        teeButton.style.border = "none";
-        teeButton.style.padding = "12px 24px";
-        teeButton.style.borderRadius = "6px";
-        teeButton.style.fontSize = "16px";
-        teeButton.style.fontWeight = "600";
-        teeButton.style.cursor = "pointer";
-        teeButton.style.transition = "all 0.2s";
-        teeButton.style.whiteSpace = "nowrap";
-        
-        teeButton.addEventListener("mouseover", () => {
-          teeButton.style.background = "#38a169";
-          teeButton.style.transform = "translateY(-2px)";
-        });
-        
-        teeButton.addEventListener("mouseout", () => {
-          teeButton.style.background = "#48bb78";
-          teeButton.style.transform = "translateY(0)";
-        });
-        
-        teeButton.addEventListener("click", async () => {
-          const size = sizeSelect.value;
-          if (!size) {
-            alert("Please choose a size first.");
-            return;
-          }
-          
-          // Copy EVC name to clipboard
-          try {
-            await navigator.clipboard.writeText(name);
-          } catch (err) {
-            console.log("Could not copy to clipboard");
-          }
-          
-          alert("Tee purchase coming soon! This would link to your Stripe checkout.");
-        });
-        
-        teeControls.appendChild(teeButton);
-        teeSection.appendChild(teeControls);
-        
-        const teeHint = document.createElement("div");
-        teeHint.textContent = "We'll copy your EVC text automatically for checkout.";
-        teeHint.style.marginTop = "10px";
-        teeHint.style.fontSize = "14px";
-        teeHint.style.color = "#666";
-        teeSection.appendChild(teeHint);
-        
-        plantsDiv.appendChild(teeSection);
-        
-        // Add Ebook Preorder section
-        const ebookSection = document.createElement("div");
-        ebookSection.style.marginTop = "20px";
-        ebookSection.style.padding = "30px";
-        ebookSection.style.background = "#f7fafc";
-        ebookSection.style.borderRadius = "8px";
-        ebookSection.style.border = "2px solid #e2e8f0";
-        
-        const ebookTitle = document.createElement("h2");
-        ebookTitle.textContent = "Preorder the ebook";
-        ebookTitle.style.fontFamily = "'Abril Fatface', serif";
-        ebookTitle.style.fontSize = "28px";
-        ebookTitle.style.marginBottom = "15px";
-        ebookTitle.style.color = "#3d4535";
-        ebookSection.appendChild(ebookTitle);
-        
-        const ebookDescription = document.createElement("p");
-        ebookDescription.textContent = `A comprehensive guide exploring ${name} through the lens of Aboriginal culture and ecological wisdom — featuring traditional plant uses, seasonal practices, where to see this EVC in Victoria, and regeneration techniques for modern gardeners.`;
-        ebookDescription.style.marginBottom = "20px";
-        ebookDescription.style.color = "#3d4535";
-        ebookDescription.style.fontSize = "16px";
-        ebookSection.appendChild(ebookDescription);
-        
-        const ebookButton = document.createElement("button");
-        ebookButton.textContent = "Preorder now";
-        ebookButton.style.background = "#48bb78";
-        ebookButton.style.color = "white";
-        ebookButton.style.border = "none";
-        ebookButton.style.padding = "14px 28px";
-        ebookButton.style.borderRadius = "6px";
-        ebookButton.style.fontSize = "16px";
-        ebookButton.style.fontWeight = "600";
-        ebookButton.style.cursor = "pointer";
-        ebookButton.style.transition = "all 0.2s";
-        ebookButton.style.width = "100%";
-        
-        ebookButton.addEventListener("mouseover", () => {
-          ebookButton.style.background = "#38a169";
-          ebookButton.style.transform = "translateY(-2px)";
-        });
-        
-        ebookButton.addEventListener("mouseout", () => {
-          ebookButton.style.background = "#48bb78";
-          ebookButton.style.transform = "translateY(0)";
-        });
-        
-        ebookButton.addEventListener("click", () => {
-          alert("Ebook preorder coming soon! This would link to your preorder page.");
-        });
-        
-        ebookSection.appendChild(ebookButton);
-        
-        const ebookHint = document.createElement("div");
-        ebookHint.textContent = "Digital delivery upon release. Reserve your copy today.";
-        ebookHint.style.marginTop = "10px";
-        ebookHint.style.fontSize = "14px";
-        ebookHint.style.color = "#666";
-        ebookHint.style.textAlign = "center";
-        ebookSection.appendChild(ebookHint);
-        
-        plantsDiv.appendChild(ebookSection);
-        
-      } else {
-        // No plant data available yet
-        plantsDiv.innerHTML = '<p style="color: #666; font-style: italic; padding: 20px;">Plant recommendations coming soon for this EVC.</p>';
-      }
-      
-      // Show plants immediately (no email gate)
-      plantsDiv.style.display = "block";
-    })
-    .catch(err => {
-      console.error('Failed to load plant data:', err);
-      document.getElementById("modal-evc-description").textContent = 
-        "Plant data currently unavailable. Please try again later.";
-      document.getElementById("modal-plants").innerHTML = "";
-    });
-
-  // Setup modal map
-  modalMap && modalMap.remove();
-  modalMap = L.map("modal-map").setView([lat, lon], 12);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors"
-  }).addTo(modalMap);
-  L.marker([lat, lon]).addTo(modalMap);
-
-  // Show modal
-  const modal = document.getElementById("evc-modal");
-  modal.style.display = "flex";
-  setTimeout(() => modalMap.invalidateSize(), 0);
-}
