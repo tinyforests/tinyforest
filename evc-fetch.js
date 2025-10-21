@@ -1,4 +1,4 @@
-// evc-fetch.js - Complete version with coming soon handling and EVC name above price
+// evc-fetch.js - Complete version with all 30 EVCs
 
 let map, marker, modalMap;
 
@@ -139,23 +139,77 @@ function fetchEVCData(lat, lon) {
 // Helper function to get kit details based on EVC name
 function getKitDetails(evcName) {
   const kits = {
-    'Plains Grassy Woodland': {
-      image: 'plains-grassy-woodland.png',
-      description: 'Iconic River Red Gums with a diverse grassland understory. Perfect for Melbourne\'s western suburbs.',
+    'Box-Ironbark Forest': {
+      image: 'box-ironbark-forest.png',
+      description: 'Iconic ironbark and box eucalypts with diverse understory. Thrives in low-rainfall areas with nutrient-poor soils.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
-      specialFeature: 'Drought-tolerant species mix',
-      slug: 'plains-grassy-woodland'
+      specialFeature: 'Drought-tolerant and fire-adapted species',
+      slug: 'box-ironbark-forest'
     },
-    'Valley Grassy Forest': {
-      image: 'valley-grassy-forest.png',
-      description: 'Tall eucalypt forest with rich fern and herb layer. Ideal for shaded valley slopes.',
+    'Brackish Grassland': {
+      image: 'brackish-grassland.png',
+      description: 'Salt-tolerant grassland communities near coastal areas. Important habitat for migratory birds.',
+      canopy: 1,
+      shrub: 2,
+      groundcover: 7,
+      specialFeature: 'Salt-tolerant species mix',
+      slug: 'brackish-grassland'
+    },
+    'Coast Banksia Woodland': {
+      image: 'coast-banksia-woodland.png',
+      description: 'Coastal banksia-dominated woodland with heath understory. Perfect for sandy coastal soils.',
+      canopy: 2,
+      shrub: 4,
+      groundcover: 4,
+      specialFeature: 'Wind and salt resistant',
+      slug: 'coast-banksia-woodland'
+    },
+    'Coastal Saltmarsh': {
+      image: 'coastal-saltmarsh.png',
+      description: 'Intertidal vegetation adapted to regular tidal inundation. Critical ecosystem for coastal biodiversity.',
+      canopy: 0,
+      shrub: 2,
+      groundcover: 8,
+      specialFeature: 'Salt and flood-tolerant species',
+      slug: 'coastal-saltmarsh'
+    },
+    'Creekline Grassy Woodland': {
+      image: 'creekline-grassy-woodland.png',
+      description: 'Riparian woodland with grassy groundlayer. Protects waterways and provides wildlife corridors.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
-      specialFeature: 'Shade-tolerant species mix',
-      slug: 'valley-grassy-forest'
+      specialFeature: 'Moisture-loving creek specialists',
+      slug: 'creekline-grassy-woodland'
+    },
+    'Damp Sands Herb-rich Woodland': {
+      image: 'damp-sands-herb-rich-woodland.png',
+      description: 'Diverse woodland on seasonally damp sandy soils. Rich herbaceous groundlayer with high biodiversity.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Seasonal wetland species',
+      slug: 'damp-sands-herb-rich-woodland'
+    },
+    'Estuarine Woodlands': {
+      image: 'estuarine-woodlands.png',
+      description: 'Coastal vegetation where rivers meet the sea. Adapted to brackish water and tidal influence.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Brackish water-tolerant species',
+      slug: 'estuarine-woodlands'
+    },
+    'Floodplain Riparian Woodland': {
+      image: 'floodplain-riparian-woodland.png',
+      description: 'Riverine woodlands adapted to periodic flooding. Important for water quality and flood mitigation.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Flood-tolerant species',
+      slug: 'floodplain-riparian-woodland'
     },
     'Grassy Dry Forest': {
       image: 'grassy-dry-forest.png',
@@ -166,14 +220,32 @@ function getKitDetails(evcName) {
       specialFeature: 'Low-maintenance once established',
       slug: 'grassy-dry-forest'
     },
-    'Riparian Forest': {
-      image: 'riparian-forest.png',
-      description: 'Waterway vegetation with deep-rooted trees. Stabilizes banks and filters runoff.',
-      canopy: 4,
+    'Grassy Forest': {
+      image: 'grassy-forest.png',
+      description: 'Tall eucalypt forest with grassy understory. Supports diverse wildlife in suburban settings.',
+      canopy: 3,
       shrub: 3,
-      groundcover: 3,
-      specialFeature: 'Moisture-loving species',
-      slug: 'riparian-forest'
+      groundcover: 4,
+      specialFeature: 'Shade-creating canopy species',
+      slug: 'grassy-forest'
+    },
+    'Grassy Woodland': {
+      image: 'grassy-woodland.png',
+      description: 'Open woodland with diverse native grasses. Perfect for larger suburban blocks.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Low-maintenance grassland mix',
+      slug: 'grassy-woodland'
+    },
+    'Heathy Dry Forest': {
+      image: 'heathy-dry-forest.png',
+      description: 'Forest with dense heath understory. Thrives on nutrient-poor, well-drained soils.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Year-round flowering heaths',
+      slug: 'heathy-dry-forest'
     },
     'Heathy Woodland': {
       image: 'heathy-woodland.png',
@@ -184,14 +256,158 @@ function getKitDetails(evcName) {
       specialFeature: 'Year-round flowering species',
       slug: 'heathy-woodland'
     },
-    'Coastal Scrub': {
-      image: 'coastal-scrub.png',
-      description: 'Salt-tolerant coastal vegetation. Thrives in windy, exposed positions.',
+    'Herb-rich Foothill Forest': {
+      image: 'herb-rich-foothill.png',
+      description: 'Diverse forest with rich herbaceous layer. Found on fertile foothill soils.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Diverse herb and wildflower mix',
+      slug: 'herb-rich-foothill'
+    },
+    'Lowland Forest': {
+      image: 'lowland-forest.png',
+      description: 'Tall forest on flat to gently undulating terrain. Rich, productive ecosystems.',
+      canopy: 4,
+      shrub: 3,
+      groundcover: 3,
+      specialFeature: 'Tall canopy shade providers',
+      slug: 'lowland-forest'
+    },
+    'Plains Grassy Woodland': {
+      image: 'plains-grassy-woodland.png',
+      description: 'Iconic River Red Gums with diverse grassland understory. Perfect for Melbourne\'s western suburbs.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Drought-tolerant species mix',
+      slug: 'plains-grassy-woodland'
+    },
+    'Riparian Forest': {
+      image: 'riparian-forest.png',
+      description: 'Waterway vegetation with deep-rooted trees. Stabilizes banks and filters runoff.',
+      canopy: 4,
+      shrub: 3,
+      groundcover: 3,
+      specialFeature: 'Moisture-loving species',
+      slug: 'riparian-forest'
+    },
+    'Riparian Thicket': {
+      image: 'riparian-thicket.png',
+      description: 'Dense shrubby vegetation along streams. Excellent for erosion control and wildlife shelter.',
       canopy: 2,
       shrub: 5,
       groundcover: 3,
-      specialFeature: 'Wind and salt resistant',
-      slug: 'coastal-scrub'
+      specialFeature: 'Dense bank-stabilizing shrubs',
+      slug: 'riparian-thicket'
+    },
+    'Riparian Woodland': {
+      image: 'riparian-woodland.png',
+      description: 'Open woodland along permanent and ephemeral waterways. Critical wildlife habitat.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Creek and river specialists',
+      slug: 'riparian-woodland'
+    },
+    'Riverine Escarpment Scrub': {
+      image: 'riverrine-escarpment-scrub.png',
+      description: 'Shrubby vegetation on steep riverine slopes. Prevents erosion and creates microclimates.',
+      canopy: 2,
+      shrub: 5,
+      groundcover: 3,
+      specialFeature: 'Slope-stabilizing species',
+      slug: 'riverrine-escarpment-scrub'
+    },
+    'Sand Heathland': {
+      image: 'sand-heathland.png',
+      description: 'Low heathland on coastal and inland sand deposits. Vibrant flowering display year-round.',
+      canopy: 1,
+      shrub: 5,
+      groundcover: 4,
+      specialFeature: 'Sandy soil specialists',
+      slug: 'sand-heathland'
+    },
+    'Shrubby Dry Forest': {
+      image: 'shrubby-dry-forest.png',
+      description: 'Forest with prominent shrub layer. Thrives on drier, less fertile sites.',
+      canopy: 3,
+      shrub: 4,
+      groundcover: 3,
+      specialFeature: 'Drought-adapted shrub layer',
+      slug: 'shrubby-dry-forest'
+    },
+    'Shrubby Foothill Forest': {
+      image: 'shrubby-rich-foothill.png',
+      description: 'Dense shrubby forest on foothill slopes. Rich in wattles and understory species.',
+      canopy: 3,
+      shrub: 4,
+      groundcover: 3,
+      specialFeature: 'Diverse shrub and wattle mix',
+      slug: 'shrubby-rich-foothill'
+    },
+    'Stream-bank Shrubland': {
+      image: 'stream-bank-shrubland.png',
+      description: 'Shrub-dominated communities along small streams. Essential for streambank stability.',
+      canopy: 2,
+      shrub: 5,
+      groundcover: 3,
+      specialFeature: 'Erosion-controlling shrubs',
+      slug: 'stream-bank-shrubland'
+    },
+    'Swamp Scrub': {
+      image: 'swamp-scrub.png',
+      description: 'Dense shrubby vegetation in seasonally inundated areas. Creates important wetland habitat.',
+      canopy: 1,
+      shrub: 6,
+      groundcover: 3,
+      specialFeature: 'Wetland and swamp specialists',
+      slug: 'swamp-scrub'
+    },
+    'Swampy Riparian Woodland': {
+      image: 'swampy-riparian-woodland.png',
+      description: 'Waterlogged riparian areas with specialized vegetation. Natural water filtration system.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Waterlogged soil tolerant',
+      slug: 'swampy-riparian-woodland'
+    },
+    'Treed Sand Heathland': {
+      image: 'treed-sand-heathland.png',
+      description: 'Heath with scattered tree cover on sandy soils. Diverse flowering shrub layer.',
+      canopy: 2,
+      shrub: 4,
+      groundcover: 4,
+      specialFeature: 'Sandy coastal species',
+      slug: 'treed-sand-heathland'
+    },
+    'Valley Grassy Forest': {
+      image: 'valley-grassy-forest.png',
+      description: 'Tall eucalypt forest with rich fern and herb layer. Ideal for shaded valley slopes.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Shade-tolerant species mix',
+      slug: 'valley-grassy-forest'
+    },
+    'Valley Heathy Forest': {
+      image: 'valley-heathy-forest.png',
+      description: 'Forest with heathy understory in sheltered valleys. Rich in flowering shrubs.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Valley-adapted heath mix',
+      slug: 'valley-heathy-forest'
+    },
+    'Wet Heathland': {
+      image: 'wet-heathland.png',
+      description: 'Heath communities on poorly-drained soils. Spectacular seasonal flowering display.',
+      canopy: 1,
+      shrub: 5,
+      groundcover: 4,
+      specialFeature: 'Wetland heath specialists',
+      slug: 'wet-heathland'
     }
   };
 
