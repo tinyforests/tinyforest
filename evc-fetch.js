@@ -1,4 +1,4 @@
-// evc-fetch.js - Updated with full kit details in modal
+// evc-fetch.js - Complete version with coming soon handling and EVC name above price
 
 let map, marker, modalMap;
 
@@ -273,22 +273,22 @@ function displayModal(name, status, region, code, lat, lon) {
         // Add Forest Kit section with full details
         const kitDetails = getKitDetails(name);
         
+        const kitSection = document.createElement("div");
+        kitSection.style.marginTop = "40px";
+        kitSection.style.padding = "30px";
+        kitSection.style.background = "#f7fafc";
+        kitSection.style.borderRadius = "8px";
+        kitSection.style.border = "2px solid #e2e8f0";
+        
+        const kitTitle = document.createElement("h2");
+        kitTitle.textContent = "Get your forest kit";
+        kitTitle.style.fontFamily = "'Abril Fatface', serif";
+        kitTitle.style.fontSize = "28px";
+        kitTitle.style.marginBottom = "20px";
+        kitTitle.style.color = "#3d4535";
+        kitSection.appendChild(kitTitle);
+        
         if (kitDetails) {
-          const kitSection = document.createElement("div");
-          kitSection.style.marginTop = "40px";
-          kitSection.style.padding = "30px";
-          kitSection.style.background = "#f7fafc";
-          kitSection.style.borderRadius = "8px";
-          kitSection.style.border = "2px solid #e2e8f0";
-          
-          const kitTitle = document.createElement("h2");
-          kitTitle.textContent = "Get your forest kit";
-          kitTitle.style.fontFamily = "'Abril Fatface', serif";
-          kitTitle.style.fontSize = "28px";
-          kitTitle.style.marginBottom = "20px";
-          kitTitle.style.color = "#3d4535";
-          kitSection.appendChild(kitTitle);
-          
           // Kit image
           const kitImageContainer = document.createElement("div");
           kitImageContainer.style.marginBottom = "20px";
@@ -310,6 +310,16 @@ function displayModal(name, status, region, code, lat, lon) {
           
           kitImageContainer.appendChild(kitImage);
           kitSection.appendChild(kitImageContainer);
+          
+          // EVC Name title above price
+          const kitEvcName = document.createElement("h3");
+          kitEvcName.textContent = name;
+          kitEvcName.style.fontFamily = "'Abril Fatface', serif";
+          kitEvcName.style.fontSize = "1.8rem";
+          kitEvcName.style.color = "#3d4535";
+          kitEvcName.style.marginBottom = "10px";
+          kitEvcName.style.letterSpacing = "0px";
+          kitSection.appendChild(kitEvcName);
           
           // Price
           const kitPrice = document.createElement("div");
@@ -389,13 +399,22 @@ function displayModal(name, status, region, code, lat, lon) {
           });
           
           kitButton.addEventListener("click", () => {
-            // Link to detail/purchase page (to be created)
             window.open(`kit-detail.html?evc=${kitDetails.slug}`, '_blank');
           });
           
           kitSection.appendChild(kitButton);
-          plantsDiv.appendChild(kitSection);
+        } else {
+          // No kit data available - show coming soon
+          const comingSoon = document.createElement("p");
+          comingSoon.textContent = `Forest kits for ${name} are coming soon! We're currently focusing on the most common EVCs in greater Melbourne. Check back later or contact us to express interest.`;
+          comingSoon.style.color = "#666";
+          comingSoon.style.fontStyle = "italic";
+          comingSoon.style.padding = "20px";
+          comingSoon.style.lineHeight = "1.6";
+          kitSection.appendChild(comingSoon);
         }
+        
+        plantsDiv.appendChild(kitSection);
         
         // Add EVC Tee section
         const teeSection = document.createElement("div");
@@ -434,97 +453,110 @@ function displayModal(name, status, region, code, lat, lon) {
         teeImage.style.maxHeight = "300px";
         teeImage.style.objectFit = "contain";
         
-        // Handle image load error
+        let teeAvailable = true;
+        
         teeImage.onerror = function() {
+          teeAvailable = false;
           this.style.display = 'none';
           console.log(`Tee image not found: images/tees/${imageFilename}`);
+          
+          // Show coming soon message
+          const comingSoon = document.createElement("p");
+          comingSoon.textContent = `EVC tees for ${name} are coming soon! We're currently focusing on the most common EVCs in greater Melbourne.`;
+          comingSoon.style.color = "#666";
+          comingSoon.style.fontStyle = "italic";
+          comingSoon.style.padding = "20px";
+          comingSoon.style.lineHeight = "1.6";
+          teeSection.appendChild(comingSoon);
         };
         
         imageContainer.appendChild(teeImage);
         teeSection.appendChild(imageContainer);
         
-        const teeDescription = document.createElement("p");
-        teeDescription.innerHTML = `Printed with <strong>${name}</strong> on the front.`;
-        teeDescription.style.marginBottom = "20px";
-        teeDescription.style.color = "#3d4535";
-        teeDescription.style.fontSize = "16px";
-        teeSection.appendChild(teeDescription);
-        
-        // Size selector and button container
-        const teeControls = document.createElement("div");
-        teeControls.style.display = "flex";
-        teeControls.style.gap = "10px";
-        teeControls.style.alignItems = "center";
-        
-        const sizeSelect = document.createElement("select");
-        sizeSelect.id = "tee-size-select";
-        sizeSelect.style.flex = "1";
-        sizeSelect.style.padding = "12px";
-        sizeSelect.style.fontSize = "16px";
-        sizeSelect.style.border = "2px solid #e2e8f0";
-        sizeSelect.style.borderRadius = "6px";
-        sizeSelect.style.background = "white";
-        sizeSelect.style.cursor = "pointer";
-        sizeSelect.innerHTML = `
-          <option value="" disabled selected>Choose size</option>
-          <option value="XS">XS</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-          <option value="XXL">XXL</option>
-        `;
-        teeControls.appendChild(sizeSelect);
-        
-        const teeButton = document.createElement("button");
-        teeButton.textContent = "Buy now";
-        teeButton.style.background = "#48bb78";
-        teeButton.style.color = "white";
-        teeButton.style.border = "none";
-        teeButton.style.padding = "12px 24px";
-        teeButton.style.borderRadius = "6px";
-        teeButton.style.fontSize = "16px";
-        teeButton.style.fontWeight = "600";
-        teeButton.style.cursor = "pointer";
-        teeButton.style.transition = "all 0.2s";
-        teeButton.style.whiteSpace = "nowrap";
-        
-        teeButton.addEventListener("mouseover", () => {
-          teeButton.style.background = "#38a169";
-          teeButton.style.transform = "translateY(-2px)";
-        });
-        
-        teeButton.addEventListener("mouseout", () => {
+        // Only show purchase UI if tee is available
+        teeImage.onload = function() {
+          const teeDescription = document.createElement("p");
+          teeDescription.innerHTML = `Printed with <strong>${name}</strong> on the front.`;
+          teeDescription.style.marginBottom = "20px";
+          teeDescription.style.color = "#3d4535";
+          teeDescription.style.fontSize = "16px";
+          teeSection.appendChild(teeDescription);
+          
+          // Size selector and button container
+          const teeControls = document.createElement("div");
+          teeControls.style.display = "flex";
+          teeControls.style.gap = "10px";
+          teeControls.style.alignItems = "center";
+          
+          const sizeSelect = document.createElement("select");
+          sizeSelect.id = "tee-size-select";
+          sizeSelect.style.flex = "1";
+          sizeSelect.style.padding = "12px";
+          sizeSelect.style.fontSize = "16px";
+          sizeSelect.style.border = "2px solid #e2e8f0";
+          sizeSelect.style.borderRadius = "6px";
+          sizeSelect.style.background = "white";
+          sizeSelect.style.cursor = "pointer";
+          sizeSelect.innerHTML = `
+            <option value="" disabled selected>Choose size</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          `;
+          teeControls.appendChild(sizeSelect);
+          
+          const teeButton = document.createElement("button");
+          teeButton.textContent = "Buy now";
           teeButton.style.background = "#48bb78";
-          teeButton.style.transform = "translateY(0)";
-        });
-        
-        teeButton.addEventListener("click", async () => {
-          const size = sizeSelect.value;
-          if (!size) {
-            alert("Please choose a size first.");
-            return;
-          }
+          teeButton.style.color = "white";
+          teeButton.style.border = "none";
+          teeButton.style.padding = "12px 24px";
+          teeButton.style.borderRadius = "6px";
+          teeButton.style.fontSize = "16px";
+          teeButton.style.fontWeight = "600";
+          teeButton.style.cursor = "pointer";
+          teeButton.style.transition = "all 0.2s";
+          teeButton.style.whiteSpace = "nowrap";
           
-          // Copy EVC name to clipboard
-          try {
-            await navigator.clipboard.writeText(name);
-          } catch (err) {
-            console.log("Could not copy to clipboard");
-          }
+          teeButton.addEventListener("mouseover", () => {
+            teeButton.style.background = "#38a169";
+            teeButton.style.transform = "translateY(-2px)";
+          });
           
-          alert("Tee purchase coming soon! This would link to your Stripe checkout.");
-        });
-        
-        teeControls.appendChild(teeButton);
-        teeSection.appendChild(teeControls);
-        
-        const teeHint = document.createElement("div");
-        teeHint.textContent = "We'll copy your EVC text automatically for checkout.";
-        teeHint.style.marginTop = "10px";
-        teeHint.style.fontSize = "14px";
-        teeHint.style.color = "#666";
-        teeSection.appendChild(teeHint);
+          teeButton.addEventListener("mouseout", () => {
+            teeButton.style.background = "#48bb78";
+            teeButton.style.transform = "translateY(0)";
+          });
+          
+          teeButton.addEventListener("click", async () => {
+            const size = sizeSelect.value;
+            if (!size) {
+              alert("Please choose a size first.");
+              return;
+            }
+            
+            try {
+              await navigator.clipboard.writeText(name);
+            } catch (err) {
+              console.log("Could not copy to clipboard");
+            }
+            
+            alert("Tee purchase coming soon! This would link to your Stripe checkout.");
+          });
+          
+          teeControls.appendChild(teeButton);
+          teeSection.appendChild(teeControls);
+          
+          const teeHint = document.createElement("div");
+          teeHint.textContent = "We'll copy your EVC text automatically for checkout.";
+          teeHint.style.marginTop = "10px";
+          teeHint.style.fontSize = "14px";
+          teeHint.style.color = "#666";
+          teeSection.appendChild(teeHint);
+        };
         
         plantsDiv.appendChild(teeSection);
         
