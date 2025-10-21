@@ -4,7 +4,6 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Find Your Ecological Garden</title>
-
   <!-- Fonts & Leaflet CSS -->
   <link
     href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;500;700&display=swap"
@@ -19,14 +18,12 @@
 <body>
   <div id="container">
     <h2 id="page-title">Find Your Ecological Garden.</h2>
-
     <p class="hero-highlight">
       Planting ecological species helps restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
     </p>
     <p>
       Enter your address to discover your Ecological Vegetation and find what plants belong in your garden.
     </p>
-
     <div id="search-container">
       <form id="address-form">
         <input
@@ -43,22 +40,32 @@
         📍 Use My Location
       </button>
     </div>
-
     <!-- legacy map (hidden via CSS) -->
     <div id="map"></div>
     
     <!-- Footer -->
-    <footer style="margin-top: 60px; padding: 20px; text-align: center; font-size: 14px; color: #3d4535;">
-      <p style="margin: 0; font-family: 'Abril Fatface', serif; font-size: 18px;">Gardener & Son</p>
+    <footer style="margin-top: 80px; padding: 40px 20px; background-color: #3d4535; color: #fff0dc;">
+      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+        <p style="font-size: 13px; line-height: 1.8; margin-bottom: 30px; font-family: 'IBM Plex Mono', monospace; font-weight: 300;">
+          At Gardener & Son, we acknowledge the Wurundjeri Woi Wurrung people of the Kulin Nation, the Traditional Custodians of the land on which we live and work.
+          We pay deep respect to their Elders — past and present — and to all First Nations people whose enduring connection to Country continues to guide and inspire us.
+        </p>
+        <p style="font-size: 13px; line-height: 1.8; margin-bottom: 30px; font-family: 'IBM Plex Mono', monospace; font-weight: 300;">
+          We also acknowledge the ecologies that once thrived here — the grasslands, woodlands, and wetlands shaped by thousands of years of cultural care and ecological balance.
+          These living systems were not lost to time, but to disconnection. Our work seeks to rekindle that relationship, restoring native ecologies, honouring local geology, and weaving biodiversity back into the urban fabric.
+          Each garden we design is an act of remembrance and renewal — a gesture toward healing both Country and ecology.
+        </p>
+        <p style="font-size: 12px; margin-top: 40px; font-family: 'IBM Plex Mono', monospace; font-weight: 300; opacity: 0.8;">
+          Lovingly made in Melbourne by Gardener & Son.
+        </p>
+      </div>
     </footer>
   </div>
-
   <!-- Modal -->
   <div id="evc-modal">
     <div class="modal-content">
       <div id="modal-map"></div>
       <button id="modal-close">&times;</button>
-
       <div id="modal-info">
         <p class="title">Your Ecological Vegetation is:</p>
         <p id="modal-evc-name"></p>
@@ -69,7 +76,6 @@
         <!-- ✅ ADDED THIS - Plant list container -->
         <div id="modal-plants"></div>
       </div>
-
       <!-- SIGN UP SECTION -->
       <div id="email-section">
         <h2 style="font-family: 'Abril Fatface', serif; font-size: 28px; color: #fff0dc; margin-bottom: 15px;">Join the ecological movement</h2>
@@ -95,7 +101,6 @@
       </div>
     </div>
   </div>
-
   <!-- Leaflet, Turf & fetch logic -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
