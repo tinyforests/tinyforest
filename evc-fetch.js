@@ -1,4 +1,4 @@
-// evc-fetch.js - Cleaned version with external JSON loading
+// evc-fetch.js - Updated with image-based forest kit section
 
 let map, marker, modalMap;
 
@@ -136,6 +136,56 @@ function fetchEVCData(lat, lon) {
     .catch(err => alert(err.message));
 }
 
+// Helper function to get kit details based on EVC name
+function getKitDetails(evcName) {
+  const kits = {
+    'Plains Grassy Woodland': {
+      image: 'plains-grassy-woodland.png',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      slug: 'plains-grassy-woodland'
+    },
+    'Valley Grassy Forest': {
+      image: 'valley-grassy-forest.png',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      slug: 'valley-grassy-forest'
+    },
+    'Grassy Dry Forest': {
+      image: 'grassy-dry-forest.png',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      slug: 'grassy-dry-forest'
+    },
+    'Riparian Forest': {
+      image: 'riparian-forest.png',
+      canopy: 4,
+      shrub: 3,
+      groundcover: 3,
+      slug: 'riparian-forest'
+    },
+    'Heathy Woodland': {
+      image: 'heathy-woodland.png',
+      canopy: 2,
+      shrub: 4,
+      groundcover: 4,
+      slug: 'heathy-woodland'
+    },
+    'Coastal Scrub': {
+      image: 'coastal-scrub.png',
+      canopy: 2,
+      shrub: 5,
+      groundcover: 3,
+      slug: 'coastal-scrub'
+    }
+  };
+
+  return kits[evcName] || null;
+}
+
 function displayModal(name, status, region, code, lat, lon) {
   // Set basic info from API
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
@@ -208,58 +258,95 @@ function displayModal(name, status, region, code, lat, lon) {
           plantsDiv.appendChild(layerDiv);
         });
 
-        // Add Forest Kit section
-        const kitSection = document.createElement("div");
-        kitSection.style.marginTop = "40px";
-        kitSection.style.padding = "30px";
-        kitSection.style.background = "#f7fafc";
-        kitSection.style.borderRadius = "8px";
-        kitSection.style.border = "2px solid #e2e8f0";
+        // Add Forest Kit section with image
+        const kitDetails = getKitDetails(name);
         
-        const kitTitle = document.createElement("h2");
-        kitTitle.textContent = "Get your forest kit";
-        kitTitle.style.fontFamily = "'Abril Fatface', serif";
-        kitTitle.style.fontSize = "28px";
-        kitTitle.style.marginBottom = "15px";
-        kitTitle.style.color = "#3d4535";
-        kitSection.appendChild(kitTitle);
-        
-        const kitDescription = document.createElement("p");
-        kitDescription.textContent = "A curated selection of plants from your EVC, ready to plant in your garden.";
-        kitDescription.style.marginBottom = "20px";
-        kitDescription.style.color = "#3d4535";
-        kitDescription.style.fontSize = "16px";
-        kitSection.appendChild(kitDescription);
-        
-        const kitButton = document.createElement("button");
-        kitButton.textContent = "Buy Forest Kit";
-        kitButton.style.background = "#48bb78";
-        kitButton.style.color = "white";
-        kitButton.style.border = "none";
-        kitButton.style.padding = "14px 28px";
-        kitButton.style.borderRadius = "6px";
-        kitButton.style.fontSize = "16px";
-        kitButton.style.fontWeight = "600";
-        kitButton.style.cursor = "pointer";
-        kitButton.style.transition = "all 0.2s";
-        
-        kitButton.addEventListener("mouseover", () => {
-          kitButton.style.background = "#38a169";
-          kitButton.style.transform = "translateY(-2px)";
-        });
-        
-        kitButton.addEventListener("mouseout", () => {
+        if (kitDetails) {
+          const kitSection = document.createElement("div");
+          kitSection.style.marginTop = "40px";
+          kitSection.style.padding = "30px";
+          kitSection.style.background = "#f7fafc";
+          kitSection.style.borderRadius = "8px";
+          kitSection.style.border = "2px solid #e2e8f0";
+          
+          const kitTitle = document.createElement("h2");
+          kitTitle.textContent = "Get your forest kit";
+          kitTitle.style.fontFamily = "'Abril Fatface', serif";
+          kitTitle.style.fontSize = "28px";
+          kitTitle.style.marginBottom = "20px";
+          kitTitle.style.color = "#3d4535";
+          kitSection.appendChild(kitTitle);
+          
+          // Kit image
+          const kitImageContainer = document.createElement("div");
+          kitImageContainer.style.marginBottom = "20px";
+          kitImageContainer.style.borderRadius = "8px";
+          kitImageContainer.style.overflow = "hidden";
+          
+          const kitImage = document.createElement("img");
+          kitImage.src = `images/evcs/${kitDetails.image}`;
+          kitImage.alt = `${name} Forest Kit`;
+          kitImage.style.width = "100%";
+          kitImage.style.height = "200px";
+          kitImage.style.objectFit = "cover";
+          kitImage.style.display = "block";
+          
+          kitImage.onerror = function() {
+            this.style.display = 'none';
+            console.log(`Kit image not found: images/evcs/${kitDetails.image}`);
+          };
+          
+          kitImageContainer.appendChild(kitImage);
+          kitSection.appendChild(kitImageContainer);
+          
+          // Price
+          const kitPrice = document.createElement("div");
+          kitPrice.style.fontFamily = "'Abril Fatface', serif";
+          kitPrice.style.fontSize = "2.5rem";
+          kitPrice.style.color = "#3d4535";
+          kitPrice.style.marginBottom = "10px";
+          kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per m²</span>';
+          kitSection.appendChild(kitPrice);
+          
+          // Plant breakdown
+          const plantBreakdown = document.createElement("p");
+          plantBreakdown.textContent = `${kitDetails.canopy} canopy, ${kitDetails.shrub} shrub, ${kitDetails.groundcover} groundcover`;
+          plantBreakdown.style.color = "#666";
+          plantBreakdown.style.fontSize = "16px";
+          plantBreakdown.style.marginBottom = "20px";
+          kitSection.appendChild(plantBreakdown);
+          
+          const kitButton = document.createElement("button");
+          kitButton.textContent = "View Full Details";
           kitButton.style.background = "#48bb78";
-          kitButton.style.transform = "translateY(0)";
-        });
-        
-        kitButton.addEventListener("click", () => {
-          // Open forest kits page in new tab
-          window.open('forest-kits.html#kits', '_blank');
-        });
-        
-        kitSection.appendChild(kitButton);
-        plantsDiv.appendChild(kitSection);
+          kitButton.style.color = "white";
+          kitButton.style.border = "none";
+          kitButton.style.padding = "14px 28px";
+          kitButton.style.borderRadius = "6px";
+          kitButton.style.fontSize = "16px";
+          kitButton.style.fontWeight = "600";
+          kitButton.style.cursor = "pointer";
+          kitButton.style.transition = "all 0.2s";
+          kitButton.style.width = "100%";
+          
+          kitButton.addEventListener("mouseover", () => {
+            kitButton.style.background = "#38a169";
+            kitButton.style.transform = "translateY(-2px)";
+          });
+          
+          kitButton.addEventListener("mouseout", () => {
+            kitButton.style.background = "#48bb78";
+            kitButton.style.transform = "translateY(0)";
+          });
+          
+          kitButton.addEventListener("click", () => {
+            // Link to detail/purchase page (to be created)
+            window.open(`kit-detail.html?evc=${kitDetails.slug}`, '_blank');
+          });
+          
+          kitSection.appendChild(kitButton);
+          plantsDiv.appendChild(kitSection);
+        }
         
         // Add EVC Tee section
         const teeSection = document.createElement("div");
