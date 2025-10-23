@@ -620,14 +620,41 @@ function displayModal(name, status, region, code, lat, lon) {
           
           kitSection.appendChild(kitButton);
         } else {
-          // No kit data available - show coming soon
+          // No kit data available - show coming soon with button
           const comingSoon = document.createElement("p");
-          comingSoon.textContent = `Forest kits for ${name} are coming soon! We're currently focusing on the most common EVCs in greater Melbourne. Check back later or contact us to express interest.`;
+          comingSoon.innerHTML = `We don't have a forest kit for <strong>${name}</strong> yet, but we're curating one! In the meantime, explore our other kits to see what's possible with native plantings.`;
           comingSoon.style.color = "#666";
-          comingSoon.style.fontStyle = "italic";
-          comingSoon.style.padding = "20px";
+          comingSoon.style.fontSize = "16px";
           comingSoon.style.lineHeight = "1.6";
+          comingSoon.style.marginBottom = "20px";
           kitSection.appendChild(comingSoon);
+          
+          const exploreButton = document.createElement("button");
+          exploreButton.textContent = "Explore forest kits →";
+          exploreButton.style.background = "#3d4535";
+          exploreButton.style.color = "#fff0dc";
+          exploreButton.style.border = "none";
+          exploreButton.style.padding = "14px 28px";
+          exploreButton.style.borderRadius = "50px";
+          exploreButton.style.fontSize = "16px";
+          exploreButton.style.fontWeight = "600";
+          exploreButton.style.cursor = "pointer";
+          exploreButton.style.transition = "all 0.2s";
+          exploreButton.style.width = "100%";
+          
+          exploreButton.addEventListener("mouseover", () => {
+            exploreButton.style.transform = "scale(1.02)";
+          });
+          
+          exploreButton.addEventListener("mouseout", () => {
+            exploreButton.style.transform = "scale(1)";
+          });
+          
+          exploreButton.addEventListener("click", () => {
+            window.location.href = "forest-kits.html#kits";
+          });
+          
+          kitSection.appendChild(exploreButton);
         }
         
         plantsDiv.appendChild(kitSection);
@@ -677,12 +704,26 @@ function displayModal(name, status, region, code, lat, lon) {
           console.log(`Tee image not found: images/tees/${imageFilename}`);
           
           // Show coming soon message
-          const comingSoon = document.createElement("p");
-          comingSoon.textContent = `EVC tees for ${name} are coming soon! We're currently focusing on the most common EVCs in greater Melbourne.`;
-          comingSoon.style.color = "#666";
-          comingSoon.style.fontStyle = "italic";
-          comingSoon.style.padding = "20px";
-          comingSoon.style.lineHeight = "1.6";
+          const comingSoon = document.createElement("div");
+          comingSoon.style.padding = "30px 20px";
+          comingSoon.style.textAlign = "center";
+          comingSoon.style.background = "rgba(255, 240, 220, 0.3)";
+          comingSoon.style.borderRadius = "8px";
+          
+          const icon = document.createElement("div");
+          icon.textContent = "👕";
+          icon.style.fontSize = "48px";
+          icon.style.marginBottom = "15px";
+          comingSoon.appendChild(icon);
+          
+          const message = document.createElement("p");
+          message.innerHTML = `We're creating a unique design for <strong>${name}</strong>. Check out our other ecological tees while you wait!`;
+          message.style.color = "#666";
+          message.style.fontSize = "16px";
+          message.style.lineHeight = "1.6";
+          message.style.margin = "0";
+          comingSoon.appendChild(message);
+          
           teeSection.appendChild(comingSoon);
         };
         
@@ -840,7 +881,28 @@ function displayModal(name, status, region, code, lat, lon) {
         
       } else {
         // No plant data available yet
-        plantsDiv.innerHTML = '<p style="color: #666; font-style: italic; padding: 20px;">Plant recommendations coming soon for this EVC.</p>';
+        const comingSoonDiv = document.createElement("div");
+        comingSoonDiv.style.padding = "30px 20px";
+        comingSoonDiv.style.textAlign = "center";
+        comingSoonDiv.style.background = "rgba(255, 240, 220, 0.3)";
+        comingSoonDiv.style.borderRadius = "8px";
+        comingSoonDiv.style.marginTop = "20px";
+        
+        const icon = document.createElement("div");
+        icon.textContent = "🌱";
+        icon.style.fontSize = "48px";
+        icon.style.marginBottom = "15px";
+        comingSoonDiv.appendChild(icon);
+        
+        const message = document.createElement("p");
+        message.innerHTML = `We're still researching the best plant species for <strong>${name}</strong>. Check back soon for our curated recommendations!`;
+        message.style.color = "#666";
+        message.style.fontSize = "16px";
+        message.style.lineHeight = "1.6";
+        message.style.margin = "0";
+        comingSoonDiv.appendChild(message);
+        
+        plantsDiv.appendChild(comingSoonDiv);
       }
       
       // Show plants immediately (no email gate)
