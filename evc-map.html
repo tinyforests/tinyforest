@@ -25,6 +25,8 @@
       background-color: #fff0dc;
       color: #3d4535;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     /* Hero Section */
@@ -117,6 +119,8 @@
       font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     #search-button:hover,
@@ -170,9 +174,11 @@
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
+      overflow-x: hidden;
       position: relative;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
       animation: slideUp 0.4s ease-out;
+      -webkit-overflow-scrolling: touch;
     }
 
     #modal-map {
@@ -197,6 +203,8 @@
       z-index: 1000;
       transition: all 0.2s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     #modal-close:hover {
@@ -305,6 +313,8 @@
       font-size: 1rem;
       cursor: pointer;
       transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     #gf-form button:hover {
@@ -393,16 +403,175 @@
     /* Responsive */
     @media (max-width: 768px) {
       #container {
-        padding: 2rem 1.5rem;
+        padding: 2rem 1.2rem;
+        min-height: 90vh;
       }
 
-      #modal-info,
-      #email-section {
-        padding: 2rem 1.5rem;
+      #page-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-highlight {
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+      }
+
+      #container > p:not(.hero-highlight) {
+        font-size: 0.95rem;
+        margin-bottom: 2rem;
+      }
+
+      #search-container {
+        max-width: 100%;
+      }
+
+      #address-input {
+        padding: 1rem 1.2rem;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+
+      #search-button,
+      #location-button {
+        padding: 1rem 2rem;
+        font-size: 0.95rem;
       }
 
       #address-form {
         gap: 0.8rem;
+      }
+
+      /* Modal optimizations */
+      #evc-modal {
+        padding: 10px;
+      }
+
+      .modal-content {
+        max-height: 95vh;
+        border-radius: 15px;
+      }
+
+      #modal-map {
+        height: 200px;
+        border-radius: 15px 15px 0 0;
+      }
+
+      #modal-close {
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        font-size: 24px;
+      }
+
+      #modal-info {
+        padding: 1.5rem 1.2rem;
+      }
+
+      #modal-info .title {
+        font-size: 0.85rem;
+      }
+
+      #modal-evc-name {
+        font-size: clamp(1.6rem, 6vw, 2.2rem);
+        margin-bottom: 1rem;
+      }
+
+      #modal-info .status,
+      #modal-info .region {
+        font-size: 0.9rem;
+      }
+
+      #modal-evc-description {
+        font-size: 0.95rem;
+        padding: 1.2rem;
+        line-height: 1.7;
+      }
+
+      #email-section {
+        padding: 2rem 1.2rem;
+      }
+
+      #email-section h2 {
+        font-size: clamp(1.5rem, 5vw, 2rem);
+        margin-bottom: 0.8rem;
+      }
+
+      #email-section p {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+
+      #gf-email {
+        padding: 1rem 1.2rem;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+
+      #gf-form button {
+        padding: 1rem 2rem;
+        font-size: 0.95rem;
+      }
+
+      /* Footer mobile */
+      footer {
+        padding: 40px 15px;
+      }
+
+      footer .acknowledgement {
+        padding: 1.5rem;
+        margin: 0 auto;
+      }
+
+      footer .acknowledgement p {
+        font-size: 12px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+
+      footer > p {
+        font-size: 11px;
+        margin-top: 30px;
+        padding: 0 10px;
+      }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 480px) {
+      #container {
+        padding: 1.5rem 1rem;
+      }
+
+      #page-title {
+        font-size: 2.5rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .hero-highlight {
+        font-size: 1rem;
+      }
+
+      #address-input,
+      #search-button,
+      #location-button {
+        padding: 0.9rem 1rem;
+      }
+
+      #modal-info {
+        padding: 1.2rem 1rem;
+      }
+
+      #email-section {
+        padding: 1.8rem 1rem;
+      }
+
+      footer .acknowledgement {
+        padding: 1.2rem;
+      }
+
+      footer .acknowledgement p {
+        font-size: 11px;
+        margin-bottom: 15px;
       }
     }
   </style>
