@@ -485,11 +485,16 @@ function displayModal(name, status, region, code, lat, lon) {
           
           plantsDiv.appendChild(layerDiv);
         });
+      } else {
+        // No plant data available - description already shows message
+        // Forest kit, tee, and ebook sections will still show below
+      }
 
-        // Add Forest Kit section with full details
-        const kitDetails = getKitDetails(name);
-        
-        const kitSection = document.createElement("div");
+      // Always show Forest Kit, Tee, and Ebook sections regardless of plant data
+      // Add Forest Kit section with full details
+      const kitDetails = getKitDetails(name);
+      
+      const kitSection = document.createElement("div");
         kitSection.style.marginTop = "40px";
         kitSection.style.padding = "30px";
         kitSection.style.background = "#f7fafc";
@@ -878,32 +883,6 @@ function displayModal(name, status, region, code, lat, lon) {
         ebookSection.appendChild(ebookHint);
         
         plantsDiv.appendChild(ebookSection);
-        
-      } else {
-        // No plant data available yet
-        const comingSoonDiv = document.createElement("div");
-        comingSoonDiv.style.padding = "30px 20px";
-        comingSoonDiv.style.textAlign = "center";
-        comingSoonDiv.style.background = "rgba(255, 240, 220, 0.3)";
-        comingSoonDiv.style.borderRadius = "8px";
-        comingSoonDiv.style.marginTop = "20px";
-        
-        const icon = document.createElement("div");
-        icon.textContent = "🌱";
-        icon.style.fontSize = "48px";
-        icon.style.marginBottom = "15px";
-        comingSoonDiv.appendChild(icon);
-        
-        const message = document.createElement("p");
-        message.innerHTML = `We're still researching the best plant species for <strong>${name}</strong>. Check back soon for our curated recommendations!`;
-        message.style.color = "#666";
-        message.style.fontSize = "16px";
-        message.style.lineHeight = "1.6";
-        message.style.margin = "0";
-        comingSoonDiv.appendChild(message);
-        
-        plantsDiv.appendChild(comingSoonDiv);
-      }
       
       // Show plants immediately (no email gate)
       plantsDiv.style.display = "block";
