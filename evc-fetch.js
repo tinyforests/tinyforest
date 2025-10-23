@@ -434,8 +434,8 @@ function displayModal(name, status, region, code, lat, lon) {
       if (evcInfo?.description) {
         descriptionEl.textContent = evcInfo.description;
       } else {
-        descriptionEl.textContent = "We're still researching plants for this EVC. Check back soon!";
-        descriptionEl.style.fontStyle = "italic";
+        descriptionEl.innerHTML = `We're still researching the best plant species for <strong>${name}</strong>. Check back soon for our curated recommendations!`;
+        descriptionEl.style.fontStyle = "normal";
         descriptionEl.style.color = "#666";
       }
 
