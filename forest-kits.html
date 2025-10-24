@@ -362,6 +362,125 @@
       }
     }
 
+    /* Purchase Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(61, 69, 53, 0.95);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: #fff0dc;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      animation: slideUp 0.4s ease-out;
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background-color: #3d4535;
+      color: #fff0dc;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close:hover {
+      transform: scale(1.1) rotate(90deg);
+    }
+
+    .modal-content h2 {
+      font-family: "Abril Fatface", serif;
+      font-size: 2rem;
+      color: #3d4535;
+      margin-bottom: 1rem;
+    }
+
+    .modal-content p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #3d4535;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #3d4535;
+      border-radius: 8px;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 16px;
+      background: white;
+    }
+
+    .form-group textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 14px 28px;
+      background-color: #3d4535;
+      color: #fff0dc;
+      border: none;
+      border-radius: 50px;
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .submit-button:hover {
+      transform: scale(1.02);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .hero h1 {
@@ -533,7 +652,7 @@
             <li>Drought-tolerant species mix</li>
             <li>Full planting guide included</li>
           </ul>
-          <button class="kit-button" onclick="alert('Coming soon! Email us to pre-order.')">Pre-Order Kit</button>
+          <button class="kit-button" onclick="openPurchaseModal()">Pre-Order Kit</button>
         </div>
       </div>
 
@@ -555,7 +674,7 @@
             <li>Shade-tolerant species mix</li>
             <li>Full planting guide included</li>
           </ul>
-          <button class="kit-button" onclick="alert('Coming soon! Email us to pre-order.')">Pre-Order Kit</button>
+          <button class="kit-button" onclick="openPurchaseModal()">Pre-Order Kit</button>
         </div>
       </div>
 
@@ -577,7 +696,7 @@
             <li>Low-maintenance once established</li>
             <li>Full planting guide included</li>
           </ul>
-          <button class="kit-button" onclick="alert('Coming soon! Email us to pre-order.')">Pre-Order Kit</button>
+          <button class="kit-button" onclick="openPurchaseModal()">Pre-Order Kit</button>
         </div>
       </div>
 
@@ -599,7 +718,7 @@
             <li>Moisture-loving species</li>
             <li>Full planting guide included</li>
           </ul>
-          <button class="kit-button" onclick="alert('Coming soon! Email us to pre-order.')">Pre-Order Kit</button>
+          <button class="kit-button" onclick="openPurchaseModal()">Pre-Order Kit</button>
         </div>
       </div>
 
@@ -621,7 +740,7 @@
             <li>Year-round flowering species</li>
             <li>Full planting guide included</li>
           </ul>
-          <button class="kit-button" onclick="alert('Coming soon! Email us to pre-order.')">Pre-Order Kit</button>
+          <button class="kit-button" onclick="openPurchaseModal()">Pre-Order Kit</button>
         </div>
       </div>
 
@@ -643,12 +762,70 @@
             <li>Wind and salt resistant</li>
             <li>Full planting guide included</li>
           </ul>
-          <button class="kit-button" onclick="alert('Coming soon! Email us to pre-order.')">Pre-Order Kit</button>
+          <button class="kit-button" onclick="openPurchaseModal()">Pre-Order Kit</button>
         </div>
       </div>
 
     </div>
   </section>
+
+  <!-- Purchase Modal -->
+  <div id="purchaseModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closePurchaseModal()">&times;</button>
+      <h2>Pre-Order Your Forest Kit</h2>
+      <p>We're excited to help you create your tiny forest! Fill out the form below and we'll be in touch to finalize your order.</p>
+      
+      <form id="purchaseForm" action="https://docs.google.com/forms/d/e/YOUR_FORM_ID/formResponse" method="POST" target="purchase-iframe">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="entry.NAME_ID" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="entry.EMAIL_ID" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="entry.PHONE_ID">
+        </div>
+        
+        <div class="form-group">
+          <label for="address">Property Address *</label>
+          <textarea id="address" name="entry.ADDRESS_ID" required placeholder="Where will you be planting your forest kit?"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="area">Approximate Area (m²) *</label>
+          <input type="number" id="area" name="entry.AREA_ID" required placeholder="e.g., 50">
+        </div>
+        
+        <div class="form-group">
+          <label for="evc">Preferred EVC (Optional)</label>
+          <select id="evc" name="entry.EVC_ID">
+            <option value="">Select an EVC</option>
+            <option value="Plains Grassy Woodland">Plains Grassy Woodland</option>
+            <option value="Valley Grassy Forest">Valley Grassy Forest</option>
+            <option value="Grassy Dry Forest">Grassy Dry Forest</option>
+            <option value="Riparian Forest">Riparian Forest</option>
+            <option value="Heathy Woodland">Heathy Woodland</option>
+            <option value="Coastal Scrub">Coastal Scrub</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Additional Notes</label>
+          <textarea id="message" name="entry.MESSAGE_ID" placeholder="Tell us about your project, timeline, or any questions you have..."></textarea>
+        </div>
+        
+        <button type="submit" class="submit-button">Submit Pre-Order</button>
+      </form>
+      
+      <iframe name="purchase-iframe" style="display:none;"></iframe>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer>
@@ -685,6 +862,33 @@
   </footer>
 
   <script>
+    // Purchase Modal Functions
+    function openPurchaseModal() {
+      document.getElementById('purchaseModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePurchaseModal() {
+      document.getElementById('purchaseModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal when clicking outside
+    document.getElementById('purchaseModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closePurchaseModal();
+      }
+    });
+
+    // Handle form submission
+    document.getElementById('purchaseForm').addEventListener('submit', function(e) {
+      setTimeout(() => {
+        closePurchaseModal();
+        alert('Thank you for your pre-order! We\'ll be in touch soon to confirm details and arrange delivery.');
+        document.getElementById('purchaseForm').reset();
+      }, 500);
+    });
+
     // Smooth scroll for CTA button
     document.querySelector('a[href="#kits"]').addEventListener('click', function(e) {
       e.preventDefault();
