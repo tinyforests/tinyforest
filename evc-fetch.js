@@ -598,11 +598,11 @@ function displayModal(name, status, region, code, lat, lon) {
           // Pre-Order Kit button
           const kitButton = document.createElement("button");
           kitButton.textContent = "Pre-Order Kit";
-          kitButton.style.background = "#48bb78";
-          kitButton.style.color = "white";
+          kitButton.style.background = "#3d4535";
+          kitButton.style.color = "#fff0dc";
           kitButton.style.border = "none";
           kitButton.style.padding = "14px 28px";
-          kitButton.style.borderRadius = "6px";
+          kitButton.style.borderRadius = "50px";
           kitButton.style.fontSize = "16px";
           kitButton.style.fontWeight = "600";
           kitButton.style.cursor = "pointer";
@@ -610,13 +610,11 @@ function displayModal(name, status, region, code, lat, lon) {
           kitButton.style.width = "100%";
           
           kitButton.addEventListener("mouseover", () => {
-            kitButton.style.background = "#38a169";
-            kitButton.style.transform = "translateY(-2px)";
+            kitButton.style.transform = "scale(1.02)";
           });
           
           kitButton.addEventListener("mouseout", () => {
-            kitButton.style.background = "#48bb78";
-            kitButton.style.transform = "translateY(0)";
+            kitButton.style.transform = "scale(1)";
           });
           
           kitButton.addEventListener("click", () => {
@@ -755,8 +753,8 @@ function displayModal(name, status, region, code, lat, lon) {
           sizeSelect.style.flex = "1";
           sizeSelect.style.padding = "12px";
           sizeSelect.style.fontSize = "16px";
-          sizeSelect.style.border = "2px solid #e2e8f0";
-          sizeSelect.style.borderRadius = "6px";
+          sizeSelect.style.border = "2px solid #3d4535";
+          sizeSelect.style.borderRadius = "50px";
           sizeSelect.style.background = "white";
           sizeSelect.style.cursor = "pointer";
           sizeSelect.innerHTML = `
@@ -772,11 +770,11 @@ function displayModal(name, status, region, code, lat, lon) {
           
           const teeButton = document.createElement("button");
           teeButton.textContent = "Buy now";
-          teeButton.style.background = "#48bb78";
-          teeButton.style.color = "white";
+          teeButton.style.background = "#3d4535";
+          teeButton.style.color = "#fff0dc";
           teeButton.style.border = "none";
           teeButton.style.padding = "12px 24px";
-          teeButton.style.borderRadius = "6px";
+          teeButton.style.borderRadius = "50px";
           teeButton.style.fontSize = "16px";
           teeButton.style.fontWeight = "600";
           teeButton.style.cursor = "pointer";
@@ -784,13 +782,11 @@ function displayModal(name, status, region, code, lat, lon) {
           teeButton.style.whiteSpace = "nowrap";
           
           teeButton.addEventListener("mouseover", () => {
-            teeButton.style.background = "#38a169";
-            teeButton.style.transform = "translateY(-2px)";
+            teeButton.style.transform = "scale(1.02)";
           });
           
           teeButton.addEventListener("mouseout", () => {
-            teeButton.style.background = "#48bb78";
-            teeButton.style.transform = "translateY(0)";
+            teeButton.style.transform = "scale(1)";
           });
           
           teeButton.addEventListener("click", async () => {
@@ -847,11 +843,11 @@ function displayModal(name, status, region, code, lat, lon) {
         
         const ebookButton = document.createElement("button");
         ebookButton.textContent = "Preorder now";
-        ebookButton.style.background = "#48bb78";
-        ebookButton.style.color = "white";
+        ebookButton.style.background = "#3d4535";
+        ebookButton.style.color = "#fff0dc";
         ebookButton.style.border = "none";
         ebookButton.style.padding = "14px 28px";
-        ebookButton.style.borderRadius = "6px";
+        ebookButton.style.borderRadius = "50px";
         ebookButton.style.fontSize = "16px";
         ebookButton.style.fontWeight = "600";
         ebookButton.style.cursor = "pointer";
@@ -859,13 +855,11 @@ function displayModal(name, status, region, code, lat, lon) {
         ebookButton.style.width = "100%";
         
         ebookButton.addEventListener("mouseover", () => {
-          ebookButton.style.background = "#38a169";
-          ebookButton.style.transform = "translateY(-2px)";
+          ebookButton.style.transform = "scale(1.02)";
         });
         
         ebookButton.addEventListener("mouseout", () => {
-          ebookButton.style.background = "#48bb78";
-          ebookButton.style.transform = "translateY(0)";
+          ebookButton.style.transform = "scale(1)";
         });
         
         ebookButton.addEventListener("click", () => {
