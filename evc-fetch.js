@@ -618,7 +618,7 @@ function displayModal(name, status, region, code, lat, lon) {
           });
           
           kitButton.addEventListener("click", () => {
-            window.open(`kit-detail.html?evc=${kitDetails.slug}`, '_blank');
+            window.location.href = "forest-kits.html#kits";
           });
           
           kitSection.appendChild(kitButton);
