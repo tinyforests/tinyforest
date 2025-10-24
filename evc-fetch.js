@@ -497,8 +497,8 @@ function displayModal(name, status, region, code, lat, lon) {
       const kitSection = document.createElement("div");
         kitSection.style.marginTop = "40px";
         kitSection.style.padding = "30px";
-        kitSection.style.background = "#f7fafc";
-        kitSection.style.borderRadius = "8px";
+        kitSection.style.background = "rgba(255, 255, 255, 0.5)";
+        kitSection.style.borderRadius = "12px";
         kitSection.style.border = "2px solid #e2e8f0";
         
         const kitTitle = document.createElement("h2");
@@ -666,8 +666,8 @@ function displayModal(name, status, region, code, lat, lon) {
         const teeSection = document.createElement("div");
         teeSection.style.marginTop = "20px";
         teeSection.style.padding = "30px";
-        teeSection.style.background = "#f7fafc";
-        teeSection.style.borderRadius = "8px";
+        teeSection.style.background = "rgba(255, 255, 255, 0.5)";
+        teeSection.style.borderRadius = "12px";
         teeSection.style.border = "2px solid #e2e8f0";
         
         const teeTitle = document.createElement("h2");
@@ -822,8 +822,8 @@ function displayModal(name, status, region, code, lat, lon) {
         const ebookSection = document.createElement("div");
         ebookSection.style.marginTop = "20px";
         ebookSection.style.padding = "30px";
-        ebookSection.style.background = "#f7fafc";
-        ebookSection.style.borderRadius = "8px";
+        ebookSection.style.background = "rgba(255, 255, 255, 0.5)";
+        ebookSection.style.borderRadius = "12px";
         ebookSection.style.border = "2px solid #e2e8f0";
         
         const ebookTitle = document.createElement("h2");
