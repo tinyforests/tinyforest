@@ -499,12 +499,11 @@ function displayModal(name, status, region, code, lat, lon) {
         kitSection.style.padding = "30px";
         kitSection.style.background = "rgba(255, 255, 255, 0.5)";
         kitSection.style.borderRadius = "12px";
-        kitSection.style.border = "2px solid #e2e8f0";
         
         const kitTitle = document.createElement("h2");
         kitTitle.textContent = "Get your forest kit";
         kitTitle.style.fontFamily = "'Abril Fatface', serif";
-        kitTitle.style.fontSize = "28px";
+        kitTitle.style.fontSize = "36px";
         kitTitle.style.marginBottom = "20px";
         kitTitle.style.color = "#3d4535";
         kitSection.appendChild(kitTitle);
@@ -668,12 +667,11 @@ function displayModal(name, status, region, code, lat, lon) {
         teeSection.style.padding = "30px";
         teeSection.style.background = "rgba(255, 255, 255, 0.5)";
         teeSection.style.borderRadius = "12px";
-        teeSection.style.border = "2px solid #e2e8f0";
         
         const teeTitle = document.createElement("h2");
         teeTitle.textContent = "Buy your EVC tee";
         teeTitle.style.fontFamily = "'Abril Fatface', serif";
-        teeTitle.style.fontSize = "28px";
+        teeTitle.style.fontSize = "36px";
         teeTitle.style.marginBottom = "15px";
         teeTitle.style.color = "#3d4535";
         teeSection.appendChild(teeTitle);
@@ -824,12 +822,11 @@ function displayModal(name, status, region, code, lat, lon) {
         ebookSection.style.padding = "30px";
         ebookSection.style.background = "rgba(255, 255, 255, 0.5)";
         ebookSection.style.borderRadius = "12px";
-        ebookSection.style.border = "2px solid #e2e8f0";
         
         const ebookTitle = document.createElement("h2");
         ebookTitle.textContent = "Preorder the ebook";
         ebookTitle.style.fontFamily = "'Abril Fatface', serif";
-        ebookTitle.style.fontSize = "28px";
+        ebookTitle.style.fontSize = "36px";
         ebookTitle.style.marginBottom = "15px";
         ebookTitle.style.color = "#3d4535";
         ebookSection.appendChild(ebookTitle);
