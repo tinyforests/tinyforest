@@ -34,13 +34,28 @@ document.addEventListener("DOMContentLoaded", () => {
   const locationBtn = document.getElementById("location-button");
   if (locationBtn) {
     locationBtn.addEventListener("click", () => {
+      // Check if geolocation is supported
       if (!navigator.geolocation) {
         alert("Geolocation is not supported by your browser.");
         return;
       }
 
+      // Check if we're on a secure context (HTTPS)
+      if (location.protocol !== 'https:' && location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
+        alert("Geolocation requires a secure connection (HTTPS). Please use the address search instead.");
+        return;
+      }
+
       locationBtn.textContent = "📍 Getting location...";
       locationBtn.disabled = true;
+
+      // iOS Safari specific options
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+      const options = {
+        enableHighAccuracy: !isIOS, // iOS doesn't like high accuracy on first request
+        timeout: isIOS ? 30000 : 20000, // iOS needs more time
+        maximumAge: isIOS ? 60000 : 0 // iOS can use cached location
+      };
 
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -62,27 +77,31 @@ document.addEventListener("DOMContentLoaded", () => {
           
           switch(error.code) {
             case error.PERMISSION_DENIED:
-              errorMsg += "Please allow location access in your browser settings and try again.";
+              if (isIOS) {
+                errorMsg += "On iPhone: Go to Settings → Safari → Location → Allow. Then refresh and try again.";
+              } else {
+                errorMsg += "Please allow location access in your browser settings and try again.";
+              }
               break;
             case error.POSITION_UNAVAILABLE:
-              errorMsg += "Location information is unavailable.";
+              if (isIOS) {
+                errorMsg += "Make sure Location Services are enabled in Settings → Privacy & Security → Location Services.";
+              } else {
+                errorMsg += "Location information is unavailable. Please check your device's location settings.";
+              }
               break;
             case error.TIMEOUT:
-              errorMsg += "Location request timed out.";
+              errorMsg += "Location request timed out. Please try again or use the address search.";
               break;
             default:
               errorMsg += "An unknown error occurred.";
           }
           
-          alert(errorMsg + " Please enter your address instead.");
+          alert(errorMsg + " You can also enter your address instead.");
           locationBtn.textContent = "📍 Use My Location";
           locationBtn.disabled = false;
         },
-        {
-          enableHighAccuracy: true,
-          timeout: 15000,
-          maximumAge: 0
-        }
+        options
       );
     });
   }
@@ -816,6 +835,8 @@ function displayModal(name, status, region, code, lat, lon) {
         
         plantsDiv.appendChild(teeSection);
         
+        // Ebook section removed for launch - uncomment when ready
+        /*
         // Add Ebook Preorder section
         const ebookSection = document.createElement("div");
         ebookSection.style.marginTop = "20px";
@@ -874,6 +895,7 @@ function displayModal(name, status, region, code, lat, lon) {
         ebookSection.appendChild(ebookHint);
         
         plantsDiv.appendChild(ebookSection);
+        */
       
       // Show plants immediately (no email gate)
       plantsDiv.style.display = "block";
