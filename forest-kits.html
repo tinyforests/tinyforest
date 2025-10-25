@@ -375,7 +375,7 @@
       background-color: rgba(61, 69, 53, 0.95);
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 40px 20px;
     }
 
     .modal.active {
@@ -388,8 +388,11 @@
       padding: 40px;
       max-width: 600px;
       width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
       position: relative;
       animation: slideUp 0.4s ease-out;
+      -webkit-overflow-scrolling: touch;
     }
 
     @keyframes slideUp {
@@ -504,6 +507,43 @@
       .kit-header h3 {
         white-space: normal;
         font-size: 1.5rem;
+      }
+
+      /* Purchase Modal Mobile */
+      .modal {
+        padding: 10px;
+        align-items: flex-start;
+        padding-top: env(safe-area-inset-top, 10px);
+        overflow-y: auto;
+      }
+
+      .modal-content {
+        padding: 25px 20px;
+        max-height: 95vh;
+        margin-top: 0;
+      }
+
+      .modal-close {
+        top: 10px;
+        right: 10px;
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+      }
+
+      .modal-content h2 {
+        font-size: 1.6rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.2rem;
+      }
+
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        font-size: 16px;
       }
     }
   </style>
