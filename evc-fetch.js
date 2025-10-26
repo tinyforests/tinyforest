@@ -22,12 +22,13 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("evc-modal").style.display = "none";
   });
 
-  // Email form - just for lead capture now, plants show immediately
+  // Email form - submit to Google Forms
   document.getElementById("gf-form").addEventListener("submit", e => {
-    e.preventDefault();
     const btn = e.target.querySelector("button");
-    btn.textContent = "Thanks! Check your email soon.";
-    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = "Thanks! Check your email soon.";
+      btn.disabled = true;
+    }, 500);
   });
 
   // Geolocation button
@@ -518,6 +519,7 @@ function displayModal(name, status, region, code, lat, lon) {
         kitSection.style.padding = "30px";
         kitSection.style.background = "rgba(255, 255, 255, 0.5)";
         kitSection.style.borderRadius = "12px";
+        kitSection.style.border = "1px solid #e2e8f0";
         
         const kitTitle = document.createElement("h2");
         kitTitle.textContent = "Get your forest kit";
@@ -686,6 +688,7 @@ function displayModal(name, status, region, code, lat, lon) {
         teeSection.style.padding = "30px";
         teeSection.style.background = "rgba(255, 255, 255, 0.5)";
         teeSection.style.borderRadius = "12px";
+        teeSection.style.border = "1px solid #e2e8f0";
         
         const teeTitle = document.createElement("h2");
         teeTitle.textContent = "Buy your EVC tee";
@@ -914,6 +917,20 @@ function displayModal(name, status, region, code, lat, lon) {
     attribution: "© OpenStreetMap contributors"
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
+
+  // Populate hidden form fields
+  document.getElementById("gf-evcCode").value = `EVC ${code}`;
+  
+  // Get address from reverse geocoding
+  fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
+    .then(r => r.json())
+    .then(data => {
+      const address = data.display_name || `${lat}, ${lon}`;
+      document.getElementById("gf-address").value = address;
+    })
+    .catch(() => {
+      document.getElementById("gf-address").value = `${lat}, ${lon}`;
+    });
 
   // Show modal
   const modal = document.getElementById("evc-modal");
