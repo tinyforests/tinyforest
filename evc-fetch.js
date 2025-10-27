@@ -522,7 +522,7 @@ function displayModal(name, status, region, code, lat, lon) {
         kitSection.style.border = "1px solid #e2e8f0";
         
         const kitTitle = document.createElement("h2");
-        kitTitle.textContent = "Get your forest kit";
+        kitTitle.textContent = "Get your tiny forest kit";
         kitTitle.style.fontFamily = "'Abril Fatface', serif";
         kitTitle.style.fontSize = "36px";
         kitTitle.style.marginBottom = "20px";
@@ -816,20 +816,20 @@ function displayModal(name, status, region, code, lat, lon) {
               return;
             }
             
-            try {
-              await navigator.clipboard.writeText(name);
-            } catch (err) {
-              console.log("Could not copy to clipboard");
-            }
+            // Build Square URL with pre-filled fields
+            const squareUrl = new URL("https://square.link/u/qFtF9uo6");
+            squareUrl.searchParams.append("field[Size]", size);
+            squareUrl.searchParams.append("field[EVC Design]", name);
             
-            alert("Tee purchase coming soon! This would link to your Stripe checkout.");
+            // Open Square checkout in new tab
+            window.open(squareUrl.toString(), '_blank');
           });
           
           teeControls.appendChild(teeButton);
           teeSection.appendChild(teeControls);
           
           const teeHint = document.createElement("div");
-          teeHint.textContent = "We'll copy your EVC text automatically for checkout.";
+          teeHint.textContent = "Your size and EVC design will be automatically added at checkout.";
           teeHint.style.marginTop = "10px";
           teeHint.style.fontSize = "14px";
           teeHint.style.color = "#666";
