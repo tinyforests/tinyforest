@@ -638,7 +638,7 @@ function displayModal(name, status, region, code, lat, lon) {
           });
           
           kitButton.addEventListener("click", () => {
-            window.location.href = "forest-kits.html#kits";
+            openPreorderModal(name);
           });
           
           kitSection.appendChild(kitButton);
@@ -674,7 +674,7 @@ function displayModal(name, status, region, code, lat, lon) {
           });
           
           exploreButton.addEventListener("click", () => {
-            window.location.href = "forest-kits.html#kits";
+            openPreorderModal(name);
           });
           
           kitSection.appendChild(exploreButton);
@@ -937,3 +937,54 @@ function displayModal(name, status, region, code, lat, lon) {
   modal.style.display = "flex";
   setTimeout(() => modalMap.invalidateSize(), 0);
 }
+
+// Pre-order modal functions
+function openPreorderModal(evcName) {
+  const modal = document.getElementById("preorder-modal");
+  const evcField = document.getElementById("preorder-evc");
+  
+  // Pre-fill the EVC field
+  evcField.value = evcName;
+  
+  // Show modal
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+}
+
+function closePreorderModal() {
+  const modal = document.getElementById("preorder-modal");
+  modal.style.display = "none";
+  document.body.style.overflow = "auto";
+  
+  // Reset form
+  document.getElementById("preorder-form").reset();
+}
+
+// Setup preorder modal close button
+document.addEventListener("DOMContentLoaded", () => {
+  const closeBtn = document.getElementById("preorder-close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closePreorderModal);
+  }
+  
+  // Close modal when clicking outside
+  const modal = document.getElementById("preorder-modal");
+  if (modal) {
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closePreorderModal();
+      }
+    });
+  }
+  
+  // Handle form submission
+  const form = document.getElementById("preorder-form");
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      setTimeout(() => {
+        closePreorderModal();
+        alert("Thank you for your pre-order! We'll be in touch soon to confirm details and arrange delivery.");
+      }, 500);
+    });
+  }
+});
