@@ -109,6 +109,9 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function geocodeAddress(address) {
+  // Store the searched address globally
+  window.searchedAddress = address;
+  
   fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
     .then(r => {
       if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
@@ -952,8 +955,12 @@ function openPreorderModal(evcName) {
   // Pre-fill the EVC field
   evcField.value = window.currentEvcName || evcName;
   
-  // Pre-fill address from reverse geocoding
-  if (window.currentLat && window.currentLon) {
+  // Pre-fill address - use stored searched address if available
+  if (window.searchedAddress) {
+    // Use the address they originally searched for
+    addressField.value = window.searchedAddress;
+  } else if (window.currentLat && window.currentLon) {
+    // Fall back to reverse geocoding (for geolocation users)
     addressField.value = "Loading address...";
     fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${window.currentLat}&lon=${window.currentLon}`)
       .then(r => r.json())
