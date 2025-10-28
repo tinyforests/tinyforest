@@ -435,6 +435,11 @@ function getKitDetails(evcName) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
+  // Store coordinates globally for pre-order form
+  window.currentLat = lat;
+  window.currentLon = lon;
+  window.currentEvcName = name;
+  
   // Set basic info from API
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status || "Not specified";
@@ -942,9 +947,24 @@ function displayModal(name, status, region, code, lat, lon) {
 function openPreorderModal(evcName) {
   const modal = document.getElementById("preorder-modal");
   const evcField = document.getElementById("preorder-evc");
+  const addressField = document.getElementById("preorder-address");
   
   // Pre-fill the EVC field
-  evcField.value = evcName;
+  evcField.value = window.currentEvcName || evcName;
+  
+  // Pre-fill address from reverse geocoding
+  if (window.currentLat && window.currentLon) {
+    addressField.value = "Loading address...";
+    fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${window.currentLat}&lon=${window.currentLon}`)
+      .then(r => r.json())
+      .then(data => {
+        const address = data.display_name || `${window.currentLat}, ${window.currentLon}`;
+        addressField.value = address;
+      })
+      .catch(() => {
+        addressField.value = `${window.currentLat}, ${window.currentLon}`;
+      });
+  }
   
   // Show modal
   modal.style.display = "flex";
