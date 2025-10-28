@@ -824,10 +824,19 @@ function displayModal(name, status, region, code, lat, lon) {
               return;
             }
             
-            // Build Square URL with pre-filled fields
+            // Build Square URL with order note
             const squareUrl = new URL("https://square.link/u/qFtF9uo6");
-            squareUrl.searchParams.append("field[Size]", size);
-            squareUrl.searchParams.append("field[EVC Design]", name);
+            const orderNote = `Size: ${size} | EVC Design: ${name}`;
+            squareUrl.searchParams.append("note", orderNote);
+            
+            // Copy to clipboard as backup
+            const orderInfo = `Size: ${size}\nEVC Design: ${name}`;
+            try {
+              await navigator.clipboard.writeText(orderInfo);
+              alert(`Opening checkout...\n\nYour order details have been copied to clipboard:\n${orderInfo}\n\nIf the fields aren't pre-filled, paste this info in the order notes.`);
+            } catch (err) {
+              alert(`Opening checkout...\n\nPlease add this to your order notes:\nSize: ${size}\nEVC Design: ${name}`);
+            }
             
             // Open Square checkout in new tab
             window.open(squareUrl.toString(), '_blank');
@@ -837,7 +846,7 @@ function displayModal(name, status, region, code, lat, lon) {
           teeSection.appendChild(teeControls);
           
           const teeHint = document.createElement("div");
-          teeHint.textContent = "Your size and EVC design will be automatically added at checkout.";
+          teeHint.textContent = "Your size and EVC design will be added to the order notes at checkout.";
           teeHint.style.marginTop = "10px";
           teeHint.style.fontSize = "14px";
           teeHint.style.color = "#666";
