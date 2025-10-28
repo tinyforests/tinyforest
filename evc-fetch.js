@@ -824,29 +824,21 @@ function displayModal(name, status, region, code, lat, lon) {
               return;
             }
             
-            // Build Square URL with order note
-            const squareUrl = new URL("https://square.link/u/qFtF9uo6");
-            const orderNote = `Size: ${size} | EVC Design: ${name}`;
-            squareUrl.searchParams.append("note", orderNote);
+            // Build Stripe URL with client reference ID containing size and EVC
+            const stripeUrl = new URL("https://buy.stripe.com/9B6aEXfKV0Cbcbjg8n5Vu00");
+            // Create a reference ID that includes size and EVC (visible in Stripe dashboard)
+            const referenceId = `Size-${size}_EVC-${name.replace(/\s+/g, '-')}`;
+            stripeUrl.searchParams.append("client_reference_id", referenceId);
             
-            // Copy to clipboard as backup
-            const orderInfo = `Size: ${size}\nEVC Design: ${name}`;
-            try {
-              await navigator.clipboard.writeText(orderInfo);
-              alert(`Opening checkout...\n\nYour order details have been copied to clipboard:\n${orderInfo}\n\nIf the fields aren't pre-filled, paste this info in the order notes.`);
-            } catch (err) {
-              alert(`Opening checkout...\n\nPlease add this to your order notes:\nSize: ${size}\nEVC Design: ${name}`);
-            }
-            
-            // Open Square checkout in new tab
-            window.open(squareUrl.toString(), '_blank');
+            // Open Stripe checkout in new tab
+            window.open(stripeUrl.toString(), '_blank');
           });
           
           teeControls.appendChild(teeButton);
           teeSection.appendChild(teeControls);
           
           const teeHint = document.createElement("div");
-          teeHint.textContent = "Your size and EVC design will be added to the order notes at checkout.";
+          teeHint.textContent = "Your size and EVC design are automatically included in your order.";
           teeHint.style.marginTop = "10px";
           teeHint.style.fontSize = "14px";
           teeHint.style.color = "#666";
