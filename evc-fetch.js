@@ -623,9 +623,9 @@ function displayModal(name, status, region, code, lat, lon) {
           
           kitSection.appendChild(featuresList);
           
-          // Pre-Order Kit button
+          // Buy Forest Kit button
           const kitButton = document.createElement("button");
-          kitButton.textContent = "Pre-Order Kit";
+          kitButton.textContent = "Buy Forest Kit";
           kitButton.style.background = "#3d4535";
           kitButton.style.color = "#fff0dc";
           kitButton.style.border = "none";
@@ -636,6 +636,7 @@ function displayModal(name, status, region, code, lat, lon) {
           kitButton.style.cursor = "pointer";
           kitButton.style.transition = "all 0.2s";
           kitButton.style.width = "100%";
+          kitButton.style.marginBottom = "10px";
           
           kitButton.addEventListener("mouseover", () => {
             kitButton.style.transform = "scale(1.02)";
@@ -646,10 +647,48 @@ function displayModal(name, status, region, code, lat, lon) {
           });
           
           kitButton.addEventListener("click", () => {
-            openPreorderModal(name);
+            // Build Stripe URL with metadata
+            const stripeUrl = new URL("https://buy.stripe.com/3cI9AT2Y94Srb7f6xN5Vu01");
+            const referenceId = `EVC-${name.replace(/\s+/g, '-')}_Address-${(window.searchedAddress || '').replace(/\s+/g, '-').substring(0, 50)}`;
+            stripeUrl.searchParams.append("client_reference_id", referenceId);
+            
+            // Open Stripe checkout
+            window.open(stripeUrl.toString(), '_blank');
           });
           
           kitSection.appendChild(kitButton);
+          
+          // Learn more button
+          const learnButton = document.createElement("button");
+          learnButton.textContent = "Learn more →";
+          learnButton.style.background = "transparent";
+          learnButton.style.color = "#3d4535";
+          learnButton.style.border = "2px solid #3d4535";
+          learnButton.style.padding = "14px 28px";
+          learnButton.style.borderRadius = "50px";
+          learnButton.style.fontSize = "16px";
+          learnButton.style.fontWeight = "600";
+          learnButton.style.cursor = "pointer";
+          learnButton.style.transition = "all 0.2s";
+          learnButton.style.width = "100%";
+          
+          learnButton.addEventListener("mouseover", () => {
+            learnButton.style.background = "#3d4535";
+            learnButton.style.color = "#fff0dc";
+            learnButton.style.transform = "scale(1.02)";
+          });
+          
+          learnButton.addEventListener("mouseout", () => {
+            learnButton.style.background = "transparent";
+            learnButton.style.color = "#3d4535";
+            learnButton.style.transform = "scale(1)";
+          });
+          
+          learnButton.addEventListener("click", () => {
+            window.open("https://tinyforests.github.io/tinyforest/forest-kits.html", '_blank');
+          });
+          
+          kitSection.appendChild(learnButton);
         } else {
           // No kit data available - show coming soon with button
           const comingSoon = document.createElement("p");
@@ -682,7 +721,7 @@ function displayModal(name, status, region, code, lat, lon) {
           });
           
           exploreButton.addEventListener("click", () => {
-            openPreorderModal(name);
+            window.open("https://tinyforests.github.io/tinyforest/forest-kits.html", '_blank');
           });
           
           kitSection.appendChild(exploreButton);
