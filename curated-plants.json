@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "last_updated": "2025-10-10",
+    "last_updated": "2025-11-02",
     "coverage": "Victoria, Australia",
     "total_evcs": 32
   },
@@ -657,6 +657,7 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Chrysocephalum semipapposum (Clustered Everlasting)",
             "Urtica incisa (Scrub Nettle)",
             "Persicaria subsessilis (Hairy Knotweed)",
             "Senecio quadridentatus (Cottony Fireweed)",
