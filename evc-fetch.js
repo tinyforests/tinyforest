@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Legacy map (hidden via CSS)
   map = L.map("map").setView([-37.8136, 144.9631], 8);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors"
+    attribution: "Â© OpenStreetMap contributors"
   }).addTo(map);
 
   // Address lookup
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      locationBtn.textContent = "📍 Getting location...";
+      locationBtn.textContent = "ðŸ“ Getting location...";
       locationBtn.disabled = true;
 
       // iOS Safari specific options
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           fetchEVCData(lat, lon);
           
-          locationBtn.textContent = "📍 Use My Location";
+          locationBtn.textContent = "ðŸ“ Use My Location";
           locationBtn.disabled = false;
         },
         (error) => {
@@ -79,14 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
           switch(error.code) {
             case error.PERMISSION_DENIED:
               if (isIOS) {
-                errorMsg += "On iPhone: Go to Settings → Safari → Location → Allow. Then refresh and try again.";
+                errorMsg += "On iPhone: Go to Settings â†’ Safari â†’ Location â†’ Allow. Then refresh and try again.";
               } else {
                 errorMsg += "Please allow location access in your browser settings and try again.";
               }
               break;
             case error.POSITION_UNAVAILABLE:
               if (isIOS) {
-                errorMsg += "Make sure Location Services are enabled in Settings → Privacy & Security → Location Services.";
+                errorMsg += "Make sure Location Services are enabled in Settings â†’ Privacy & Security â†’ Location Services.";
               } else {
                 errorMsg += "Location information is unavailable. Please check your device's location settings.";
               }
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
           
           alert(errorMsg + " You can also enter your address instead.");
-          locationBtn.textContent = "📍 Use My Location";
+          locationBtn.textContent = "ðŸ“ Use My Location";
           locationBtn.disabled = false;
         },
         options
@@ -552,7 +552,7 @@ function displayModal(name, status, region, code, lat, lon) {
               // Camera icon with tooltip
               const cameraSpan = document.createElement("span");
               cameraSpan.className = "plant-camera";
-              cameraSpan.textContent = "📷";
+              cameraSpan.textContent = "ðŸ“·";
               cameraSpan.style.cursor = "pointer";
               cameraSpan.style.fontSize = "1.2rem";
               cameraSpan.style.padding = "0.3rem 0.5rem";
@@ -706,7 +706,7 @@ function displayModal(name, status, region, code, lat, lon) {
         kitPrice.style.fontSize = "2.5rem";
         kitPrice.style.color = "#3d4535";
         kitPrice.style.marginBottom = "10px";
-        kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per m²</span>';
+        kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per mÂ²</span>';
         kitSection.appendChild(kitPrice);
         
         // Description
@@ -725,7 +725,7 @@ function displayModal(name, status, region, code, lat, lon) {
         featuresList.style.padding = "0";
         
         const features = [
-          '10 indigenous plants per m²',
+          '10 indigenous plants per mÂ²',
           `${kitDetails.canopy} canopy, ${kitDetails.shrub} shrub, ${kitDetails.groundcover} groundcover`,
           kitDetails.specialFeature,
           'Full planting guide included'
@@ -741,7 +741,7 @@ function displayModal(name, status, region, code, lat, lon) {
           
           // Add checkmark
           const checkmark = document.createElement("span");
-          checkmark.textContent = "✓";
+          checkmark.textContent = "âœ“";
           checkmark.style.position = "absolute";
           checkmark.style.left = "0";
           checkmark.style.color = "#3d4535";
@@ -790,7 +790,7 @@ function displayModal(name, status, region, code, lat, lon) {
         
         // Learn more button
         const learnButton = document.createElement("button");
-        learnButton.textContent = "Learn more →";
+        learnButton.textContent = "Learn more â†’";
         learnButton.style.background = "transparent";
         learnButton.style.color = "#3d4535";
         learnButton.style.border = "2px solid #3d4535";
@@ -830,7 +830,7 @@ function displayModal(name, status, region, code, lat, lon) {
         kitSection.appendChild(comingSoon);
         
         const exploreButton = document.createElement("button");
-        exploreButton.textContent = "Explore forest kits →";
+        exploreButton.textContent = "Explore forest kits â†’";
         exploreButton.style.background = "#3d4535";
         exploreButton.style.color = "#fff0dc";
         exploreButton.style.border = "none";
@@ -911,7 +911,7 @@ function displayModal(name, status, region, code, lat, lon) {
         comingSoon.style.borderRadius = "8px";
         
         const icon = document.createElement("div");
-        icon.textContent = "👕";
+        icon.textContent = "ðŸ‘•";
         icon.style.fontSize = "48px";
         icon.style.marginBottom = "15px";
         comingSoon.appendChild(icon);
@@ -1030,7 +1030,7 @@ function displayModal(name, status, region, code, lat, lon) {
   modalMap && modalMap.remove();
   modalMap = L.map("modal-map").setView([lat, lon], 12);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors"
+    attribution: "Â© OpenStreetMap contributors"
   }).addTo(modalMap);
   L.marker([lat, lon]).addTo(modalMap);
 
