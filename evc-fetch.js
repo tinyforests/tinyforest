@@ -578,12 +578,9 @@ function displayModal(name, status, region, code, lat, lon) {
               tooltip.style.transform = "translateY(-50%)";
               tooltip.style.marginRight = "1rem";
               tooltip.style.zIndex = "1000";
-              tooltip.style.background = "white";
-              tooltip.style.border = "3px solid #3d4535";
-              tooltip.style.borderRadius = "12px";
-              tooltip.style.padding = "0.5rem";
-              tooltip.style.boxShadow = "0 8px 24px rgba(61, 69, 53, 0.25)";
-              tooltip.style.width = "260px";
+              tooltip.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.3)";
+              tooltip.style.borderRadius = "8px";
+              tooltip.style.overflow = "hidden";
               tooltip.style.pointerEvents = "none";
               
               const img = document.createElement("img");
@@ -592,8 +589,8 @@ function displayModal(name, status, region, code, lat, lon) {
               img.style.width = "250px";
               img.style.height = "250px";
               img.style.objectFit = "cover";
-              img.style.borderRadius = "8px";
               img.style.display = "block";
+              img.style.borderRadius = "8px";
               
               tooltip.appendChild(img);
               cameraSpan.appendChild(tooltip);
