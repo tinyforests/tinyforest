@@ -510,6 +510,7 @@ function displayModal(name, status, region, code, lat, lon) {
           const layerDiv = document.createElement("div");
           layerDiv.className = "layer";
           layerDiv.style.marginBottom = "20px";
+          layerDiv.style.overflow = "visible";
           
           const heading = document.createElement("h3");
           heading.textContent = sec.layer;
@@ -523,6 +524,7 @@ function displayModal(name, status, region, code, lat, lon) {
           list.style.listStyle = "none";
           list.style.padding = "0";
           list.style.margin = "0";
+          list.style.overflow = "visible";
           
           // Process plants with image checking
           sec.plants.forEach(async (plant) => {
@@ -535,6 +537,7 @@ function displayModal(name, status, region, code, lat, lon) {
             item.style.justifyContent = "space-between";
             item.style.gap = "10px";
             item.style.position = "relative";
+            item.style.overflow = "visible";
             
             // Plant name
             const nameSpan = document.createElement("span");
@@ -576,12 +579,14 @@ function displayModal(name, status, region, code, lat, lon) {
               tooltip.style.right = "100%";
               tooltip.style.top = "50%";
               tooltip.style.transform = "translateY(-50%)";
-              tooltip.style.marginRight = "1rem";
-              tooltip.style.zIndex = "1000";
+              tooltip.style.marginRight = "2rem";
+              tooltip.style.zIndex = "9999";
               tooltip.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.3)";
               tooltip.style.borderRadius = "8px";
               tooltip.style.overflow = "hidden";
               tooltip.style.pointerEvents = "none";
+              tooltip.style.width = "250px";
+              tooltip.style.height = "250px";
               
               const img = document.createElement("img");
               img.src = imageCheck.url;
