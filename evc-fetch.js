@@ -576,10 +576,6 @@ function displayModal(name, status, region, code, lat, lon) {
               tooltip.className = "plant-image-tooltip";
               tooltip.style.display = "none";
               tooltip.style.position = "absolute";
-              tooltip.style.right = "100%";
-              tooltip.style.top = "50%";
-              tooltip.style.transform = "translateY(-50%)";
-              tooltip.style.marginRight = "2rem";
               tooltip.style.zIndex = "9999";
               tooltip.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.3)";
               tooltip.style.borderRadius = "8px";
@@ -588,14 +584,39 @@ function displayModal(name, status, region, code, lat, lon) {
               tooltip.style.width = "250px";
               tooltip.style.height = "250px";
               
+              // Position based on screen size
+              if (window.innerWidth <= 768) {
+                // Mobile: appear below
+                tooltip.style.right = "auto";
+                tooltip.style.left = "50%";
+                tooltip.style.top = "100%";
+                tooltip.style.transform = "translateX(-50%)";
+                tooltip.style.marginTop = "1rem";
+                tooltip.style.width = "200px";
+                tooltip.style.height = "200px";
+              } else {
+                // Desktop: appear to the left
+                tooltip.style.right = "100%";
+                tooltip.style.top = "50%";
+                tooltip.style.transform = "translateY(-50%)";
+                tooltip.style.marginRight = "2rem";
+              }
+              
               const img = document.createElement("img");
               img.src = imageCheck.url;
               img.alt = plant;
-              img.style.width = "250px";
-              img.style.height = "250px";
               img.style.objectFit = "cover";
               img.style.display = "block";
               img.style.borderRadius = "8px";
+              
+              // Image size based on screen
+              if (window.innerWidth <= 768) {
+                img.style.width = "200px";
+                img.style.height = "200px";
+              } else {
+                img.style.width = "250px";
+                img.style.height = "250px";
+              }
               
               tooltip.appendChild(img);
               cameraSpan.appendChild(tooltip);
