@@ -1,7 +1,7 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "last_updated": "2025-11-02",
+    "last_updated": "2025-11-03",
     "coverage": "Victoria, Australia",
     "total_evcs": 32
   },
@@ -528,7 +528,7 @@
         {
           "layer": "Shrub Layer",
           "plants": [
-            "Myoporum sp. 1 (Sticky Boobialla)",
+            "Myoporum petiolatum (Sticky Boobialla)",
             "Acacia pycnantha (Golden Wattle)",
             "Bursaria spinosa ssp. spinosa (Sweet Bursaria)",
             "Pimelea humilis (Common Rice-flower)",
