@@ -16,6 +16,7 @@
         {
           "layer": "Shrub Layer",
           "plants": [
+            "Myoporum petiolatum (Sticky Boobialla)",
             "Leucopogon parviflorus (Coast Beard-heath)",
             "Rhagodia candolleana ssp. candolleana (Seaberry Saltbush)",
             "Leptospermum laevigatum (Coast Tea-tree)"
@@ -234,6 +235,7 @@
           "plants": [
             "Leptospermum continentale (Prickly Tea-tree)",
             "Correa reflexa (Common Correa)",
+            "Solanum aviculare (Kangaroo Apple)",
             "Banksia marginata (Silver Banksia)",
             "Acacia verticillata (Prickly Moses)"
           ]
@@ -241,6 +243,8 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Dianella tasmanica (Tasman Flax-lily)",
+            "Wahlenbergia spp. (Bluebells)",
             "Senecio tenuiflorus (Slender Fireweed)",
             "Dipodium punctatum s.l. (Hyacinth Orchid)",
             "Senecio glomeratus (Annual Fireweed)",
@@ -343,6 +347,10 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Wahlenbergia spp. (Bluebells)",
+            "Bulbine bulbosa (Bulbine Lily)",
+            "Chrysocephalum apiculatum (Common Everlasting)",
+            "Xerochrysum spp. (Everlasting)",
             "Senecio tenuiflorus (Slender Fireweed)",
             "Gonocarpus tetragynus (Common Raspwort)",
             "Wahlenbergia gracilis s.l. (Sprawling Bluebell)",
@@ -423,6 +431,10 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Wahlenbergia spp. (Bluebells)",
+            "Bulbine bulbosa (Bulbine Lily)",
+            "Chrysocephalum apiculatum (Common Everlasting)",
+            "Vittadinia cervicularis (New Holland Daisy)",
             "Senecio tenuiflorus (Slender Fireweed)",
             "Gonocarpus tetragynus (Common Raspwort)",
             "Viola hederacea (Ivy-leaf Violet)",
@@ -460,6 +472,8 @@
             "Acacia verticillata (Prickly Moses)",
             "Ozothamnus ferrugineus (Tree Everlasting)",
             "Bursaria spinosa (Sweet Bursaria)",
+            "Correa reflexa (Common Correa)",
+            "Goodenia ovata (Hop Goodenia)",
             "Pimelea humilis (Common Rice-flower)",
             "Hibbertia riparia (Erect Guinea-flower)",
             "Bossiaea prostrata (Creeping Bossiaea)",
@@ -469,6 +483,10 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Wahlenbergia spp. (Bluebells)",
+            "Bulbine bulbosa (Bulbine Lily)",
+            "Dianella tasmanica (Tasman Flax-lily)",
+            "Vittadinia cervicularis (New Holland Daisy)",
             "Senecio tenuiflorus (Slender Fireweed)",
             "Pterostylis longifolia s.l. (Tall Greenhood)",
             "Euchiton collinus s.s. (Creeping Cudweed)",
@@ -520,6 +538,12 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Bulbine bulbosa (Bulbine Lily)",
+            "Wahlenbergia spp. (Bluebells)",
+            "Dianella tasmanica (Tasman Flax-lily)",
+            "Vittadinia cervicularis (New Holland Daisy)",
+            "Brachyscome multifida (Cut-leaf Daisy)",
+            "Chrysocephalum apiculatum (Common Everlasting)",
             "Veronica gracilis (Slender Speedwell)",
             "Poranthera microphylla (Small Poranthera)",
             "Gonocarpus tetragynus (Common Raspwort)",
@@ -561,6 +585,7 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Mazus pumilio (Swamp Mazus)",
             "Lycopus australis (Australian Gipsywort)",
             "Lythrum salicaria (Purple Loosestrife)",
             "Persicaria praetermissa (Spotted Knotweed)",
@@ -613,13 +638,23 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Themeda triandra (Kangaroo Grass)",
+            "Poa labillardierei (Common Tussock-grass)",
+            "Austrostipa spp. (Spear-grass)",
+            "Bulbine bulbosa (Bulbine Lily)",
+            "Vittadinia cervicularis (New Holland Daisy)",
+            "Pelargonium australe (Austral Stork's-bill)",
+            "Wahlenbergia spp. (Bluebells)",
+            "Chrysocephalum apiculatum (Common Everlasting)",
+            "Brachyscome multifida (Cut-leaf Daisy)",
+            "Leptorhynchos tenuifolius (Wiry Buttons)",
+            "Einadia nutans (Nodding Saltbush)",
             "Hypericum gramineum (Small St John's Wort)",
             "Oxalis perennans (Grassland Wood-sorrel)",
             "Dichondra repens (Kidney-weed)",
             "Poranthera microphylla (Small Poranthera)",
             "Austrostipa rudis (Veined Spear-grass)",
             "Gahnia radula (Thatch Saw-sedge)",
-            "Themeda triandra (Kangaroo Grass)",
             "Carex breviculmis (Common Grass-sedge)",
             "Lomandra filiformis (Wattle Mat-rush)",
             "Schoenus apogon (Common Bog-sedge)",
