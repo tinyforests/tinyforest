@@ -791,6 +791,9 @@
         {
           "layer": "Shrub Layer",
           "plants": [
+            "Correa reflexa (Common Correa)",
+            "Myoporum petiolatum (Sticky Boobialla)",
+            "Solanum aviculare (Kangaroo Apple)",
             "Leptospermum continentale (Prickly Tea-tree)",
             "Epacris impressa (Common Heath)",
             "Cassinia aculeata (Common Cassinia)",
@@ -805,6 +808,23 @@
         {
           "layer": "Herb Layer",
           "plants": [
+            "Poa labillardierei (Common Tussock-grass)",
+            "Carex appressa (Tall Sedge)",
+            "Vittadinia cervicularis (New Holland Daisy)",
+            "Pelargonium australe (Austral Stork's-bill)",
+            "Goodenia ovata (Hop Goodenia)",
+            "Austrostipa spp. (Spear-grass)",
+            "Wahlenbergia spp. (Bluebells)",
+            "Bulbine bulbosa (Bulbine Lily)",
+            "Chrysocephalum semipapposum (Clustered Everlasting)",
+            "Mazus pumilio (Swamp Mazus)",
+            "Leptorhynchos tenuifolius (Wiry Buttons)",
+            "Dianella tasmanica (Tasman Flax-lily)",
+            "Brachyscome multifida (Cut-leaf Daisy)",
+            "Acaena novae-zelandiae (Bidgee-widgee)",
+            "Chrysocephalum apiculatum (Common Everlasting)",
+            "Xerochrysum spp. (Everlasting)",
+            "Einadia nutans (Nodding Saltbush)",
             "Pterostylis longifolia s.l. (Tall Greenhood)",
             "Gonocarpus tetragynus (Common Raspwort)",
             "Drosera peltata ssp. auriculata (Tall Sundew)",
