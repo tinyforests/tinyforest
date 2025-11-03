@@ -552,7 +552,7 @@ function displayModal(name, status, region, code, lat, lon) {
               // Camera icon with tooltip
               const cameraSpan = document.createElement("span");
               cameraSpan.className = "plant-camera";
-              cameraSpan.textContent = "📷";
+              cameraSpan.innerHTML = "&#128247;"; // Camera emoji as HTML entity
               cameraSpan.style.cursor = "pointer";
               cameraSpan.style.fontSize = "1.2rem";
               cameraSpan.style.padding = "0.3rem 0.5rem";
@@ -571,36 +571,16 @@ function displayModal(name, status, region, code, lat, lon) {
                 cameraSpan.style.transform = "scale(1)";
               });
               
-              // Image tooltip
+              // Image tooltip - append to body to avoid z-index issues
               const tooltip = document.createElement("div");
               tooltip.className = "plant-image-tooltip";
               tooltip.style.display = "none";
-              tooltip.style.position = "absolute";
-              tooltip.style.zIndex = "9999";
+              tooltip.style.position = "fixed"; // Changed to fixed
+              tooltip.style.zIndex = "99999";
               tooltip.style.boxShadow = "0 8px 24px rgba(0, 0, 0, 0.3)";
               tooltip.style.borderRadius = "8px";
               tooltip.style.overflow = "hidden";
               tooltip.style.pointerEvents = "none";
-              tooltip.style.width = "250px";
-              tooltip.style.height = "250px";
-              
-              // Position based on screen size
-              if (window.innerWidth <= 768) {
-                // Mobile: appear below
-                tooltip.style.right = "auto";
-                tooltip.style.left = "50%";
-                tooltip.style.top = "100%";
-                tooltip.style.transform = "translateX(-50%)";
-                tooltip.style.marginTop = "1rem";
-                tooltip.style.width = "200px";
-                tooltip.style.height = "200px";
-              } else {
-                // Desktop: appear to the left
-                tooltip.style.right = "100%";
-                tooltip.style.top = "50%";
-                tooltip.style.transform = "translateY(-50%)";
-                tooltip.style.marginRight = "2rem";
-              }
               
               const img = document.createElement("img");
               img.src = imageCheck.url;
@@ -609,22 +589,39 @@ function displayModal(name, status, region, code, lat, lon) {
               img.style.display = "block";
               img.style.borderRadius = "8px";
               
-              // Image size based on screen
+              // Set size based on screen
               if (window.innerWidth <= 768) {
+                tooltip.style.width = "200px";
+                tooltip.style.height = "200px";
                 img.style.width = "200px";
                 img.style.height = "200px";
               } else {
+                tooltip.style.width = "250px";
+                tooltip.style.height = "250px";
                 img.style.width = "250px";
                 img.style.height = "250px";
               }
               
               tooltip.appendChild(img);
-              cameraSpan.appendChild(tooltip);
+              document.body.appendChild(tooltip); // Append to body, not to item
               
-              // Show/hide tooltip on hover
+              // Show/hide tooltip on hover with positioning
               cameraSpan.addEventListener("mouseenter", () => {
+                const rect = cameraSpan.getBoundingClientRect();
+                
+                if (window.innerWidth <= 768) {
+                  // Mobile: below the camera
+                  tooltip.style.left = (rect.left + rect.width / 2) + "px";
+                  tooltip.style.top = (rect.bottom + 10) + "px";
+                  tooltip.style.transform = "translateX(-50%)";
+                } else {
+                  // Desktop: to the left of the camera
+                  tooltip.style.left = (rect.left - 250 - 20) + "px";
+                  tooltip.style.top = (rect.top + rect.height / 2) + "px";
+                  tooltip.style.transform = "translateY(-50%)";
+                }
+                
                 tooltip.style.display = "block";
-                tooltip.style.animation = "fadeIn 0.2s ease-in";
               });
               
               cameraSpan.addEventListener("mouseleave", () => {
