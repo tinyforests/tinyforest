@@ -610,8 +610,8 @@ function displayModal(name, status, region, code, lat, lon) {
                 const rect = cameraSpan.getBoundingClientRect();
                 
                 if (window.innerWidth <= 768) {
-                  // Mobile: below the camera
-                  tooltip.style.left = (rect.left + rect.width / 2) + "px";
+                  // Mobile: centered in viewport, below the camera
+                  tooltip.style.left = "50%";
                   tooltip.style.top = (rect.bottom + 10) + "px";
                   tooltip.style.transform = "translateX(-50%)";
                 } else {
