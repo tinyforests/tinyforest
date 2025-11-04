@@ -412,7 +412,7 @@ function getKitDetails(evcName) {
     },
     'Swampy Riparian Woodland': {
       image: 'swampy-riparian-woodland.png',
-      description: 'Waterlogged riparian areas with specialized vegetation. Natural water filtration system.',
+      description: 'Waterlogged riparian areas with specialised vegetation. Natural water filtration system.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
@@ -657,7 +657,7 @@ function displayModal(name, status, region, code, lat, lon) {
       kitSection.style.border = "1px solid #e2e8f0";
       
       const kitTitle = document.createElement("h2");
-      kitTitle.textContent = "Get your tiny forest kit";
+      kitTitle.textContent = "Get your ecological garden kit";
       kitTitle.style.fontFamily = "'Abril Fatface', serif";
       kitTitle.style.fontSize = "36px";
       kitTitle.style.marginBottom = "20px";
@@ -865,7 +865,7 @@ function displayModal(name, status, region, code, lat, lon) {
       teeSection.style.border = "1px solid #e2e8f0";
       
       const teeTitle = document.createElement("h2");
-      teeTitle.textContent = "Buy your EVC tee";
+      teeTitle.textContent = "Rock your own EVC tee";
       teeTitle.style.fontFamily = "'Abril Fatface', serif";
       teeTitle.style.fontSize = "36px";
       teeTitle.style.marginBottom = "15px";
@@ -930,7 +930,7 @@ function displayModal(name, status, region, code, lat, lon) {
       // Only show purchase UI if tee is available
       teeImage.onload = function() {
         const teeDescription = document.createElement("p");
-        teeDescription.innerHTML = `Printed with <strong>${name}</strong> on the front.`;
+        teeDescription.innerHTML = `Printed with <strong>${name}</strong> on a high quality AS Colour tee.`;
         teeDescription.style.marginBottom = "20px";
         teeDescription.style.color = "#3d4535";
         teeDescription.style.fontSize = "16px";
