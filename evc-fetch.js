@@ -14,6 +14,12 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
     const addr = document.getElementById("address-input").value.trim();
     if (!addr) return alert("Please enter an address.");
+    
+    // Add loading state to button
+    const searchBtn = document.getElementById("search-button");
+    searchBtn.disabled = true;
+    searchBtn.textContent = "Finding your garden...";
+    
     geocodeAddress(addr);
   });
 
@@ -47,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      locationBtn.textContent = "📍 Getting location...";
+      locationBtn.textContent = "Finding your garden...";
       locationBtn.disabled = true;
 
       // iOS Safari specific options
@@ -69,8 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
           
           fetchEVCData(lat, lon);
           
-          locationBtn.textContent = "📍 Use My Location";
-          locationBtn.disabled = false;
+          // Button will be reset in displayModal
         },
         (error) => {
           console.error("Geolocation error:", error);
@@ -125,7 +130,13 @@ function geocodeAddress(address) {
       marker = L.marker([lat, lon]).addTo(map);
       fetchEVCData(lat, lon);
     })
-    .catch(err => alert(err.message));
+    .catch(err => {
+      alert(err.message);
+      // Reset button on error
+      const searchBtn = document.getElementById("search-button");
+      searchBtn.disabled = false;
+      searchBtn.textContent = "Find My Garden";
+    });
 }
 
 function fetchEVCData(lat, lon) {
@@ -156,7 +167,17 @@ function fetchEVCData(lat, lon) {
 
       displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
-    .catch(err => alert(err.message));
+    .catch(err => {
+      alert(err.message);
+      // Reset buttons on error
+      const searchBtn = document.getElementById("search-button");
+      searchBtn.disabled = false;
+      searchBtn.textContent = "Find My Garden";
+      
+      const locationBtn = document.getElementById("location-button");
+      locationBtn.disabled = false;
+      locationBtn.textContent = "📍 Use My Location";
+    });
 }
 
 // Helper function to check if plant image exists
@@ -461,6 +482,15 @@ function getKitDetails(evcName) {
 }
 
 function displayModal(name, status, region, code, lat, lon) {
+  // Reset buttons when modal opens
+  const searchBtn = document.getElementById("search-button");
+  searchBtn.disabled = false;
+  searchBtn.textContent = "Find My Garden";
+  
+  const locationBtn = document.getElementById("location-button");
+  locationBtn.disabled = false;
+  locationBtn.textContent = "📍 Use My Location";
+  
   // Store coordinates globally for pre-order form
   window.currentLat = lat;
   window.currentLon = lon;
@@ -642,10 +672,6 @@ function displayModal(name, status, region, code, lat, lon) {
       }
 
       // Always show Forest Kit, Tee, and Ebook sections regardless of plant data
-      // ... (rest of your existing kit, tee, and ebook code remains unchanged)
-      
-      // [REST OF YOUR EXISTING displayModal CODE CONTINUES HERE...]
-      // I'm keeping your existing kit section, tee section code exactly as is
       
       const kitDetails = getKitDetails(name);
       
@@ -657,7 +683,7 @@ function displayModal(name, status, region, code, lat, lon) {
       kitSection.style.border = "1px solid #e2e8f0";
       
       const kitTitle = document.createElement("h2");
-      kitTitle.textContent = "Get your ecological garden kit";
+      kitTitle.textContent = "Get your Ecological Garden Kit";
       kitTitle.style.fontFamily = "'Abril Fatface', serif";
       kitTitle.style.fontSize = "36px";
       kitTitle.style.marginBottom = "20px";
@@ -1021,6 +1047,15 @@ function displayModal(name, status, region, code, lat, lon) {
       document.getElementById("modal-evc-description").textContent = 
         "Plant data currently unavailable. Please try again later.";
       document.getElementById("modal-plants").innerHTML = "";
+      
+      // Reset buttons on error
+      const searchBtn = document.getElementById("search-button");
+      searchBtn.disabled = false;
+      searchBtn.textContent = "Find My Garden";
+      
+      const locationBtn = document.getElementById("location-button");
+      locationBtn.disabled = false;
+      locationBtn.textContent = "📍 Use My Location";
     });
 
   // Setup modal map
