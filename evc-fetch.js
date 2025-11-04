@@ -545,7 +545,7 @@ function displayModal(name, status, region, code, lat, lon) {
       if (evcInfo?.recommendations && evcInfo.recommendations.length > 0) {
         // Add title
         const titleEl = document.createElement("h2");
-        titleEl.textContent = "Here's your plant list";
+        titleEl.textContent = "Here's the indigenous plants that belong in your garden";
         titleEl.style.fontFamily = "'Abril Fatface', serif";
         titleEl.style.fontSize = "28px";
         titleEl.style.marginTop = "30px";
