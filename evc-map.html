@@ -137,6 +137,13 @@
       transform: scale(0.98);
     }
 
+    #search-button:disabled,
+    #location-button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     #location-button {
       background-color: transparent;
       border: 2px solid #3d4535;
@@ -480,7 +487,7 @@
       }
 
       #modal-evc-name {
-        font-size: clamp(1.6rem, 6vw, 2.2rem);
+        font-size: 2.5rem;
         margin-bottom: 1rem;
       }
 
@@ -728,4 +735,3 @@
   <script src="evc-fetch.js"></script>
 </body>
 </html>
-
