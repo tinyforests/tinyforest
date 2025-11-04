@@ -501,7 +501,25 @@ function displayModal(name, status, region, code, lat, lon) {
   document.getElementById("modal-evc-status").textContent = status || "Not specified";
   document.getElementById("modal-evc-region").textContent = region || "Not specified";
 
-  // Fetch curated plant data from external JSON
+  // Setup modal map
+  modalMap && modalMap.remove();
+  modalMap = L.map("modal-map").setView([lat, lon], 12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "© OpenStreetMap contributors"
+  }).addTo(modalMap);
+  L.marker([lat, lon]).addTo(modalMap);
+
+  // Show modal immediately with loading state
+  const modal = document.getElementById("evc-modal");
+  modal.style.display = "flex";
+  setTimeout(() => modalMap.invalidateSize(), 0);
+  
+  // Show loading message
+  const plantsDiv = document.getElementById("modal-plants");
+  plantsDiv.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">Loading plant data...</p>';
+  plantsDiv.style.display = "block";
+
+  // Fetch curated plant data from external JSON (async)
   fetch('curated-plants.json')
     .then(r => {
       if (!r.ok) throw new Error('Could not load plant data');
@@ -1055,30 +1073,15 @@ function displayModal(name, status, region, code, lat, lon) {
       console.error('Failed to load plant data:', err);
       document.getElementById("modal-evc-description").textContent = 
         "Plant data currently unavailable. Please try again later.";
-      document.getElementById("modal-plants").innerHTML = "";
-      
-      // Reset buttons on error
-      const searchBtn = document.getElementById("search-button");
-      searchBtn.disabled = false;
-      searchBtn.textContent = "Find My Garden";
-      
-      const locationBtn = document.getElementById("location-button");
-      locationBtn.disabled = false;
-      locationBtn.textContent = "📍 Use My Location";
+      const plantsDiv = document.getElementById("modal-plants");
+      plantsDiv.innerHTML = '<p style="text-align: center; padding: 40px; color: #666;">Unable to load plant data. Please try again later.</p>';
+      plantsDiv.style.display = "block";
     });
-
-  // Setup modal map
-  modalMap && modalMap.remove();
-  modalMap = L.map("modal-map").setView([lat, lon], 12);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution: "© OpenStreetMap contributors"
-  }).addTo(modalMap);
-  L.marker([lat, lon]).addTo(modalMap);
 
   // Populate hidden form fields
   document.getElementById("gf-evcCode").value = `EVC ${code}`;
   
-  // Get address from reverse geocoding
+  // Get address from reverse geocoding (async, doesn't block modal)
   fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`)
     .then(r => r.json())
     .then(data => {
@@ -1088,11 +1091,6 @@ function displayModal(name, status, region, code, lat, lon) {
     .catch(() => {
       document.getElementById("gf-address").value = `${lat}, ${lon}`;
     });
-
-  // Show modal
-  const modal = document.getElementById("evc-modal");
-  modal.style.display = "flex";
-  setTimeout(() => modalMap.invalidateSize(), 0);
 }
 
 // Pre-order modal functions
