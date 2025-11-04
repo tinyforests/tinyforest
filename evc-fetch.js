@@ -962,6 +962,15 @@ function displayModal(name, status, region, code, lat, lon) {
         teeDescription.style.fontSize = "16px";
         teeSection.appendChild(teeDescription);
         
+        // Price
+        const teePrice = document.createElement("div");
+        teePrice.style.fontFamily = "'Abril Fatface', serif";
+        teePrice.style.fontSize = "2.5rem";
+        teePrice.style.color = "#3d4535";
+        teePrice.style.marginBottom = "20px";
+        teePrice.textContent = "$35";
+        teeSection.appendChild(teePrice);
+        
         // Size selector and button container
         const teeControls = document.createElement("div");
         teeControls.style.display = "flex";
