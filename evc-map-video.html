@@ -651,10 +651,15 @@
   <div id="container">
     <!-- Video Background -->
     <div id="hero-video-container">
-      <video id="hero-video" autoplay loop muted playsinline>
+      <video id="hero-video" autoplay loop muted playsinline preload="auto">
         <source src="videos/garden-background.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
+    </div>
+    
+    <!-- Video Loading Indicator (optional) -->
+    <div id="video-loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 1; color: #3d4535; font-size: 14px; display: none;">
+      Loading video...
     </div>
     
     <!-- Overlay for readability -->
@@ -798,5 +803,35 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
+  
+  <!-- Video Loading Handler -->
+  <script>
+    const video = document.getElementById('hero-video');
+    const loadingIndicator = document.getElementById('video-loading');
+    
+    // Show loading while video loads
+    video.addEventListener('loadstart', () => {
+      console.log('Video loading started...');
+      loadingIndicator.style.display = 'block';
+    });
+    
+    // Hide loading when ready
+    video.addEventListener('loadeddata', () => {
+      console.log('Video loaded successfully!');
+      loadingIndicator.style.display = 'none';
+    });
+    
+    // Handle errors
+    video.addEventListener('error', (e) => {
+      console.error('Video error:', video.error);
+      loadingIndicator.textContent = 'Video unavailable';
+      loadingIndicator.style.color = '#999';
+    });
+    
+    // Check if playing
+    video.addEventListener('play', () => {
+      console.log('Video playing!');
+    });
+  </script>
 </body>
 </html>
