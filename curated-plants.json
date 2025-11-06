@@ -463,52 +463,83 @@
         {
           "layer": "Canopy Layer",
           "plants": [
-            "Eucalyptus ovata (Swamp Gum)",
+            "Eucalyptus cephalocarpa s.l. (Silverleaf Stringybark)",
+            "Eucalyptus goniocalyx s.l. (Bundy)",
+            "Eucalyptus melliodora (Yellow Box)",
             "Eucalyptus obliqua (Messmate Stringybark)",
+            "Eucalyptus ovata (Swamp Gum)",
             "Eucalyptus viminalis ssp. viminalis (Manna Gum)"
+          ]
+        },
+        {
+          "layer": "Sub-Canopy Layer",
+          "plants": [
+            "Acacia mearnsii (Black Wattle)",
+            "Exocarpos cupressiformis (Cherry Ballart)"
           ]
         },
         {
           "layer": "Shrub Layer",
           "plants": [
             "Acacia melanoxylon (Blackwood)",
-            "Leptospermum continentale (Prickly Tea-tree)",
             "Acacia verticillata (Prickly Moses)",
-            "Ozothamnus ferrugineus (Tree Everlasting)",
+            "Acrotriche serrulata (Honey-pots)",
+            "Amperea xiphoclada var. xiphoclada (Broom Spurge)",
+            "Banksia marginata (Silver Banksia)",
+            "Boronia nana var. nana (Dwarf Boronia)",
+            "Bossiaea prostrata (Creeping Bossiaea)",
             "Bursaria spinosa (Sweet Bursaria)",
             "Correa reflexa (Common Correa)",
             "Goodenia ovata (Hop Goodenia)",
-            "Pimelea humilis (Common Rice-flower)",
+            "Hibbertia fasciculata var. prostrata (Bundled Guinea-flower)",
             "Hibbertia riparia (Erect Guinea-flower)",
-            "Bossiaea prostrata (Creeping Bossiaea)",
-            "Acrotriche serrulata (Honey-pots)"
+            "Leptospermum continentale (Prickly Tea-tree)",
+            "Melaleuca squarrosa (Scented Paperbark)",
+            "Ozothamnus ferrugineus (Tree Everlasting)",
+            "Pimelea humilis (Common Rice-flower)",
+            "Xanthosia pusilla spp. agg. (Heath Xanthosia)"
           ]
         },
         {
           "layer": "Herb Layer",
           "plants": [
-            "Wahlenbergia spp. (Bluebells)",
+            "Austrodanthonia setacea var. setacea (Bristly Wallaby-grass)",
+            "Billardiera scandens (Common Apple-berry)",
             "Bulbine bulbosa (Bulbine Lily)",
-            "Dianella tasmanica (Tasman Flax-lily)",
-            "Vittadinia cervicularis (New Holland Daisy)",
-            "Senecio tenuiflorus (Slender Fireweed)",
-            "Pterostylis longifolia s.l. (Tall Greenhood)",
-            "Euchiton collinus s.s. (Creeping Cudweed)",
-            "Hypericum gramineum (Small St John's Wort)",
-            "Gonocarpus tetragynus (Common Raspwort)",
-            "Viola hederacea (Ivy-leaf Violet)",
-            "Hydrocotyle laxiflora (Stinking Pennywort)",
-            "Juncus procerus (Tall Rush)",
-            "Lepidosperma laterale var. majus (Variable Sword-sedge)",
+            "Centrolepis strigosa ssp. strigosa (Hairy Centrolepis)",
+            "Clematis aristata (Mountain Clematis)",
             "Deyeuxia quadriseta (Reed Bent-grass)",
+            "Dianella revoluta s.s. (Black-anther Flax-lily)",
+            "Dianella tasmanica (Tasman Flax-lily)",
+            "Euchiton collinus s.s. (Creeping Cudweed)",
+            "Gahnia radula (Thatch Saw-sedge)",
+            "Gonocarpus tetragynus (Common Raspwort)",
+            "Goodenia geniculata (Bent Goodenia)",
+            "Hydrocotyle laxiflora (Stinking Pennywort)",
+            "Hypericum gramineum (Small St John's Wort)",
+            "Isolepis marginata (Little Club-sedge)",
+            "Juncus procerus (Tall Rush)",
+            "Kennedia prostrata (Running Postman)",
+            "Lagenophora stipitata (Common Bottle-daisy)",
+            "Lepidosperma laterale var. laterale (Variable Sword-sedge)",
+            "Lepidosperma laterale var. majus (Variable Sword-sedge)",
             "Lepidosperma longitudinale (Pithy Sword-sedge)",
             "Lomandra filiformis (Wattle Mat-rush)",
+            "Lomandra nana (Dwarf Mat-rush)",
             "Lomandra sororia (Small Mat-rush)",
-            "Lepidosperma laterale var. laterale (Variable Sword-sedge)",
             "Microlaena stipoides var. stipoides (Weeping Grass)",
+            "Nertera granadensis (Matted Nertera)",
+            "Opercularia varia (Variable Stinkweed)",
+            "Poa sieberiana var. sieberiana (Grey Tussock-grass)",
             "Pteridium esculentum (Austral Bracken)",
-            "Clematis aristata (Mountain Clematis)",
-            "Billardiera scandens (Common Apple-berry)"
+            "Pterostylis longifolia s.l. (Tall Greenhood)",
+            "Senecio tenuiflorus (Slender Fireweed)",
+            "Veronica gracilis (Slender Speedwell)",
+            "Viola hederacea (Ivy-leaf Violet)",
+            "Vittadinia cervicularis (New Holland Daisy)",
+            "Wahlenbergia gracilis s.s. (Sprawling Bluebell)",
+            "Wahlenbergia spp. (Bluebells)",
+            "Xanthorrhoea minor ssp. lutea (Small Grass-tree)"
           ]
         }
       ]
