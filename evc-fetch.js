@@ -496,6 +496,10 @@ function displayModal(name, status, region, code, lat, lon) {
   window.currentLon = lon;
   window.currentEvcName = name;
   
+  // Log this EVC lookup to Google Sheet
+  const searchAddress = window.searchedAddress || `${lat}, ${lon}`;
+  logEVCLookup(searchAddress, lat, lon, code, name);
+  
   // Set basic info from API
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status || "Not specified";
@@ -545,7 +549,7 @@ function displayModal(name, status, region, code, lat, lon) {
       if (evcInfo?.recommendations && evcInfo.recommendations.length > 0) {
         // Add title
         const titleEl = document.createElement("h2");
-        titleEl.textContent = "Here's the list of indigenous plants that belong in your garden";
+        titleEl.textContent = "Here's the indigenous plants that belong in your garden";
         titleEl.style.fontFamily = "'Abril Fatface', serif";
         titleEl.style.fontSize = "28px";
         titleEl.style.marginTop = "30px";
@@ -1091,6 +1095,69 @@ function displayModal(name, status, region, code, lat, lon) {
     .catch(() => {
       document.getElementById("gf-address").value = `${lat}, ${lon}`;
     });
+}
+
+// EVC Lookup Logging Function
+function logEVCLookup(address, lat, lon, evcCode, evcName) {
+  // Google Form submission details
+  const FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLScmuvklj5OJq7tJLLS2TCR8fRYoOh96WA_63a9YsGOsznLgdQ/formResponse';
+  const ENTRY_IDS = {
+    address: 'entry.124085928',
+    latitude: 'entry.537784608',
+    longitude: 'entry.683705898',
+    evcCode: 'entry.1602420653',
+    evcName: 'entry.615207214'
+  };
+
+  try {
+    // Create a hidden form
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = FORM_URL;
+    form.target = 'log-iframe';
+    form.style.display = 'none';
+
+    // Add form fields
+    const fields = {
+      [ENTRY_IDS.address]: address || 'Unknown',
+      [ENTRY_IDS.latitude]: lat?.toFixed(6) || '',
+      [ENTRY_IDS.longitude]: lon?.toFixed(6) || '',
+      [ENTRY_IDS.evcCode]: evcCode || '',
+      [ENTRY_IDS.evcName]: evcName || ''
+    };
+
+    Object.keys(fields).forEach(key => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = fields[key];
+      form.appendChild(input);
+    });
+
+    // Create hidden iframe if it doesn't exist
+    let iframe = document.getElementById('log-iframe');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'log-iframe';
+      iframe.name = 'log-iframe';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+
+    // Submit the form
+    document.body.appendChild(form);
+    form.submit();
+    
+    // Clean up
+    setTimeout(() => {
+      document.body.removeChild(form);
+    }, 1000);
+
+    console.log('EVC lookup logged:', { address, lat, lon, evcCode, evcName });
+  } catch (error) {
+    console.error('Failed to log EVC lookup:', error);
+    // Fail silently - don't interrupt user experience
+  }
 }
 
 // Pre-order modal functions
