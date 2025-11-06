@@ -198,9 +198,9 @@
     }
 
     #modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
+      position: fixed;
+      top: calc(env(safe-area-inset-top, 0px) + 15px);
+      right: calc(env(safe-area-inset-right, 0px) + 15px);
       background-color: #3d4535;
       color: #fff0dc;
       border: none;
@@ -210,7 +210,7 @@
       font-size: 28px;
       line-height: 1;
       cursor: pointer;
-      z-index: 1000;
+      z-index: 10001;
       transition: all 0.2s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       -webkit-tap-highlight-color: transparent;
@@ -471,8 +471,8 @@
       }
 
       #modal-close {
-        top: 10px;
-        right: 10px;
+        top: calc(env(safe-area-inset-top, 0px) + 10px);
+        right: calc(env(safe-area-inset-right, 0px) + 10px);
         width: 40px;
         height: 40px;
         font-size: 24px;
