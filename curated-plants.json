@@ -1,9 +1,9 @@
 {
   "metadata": {
     "version": "1.0.0",
-    "last_updated": "2025-11-03",
+    "last_updated": "2025-11-06",
     "coverage": "Victoria, Australia",
-    "total_evcs": 32
+    "total_evcs": 33
   },
   "evcs": {
     "2": {
@@ -757,6 +757,53 @@
             "Lepidosperma elatius (Tall Sword-sedge)",
             "Juncus procerus (Tall Rush)",
             "Deyeuxia quadriseta (Reed Bent-grass)",
+            "Phragmites australis (Common Reed)",
+            "Themeda triandra (Kangaroo Grass)",
+            "Lomandra filiformis (Wattle Mat-rush)",
+            "Microlaena stipoides var. stipoides (Weeping Grass)",
+            "Pteridium esculentum (Austral Bracken)"
+          ]
+        }
+      ]
+    },
+    "126": {
+      "description": "Swampy Riparian Complex is a wetland-riparian ecosystem found along streams and drainage lines with fluctuating water levels and seasonally waterlogged soils. Dominated by Swamp Gum and Narrow-leaf Peppermint, it features a diverse mix of moisture-tolerant shrubs, sedges, and grasses that thrive in the wet-dry cycles of riparian zones.",
+      "recommendations": [
+        {
+          "layer": "Canopy Layer",
+          "plants": [
+            "Eucalyptus ovata (Swamp Gum)",
+            "Eucalyptus radiata s.l. (Narrow-leaf Peppermint)"
+          ]
+        },
+        {
+          "layer": "Sub-Canopy Layer",
+          "plants": [
+            "Acacia melanoxylon (Blackwood)",
+            "Melaleuca ericifolia (Swamp Paperbark)",
+            "Leptospermum lanigerum (Woolly Tea-tree)"
+          ]
+        },
+        {
+          "layer": "Shrub Layer",
+          "plants": [
+            "Leptospermum continentale (Prickly Tea-tree)",
+            "Coprosma quadrifida (Prickly Currant-bush)",
+            "Bursaria spinosa (Sweet Bursaria)"
+          ]
+        },
+        {
+          "layer": "Herb Layer",
+          "plants": [
+            "Senecio minimus (Shrubby Fireweed)",
+            "Gonocarpus tetragynus (Common Raspwort)",
+            "Acaena novae-zelandiae (Bidgee-widgee)",
+            "Hydrocotyle hirta (Hairy Pennywort)",
+            "Dichondra repens (Kidney-weed)",
+            "Carex appressa (Tall Sedge)",
+            "Cyperus lucidus (Leafy Flat-sedge)",
+            "Lepidosperma elatius (Tall Sword-sedge)",
+            "Juncus procerus (Tall Rush)",
             "Phragmites australis (Common Reed)",
             "Themeda triandra (Kangaroo Grass)",
             "Lomandra filiformis (Wattle Mat-rush)",
