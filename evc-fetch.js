@@ -732,7 +732,7 @@ function displayModal(name, status, region, code, lat, lon) {
       kitSection.style.border = "1px solid #e2e8f0";
       
       const kitTitle = document.createElement("h2");
-      kitTitle.textContent = "Get your Ecological Garden Kit";
+      kitTitle.textContent = "Grow your own Ecological Garden";
       kitTitle.style.fontFamily = "'Abril Fatface', serif";
       kitTitle.style.fontSize = "36px";
       kitTitle.style.marginBottom = "20px";
@@ -778,7 +778,7 @@ function displayModal(name, status, region, code, lat, lon) {
         kitPrice.style.fontSize = "2.5rem";
         kitPrice.style.color = "#3d4535";
         kitPrice.style.marginBottom = "10px";
-        kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per m²</span>';
+        kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per m² *plus shipping</span>';
         kitSection.appendChild(kitPrice);
         
         // Description
@@ -940,7 +940,7 @@ function displayModal(name, status, region, code, lat, lon) {
       teeSection.style.border = "1px solid #e2e8f0";
       
       const teeTitle = document.createElement("h2");
-      teeTitle.textContent = "Rock your own EVC tee";
+      teeTitle.textContent = "Wear your Ecological Garden";
       teeTitle.style.fontFamily = "'Abril Fatface', serif";
       teeTitle.style.fontSize = "36px";
       teeTitle.style.marginBottom = "15px";
@@ -1017,7 +1017,7 @@ function displayModal(name, status, region, code, lat, lon) {
         teePrice.style.fontSize = "2.5rem";
         teePrice.style.color = "#3d4535";
         teePrice.style.marginBottom = "20px";
-        teePrice.textContent = "$35";
+        teePrice.innerHTML = '$35 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">*plus shipping</span>';
         teeSection.appendChild(teePrice);
         
         // Size selector and button container
