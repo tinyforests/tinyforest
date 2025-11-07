@@ -1,4 +1,4 @@
-// evc-fetch.js - Complete version with all 30 EVCs and smart camera icons
+// evc-fetch.js - Complete version with all EVCs and smart camera icons
 
 let map, marker, modalMap;
 
@@ -242,14 +242,32 @@ function getKitDetails(evcName) {
       specialFeature: 'Salt and flood-tolerant species',
       slug: 'coastal-saltmarsh'
     },
+    'Coastal Scrub': {
+      image: 'coastal-scrub.png',
+      description: 'Wind-pruned coastal vegetation adapted to salt spray and sandy soils. Essential dune stabilization.',
+      canopy: 1,
+      shrub: 5,
+      groundcover: 4,
+      specialFeature: 'Coastal wind and salt specialists',
+      slug: 'coastal-scrub'
+    },
     'Creekline Grassy Woodland': {
       image: 'creekline-grassy-woodland.png',
-      description: 'Riparian woodland with grassy groundlayer. Protects waterways and provides wildlife corridors.',
+      description: 'Riparian woodland with grassy groundlayer along minor creeks. Protects waterways and provides wildlife corridors.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
-      specialFeature: 'Moisture-loving creek specialists',
+      specialFeature: 'Creek edge specialists',
       slug: 'creekline-grassy-woodland'
+    },
+    'Creekline Herb-rich Woodland': {
+      image: 'creekline-herb-rich-woodland.png',
+      description: 'Diverse woodland along ephemeral creeks with rich herbaceous layer. High biodiversity in moist microhabitats.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Moisture-loving herb specialists',
+      slug: 'creekline-herb-rich-woodland'
     },
     'Damp Sands Herb-rich Woodland': {
       image: 'damp-sands-herb-rich-woodland.png',
@@ -430,6 +448,15 @@ function getKitDetails(evcName) {
       groundcover: 3,
       specialFeature: 'Wetland and swamp specialists',
       slug: 'swamp-scrub'
+    },
+    'Swampy Riparian Complex': {
+      image: 'swampy-riparian-complex.png',
+      description: 'Wetland-riparian ecosystem along drainage lines with fluctuating water levels. Natural water filtration system.',
+      canopy: 3,
+      shrub: 3,
+      groundcover: 4,
+      specialFeature: 'Waterlogged soil tolerant',
+      slug: 'swampy-riparian-complex'
     },
     'Swampy Riparian Woodland': {
       image: 'swampy-riparian-woodland.png',
