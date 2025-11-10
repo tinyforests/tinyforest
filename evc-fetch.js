@@ -140,6 +140,8 @@ function geocodeAddress(address) {
 }
 
 function fetchEVCData(lat, lon) {
+  console.log('fetchEVCData called with:', lat, lon);
+  
   const d = 0.02,
         bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`,
         url  = "https://opendata.maps.vic.gov.au/geoserver/wfs" +
@@ -148,14 +150,26 @@ function fetchEVCData(lat, lon) {
                `&bbox=${bbox},EPSG:4326` +
                "&outputFormat=application/json";
 
+  console.log('Fetching URL:', url);
+
   fetch(url)
-    .then(r => r.text())
+    .then(r => {
+      console.log('Response status:', r.status);
+      console.log('Response ok:', r.ok);
+      return r.text();
+    })
     .then(txt => {
+      console.log('Response text length:', txt.length);
+      console.log('Response starts with:', txt.substring(0, 100));
+      
       if (txt.trim().startsWith("<"))
         throw new Error("EVC service error. Try again later.");
       return JSON.parse(txt);
     })
     .then(data => {
+      console.log('Parsed data:', data);
+      console.log('Features count:', data.features?.length);
+      
       if (!data.features?.length)
         throw new Error("No EVC data found for this location.");
       const pt   = turf.point([lon, lat]),
@@ -165,9 +179,11 @@ function fetchEVCData(lat, lon) {
                    ) || data.features[0],
             p    = feat.properties;
 
+      console.log('Found EVC:', p.x_evcname);
       displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
     .catch(err => {
+      console.error('fetchEVCData error:', err);
       alert(err.message);
       // Reset buttons on error
       const searchBtn = document.getElementById("search-button");
