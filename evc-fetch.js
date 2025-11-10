@@ -752,6 +752,25 @@ function displayModal(name, status, region, code, lat, lon) {
   const searchAddress = window.searchedAddress || `${lat}, ${lon}`;
   logEVCLookup(searchAddress, lat, lon, code, name);
   
+  // Update modal header with shortened address
+  const modalHeader = document.querySelector("#evc-modal h2") || document.querySelector(".modal-header h2");
+  if (modalHeader) {
+    let displayAddress;
+    if (window.searchedAddress) {
+      // Shorten address: remove postcode and country
+      // Example: "123 Smith St, Fitzroy VIC 3065, Australia" -> "123 Smith St, Fitzroy"
+      displayAddress = window.searchedAddress
+        .split(',')
+        .slice(0, 2) // Take first 2 parts (street, suburb)
+        .join(',')
+        .trim();
+    } else {
+      // Use coordinates if no address
+      displayAddress = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
+    }
+    modalHeader.textContent = `Your Ecological Garden at ${displayAddress} is :`;
+  }
+  
   // Set basic info from API
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
   document.getElementById("modal-evc-status").textContent = status || "Not specified";
