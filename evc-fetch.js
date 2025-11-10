@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const addr = document.getElementById("address-input").value.trim();
     if (!addr) return alert("Please enter an address.");
     
+    // Hide autocomplete when submitting
+    hideAutocomplete();
+    
     // Add loading state to button
     const searchBtn = document.getElementById("search-button");
     searchBtn.disabled = true;
@@ -22,6 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
     
     geocodeAddress(addr);
   });
+
+  // Setup address autocomplete
+  setupAddressAutocomplete();
 
   // Close modal
   document.getElementById("modal-close").addEventListener("click", () => {
@@ -139,9 +145,161 @@ function geocodeAddress(address) {
     });
 }
 
-function fetchEVCData(lat, lon) {
-  console.log('fetchEVCData called with:', lat, lon);
+// Address autocomplete functionality
+let autocompleteTimeout;
+let autocompleteResults = [];
+
+function setupAddressAutocomplete() {
+  const input = document.getElementById("address-input");
+  const form = document.getElementById("address-form");
   
+  // Create autocomplete dropdown
+  const dropdown = document.createElement("div");
+  dropdown.id = "address-autocomplete";
+  dropdown.style.display = "none";
+  dropdown.style.position = "absolute";
+  dropdown.style.zIndex = "1000";
+  dropdown.style.backgroundColor = "white";
+  dropdown.style.border = "2px solid #3d4535";
+  dropdown.style.borderTop = "none";
+  dropdown.style.borderRadius = "0 0 8px 8px";
+  dropdown.style.maxHeight = "300px";
+  dropdown.style.overflowY = "auto";
+  dropdown.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
+  dropdown.style.width = input.offsetWidth + "px";
+  
+  // Insert dropdown after the form
+  form.parentNode.insertBefore(dropdown, form.nextSibling);
+  
+  // Listen for input changes
+  input.addEventListener("input", (e) => {
+    const query = e.target.value.trim();
+    
+    if (query.length < 3) {
+      hideAutocomplete();
+      return;
+    }
+    
+    // Debounce API calls
+    clearTimeout(autocompleteTimeout);
+    autocompleteTimeout = setTimeout(() => {
+      fetchAddressSuggestions(query);
+    }, 300); // Wait 300ms after user stops typing
+  });
+  
+  // Hide dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (e.target !== input && e.target.closest("#address-autocomplete") === null) {
+      hideAutocomplete();
+    }
+  });
+  
+  // Update dropdown width on window resize
+  window.addEventListener("resize", () => {
+    dropdown.style.width = input.offsetWidth + "px";
+  });
+}
+
+function fetchAddressSuggestions(query) {
+  // Focus on Victoria, Australia for better results
+  const url = `https://nominatim.openstreetmap.org/search?` +
+    `format=json` +
+    `&q=${encodeURIComponent(query)}` +
+    `&countrycodes=au` +
+    `&limit=5` +
+    `&addressdetails=1`;
+  
+  fetch(url)
+    .then(r => r.json())
+    .then(results => {
+      autocompleteResults = results;
+      displayAutocompleteSuggestions(results);
+    })
+    .catch(err => {
+      console.error("Autocomplete error:", err);
+    });
+}
+
+function displayAutocompleteSuggestions(results) {
+  const dropdown = document.getElementById("address-autocomplete");
+  
+  if (!results || results.length === 0) {
+    hideAutocomplete();
+    return;
+  }
+  
+  dropdown.innerHTML = "";
+  
+  results.forEach((result, index) => {
+    const item = document.createElement("div");
+    item.className = "autocomplete-item";
+    item.style.padding = "12px 16px";
+    item.style.cursor = "pointer";
+    item.style.borderBottom = "1px solid #e2e8f0";
+    item.style.transition = "background-color 0.2s";
+    item.style.fontFamily = "'IBM Plex Mono', monospace";
+    item.style.fontSize = "14px";
+    
+    // Format the address nicely
+    const displayName = result.display_name;
+    item.textContent = displayName;
+    
+    // Hover effect
+    item.addEventListener("mouseenter", () => {
+      item.style.backgroundColor = "#f7f7f7";
+    });
+    
+    item.addEventListener("mouseleave", () => {
+      item.style.backgroundColor = "white";
+    });
+    
+    // Click to select
+    item.addEventListener("click", () => {
+      selectAddress(result);
+    });
+    
+    dropdown.appendChild(item);
+  });
+  
+  // Show dropdown
+  dropdown.style.display = "block";
+}
+
+function selectAddress(result) {
+  const input = document.getElementById("address-input");
+  input.value = result.display_name;
+  hideAutocomplete();
+  
+  // Trigger the search automatically
+  const lat = parseFloat(result.lat);
+  const lon = parseFloat(result.lon);
+  
+  // Store the address
+  window.searchedAddress = result.display_name;
+  
+  // Update map
+  map.setView([lat, lon], 12);
+  marker && map.removeLayer(marker);
+  marker = L.marker([lat, lon]).addTo(map);
+  
+  // Add loading state
+  const searchBtn = document.getElementById("search-button");
+  searchBtn.disabled = true;
+  searchBtn.textContent = "Finding your garden...";
+  
+  // Fetch EVC data
+  fetchEVCData(lat, lon);
+}
+
+function hideAutocomplete() {
+  const dropdown = document.getElementById("address-autocomplete");
+  if (dropdown) {
+    dropdown.style.display = "none";
+    dropdown.innerHTML = "";
+  }
+}
+
+function fetchEVCData(lat, lon) {
   const d = 0.02,
         bbox = `${lon - d},${lat - d},${lon + d},${lat + d}`,
         url  = "https://opendata.maps.vic.gov.au/geoserver/wfs" +
@@ -150,26 +308,14 @@ function fetchEVCData(lat, lon) {
                `&bbox=${bbox},EPSG:4326` +
                "&outputFormat=application/json";
 
-  console.log('Fetching URL:', url);
-
   fetch(url)
-    .then(r => {
-      console.log('Response status:', r.status);
-      console.log('Response ok:', r.ok);
-      return r.text();
-    })
+    .then(r => r.text())
     .then(txt => {
-      console.log('Response text length:', txt.length);
-      console.log('Response starts with:', txt.substring(0, 100));
-      
       if (txt.trim().startsWith("<"))
         throw new Error("EVC service error. Try again later.");
       return JSON.parse(txt);
     })
     .then(data => {
-      console.log('Parsed data:', data);
-      console.log('Features count:', data.features?.length);
-      
       if (!data.features?.length)
         throw new Error("No EVC data found for this location.");
       const pt   = turf.point([lon, lat]),
@@ -179,11 +325,9 @@ function fetchEVCData(lat, lon) {
                    ) || data.features[0],
             p    = feat.properties;
 
-      console.log('Found EVC:', p.x_evcname);
       displayModal(p.x_evcname, p.evc_bcs_desc, p.bioregion, p.evc, lat, lon);
     })
     .catch(err => {
-      console.error('fetchEVCData error:', err);
       alert(err.message);
       // Reset buttons on error
       const searchBtn = document.getElementById("search-button");
