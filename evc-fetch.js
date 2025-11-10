@@ -186,10 +186,22 @@ function setupAddressAutocomplete() {
   // Position dropdown properly
   function positionDropdown() {
     const rect = input.getBoundingClientRect();
-    dropdown.style.position = "fixed";
-    dropdown.style.top = (rect.bottom + 8) + "px";
-    dropdown.style.left = rect.left + "px";
-    dropdown.style.width = rect.width + "px";
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+      // On mobile: fixed to input position, scrolls with page
+      dropdown.style.position = "absolute";
+      const formRect = form.getBoundingClientRect();
+      dropdown.style.top = (formRect.height + 8) + "px";
+      dropdown.style.left = "0";
+      dropdown.style.width = "100%";
+    } else {
+      // On desktop: fixed position
+      dropdown.style.position = "fixed";
+      dropdown.style.top = (rect.bottom + 8) + "px";
+      dropdown.style.left = rect.left + "px";
+      dropdown.style.width = rect.width + "px";
+    }
   }
   
   // Listen for input changes
@@ -827,7 +839,7 @@ function displayModal(name, status, region, code, lat, lon) {
       if (evcInfo?.recommendations && evcInfo.recommendations.length > 0) {
         // Add title
         const titleEl = document.createElement("h2");
-        titleEl.textContent = "Here's the indigenous plants that belong in your garden";
+        titleEl.textContent = "Here's the indigenous plants that belong in your garden.";
         titleEl.style.fontFamily = "'Abril Fatface', serif";
         titleEl.style.fontSize = "28px";
         titleEl.style.marginTop = "30px";
@@ -985,13 +997,22 @@ function displayModal(name, status, region, code, lat, lon) {
       kitSection.style.border = "1px solid #e2e8f0";
       
       const kitTitle = document.createElement("h2");
-      kitTitle.textContent = "Grow your own Ecological Garden";
+      kitTitle.textContent = "Grow your own Ecological Garden.";
       kitTitle.style.fontFamily = "'Abril Fatface', serif";
       kitTitle.style.fontSize = "36px";
-      kitTitle.style.marginBottom = "20px";
+      kitTitle.style.marginBottom = "15px";
       kitTitle.style.lineHeight = "1.2";
       kitTitle.style.color = "#3d4535";
       kitSection.appendChild(kitTitle);
+      
+      // Add descriptive text
+      const kitIntro = document.createElement("p");
+      kitIntro.textContent = "Purchase your curated planting kit suited specifically to your garden. Hand selected for structural diversity, wildlife value, and aesthetic beauty.";
+      kitIntro.style.fontSize = "16px";
+      kitIntro.style.lineHeight = "1.6";
+      kitIntro.style.color = "#666";
+      kitIntro.style.marginBottom = "25px";
+      kitSection.appendChild(kitIntro);
       
       if (kitDetails) {
         // Kit image
@@ -1195,7 +1216,7 @@ function displayModal(name, status, region, code, lat, lon) {
       teeSection.style.border = "1px solid #e2e8f0";
       
       const teeTitle = document.createElement("h2");
-      teeTitle.textContent = "Wear your Ecological Garden";
+      teeTitle.textContent = "Wear your Ecological Garden.";
       teeTitle.style.fontFamily = "'Abril Fatface', serif";
       teeTitle.style.fontSize = "36px";
       teeTitle.style.marginBottom = "15px";
