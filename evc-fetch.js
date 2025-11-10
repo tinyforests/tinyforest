@@ -769,12 +769,20 @@ function displayModal(name, status, region, code, lat, lon) {
       displayAddress = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
     }
     modalHeader.textContent = `Your Ecological Garden at ${displayAddress} is :`;
+    modalHeader.style.lineHeight = "1.2";
   }
   
   // Set basic info from API
   document.getElementById("modal-evc-name").textContent = name || "Unknown";
-  document.getElementById("modal-evc-status").textContent = status || "Not specified";
-  document.getElementById("modal-evc-region").textContent = region || "Not specified";
+  
+  const statusEl = document.getElementById("modal-evc-status");
+  statusEl.textContent = status || "Not specified";
+  statusEl.style.lineHeight = "1.2";
+  statusEl.style.marginBottom = "5px";
+  
+  const regionEl = document.getElementById("modal-evc-region");
+  regionEl.textContent = region || "Not specified";
+  regionEl.style.lineHeight = "1.2";
 
   // Setup modal map
   modalMap && modalMap.remove();
@@ -825,6 +833,7 @@ function displayModal(name, status, region, code, lat, lon) {
         titleEl.style.fontSize = "28px";
         titleEl.style.marginTop = "30px";
         titleEl.style.marginBottom = "20px";
+        titleEl.style.lineHeight = "1.2";
         titleEl.style.color = "inherit";
         plantsDiv.appendChild(titleEl);
 
@@ -980,6 +989,7 @@ function displayModal(name, status, region, code, lat, lon) {
       kitTitle.style.fontFamily = "'Abril Fatface', serif";
       kitTitle.style.fontSize = "36px";
       kitTitle.style.marginBottom = "20px";
+      kitTitle.style.lineHeight = "1.2";
       kitTitle.style.color = "#3d4535";
       kitSection.appendChild(kitTitle);
       
@@ -1013,6 +1023,7 @@ function displayModal(name, status, region, code, lat, lon) {
         kitEvcName.style.fontSize = "1.8rem";
         kitEvcName.style.color = "#3d4535";
         kitEvcName.style.marginBottom = "10px";
+        kitEvcName.style.lineHeight = "1.2";
         kitEvcName.style.letterSpacing = "0px";
         kitSection.appendChild(kitEvcName);
         
@@ -1188,6 +1199,7 @@ function displayModal(name, status, region, code, lat, lon) {
       teeTitle.style.fontFamily = "'Abril Fatface', serif";
       teeTitle.style.fontSize = "36px";
       teeTitle.style.marginBottom = "15px";
+      teeTitle.style.lineHeight = "1.2";
       teeTitle.style.color = "#3d4535";
       teeSection.appendChild(teeTitle);
       
