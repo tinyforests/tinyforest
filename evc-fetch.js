@@ -123,14 +123,26 @@ function geocodeAddress(address) {
   // Store the searched address globally
   window.searchedAddress = address;
   
-  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`)
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&addressdetails=1`)
     .then(r => {
       if (!r.ok) throw new Error(`Geocode failed (${r.status})`);
       return r.json();
     })
     .then(results => {
       if (!results.length) throw new Error("Address not found.");
-      const [lat, lon] = [+results[0].lat, +results[0].lon];
+      
+      // Check if address is in Victoria
+      const result = results[0];
+      const isVictoria = result.address?.state === 'Victoria' || 
+                        result.address?.state === 'VIC' ||
+                        result.display_name.includes('Victoria') ||
+                        result.display_name.includes('VIC');
+      
+      if (!isVictoria) {
+        throw new Error("We currently only serve Victoria. Please enter a Victorian address.");
+      }
+      
+      const [lat, lon] = [+result.lat, +result.lon];
       map.setView([lat, lon], 12);
       marker && map.removeLayer(marker);
       marker = L.marker([lat, lon]).addTo(map);
@@ -161,15 +173,24 @@ function setupAddressAutocomplete() {
   dropdown.style.zIndex = "1000";
   dropdown.style.backgroundColor = "white";
   dropdown.style.border = "2px solid #3d4535";
-  dropdown.style.borderTop = "none";
-  dropdown.style.borderRadius = "0 0 8px 8px";
+  dropdown.style.borderRadius = "8px";
   dropdown.style.maxHeight = "300px";
   dropdown.style.overflowY = "auto";
   dropdown.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
   dropdown.style.width = input.offsetWidth + "px";
+  dropdown.style.marginTop = "8px"; // Space between input and dropdown
   
   // Insert dropdown after the form
   form.parentNode.insertBefore(dropdown, form.nextSibling);
+  
+  // Position dropdown properly
+  function positionDropdown() {
+    const rect = input.getBoundingClientRect();
+    dropdown.style.position = "fixed";
+    dropdown.style.top = (rect.bottom + 8) + "px";
+    dropdown.style.left = rect.left + "px";
+    dropdown.style.width = rect.width + "px";
+  }
   
   // Listen for input changes
   input.addEventListener("input", (e) => {
@@ -187,6 +208,13 @@ function setupAddressAutocomplete() {
     }, 300); // Wait 300ms after user stops typing
   });
   
+  // Reposition on scroll
+  window.addEventListener("scroll", () => {
+    if (dropdown.style.display !== "none") {
+      positionDropdown();
+    }
+  });
+  
   // Hide dropdown when clicking outside
   document.addEventListener("click", (e) => {
     if (e.target !== input && e.target.closest("#address-autocomplete") === null) {
@@ -194,17 +222,22 @@ function setupAddressAutocomplete() {
     }
   });
   
-  // Update dropdown width on window resize
+  // Update dropdown position on window resize
   window.addEventListener("resize", () => {
-    dropdown.style.width = input.offsetWidth + "px";
+    if (dropdown.style.display !== "none") {
+      positionDropdown();
+    }
   });
+  
+  // Store positionDropdown for later use
+  dropdown.positionDropdown = positionDropdown;
 }
 
 function fetchAddressSuggestions(query) {
   // Focus on Victoria, Australia for better results
   const url = `https://nominatim.openstreetmap.org/search?` +
     `format=json` +
-    `&q=${encodeURIComponent(query)}` +
+    `&q=${encodeURIComponent(query + ', Victoria, Australia')}` +
     `&countrycodes=au` +
     `&limit=5` +
     `&addressdetails=1`;
@@ -212,8 +245,17 @@ function fetchAddressSuggestions(query) {
   fetch(url)
     .then(r => r.json())
     .then(results => {
-      autocompleteResults = results;
-      displayAutocompleteSuggestions(results);
+      // Filter to only Victoria results
+      const victoriaResults = results.filter(result => {
+        const address = result.address || {};
+        return address.state === 'Victoria' || 
+               address.state === 'VIC' ||
+               result.display_name.includes('Victoria') ||
+               result.display_name.includes('VIC');
+      });
+      
+      autocompleteResults = victoriaResults;
+      displayAutocompleteSuggestions(victoriaResults);
     })
     .catch(err => {
       console.error("Autocomplete error:", err);
@@ -224,7 +266,18 @@ function displayAutocompleteSuggestions(results) {
   const dropdown = document.getElementById("address-autocomplete");
   
   if (!results || results.length === 0) {
-    hideAutocomplete();
+    // Show "Victoria only" message if no results
+    dropdown.innerHTML = "";
+    const noResults = document.createElement("div");
+    noResults.style.padding = "12px 16px";
+    noResults.style.fontFamily = "'IBM Plex Mono', monospace";
+    noResults.style.fontSize = "14px";
+    noResults.style.color = "#666";
+    noResults.style.textAlign = "center";
+    noResults.textContent = "No Victorian addresses found. We currently only serve Victoria.";
+    dropdown.appendChild(noResults);
+    dropdown.positionDropdown();
+    dropdown.style.display = "block";
     return;
   }
   
@@ -235,7 +288,7 @@ function displayAutocompleteSuggestions(results) {
     item.className = "autocomplete-item";
     item.style.padding = "12px 16px";
     item.style.cursor = "pointer";
-    item.style.borderBottom = "1px solid #e2e8f0";
+    item.style.borderBottom = index < results.length - 1 ? "1px solid #e2e8f0" : "none";
     item.style.transition = "background-color 0.2s";
     item.style.fontFamily = "'IBM Plex Mono', monospace";
     item.style.fontSize = "14px";
@@ -261,7 +314,8 @@ function displayAutocompleteSuggestions(results) {
     dropdown.appendChild(item);
   });
   
-  // Show dropdown
+  // Position and show dropdown
+  dropdown.positionDropdown();
   dropdown.style.display = "block";
 }
 
@@ -269,6 +323,17 @@ function selectAddress(result) {
   const input = document.getElementById("address-input");
   input.value = result.display_name;
   hideAutocomplete();
+  
+  // Double-check it's in Victoria (should already be filtered)
+  const isVictoria = result.address?.state === 'Victoria' || 
+                    result.address?.state === 'VIC' ||
+                    result.display_name.includes('Victoria') ||
+                    result.display_name.includes('VIC');
+  
+  if (!isVictoria) {
+    alert("We currently only serve Victoria. Please enter a Victorian address.");
+    return;
+  }
   
   // Trigger the search automatically
   const lat = parseFloat(result.lat);
