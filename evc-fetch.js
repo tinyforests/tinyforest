@@ -752,9 +752,9 @@ function displayModal(name, status, region, code, lat, lon) {
   const searchAddress = window.searchedAddress || `${lat}, ${lon}`;
   logEVCLookup(searchAddress, lat, lon, code, name);
   
-  // Update modal header with shortened address
-  const modalHeader = document.querySelector("#evc-modal h2") || document.querySelector(".modal-header h2");
-  if (modalHeader) {
+  // Populate modal address
+  const modalAddressEl = document.getElementById("modal-address");
+  if (modalAddressEl) {
     let displayAddress;
     if (window.searchedAddress) {
       // Shorten address: remove postcode and country
@@ -768,8 +768,7 @@ function displayModal(name, status, region, code, lat, lon) {
       // Use coordinates if no address
       displayAddress = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
     }
-    modalHeader.textContent = `Your Ecological Garden at ${displayAddress} is :`;
-    modalHeader.style.lineHeight = "1.2";
+    modalAddressEl.textContent = displayAddress;
   }
   
   // Set basic info from API
@@ -849,6 +848,7 @@ function displayModal(name, status, region, code, lat, lon) {
           heading.style.fontWeight = "700";
           heading.style.fontSize = "16px";
           heading.style.marginBottom = "10px";
+          heading.style.lineHeight = "1.3";
           heading.style.color = "inherit";
           layerDiv.appendChild(heading);
           
