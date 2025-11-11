@@ -1007,7 +1007,7 @@ function displayModal(name, status, region, code, lat, lon) {
       
       // Add descriptive text
       const kitIntro = document.createElement("p");
-      kitIntro.textContent = "Purchase your curated planting kit suited specifically to your garden. Hand selected for structural diversity, wildlife value, and aesthetic beauty.";
+      kitIntro.textContent = "Purchase a curated indigenous planting kit ecologically suited to your location. Hand selected for structural diversity, wildlife value, and aesthetic beauty.";
       kitIntro.style.fontSize = "16px";
       kitIntro.style.lineHeight = "1.6";
       kitIntro.style.color = "#666";
@@ -1043,19 +1043,10 @@ function displayModal(name, status, region, code, lat, lon) {
         kitEvcName.style.fontFamily = "'Abril Fatface', serif";
         kitEvcName.style.fontSize = "1.8rem";
         kitEvcName.style.color = "#3d4535";
-        kitEvcName.style.marginBottom = "10px";
+        kitEvcName.style.marginBottom = "20px";
         kitEvcName.style.lineHeight = "1.2";
         kitEvcName.style.letterSpacing = "0px";
         kitSection.appendChild(kitEvcName);
-        
-        // Price
-        const kitPrice = document.createElement("div");
-        kitPrice.style.fontFamily = "'Abril Fatface', serif";
-        kitPrice.style.fontSize = "2.5rem";
-        kitPrice.style.color = "#3d4535";
-        kitPrice.style.marginBottom = "10px";
-        kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per m² *plus shipping</span>';
-        kitSection.appendChild(kitPrice);
         
         // Description
         const kitDescription = document.createElement("p");
@@ -1101,9 +1092,21 @@ function displayModal(name, status, region, code, lat, lon) {
         
         kitSection.appendChild(featuresList);
         
-        // Buy Forest Kit button
+        // Price - displayed just above button
+        const kitPrice = document.createElement("div");
+        kitPrice.style.fontFamily = "'IBM Plex Mono', monospace";
+        kitPrice.style.fontSize = "1.5rem";
+        kitPrice.style.fontWeight = "600";
+        kitPrice.style.color = "#3d4535";
+        kitPrice.style.marginTop = "20px";
+        kitPrice.style.marginBottom = "15px";
+        kitPrice.style.textAlign = "center";
+        kitPrice.innerHTML = '$89 per m² <span style="font-size: 0.9rem; font-weight: normal; color: #666;">+ shipping</span>';
+        kitSection.appendChild(kitPrice);
+        
+        // Buy Plant Kit button
         const kitButton = document.createElement("button");
-        kitButton.textContent = "Buy Forest Kit";
+        kitButton.textContent = "Buy Plant Kit";
         kitButton.style.background = "#3d4535";
         kitButton.style.color = "#fff0dc";
         kitButton.style.border = "none";
