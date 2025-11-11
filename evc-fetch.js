@@ -1284,10 +1284,24 @@ function displayModal(name, status, region, code, lat, lon) {
       
       // Only show purchase UI if tee is available
       teeImage.onload = function() {
-        const teeDescription = document.createElement("p");
-        teeDescription.innerHTML = `Printed with <strong>${name}</strong> on a high quality AS Colour tee.`;
+        // Tee title with EVC name
+        const teeEvcTitle = document.createElement("h3");
+        teeEvcTitle.innerHTML = `${name} Tee`;
+        teeEvcTitle.style.fontFamily = "'Abril Fatface', serif";
+        teeEvcTitle.style.fontSize = "1.8rem";
+        teeEvcTitle.style.color = "#3d4535";
+        teeEvcTitle.style.marginBottom = "15px";
+        teeEvcTitle.style.lineHeight = "1.2";
+        teeSection.appendChild(teeEvcTitle);
+        
+        // Koa Goods product details
+        const teeDescription = document.createElement("div");
+        teeDescription.innerHTML = `
+          <p style="margin-bottom: 10px; font-weight: 600; color: #3d4535;">Koa Goods Classic Hemp Tee</p>
+          <p style="margin-bottom: 8px; color: #666;">High grade 210gsm midweight Hemp / organic cotton blend</p>
+          <p style="margin-bottom: 15px; color: #666; line-height: 1.6;">Premium t-shirt from NZ brand Koa Goods. Made in Carbon Neutral workshops, with trees planted for every order. Relaxed fit. Round neckline and ribbed cuffs.</p>
+        `;
         teeDescription.style.marginBottom = "20px";
-        teeDescription.style.color = "#3d4535";
         teeDescription.style.fontSize = "16px";
         teeSection.appendChild(teeDescription);
         
@@ -1297,7 +1311,7 @@ function displayModal(name, status, region, code, lat, lon) {
         teePrice.style.fontSize = "2.5rem";
         teePrice.style.color = "#3d4535";
         teePrice.style.marginBottom = "20px";
-        teePrice.innerHTML = '$35 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">*plus shipping</span>';
+        teePrice.innerHTML = '$45 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">*plus shipping</span>';
         teeSection.appendChild(teePrice);
         
         // Size selector and button container
