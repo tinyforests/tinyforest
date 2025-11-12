@@ -1316,7 +1316,7 @@ function displayModal(name, status, region, code, lat, lon) {
         teePrice.style.fontSize = "2.5rem";
         teePrice.style.color = "#3d4535";
         teePrice.style.marginBottom = "20px";
-        teePrice.innerHTML = '$45 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">*plus shipping</span>';
+        teePrice.innerHTML = '$55 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">plus shipping</span>';
         teeSection.appendChild(teePrice);
         
         // Size selector and button container
