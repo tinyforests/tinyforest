@@ -1303,8 +1303,8 @@ function displayModal(name, status, region, code, lat, lon) {
         const teeDescription = document.createElement("div");
         teeDescription.innerHTML = `
           <p style="margin-bottom: 10px; font-weight: 600; color: #3d4535;">Koa Goods Classic Hemp Tee</p>
-          <p style="margin-bottom: 8px; color: #666;">High grade 210gsm midweight Hemp / organic cotton blend</p>
-          <p style="margin-bottom: 15px; color: #666; line-height: 1.6;">Premium t-shirt from NZ brand Koa Goods. Made in Carbon Neutral workshops, with trees planted for every order. Relaxed fit. Round neckline and ribbed cuffs.</p>
+          <p style="margin-bottom: 8px; color: #666;">A timeless everyday layer made from a 210 gsm blend of hemp and organic cotton. Each piece is crafted by Koa Goods in carbon-neutral workshops, where a tree is planted for every order. Naturally breathable, soft against the skin, and designed with a relaxed fit and ribbed detailing.</p>
+          
         `;
         teeDescription.style.marginBottom = "20px";
         teeDescription.style.fontSize = "16px";
