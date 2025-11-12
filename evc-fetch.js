@@ -598,7 +598,7 @@ function getKitDetails(evcName) {
     },
     'Plains Grassy Woodland': {
       image: 'plains-grassy-woodland.png',
-      description: 'Iconic River Red Gums with diverse grassland understory. Perfect for Melbourne\'s western suburbs.',
+      description: 'Iconic River Red Gums with diverse grassland understory. Perfect for a Melbourne indigenous garden.',
       canopy: 3,
       shrub: 3,
       groundcover: 4,
