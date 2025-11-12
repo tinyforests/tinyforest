@@ -769,13 +769,18 @@ function displayModal(name, status, region, code, lat, lon) {
   if (modalAddressEl) {
     let displayAddress;
     if (window.searchedAddress) {
-      // Shorten address: remove postcode and country
-      // Example: "123 Smith St, Fitzroy VIC 3065, Australia" -> "123 Smith St, Fitzroy"
-      displayAddress = window.searchedAddress
-        .split(',')
-        .slice(0, 2) // Take first 2 parts (street, suburb)
-        .join(',')
-        .trim();
+      // Shorten address and include suburb
+      // Example: "158, Balwyn Road, Balwyn VIC 3103, Australia" -> "158 Balwyn Road, Balwyn"
+      const parts = window.searchedAddress.split(',').map(p => p.trim());
+      
+      if (parts.length >= 2) {
+        // Remove comma after street number in first part
+        const street = parts[0].replace(/^(\d+),\s*/, '$1 ');
+        const suburb = parts[1];
+        displayAddress = `${street}, ${suburb}`;
+      } else {
+        displayAddress = parts[0];
+      }
     } else {
       // Use coordinates if no address
       displayAddress = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
