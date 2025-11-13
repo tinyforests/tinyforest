@@ -31,11 +31,104 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    /* Hamburger Menu */
+    #hamburger-menu {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 10000;
+      width: 50px;
+      height: 50px;
+      background-color: #3d4535;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      gap: 6px;
+      transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #hamburger-menu:hover {
+      transform: scale(1.05);
+      background-color: #2f3928;
+    }
+
+    #hamburger-menu span {
+      width: 24px;
+      height: 3px;
+      background-color: #fff0dc;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Nav Modal */
+    #nav-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(61, 69, 53, 0.98);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    #nav-modal.active {
+      display: flex;
+    }
+
+    .nav-content {
+      text-align: center;
+      color: #fff0dc;
+    }
+
+    .nav-content a {
+      display: block;
+      font-family: "Abril Fatface", serif;
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      color: #fff0dc;
+      text-decoration: none;
+      margin: 30px 0;
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
+    }
+
+    .nav-content a:hover {
+      transform: scale(1.05);
+      color: #c8b896;
+    }
+
+    #nav-close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: transparent;
+      color: #fff0dc;
+      border: none;
+      font-size: 48px;
+      cursor: pointer;
+      line-height: 1;
+      transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    #nav-close:hover {
+      transform: rotate(90deg) scale(1.1);
     }
 
     /* Hero Section */
-    #container {
-      min-height: 80vh;
+    .page-section {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -44,6 +137,18 @@
       max-width: 900px;
       margin: 0 auto;
       position: relative;
+    }
+
+    #section-1 {
+      text-align: center;
+    }
+
+    #section-2 {
+      text-align: center;
+    }
+
+    #section-3 {
+      text-align: center;
     }
 
     #page-title {
@@ -75,6 +180,33 @@
       margin-bottom: 2.5rem;
       opacity: 0.8;
       animation: fadeInUp 1.2s ease-out;
+    }
+
+    /* Scroll Buttons */
+    .scroll-button {
+      padding: 1.2rem 2.5rem;
+      background-color: #3d4535;
+      color: #fff0dc;
+      border: none;
+      border-radius: 50px;
+      font-family: "IBM Plex Mono", monospace;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      margin-top: 2rem;
+      animation: fadeInUp 1.6s ease-out;
+    }
+
+    .scroll-button:hover {
+      transform: scale(1.03) rotate(0.5deg);
+      box-shadow: 0 8px 25px rgba(61, 69, 53, 0.25);
+    }
+
+    .scroll-button:active {
+      transform: scale(0.98);
     }
 
     /* Search Container */
@@ -425,9 +557,20 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      #container {
+      .page-section {
         padding: 2rem 1.2rem;
-        min-height: 90vh;
+        min-height: 100vh;
+      }
+
+      #hamburger-menu {
+        width: 45px;
+        height: 45px;
+        top: 15px;
+        left: 15px;
+      }
+
+      #hamburger-menu span {
+        width: 20px;
       }
 
       #page-title {
@@ -567,7 +710,7 @@
 
     /* Extra small devices */
     @media (max-width: 480px) {
-      #container {
+      .page-section {
         padding: 1.5rem 1rem;
       }
 
@@ -611,12 +754,39 @@
   </style>
 </head>
 <body>
-  <div id="container">
+  <!-- Hamburger Menu -->
+  <div id="hamburger-menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Navigation Modal -->
+  <div id="nav-modal">
+    <button id="nav-close">&times;</button>
+    <div class="nav-content">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+
+  <!-- Section 1: Hero -->
+  <section id="section-1" class="page-section">
     <h2 id="page-title">Find & Grow My Ecological Garden.</h2>
+    <button class="scroll-button" onclick="scrollToSection('section-2')">Find Out Why</button>
+  </section>
+
+  <!-- Section 2: Why -->
+  <section id="section-2" class="page-section">
     <p class="hero-highlight">
       Indigenous plants have grown in harmony with local soils, climate, and wildlife for countless generations, yet have often been lost to development and introduced plants.<br>
 By planting indigenous species, you help restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
     </p>
+    <button class="scroll-button" onclick="scrollToSection('section-3')">Find Your Ecological Garden</button>
+  </section>
+
+  <!-- Section 3: Search -->
+  <section id="section-3" class="page-section">
     <p>
       Enter your address to discover your Ecological Vegetation Class (EVC) and find what plants belong in your garden.
     </p>
@@ -638,7 +808,7 @@ By planting indigenous species, you help restore local biodiversity, support nat
     </div>
     <!-- legacy map (hidden via CSS) -->
     <div id="map"></div>
-  </div>
+  </section>
   
   <!-- Footer -->
   <footer>
@@ -744,5 +914,58 @@ By planting indigenous species, you help restore local biodiversity, support nat
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
   <script src="evc-fetch.js"></script>
+  
+  <!-- Navigation & Scroll Functions -->
+  <script>
+    // Hamburger menu
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const navModal = document.getElementById('nav-modal');
+    const navClose = document.getElementById('nav-close');
+
+    hamburgerMenu.addEventListener('click', () => {
+      navModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+
+    navClose.addEventListener('click', () => {
+      navModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    // Close nav when clicking outside
+    navModal.addEventListener('click', (e) => {
+      if (e.target === navModal) {
+        navModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Smooth scroll to section
+    function scrollToSection(sectionId) {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Handle nav links (placeholder for now)
+    document.querySelectorAll('.nav-content a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        
+        // Close modal
+        navModal.classList.remove('active');
+        document.body.style.overflow = 'auto';
+        
+        // Handle different links
+        if (href === '#about') {
+          alert('About page coming soon! This will showcase the mission of restoring ecological vegetation in Melbourne gardens.');
+        } else if (href === '#contact') {
+          alert('Contact: hello@gardenerandson.com\n\nGet in touch for garden consultations, plant kit orders, or ecological restoration projects.');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
