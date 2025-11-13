@@ -764,20 +764,25 @@ function displayModal(name, status, region, code, lat, lon) {
   const searchAddress = window.searchedAddress || `${lat}, ${lon}`;
   logEVCLookup(searchAddress, lat, lon, code, name);
   
-  // Populate modal address
+  // Populate modal address with better formatting
   const modalAddressEl = document.getElementById("modal-address");
   if (modalAddressEl) {
     let displayAddress;
     if (window.searchedAddress) {
-      // Shorten address and include suburb
-      // Example: "158, Balwyn Road, Balwyn VIC 3103, Australia" -> "158 Balwyn Road, Balwyn"
+      // Format: "158 Tyson Road, Balwyn"
+      // Input example: "158, Tyson Road, Balwyn, VIC 3103, Australia"
       const parts = window.searchedAddress.split(',').map(p => p.trim());
       
-      if (parts.length >= 2) {
-        // Remove comma after street number in first part
-        const street = parts[0].replace(/^(\d+),\s*/, '$1 ');
-        const suburb = parts[1];
-        displayAddress = `${street}, ${suburb}`;
+      if (parts.length >= 3) {
+        // parts[0] = "158", parts[1] = "Tyson Road", parts[2] = "Balwyn"
+        const streetNumber = parts[0];
+        const streetName = parts[1];
+        const suburb = parts[2];
+        
+        displayAddress = `${streetNumber} ${streetName}, ${suburb}`;
+      } else if (parts.length === 2) {
+        // Fallback if only 2 parts
+        displayAddress = `${parts[0]}, ${parts[1]}`;
       } else {
         displayAddress = parts[0];
       }
@@ -1004,7 +1009,7 @@ function displayModal(name, status, region, code, lat, lon) {
       const kitTitle = document.createElement("h2");
       kitTitle.textContent = "Grow your own Ecological Garden.";
       kitTitle.style.fontFamily = "'Abril Fatface', serif";
-      kitTitle.style.fontSize = "36px";
+      kitTitle.style.fontSize = "28px";
       kitTitle.style.marginBottom = "15px";
       kitTitle.style.lineHeight = "1.2";
       kitTitle.style.color = "#3d4535";
@@ -1046,7 +1051,7 @@ function displayModal(name, status, region, code, lat, lon) {
         const kitEvcName = document.createElement("h3");
         kitEvcName.textContent = name;
         kitEvcName.style.fontFamily = "'Abril Fatface', serif";
-        kitEvcName.style.fontSize = "1.8rem";
+        kitEvcName.style.fontSize = "28px";
         kitEvcName.style.color = "#3d4535";
         kitEvcName.style.marginBottom = "20px";
         kitEvcName.style.lineHeight = "1.2";
@@ -1226,7 +1231,7 @@ function displayModal(name, status, region, code, lat, lon) {
       const teeTitle = document.createElement("h2");
       teeTitle.textContent = "Wear your Ecological Garden.";
       teeTitle.style.fontFamily = "'Abril Fatface', serif";
-      teeTitle.style.fontSize = "36px";
+      teeTitle.style.fontSize = "28px";
       teeTitle.style.marginBottom = "15px";
       teeTitle.style.lineHeight = "1.2";
       teeTitle.style.color = "#3d4535";
@@ -1293,7 +1298,7 @@ function displayModal(name, status, region, code, lat, lon) {
         const teeEvcTitle = document.createElement("h3");
         teeEvcTitle.innerHTML = `${name} Tee`;
         teeEvcTitle.style.fontFamily = "'Abril Fatface', serif";
-        teeEvcTitle.style.fontSize = "1.8rem";
+        teeEvcTitle.style.fontSize = "28px";
         teeEvcTitle.style.color = "#3d4535";
         teeEvcTitle.style.marginBottom = "15px";
         teeEvcTitle.style.lineHeight = "1.2";
