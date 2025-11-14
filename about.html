@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us | Gardener & Son</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "IBM Plex Mono", monospace;
+      background-color: #fff0dc;
+      color: #3d4535;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Back Button */
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      width: 50px;
+      height: 50px;
+      background-color: #3d4535;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+      color: #fff0dc;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .back-button:hover {
+      transform: scale(1.05);
+      background-color: #2f3928;
+    }
+
+    /* Brand Badge */
+    .brand-badge {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #3d4535 0%, #2f3928 100%);
+      color: #fff0dc;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .brand-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .brand-badge::before {
+      content: "⚘ ";
+      margin-right: 5px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 5rem 2rem 3rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding-bottom: 3rem;
+      border-bottom: 2px solid rgba(61, 69, 53, 0.1);
+    }
+
+    h1 {
+      font-family: "Abril Fatface", serif;
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+      color: #3d4535;
+      margin-bottom: 1rem;
+      letter-spacing: 0px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: #666;
+      font-weight: 400;
+      margin-bottom: 2rem;
+    }
+
+    /* Intro Section */
+    .intro {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 2rem 2.5rem;
+      border-radius: 12px;
+      margin-bottom: 4rem;
+      font-size: 1.1rem;
+      line-height: 1.9;
+    }
+
+    /* Profile Sections */
+    .profile {
+      margin-bottom: 4rem;
+      padding: 2.5rem;
+      background: linear-gradient(135deg, #3d4535 0%, #2f3928 100%);
+      color: #fff0dc;
+      border-radius: 12px;
+    }
+
+    .profile h2 {
+      font-family: "Abril Fatface", serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0px;
+      line-height: 1.2;
+    }
+
+    .profile h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    .profile p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Together Section */
+    .together {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 2.5rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .together h2 {
+      font-family: "Abril Fatface", serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      color: #3d4535;
+      margin-bottom: 2rem;
+      letter-spacing: 0px;
+      line-height: 1.2;
+    }
+
+    .together p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .together ul {
+      list-style: none;
+      padding: 0;
+      margin: 2rem 0;
+    }
+
+    .together ul li {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      padding: 0.75rem 0;
+      padding-left: 2rem;
+      position: relative;
+    }
+
+    .together ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #3d4535;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    /* Vision */
+    .vision {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: linear-gradient(135deg, #3d4535 0%, #2f3928 100%);
+      color: #fff0dc;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+    }
+
+    .vision p {
+      font-size: clamp(1.2rem, 3vw, 1.6rem);
+      line-height: 1.8;
+      font-style: italic;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 4rem 1.5rem 2rem;
+      }
+
+      .intro, .profile, .together {
+        padding: 1.5rem;
+      }
+
+      .profile h3 {
+        font-size: 1rem;
+      }
+
+      .back-button {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+      }
+
+      .brand-badge {
+        bottom: 15px;
+        right: 15px;
+        font-size: 0.7rem;
+        padding: 8px 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 3.5rem 1rem 2rem;
+      }
+
+      .intro, .profile, .together {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="find-and-grow.html" class="back-button">←</a>
+  <a href="https://www.gardenerandson.com" target="_blank" class="brand-badge">Gardener & Son</a>
+
+  <div class="container">
+    <div class="hero">
+      <h1>About Us</h1>
+      <p class="subtitle">Gardener & Son</p>
+    </div>
+
+    <div class="intro">
+      <p><strong>Tyson & Natasha — Co-Founders, Garden Makers, Storytellers</strong></p>
+      <p>Gardener & Son was founded by Tyson and Natasha, partners in life and creative vision, who share a belief that gardens can be both ecological and deeply human. Together, they've shaped one of Melbourne's most distinctive ecological garden design studios — where science, story, and design come together to restore beauty and biodiversity.</p>
+    </div>
+
+    <div class="profile">
+      <h2>Tyson</h2>
+      <h3>Land Reader, Ecological Designer, Systems Thinker</h3>
+      <p>Tyson approaches every landscape through the lenses of topography, geology, hydrology, and biology. He reads land as if it were a layered story — soil profiles, slope lines, remnant ecologies, plant guilds, animal movement, microclimates. His design work is grounded in Victorian Ecological Vegetation Classes (EVCs), regenerative land management, and a deep understanding of how healthy ecosystems function.</p>
+      <p>Clients often describe him as someone who can see the garden inside the landscape before it exists. He creates spaces that honour Country, respond to place, and feel inevitable — as if they've grown from the land itself.</p>
+    </div>
+
+    <div class="profile">
+      <h2>Natasha</h2>
+      <h3>Plant Stylist, Palette Maker, Aesthetic Visionary</h3>
+      <p>Where Tyson shapes the land, Natasha brings it to life.</p>
+      <p>Natasha designs the plant palettes, plant combinations, and spatial planting rhythms that define each Gardener & Son project. Her intuition for colour, foliage texture, seasonal expression, and the emotional tone of a space is unmatched. She approaches plants the way an artist approaches paint — thoughtfully, instinctively, with an eye for harmony and character.</p>
+      <p>In the studio, she creates environments that feel warm, soulful, and curated. In the garden, she extends that same aesthetic into living form — crafting plant communities that are not only beautiful but ecologically functional, climate-responsive, and generous to wildlife.</p>
+    </div>
+
+    <div class="together">
+      <h2>Together — A Studio Built on Ecology, Design, and Story</h2>
+      <p>Tyson and Natasha blend their gifts to create gardens that are immersive, biodiverse, culturally grounded, and genuinely regenerative. Their work is defined by:</p>
+      <ul>
+        <li>respect for Indigenous ecologies and Country</li>
+        <li>a commitment to biodiversity and climate resilience</li>
+        <li>a belief in gardens as places of meaning and memory</li>
+        <li>a design style that is naturalistic, soulful, and deeply place-based</li>
+      </ul>
+      <p>They don't just design gardens. They design ecosystems, experiences, and stories that reconnect people with nature.</p>
+    </div>
+
+    <div class="vision">
+      <p>Their vision is simple: To make biodiversity mainstream — one garden, one story, one community at a time.</p>
+    </div>
+  </div>
+</body>
+</html>
