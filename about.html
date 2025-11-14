@@ -220,13 +220,113 @@
       margin: 0 auto;
     }
 
+    /* Contact Info Section */
+    .contact-info-section {
+      background: rgba(255, 255, 255, 0.5);
+      padding: 2.5rem;
+      border-radius: 12px;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .contact-info-section h2 {
+      font-family: "Abril Fatface", serif;
+      font-size: clamp(1.8rem, 5vw, 2.5rem);
+      color: #3d4535;
+      margin-bottom: 2rem;
+      letter-spacing: 0px;
+    }
+
+    .contact-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      padding: 1.5rem;
+      background: white;
+      border-radius: 8px;
+    }
+
+    .contact-item h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      opacity: 0.7;
+    }
+
+    .contact-item p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .contact-item a {
+      color: #3d4535;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .contact-item a:hover {
+      opacity: 0.7;
+    }
+
+    /* Footer - matching evc-map page exactly */
+    footer {
+      margin-top: 0;
+      padding: 50px 20px;
+      background-color: #3d4535;
+      color: #fff0dc;
+      text-align: center;
+    }
+
+    footer .acknowledgement {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: rgba(255, 240, 220, 0.05);
+      border-radius: 8px;
+      text-align: left;
+      line-height: 1.8;
+    }
+
+    footer .acknowledgement p {
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    footer .acknowledgement p:last-child {
+      margin-bottom: 0;
+    }
+
+    footer > p {
+      margin-top: 40px;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    footer a {
+      color: #fff0dc;
+      text-decoration: underline;
+      transition: opacity 0.2s ease;
+    }
+
+    footer a:hover {
+      opacity: 0.8;
+    }
+
+
+
     /* Responsive */
     @media (max-width: 768px) {
       .container {
         padding: 4rem 1.5rem 2rem;
       }
 
-      .intro, .profile, .together {
+      .intro, .profile, .together, .contact-info-section {
         padding: 1.5rem;
       }
 
@@ -246,6 +346,32 @@
         font-size: 0.7rem;
         padding: 8px 16px;
       }
+
+      .contact-details {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      footer {
+        padding: 40px 15px;
+      }
+
+      footer .acknowledgement {
+        padding: 1.5rem;
+        margin: 0 auto;
+      }
+
+      footer .acknowledgement p {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+
+      footer > p {
+        font-size: 13px;
+        margin-top: 30px;
+        padding: 0 10px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -253,14 +379,27 @@
         padding: 3.5rem 1rem 2rem;
       }
 
-      .intro, .profile, .together {
+      .intro, .profile, .together, .contact-info-section {
         padding: 1.2rem;
+      }
+
+      footer .acknowledgement {
+        padding: 1.2rem;
+      }
+
+      footer .acknowledgement p {
+        font-size: 13px;
+        margin-bottom: 15px;
+      }
+
+      footer > p {
+        font-size: 12px;
       }
     }
   </style>
 </head>
 <body>
-  <a href="find-and-grow.html" class="back-button">←</a>
+  <a href="evc-map.html" class="back-button">←</a>
   <a href="https://www.gardenerandson.com" target="_blank" class="brand-badge">Gardener & Son</a>
 
   <div class="container">
@@ -304,6 +443,36 @@
     <div class="vision">
       <p>Their vision is simple: To make biodiversity mainstream — one garden, one story, one community at a time.</p>
     </div>
+
+    <div class="contact-info-section">
+      <h2>Visit Our Studio</h2>
+      <div class="contact-details">
+        <div class="contact-item">
+          <h3>Mobile</h3>
+          <p><a href="tel:0406059866">0406 059 866</a></p>
+        </div>
+        <div class="contact-item">
+          <h3>Email</h3>
+          <p><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
+        </div>
+        <div class="contact-item">
+          <h3>Studio</h3>
+          <p>2 Churchill Street<br>Mont Albert 3127<br>(Grassy Woodland)</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- Footer - exact match from evc-map page -->
+  <footer id="footer">
+    <div class="acknowledgement">
+      <p>
+        At Gardener & Son, we acknowledge the Wurundjeri Woi Wurrung people of the Kulin Nation, the Traditional Custodians of the land on which we live and work. We honour their enduring connection to Country — and the grasslands, woodlands, and wetlands that once flourished here through generations of care and balance. These living systems were not lost to time, but to disconnection. Our work seeks to rekindle that relationship, restoring native ecologies and weaving biodiversity back into the urban fabric — each garden a quiet act of remembrance and renewal.
+      </p>
+    </div>
+    <p>
+      Lovingly made in Melbourne by <a href="https://www.gardenerandson.com" target="_blank">Gardener & Son</a>.
+    </p>
+  </footer>
 </body>
 </html>
