@@ -113,7 +113,7 @@
     /* Contact Grid */
     .contact-grid {
       display: grid;
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
       margin-bottom: 3rem;
     }
@@ -227,6 +227,13 @@
       margin-bottom: 3rem;
     }
 
+    .location-info h2 {
+      font-family: "Abril Fatface", serif;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0px;
+    }
+
     .location-info p {
       font-size: 1.1rem;
       line-height: 1.8;
@@ -238,6 +245,54 @@
       font-style: italic;
       opacity: 0.9;
     }
+
+    /* Footer - matching evc-map page exactly */
+    footer {
+      margin-top: 0;
+      padding: 50px 20px;
+      background-color: #3d4535;
+      color: #fff0dc;
+      text-align: center;
+    }
+
+    footer .acknowledgement {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+      background-color: rgba(255, 240, 220, 0.05);
+      border-radius: 8px;
+      text-align: left;
+      line-height: 1.8;
+    }
+
+    footer .acknowledgement p {
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    footer .acknowledgement p:last-child {
+      margin-bottom: 0;
+    }
+
+    footer > p {
+      margin-top: 40px;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    footer a {
+      color: #fff0dc;
+      text-decoration: underline;
+      transition: opacity 0.2s ease;
+    }
+
+    footer a:hover {
+      opacity: 0.8;
+    }
+
+
 
     /* Responsive */
     @media (max-width: 768px) {
@@ -261,6 +316,31 @@
         font-size: 0.7rem;
         padding: 8px 16px;
       }
+
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        padding: 40px 15px;
+      }
+
+      footer .acknowledgement {
+        padding: 1.5rem;
+        margin: 0 auto;
+      }
+
+      footer .acknowledgement p {
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+      }
+
+      footer > p {
+        font-size: 13px;
+        margin-top: 30px;
+        padding: 0 10px;
+      }
     }
 
     @media (max-width: 480px) {
@@ -276,11 +356,24 @@
         padding: 1rem 2rem;
         font-size: 0.95rem;
       }
+
+      footer .acknowledgement {
+        padding: 1.2rem;
+      }
+
+      footer .acknowledgement p {
+        font-size: 13px;
+        margin-bottom: 15px;
+      }
+
+      footer > p {
+        font-size: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <a href="find-and-grow.html" class="back-button">←</a>
+  <a href="evc-map.html" class="back-button">←</a>
   <a href="https://www.gardenerandson.com" target="_blank" class="brand-badge">Gardener & Son</a>
 
   <div class="container">
@@ -290,6 +383,11 @@
     </div>
 
     <div class="contact-grid">
+      <div class="contact-card">
+        <h2>Mobile</h2>
+        <p><a href="tel:0406059866">0406 059 866</a></p>
+      </div>
+
       <div class="contact-card">
         <h2>Email</h2>
         <p><a href="mailto:hello@gardenerandson.com">hello@gardenerandson.com</a></p>
@@ -314,9 +412,24 @@
     </div>
 
     <div class="location-info">
-      <p><strong>Based in Melbourne, Victoria</strong></p>
-      <p>We work primarily across Melbourne and regional Victoria, on the lands of the Wurundjeri Woi Wurrung people of the Kulin Nation.</p>
+      <h2>Studio Location</h2>
+      <p><strong>2 Churchill Street</strong></p>
+      <p><strong>Mont Albert 3127</strong></p>
+      <p><strong>(Grassy Woodland)</strong></p>
+      <p style="margin-top: 1.5rem;">We work primarily across Melbourne and regional Victoria, on the lands of the Wurundjeri Woi Wurrung people of the Kulin Nation.</p>
     </div>
   </div>
+
+  <!-- Footer - exact match from evc-map page -->
+  <footer id="footer">
+    <div class="acknowledgement">
+      <p>
+        At Gardener & Son, we acknowledge the Wurundjeri Woi Wurrung people of the Kulin Nation, the Traditional Custodians of the land on which we live and work. We honour their enduring connection to Country — and the grasslands, woodlands, and wetlands that once flourished here through generations of care and balance. These living systems were not lost to time, but to disconnection. Our work seeks to rekindle that relationship, restoring native ecologies and weaving biodiversity back into the urban fabric — each garden a quiet act of remembrance and renewal.
+      </p>
+    </div>
+    <p>
+      Lovingly made in Melbourne by <a href="https://www.gardenerandson.com" target="_blank">Gardener & Son</a>.
+    </p>
+  </footer>
 </body>
 </html>
