@@ -145,10 +145,40 @@
 
     #section-2 {
       text-align: center;
+      background: linear-gradient(135deg, #3d4535 0%, #2f3928 100%);
+      color: #fff0dc;
+    }
+
+    #section-2 .hero-highlight {
+      background: rgba(255, 240, 220, 0.1);
+      border: 1px solid rgba(255, 240, 220, 0.2);
+    }
+
+    #section-2 .scroll-button {
+      background-color: #fff0dc;
+      color: #3d4535;
+    }
+
+    #section-2 .scroll-button:hover {
+      background-color: #e8d7bc;
+      box-shadow: 0 8px 25px rgba(255, 240, 220, 0.3);
     }
 
     #section-3 {
       text-align: center;
+    }
+
+    #section-3 .instruction-box {
+      font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+      line-height: 1.7;
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 400;
+      max-width: 700px;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      color: #3d4535;
     }
 
     #page-title {
@@ -207,6 +237,60 @@
 
     .scroll-button:active {
       transform: scale(0.98);
+    }
+
+    /* Scroll Arrow Indicator */
+    .scroll-arrow {
+      margin-top: 2rem;
+      font-size: 2rem;
+      color: #3d4535;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    #section-2 .scroll-arrow {
+      color: #fff0dc;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-15px);
+      }
+      60% {
+        transform: translateY(-8px);
+      }
+    }
+
+    /* Gardener & Son Badge */
+    .brand-badge {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #3d4535 0%, #2f3928 100%);
+      color: #fff0dc;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 9998;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .brand-badge:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .brand-badge::before {
+      content: "⚘ ";
+      margin-right: 5px;
     }
 
     /* Search Container */
@@ -573,12 +657,31 @@
         width: 20px;
       }
 
+      .brand-badge {
+        bottom: 15px;
+        right: 15px;
+        font-size: 0.7rem;
+        padding: 8px 16px;
+      }
+
+      .scroll-arrow {
+        font-size: 1.8rem;
+        margin-top: 1.5rem;
+      }
+
       #page-title {
         font-size: clamp(3rem, 13vw, 5rem);
         margin-bottom: 1.5rem;
       }
 
       .hero-highlight {
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+        padding: 1.2rem 1.5rem;
+      }
+
+      .instruction-box {
         font-size: 1.05rem;
         margin-bottom: 1.5rem;
         line-height: 1.6;
@@ -724,6 +827,11 @@
         padding: 1rem 1.2rem;
       }
 
+      .instruction-box {
+        font-size: 1rem;
+        padding: 1rem 1.2rem;
+      }
+
       #address-input,
       #search-button,
       #location-button {
@@ -770,10 +878,14 @@
     </div>
   </div>
 
+  <!-- Gardener & Son Badge -->
+  <a href="https://www.gardenerandson.com" target="_blank" class="brand-badge">Gardener & Son</a>
+
   <!-- Section 1: Hero -->
   <section id="section-1" class="page-section">
     <h2 id="page-title">Find & Grow My Ecological Garden.</h2>
-    <button class="scroll-button" onclick="scrollToSection('section-2')">Find Out Why</button>
+    <button class="scroll-button" onclick="scrollToSection('section-2')">Get Started</button>
+    <div class="scroll-arrow" onclick="scrollToSection('section-2')">↓</div>
   </section>
 
   <!-- Section 2: Why -->
@@ -783,11 +895,12 @@
 By planting indigenous species, you help restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
     </p>
     <button class="scroll-button" onclick="scrollToSection('section-3')">Find Your Ecological Garden</button>
+    <div class="scroll-arrow" onclick="scrollToSection('section-3')">↓</div>
   </section>
 
   <!-- Section 3: Search -->
   <section id="section-3" class="page-section">
-    <p>
+    <p class="instruction-box">
       Enter your address to discover your Ecological Vegetation Class (EVC) and find what plants belong in your garden.
     </p>
     <div id="search-container">
@@ -799,7 +912,7 @@ By planting indigenous species, you help restore local biodiversity, support nat
           required
         />
         <button id="search-button" type="submit">
-          Find My Garden
+          Find My Ecological Garden
         </button>
       </form>
       <button id="location-button" type="button">
@@ -828,7 +941,7 @@ By planting indigenous species, you help restore local biodiversity, support nat
       <div id="modal-map"></div>
       <button id="modal-close">&times;</button>
       <div id="modal-info">
-        <p class="title">Your Ecological Garden is at <span id="modal-address"></span>:</p>
+        <p class="title">Your Ecological Garden at<br><span id="modal-address"></span> is:</p>
         <p id="modal-evc-name"></p>
         <p class="status"><strong>Status:</strong> <span id="modal-evc-status"></span></p>
         <p class="region"><strong>Bioregion:</strong> <span id="modal-evc-region"></span></p>
