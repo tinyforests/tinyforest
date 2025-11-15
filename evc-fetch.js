@@ -1025,15 +1025,15 @@ function displayModal(name, status, region, code, lat, lon) {
       kitSection.appendChild(kitIntro);
       
       if (kitDetails) {
-        // Kit image
+        // Single image for all kits - using a generic ecological garden kit image
         const kitImageContainer = document.createElement("div");
         kitImageContainer.style.marginBottom = "20px";
         kitImageContainer.style.borderRadius = "8px";
         kitImageContainer.style.overflow = "hidden";
         
         const kitImage = document.createElement("img");
-        kitImage.src = `images/evcs/${kitDetails.image}`;
-        kitImage.alt = `${name} Forest Kit`;
+        kitImage.src = `images/evcs/ecological-garden-kit.jpg`;
+        kitImage.alt = `Ecological Garden Kit`;
         kitImage.style.width = "100%";
         kitImage.style.height = "200px";
         kitImage.style.objectFit = "cover";
@@ -1041,7 +1041,7 @@ function displayModal(name, status, region, code, lat, lon) {
         
         kitImage.onerror = function() {
           this.style.display = 'none';
-          console.log(`Kit image not found: images/evcs/${kitDetails.image}`);
+          console.log(`Kit image not found: images/evcs/ecological-garden-kit.jpg`);
         };
         
         kitImageContainer.appendChild(kitImage);
@@ -1102,16 +1102,13 @@ function displayModal(name, status, region, code, lat, lon) {
         
         kitSection.appendChild(featuresList);
         
-        // Price - displayed just above button
+        // Price - matching Tee section styling
         const kitPrice = document.createElement("div");
-        kitPrice.style.fontFamily = "'IBM Plex Mono', monospace";
-        kitPrice.style.fontSize = "1.5rem";
-        kitPrice.style.fontWeight = "600";
+        kitPrice.style.fontFamily = "'Abril Fatface', serif";
+        kitPrice.style.fontSize = "2.5rem";
         kitPrice.style.color = "#3d4535";
-        kitPrice.style.marginTop = "20px";
-        kitPrice.style.marginBottom = "15px";
-        kitPrice.style.textAlign = "center";
-        kitPrice.innerHTML = '$89 per m² <span style="font-size: 0.9rem; font-weight: normal; color: #666;">+ shipping</span>';
+        kitPrice.style.marginBottom = "20px";
+        kitPrice.innerHTML = '$89 per m² <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">plus shipping</span>';
         kitSection.appendChild(kitPrice);
         
         // Buy Plant Kit button
@@ -1127,7 +1124,6 @@ function displayModal(name, status, region, code, lat, lon) {
         kitButton.style.cursor = "pointer";
         kitButton.style.transition = "all 0.2s";
         kitButton.style.width = "100%";
-        kitButton.style.marginBottom = "10px";
         
         kitButton.addEventListener("mouseover", () => {
           kitButton.style.transform = "scale(1.02)";
@@ -1149,37 +1145,8 @@ function displayModal(name, status, region, code, lat, lon) {
         
         kitSection.appendChild(kitButton);
         
-        // Learn more button
-        const learnButton = document.createElement("button");
-        learnButton.textContent = "Learn more →";
-        learnButton.style.background = "transparent";
-        learnButton.style.color = "#3d4535";
-        learnButton.style.border = "2px solid #3d4535";
-        learnButton.style.padding = "14px 28px";
-        learnButton.style.borderRadius = "50px";
-        learnButton.style.fontSize = "16px";
-        learnButton.style.fontWeight = "600";
-        learnButton.style.cursor = "pointer";
-        learnButton.style.transition = "all 0.2s";
-        learnButton.style.width = "100%";
+        // Removed "Learn more" button
         
-        learnButton.addEventListener("mouseover", () => {
-          learnButton.style.background = "#3d4535";
-          learnButton.style.color = "#fff0dc";
-          learnButton.style.transform = "scale(1.02)";
-        });
-        
-        learnButton.addEventListener("mouseout", () => {
-          learnButton.style.background = "transparent";
-          learnButton.style.color = "#3d4535";
-          learnButton.style.transform = "scale(1)";
-        });
-        
-        learnButton.addEventListener("click", () => {
-          window.open("https://tinyforests.github.io/tinyforest/forest-kits.html", '_blank');
-        });
-        
-        kitSection.appendChild(learnButton);
       } else {
         // No kit data available - show coming soon with button
         const comingSoon = document.createElement("p");
