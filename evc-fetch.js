@@ -1102,18 +1102,33 @@ function displayModal(name, status, region, code, lat, lon) {
         
         kitSection.appendChild(featuresList);
         
-        // Price - matching Tee section styling
+        // Price - matching Tee section styling with mobile line break
         const kitPrice = document.createElement("div");
         kitPrice.style.fontFamily = "'Abril Fatface', serif";
         kitPrice.style.fontSize = "2.5rem";
         kitPrice.style.color = "#3d4535";
         kitPrice.style.marginBottom = "20px";
-        kitPrice.innerHTML = '$89 per m² <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">plus shipping</span>';
+        kitPrice.innerHTML = '$89 <span style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">per m²</span> <span class="mobile-break" style="font-size: 1rem; font-family: \'IBM Plex Mono\', monospace; font-weight: normal;">plus shipping</span>';
         kitSection.appendChild(kitPrice);
         
-        // Buy Plant Kit button
+        // Add mobile-specific styling for line break (only once)
+        if (!document.getElementById('kit-mobile-style')) {
+          const style = document.createElement('style');
+          style.id = 'kit-mobile-style';
+          style.textContent = `
+            @media (max-width: 768px) {
+              .mobile-break::before {
+                content: "\\A";
+                white-space: pre;
+              }
+            }
+          `;
+          document.head.appendChild(style);
+        }
+        
+        // Buy Your Garden Kit button
         const kitButton = document.createElement("button");
-        kitButton.textContent = "Buy Plant Kit";
+        kitButton.textContent = "Buy Your Garden Kit";
         kitButton.style.background = "#3d4535";
         kitButton.style.color = "#fff0dc";
         kitButton.style.border = "none";
