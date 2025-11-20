@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Find & Grow My Ecological Garden | Gardener & Son</title>
+  <title>Find & Grow Your Ecological Garden | Gardener & Son</title>
   <!-- Fonts & Leaflet CSS -->
   <link
     href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@300;400;500;700&display=swap"
@@ -124,6 +124,82 @@
 
     #nav-close:hover {
       transform: rotate(90deg) scale(1.1);
+    }
+
+    /* Step Indicator */
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+      opacity: 0.8;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border: 2px solid currentColor;
+      transition: all 0.3s ease;
+    }
+
+    .step.active {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .step.active .step-number {
+      background-color: currentColor;
+    }
+
+    /* Section-specific step colors */
+    #section-1 .step-indicator {
+      color: #3d4535;
+    }
+
+    #section-1 .step.active .step-number {
+      background-color: #3d4535;
+      color: #fff0dc;
+    }
+
+    #section-2 .step-indicator {
+      color: #fff0dc;
+    }
+
+    #section-2 .step.active .step-number {
+      background-color: #fff0dc;
+      color: #3d4535;
+    }
+
+    #section-3 .step-indicator {
+      color: #3d4535;
+    }
+
+    #section-3 .step.active .step-number {
+      background-color: #3d4535;
+      color: #fff0dc;
+    }
+
+    .step-divider {
+      width: 40px;
+      height: 2px;
+      background-color: currentColor;
+      opacity: 0.3;
     }
 
     /* Hero Section */
@@ -650,6 +726,26 @@
         min-height: 100vh;
       }
 
+      .step-indicator {
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+        font-size: 0.75rem;
+      }
+
+      .step-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.8rem;
+      }
+
+      .step-text {
+        display: none;
+      }
+
+      .step-divider {
+        width: 20px;
+      }
+
       #hamburger-menu {
         width: 45px;
         height: 45px;
@@ -892,6 +988,22 @@
 
   <!-- Section 1: Hero -->
   <section id="section-1" class="page-section">
+    <div class="step-indicator">
+      <div class="step active">
+        <div class="step-number">1</div>
+        <span class="step-text">Welcome</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <span class="step-text">Learn Why</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <span class="step-text">Find Your Garden</span>
+      </div>
+    </div>
     <h2 id="page-title">Find & Grow Your Ecological Garden.</h2>
     <button class="scroll-button" onclick="scrollToSection('section-2')">Get Started</button>
     <div class="scroll-arrow" onclick="scrollToSection('section-2')">↓</div>
@@ -899,6 +1011,22 @@
 
   <!-- Section 2: Why -->
   <section id="section-2" class="page-section">
+    <div class="step-indicator">
+      <div class="step">
+        <div class="step-number">1</div>
+        <span class="step-text">Welcome</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step active">
+        <div class="step-number">2</div>
+        <span class="step-text">Learn Why</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <span class="step-text">Find Your Garden</span>
+      </div>
+    </div>
     <p class="hero-highlight">
       Indigenous plants have grown in harmony with local soils, climate, and wildlife for countless generations, yet have often been lost to development and introduced plants.<br>
 By planting indigenous species, you help restore local biodiversity, support native wildlife, and build climate resilience right from your own garden.
@@ -909,6 +1037,22 @@ By planting indigenous species, you help restore local biodiversity, support nat
 
   <!-- Section 3: Search -->
   <section id="section-3" class="page-section">
+    <div class="step-indicator">
+      <div class="step">
+        <div class="step-number">1</div>
+        <span class="step-text">Welcome</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <span class="step-text">Learn Why</span>
+      </div>
+      <div class="step-divider"></div>
+      <div class="step active">
+        <div class="step-number">3</div>
+        <span class="step-text">Find Your Garden</span>
+      </div>
+    </div>
     <p class="instruction-box">
       Enter your address to discover your Ecological Vegetation Class (EVC) and find what plants belong in your garden.
     </p>
