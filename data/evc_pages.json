@@ -1,0 +1,84 @@
+{
+  "evcs": [
+    {
+      "code": "55",
+      "name": "Plains Grassy Woodland",
+      "slug": "55-plains-grassy-woodland",
+      "overview": "Plains Grassy Woodland is a eucalypt woodland community characterized by an open tree canopy over native grasses and herbs. This EVC once covered extensive areas of Victoria's volcanic plains and river flats, supporting diverse grassland flora beneath scattered eucalypts.",
+      "distribution": "Historically widespread across Victoria's western and northern plains, particularly on fertile soils. Remnants now occur in scattered reserves, road reserves, and local remnant reserves across these regions.",
+      "structure": "The canopy is typically dominated by River Red Gum or Yellow Gum over a grassy ground layer featuring Kangaroo Grass, wallaby grasses, and diverse herb species. The mid-layer is generally sparse or absent, giving the woodland its characteristic open, grassy appearance.",
+      "boundaries": "Plains Grassy Woodland transitions to Plains Grassland where tree cover is very sparse or absent. It may grade into Grassy Woodland on slightly elevated or less fertile sites, and into Riparian Forest along watercourses. Historical clearing and fragmentation have made natural boundaries difficult to discern in many areas.",
+      "garden_relevance": "Understanding this EVC helps gardeners select appropriate grasses like Kangaroo Grass, Wallaby Grass, and diverse herbs that thrive in open, sunny conditions. These plants support local bird species, native bees, and butterfly populations while requiring less water once established."
+    },
+    {
+      "code": "132",
+      "name": "Coastal Tussock Grassland",
+      "slug": "132-coastal-tussock-grassland",
+      "overview": "Coastal Tussock Grassland is a wind-swept grassland community dominated by Coastal Tussock Grass, occurring on exposed coastal headlands, clifftops, and coastal flats. This salt-tolerant vegetation withstands strong winds and salt spray.",
+      "distribution": "Found along Victoria's coastline on exposed sites, particularly from the Bellarine Peninsula westward. Often occurs on council-managed land and coastal reserves where public access requires careful management.",
+      "structure": "Dominated by dense tussocks of Coastal Tussock Grass with scattered herbs and ground-hugging plants adapted to wind and salt exposure. Shrubs may occur in more sheltered pockets.",
+      "boundaries": "Transitions to Coastal Headland Scrub where shrubs become more prominent, and to Coastal Dune Scrub on sandier substrates. The landward boundary often grades into other grassland types as salt influence decreases.",
+      "garden_relevance": "For coastal properties, plants from this EVC are invaluable for their salt and wind tolerance. Coastal Tussock Grass, Coast Everlasting, and other species provide erosion control and habitat while thriving in harsh coastal conditions."
+    },
+    {
+      "code": "47",
+      "name": "Valley Grassy Forest",
+      "slug": "47-valley-grassy-forest",
+      "overview": "Valley Grassy Forest is a tall eucalypt forest with a grassy understorey, occurring on fertile soils in valleys and lower slopes. This EVC represents some of Victoria's most productive forest country, historically supporting diverse native grasses and herbs.",
+      "distribution": "Occurs across eastern Victoria in valleys and on lower slopes with deeper, fertile soils. Remnants persist in local reserves and council-managed areas, though much has been cleared for agriculture.",
+      "structure": "Tall eucalypts form a continuous canopy over a diverse grassy ground layer. The understorey includes Kangaroo Grass, various wallaby grasses, lilies, and herbs. Wattles and other shrubs may be present but are generally sparse.",
+      "boundaries": "Valley Grassy Forest transitions to Grassy Dry Forest on drier, less fertile slopes, and to Riparian Forest along watercourses. It may grade into Lowland Forest on moister sites with different soil types.",
+      "garden_relevance": "This EVC provides guidance for gardens on fertile valley soils, suggesting robust eucalypts, diverse grasses, and a rich herb layer. These plants create structural complexity and support a wide range of wildlife."
+    },
+    {
+      "code": "61",
+      "name": "Box Ironbark Forest",
+      "slug": "61-box-ironbark-forest",
+      "overview": "Box Ironbark Forest is a eucalypt-dominated forest characterized by box and ironbark species occurring on infertile soils. This EVC supports a diverse understorey of shrubs and herbs adapted to nutrient-poor conditions.",
+      "distribution": "Widespread across central Victoria on sedimentary hills and rises. Remnants occur in local reserves and areas of public land managed for conservation and recreation.",
+      "structure": "The canopy includes various box and ironbark eucalypts over a shrubby understorey with wattles, pea flowers, and diverse herbs. The ground layer is less grassy than valley forests, reflecting the lower soil fertility.",
+      "boundaries": "Box Ironbark Forest may transition to Grassy Woodland on slightly more fertile sites, to Heathy Woodland on very poor soils, and to riparian communities along drainage lines. Historical mining and timber harvesting have altered many remnants.",
+      "garden_relevance": "For gardens on infertile soils, plants from Box Ironbark Forest are excellent choices. Species like wattles, Grevilleas, and native pea flowers thrive without fertilizer and support nectar-feeding birds and insects."
+    },
+    {
+      "code": "175",
+      "name": "Grassy Woodland",
+      "slug": "175-grassy-woodland",
+      "overview": "Grassy Woodland is an open eucalypt woodland with a continuous grassy ground layer, occurring on gentle slopes and rises across various soil types. This EVC represents a transition between more fertile valley forests and drier or more infertile communities.",
+      "distribution": "Widespread across Victoria on moderate soils. Remnants occur in scattered local reserves and council-managed areas throughout rural landscapes.",
+      "structure": "Open woodland with scattered eucalypts over grasses including Kangaroo Grass and wallaby grasses, with diverse herbs and occasional shrubs. The openness allows light penetration supporting diverse ground flora.",
+      "boundaries": "Grassy Woodland transitions to Grassy Forest with increasing canopy cover, to Plains Grassy Woodland on flatter terrain, and to Box Ironbark Forest on more infertile soils. These transitions are often gradual.",
+      "garden_relevance": "This EVC guides selections for gardens seeking a balance of trees, grasses, and herbs. The moderate density supports both sun-loving grasses and some shade-tolerant species, creating diverse habitat."
+    },
+    {
+      "code": "68",
+      "name": "Creekline Grassy Woodland",
+      "slug": "68-creekline-grassy-woodland",
+      "overview": "Creekline Grassy Woodland occurs along minor drainage lines and creeks where soils are periodically moist. This EVC combines eucalypts typical of grassy woodlands with increased moisture-tolerant species along the drainage.",
+      "distribution": "Occurs along minor creeks and drainage lines across Victoria where moisture is periodically elevated. Found in local reserves and areas along waterways managed for conservation.",
+      "structure": "Eucalypts including River Red Gum occur along the drainage with grassy ground flora. Moisture-loving sedges and rushes may occur closer to the waterline, grading to typical grassy woodland species on the banks.",
+      "boundaries": "Transitions to Grassy Woodland or Grassy Forest on adjacent slopes, and to Riparian Forest or Swampy Riparian Woodland along larger waterways. The extent varies with drainage size and moisture availability.",
+      "garden_relevance": "For properties with seasonal drainage or low-lying areas, plants from Creekline Grassy Woodland provide appropriate species that tolerate periodic moisture without requiring permanent wetness."
+    },
+    {
+      "code": "83",
+      "name": "Swamp Scrub",
+      "slug": "83-swamp-scrub",
+      "overview": "Swamp Scrub is a dense shrubland occurring in seasonally or permanently waterlogged areas. This EVC is dominated by moisture-tolerant shrubs and supports specialized flora adapted to wet conditions.",
+      "distribution": "Occurs in swampy depressions and low-lying areas subject to waterlogging. Remnants persist in local wetland reserves and protected wet areas across Victoria.",
+      "structure": "Dense shrubs form a closed canopy over sedges, rushes, and herbs. Common shrubs include Swamp Paperbark and various tea-trees. The ground is often waterlogged or inundated during wet periods.",
+      "boundaries": "Swamp Scrub transitions to Riparian Forest along creek margins, to Swampy Riparian Woodland where trees become more prominent, and to surrounding dry communities on higher ground. Drainage modifications have altered many sites.",
+      "garden_relevance": "For gardens with poorly drained areas or constructed wetlands, Swamp Scrub species provide dense habitat and erosion control. These plants create refuge for frogs, waterbirds, and aquatic invertebrates."
+    },
+    {
+      "code": "48",
+      "name": "Heathy Woodland",
+      "slug": "48-heathy-woodland",
+      "overview": "Heathy Woodland is an open eucalypt woodland on infertile, sandy soils with a heathy understorey. This EVC supports diverse heath species including banksias, tea-trees, and native pea flowers.",
+      "distribution": "Occurs on sandy, nutrient-poor soils across Victoria. Remnants persist in local reserves and on infertile sites less suited to agriculture.",
+      "structure": "Open eucalypt canopy over a dense heathy layer of small shrubs. Common species include various tea-trees, heaths, and ground covers adapted to low-nutrient conditions. Grass cover is minimal.",
+      "boundaries": "Heathy Woodland transitions to Heathy Dry Forest with increased tree cover, to Damp Heathy Woodland on moister sites, and to Box Ironbark Forest on less sandy substrates. These boundaries reflect soil and moisture gradients.",
+      "garden_relevance": "For gardens on sandy, infertile soils, Heathy Woodland species thrive without fertilizer. The diverse heath flora supports specialized pollinators and creates year-round structure and interest."
+    }
+  ]
+}
