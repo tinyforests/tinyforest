@@ -1,0 +1,119 @@
+{
+  "evcs": [
+    {
+      "code": "55",
+      "name": "Plains Grassy Woodland",
+      "slug": "55-plains-grassy-woodland"
+    },
+    {
+      "code": "132",
+      "name": "Coastal Tussock Grassland",
+      "slug": "132-coastal-tussock-grassland"
+    },
+    {
+      "code": "47",
+      "name": "Valley Grassy Forest",
+      "slug": "47-valley-grassy-forest"
+    },
+    {
+      "code": "61",
+      "name": "Box Ironbark Forest",
+      "slug": "61-box-ironbark-forest"
+    },
+    {
+      "code": "175",
+      "name": "Grassy Woodland",
+      "slug": "175-grassy-woodland"
+    },
+    {
+      "code": "68",
+      "name": "Creekline Grassy Woodland",
+      "slug": "68-creekline-grassy-woodland"
+    },
+    {
+      "code": "83",
+      "name": "Swamp Scrub",
+      "slug": "83-swamp-scrub"
+    },
+    {
+      "code": "48",
+      "name": "Heathy Woodland",
+      "slug": "48-heathy-woodland"
+    },
+    {
+      "code": "3",
+      "name": "Damp Sands Herb-rich Woodland",
+      "slug": "3-damp-sands-herb-rich-woodland"
+    },
+    {
+      "code": "4",
+      "name": "Damp Heathy Woodland",
+      "slug": "4-damp-heathy-woodland"
+    },
+    {
+      "code": "16",
+      "name": "Lowland Forest",
+      "slug": "16-lowland-forest"
+    },
+    {
+      "code": "22",
+      "name": "Grassy Dry Forest",
+      "slug": "22-grassy-dry-forest"
+    },
+    {
+      "code": "127",
+      "name": "Valley Heathy Forest",
+      "slug": "127-valley-heathy-forest"
+    },
+    {
+      "code": "73",
+      "name": "Riparian Forest",
+      "slug": "73-riparian-forest"
+    },
+    {
+      "code": "103",
+      "name": "Swampy Riparian Woodland",
+      "slug": "103-swampy-riparian-woodland"
+    },
+    {
+      "code": "129",
+      "name": "Sedge-rich Woodland",
+      "slug": "129-sedge-rich-woodland"
+    },
+    {
+      "code": "164",
+      "name": "Coastal Headland Scrub",
+      "slug": "164-coastal-headland-scrub"
+    },
+    {
+      "code": "171",
+      "name": "Coastal Alkaline Scrub",
+      "slug": "171-coastal-alkaline-scrub"
+    },
+    {
+      "code": "9",
+      "name": "Coastal Dune Scrub",
+      "slug": "9-coastal-dune-scrub"
+    },
+    {
+      "code": "118",
+      "name": "Basalt Grassland",
+      "slug": "118-basalt-grassland"
+    },
+    {
+      "code": "267",
+      "name": "Chenopod Grassland",
+      "slug": "267-chenopod-grassland"
+    },
+    {
+      "code": "20",
+      "name": "Heathy Dry Forest",
+      "slug": "20-heathy-dry-forest"
+    },
+    {
+      "code": "15",
+      "name": "Grassy Forest",
+      "slug": "15-grassy-forest"
+    }
+  ]
+}
