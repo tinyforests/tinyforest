@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">EVC Details | Find My EVC</title>
+    <meta name="description" id="pageDescription" content="Ecological Vegetation Class information for Victoria">
+    <meta property="og:title" id="ogTitle" content="EVC Details | Find My EVC">
+    <meta property="og:description" id="ogDescription" content="Ecological Vegetation Class information for Victoria">
+    <meta property="og:url" id="ogUrl" content="https://findmyevc.com/evc.html">
+    <link rel="canonical" id="canonicalUrl" href="https://findmyevc.com/evc.html">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#3d4535">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+    <nav class="main-nav">
+        <div class="nav-container">
+            <a href="/" class="logo">Find My EVC</a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="nav-modal" id="navModal">
+        <div class="nav-modal-content">
+            <button class="nav-close" id="navClose">&times;</button>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about.html">About EVCs</a></li>
+                <li><a href="/contact.html">Contact</a></li>
+                <li><a href="https://www.findmyecologicalgarden.com/" target="_blank" rel="noopener">Find My Ecological Garden →</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content page-content">
+        <div id="evcContent">
+            <div class="loading-spinner"></div>
+        </div>
+    </main>
+
+    <div class="gardener-badge">
+        <a href="https://www.gardenerandson.com.au/" target="_blank" rel="noopener">
+            <div class="badge-text">A Gardener & Son Project</div>
+        </a>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="acknowledgement">We acknowledge the Traditional Custodians of the lands on which we work and pay our respects to Elders past, present, and emerging. This site uses ecological data to support the restoration of indigenous plant communities on Country.</p>
+            <p class="footer-links">
+                <a href="/about.html">About</a>
+                <span>·</span>
+                <a href="/contact.html">Contact</a>
+                <span>·</span>
+                <a href="https://www.gardenerandson.com.au/" target="_blank" rel="noopener">Gardener & Son</a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="/assets/app.js"></script>
+    <script>
+        // Load EVC data and render page
+        async function loadEVCPage() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get('code');
+            const slug = urlParams.get('slug');
+            
+            if (!code && !slug) {
+                window.location.href = '/';
+                return;
+            }
+
+            try {
+                const response = await fetch('/data/evc_pages.json');
+                const data = await response.json();
+                
+                let evc = null;
+                if (code) {
+                    evc = data.evcs.find(e => e.code === code);
+                } else if (slug) {
+                    evc = data.evcs.find(e => e.slug === slug);
+                }
+
+                if (!evc) {
+                    window.location.href = '/404.html';
+                    return;
+                }
+
+                // Update meta tags
+                const title = `EVC ${evc.code} — ${evc.name} | Find My EVC`;
+                const description = `${evc.overview.substring(0, 155)}...`;
+                
+                document.getElementById('pageTitle').textContent = title;
+                document.getElementById('pageDescription').setAttribute('content', description);
+                document.getElementById('ogTitle').setAttribute('content', title);
+                document.getElementById('ogDescription').setAttribute('content', description);
+                document.getElementById('ogUrl').setAttribute('content', `https://findmyevc.com/evc.html?code=${evc.code}`);
+                document.getElementById('canonicalUrl').setAttribute('href', `https://findmyevc.com/evc.html?code=${evc.code}`);
+
+                // Render content
+                const content = `
+                    <article class="content-article">
+                        <div class="evc-header">
+                            <div class="evc-code">EVC ${evc.code}</div>
+                            <h1>${evc.name}</h1>
+                        </div>
+
+                        <section class="content-section">
+                            <h2>Overview</h2>
+                            <p>${evc.overview}</p>
+                        </section>
+
+                        <section class="content-section">
+                            <h2>Where it occurs</h2>
+                            <p>${evc.distribution}</p>
+                        </section>
+
+                        <section class="content-section">
+                            <h2>Typical structure</h2>
+                            <p>${evc.structure}</p>
+                        </section>
+
+                        <section class="content-section">
+                            <h2>Boundaries and common confusion</h2>
+                            <p>${evc.boundaries}</p>
+                        </section>
+
+                        <section class="content-section">
+                            <h2>Why this matters for gardens</h2>
+                            <p>${evc.garden_relevance}</p>
+                        </section>
+
+                        <div class="cta-box">
+                            <h3>Get indigenous plants for this EVC</h3>
+                            <p>Discover plant species naturally occurring in ${evc.name}.</p>
+                            <a href="https://www.findmyecologicalgarden.com/?evc=${evc.code}&name=${encodeURIComponent(evc.name)}" class="btn-primary">View Plant List →</a>
+                        </div>
+                    </article>
+                `;
+
+                document.getElementById('evcContent').innerHTML = content;
+
+            } catch (error) {
+                console.error('Error loading EVC data:', error);
+                document.getElementById('evcContent').innerHTML = `
+                    <article class="content-article">
+                        <h1>Error loading EVC data</h1>
+                        <p>Please try again or <a href="/">return to the home page</a>.</p>
+                    </article>
+                `;
+            }
+        }
+
+        loadEVCPage();
+    </script>
+</body>
+</html>
