@@ -1,0 +1,33 @@
+{
+  "name": "Find My EVC",
+  "short_name": "Find My EVC",
+  "description": "Find your Ecological Vegetation Class in Victoria",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff0dc",
+  "theme_color": "#3d4535",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+```
+
+**Where to place it:**
+```
+tinyforest/
+├── index.html
+├── manifest.json  ← HERE (root folder, same level as index.html)
+├── about.html
+├── contact.html
+├── assets/
+└── data/
