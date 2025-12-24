@@ -1,5 +1,7 @@
-// EVC Lookup functionality
+// EVC Lookup functionality with debug logging
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('EVC Fetch script loaded');
+    
     const addressInput = document.getElementById('address');
     const searchBtn = document.getElementById('searchBtn');
     const locationBtn = document.getElementById('locationBtn');
@@ -9,6 +11,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let selectedLocation = null;
     let autocompleteTimeout = null;
+
+    console.log('Elements found:', {
+        addressInput: !!addressInput,
+        searchBtn: !!searchBtn,
+        locationBtn: !!locationBtn,
+        autocompleteResults: !!autocompleteResults,
+        resultsModal: !!resultsModal
+    });
 
     // Autocomplete
     if (addressInput) {
@@ -29,6 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function fetchAutocomplete(query) {
+        console.log('Fetching autocomplete for:', query);
         try {
             const url = `${CONFIG.NOMINATIM_URL}/search?` + new URLSearchParams({
                 q: query + ', Victoria, Australia',
@@ -38,8 +49,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 countrycodes: 'au'
             });
 
+            console.log('Autocomplete URL:', url);
             const response = await fetch(url);
             const data = await response.json();
+            console.log('Autocomplete response:', data);
 
             // Filter for residential addresses in Victoria
             const filtered = data.filter(item => {
@@ -51,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 );
             });
 
+            console.log('Filtered results:', filtered.length);
             displayAutocomplete(filtered);
         } catch (error) {
             console.error('Autocomplete error:', error);
@@ -86,6 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     lon: parseFloat(item.dataset.lon),
                     display: item.dataset.display
                 };
+                console.log('Selected location:', selectedLocation);
                 addressInput.value = item.dataset.display;
                 autocompleteResults.classList.remove('active');
                 autocompleteResults.innerHTML = '';
@@ -103,6 +118,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Search button
     if (searchBtn) {
         searchBtn.addEventListener('click', async () => {
+            console.log('Search button clicked');
+            console.log('Selected location:', selectedLocation);
+            
             if (!selectedLocation) {
                 // Try to geocode the address
                 const query = addressInput.value.trim();
@@ -120,6 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Location button
     if (locationBtn) {
         locationBtn.addEventListener('click', () => {
+            console.log('Location button clicked');
             if ('geolocation' in navigator) {
                 locationBtn.textContent = 'Getting location...';
                 locationBtn.disabled = true;
@@ -128,6 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     async (position) => {
                         const lat = position.coords.latitude;
                         const lon = position.coords.longitude;
+                        console.log('Got coordinates:', lat, lon);
 
                         // Reverse geocode to check if in Victoria
                         try {
@@ -138,8 +158,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 addressdetails: 1
                             });
 
+                            console.log('Reverse geocode URL:', url);
                             const response = await fetch(url);
                             const data = await response.json();
+                            console.log('Reverse geocode response:', data);
 
                             if (data.address?.state !== 'Victoria') {
                                 showError('This tool only works for addresses in Victoria, Australia');
@@ -178,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function geocodeAndSearch(query) {
+        console.log('Geocoding:', query);
         try {
             const url = `${CONFIG.NOMINATIM_URL}/search?` + new URLSearchParams({
                 q: query + ', Victoria, Australia',
@@ -186,8 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 limit: 1
             });
 
+            console.log('Geocode URL:', url);
             const response = await fetch(url);
             const data = await response.json();
+            console.log('Geocode response:', data);
 
             if (data.length === 0) {
                 showError('Address not found. Please try a different address.');
@@ -208,6 +233,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function searchEVC(lat, lon, address) {
+        console.log('Searching EVC for:', lat, lon, address);
+        
         // Update step indicator
         document.querySelectorAll('.step').forEach((step, idx) => {
             if (idx < 2) step.classList.add('active');
@@ -236,8 +263,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 srsName: 'EPSG:4326'
             });
 
+            console.log('WFS URL:', wfsUrl);
             const response = await fetch(wfsUrl);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
             const data = await response.json();
+            console.log('WFS response:', data);
 
             if (!data.features || data.features.length === 0) {
                 showError('No EVC data found for this location. This may be outside mapped areas.');
@@ -260,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 matchedFeature = data.features[0];
             }
 
+            console.log('Matched feature:', matchedFeature);
             displayResults(matchedFeature, address);
 
             // Update step indicator
@@ -269,16 +304,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('EVC fetch error:', error);
-            showError('Unable to retrieve EVC data. Please try again.');
+            showError('Unable to retrieve EVC data. Please try again. Error: ' + error.message);
         }
     }
 
     function displayResults(feature, address) {
+        console.log('Displaying results for feature:', feature);
+        
         const props = feature.properties;
-        const evcName = props.x_evcname || 'Unknown';
-        const evcCode = props.evc || '';
-        const bioregion = props.bioregion || 'Not specified';
-        const status = props.evc_bcs_desc || 'Status not available';
+        const evcName = props.x_evcname || props.evc_name || 'Unknown';
+        const evcCode = props.evc || props.evc_no || '';
+        const bioregion = props.bioregion || props.bioregion_name || 'Not specified';
+        const status = props.evc_bcs_desc || props.bcs_description || 'Status not available';
 
         const html = `
             <div class="result-header">
@@ -320,6 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showError(message) {
+        console.error('Showing error:', message);
         const html = `<div class="error-message">${message}</div>`;
         showModal(html);
     }
