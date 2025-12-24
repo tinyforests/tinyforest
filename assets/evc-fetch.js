@@ -244,7 +244,56 @@ document.addEventListener('DOMContentLoaded', function() {
         showModal('<div class="loading-spinner"></div>');
 
         var buffer = 0.01;
-        var bbox = [
+        
+        // Try lat,lon order first (some EPSG:4326 servers expect this)
+        var bbox1 = [
+            lat - buffer,
+            lon - buffer,
+            lat + buffer,
+            lon + buffer
+        ].join(',');
+
+        var wfsUrl = CONFIG.VIC_WFS_URL + '?' + new URLSearchParams({
+            service: 'WFS',
+            version: '1.1.0',
+            request: 'GetFeature',
+            typeName: CONFIG.EVC_LAYER,
+            outputFormat: 'application/json',
+            bbox: bbox1,
+            srsName: 'EPSG:4326'
+        });
+
+        console.log('WFS URL (lat,lon order):', wfsUrl);
+        fetch(wfsUrl)
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('HTTP error! status: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(function(data) {
+                console.log('WFS response (lat,lon):', data);
+                console.log('Number of features:', data.features ? data.features.length : 0);
+
+                if (!data.features || data.features.length === 0) {
+                    // Try lon,lat order
+                    console.log('No features with lat,lon order, trying lon,lat...');
+                    return searchEVCLonLat(lat, lon, address);
+                }
+
+                processEVCResults(data, lat, lon, address);
+            })
+            .catch(function(error) {
+                console.error('EVC fetch error:', error);
+                showError('Unable to retrieve EVC data. Error: ' + error.message);
+            });
+    }
+
+    function searchEVCLonLat(lat, lon, address) {
+        var buffer = 0.01;
+        
+        // Try lon,lat order
+        var bbox2 = [
             lon - buffer,
             lat - buffer,
             lon + buffer,
@@ -257,12 +306,12 @@ document.addEventListener('DOMContentLoaded', function() {
             request: 'GetFeature',
             typeName: CONFIG.EVC_LAYER,
             outputFormat: 'application/json',
-            bbox: bbox,
+            bbox: bbox2,
             srsName: 'EPSG:4326'
         });
 
-        console.log('WFS URL:', wfsUrl);
-        fetch(wfsUrl)
+        console.log('WFS URL (lon,lat order):', wfsUrl);
+        return fetch(wfsUrl)
             .then(function(response) {
                 if (!response.ok) {
                     throw new Error('HTTP error! status: ' + response.status);
@@ -270,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return response.json();
             })
             .then(function(data) {
-                console.log('WFS response:', data);
+                console.log('WFS response (lon,lat):', data);
                 console.log('Number of features:', data.features ? data.features.length : 0);
 
                 if (!data.features || data.features.length === 0) {
@@ -278,34 +327,38 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                var point = turf.point([lon, lat]);
-                var matchedFeature = null;
-
-                for (var i = 0; i < data.features.length; i++) {
-                    if (turf.booleanPointInPolygon(point, data.features[i])) {
-                        matchedFeature = data.features[i];
-                        console.log('Found exact match!');
-                        break;
-                    }
-                }
-
-                if (!matchedFeature) {
-                    console.log('No exact match, using first feature');
-                    matchedFeature = data.features[0];
-                }
-
-                console.log('Matched feature:', matchedFeature);
-                displayResults(matchedFeature, address);
-
-                var allSteps = document.querySelectorAll('.step');
-                for (var i = 0; i < allSteps.length; i++) {
-                    allSteps[i].classList.add('active');
-                }
+                processEVCResults(data, lat, lon, address);
             })
             .catch(function(error) {
                 console.error('EVC fetch error:', error);
                 showError('Unable to retrieve EVC data. Error: ' + error.message);
             });
+    }
+
+    function processEVCResults(data, lat, lon, address) {
+        var point = turf.point([lon, lat]);
+        var matchedFeature = null;
+
+        for (var i = 0; i < data.features.length; i++) {
+            if (turf.booleanPointInPolygon(point, data.features[i])) {
+                matchedFeature = data.features[i];
+                console.log('Found exact match!');
+                break;
+            }
+        }
+
+        if (!matchedFeature) {
+            console.log('No exact match, using first feature');
+            matchedFeature = data.features[0];
+        }
+
+        console.log('Matched feature:', matchedFeature);
+        displayResults(matchedFeature, address);
+
+        var allSteps = document.querySelectorAll('.step');
+        for (var i = 0; i < allSteps.length; i++) {
+            allSteps[i].classList.add('active');
+        }
     }
 
     function displayResults(feature, address) {
