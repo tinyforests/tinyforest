@@ -1,16 +1,15 @@
-// EVC Lookup functionality with debug logging
 document.addEventListener('DOMContentLoaded', function() {
     console.log('EVC Fetch script loaded');
     
-    const addressInput = document.getElementById('address');
-    const searchBtn = document.getElementById('searchBtn');
-    const locationBtn = document.getElementById('locationBtn');
-    const autocompleteResults = document.getElementById('autocompleteResults');
-    const resultsModal = document.getElementById('resultsModal');
-    const modalClose = document.getElementById('modalClose');
+    var addressInput = document.getElementById('address');
+    var searchBtn = document.getElementById('searchBtn');
+    var locationBtn = document.getElementById('locationBtn');
+    var autocompleteResults = document.getElementById('autocompleteResults');
+    var resultsModal = document.getElementById('resultsModal');
+    var modalClose = document.getElementById('modalClose');
 
-    let selectedLocation = null;
-    let autocompleteTimeout = null;
+    var selectedLocation = null;
+    var autocompleteTimeout = null;
 
     console.log('Elements found:', {
         addressInput: !!addressInput,
@@ -23,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (addressInput) {
         addressInput.addEventListener('input', function(e) {
             clearTimeout(autocompleteTimeout);
-            const query = e.target.value.trim();
+            var query = e.target.value.trim();
 
             if (query.length < 3) {
                 autocompleteResults.classList.remove('active');
@@ -39,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fetchAutocomplete(query) {
         console.log('Fetching autocomplete for:', query);
-        const url = CONFIG.NOMINATIM_URL + '/search?' + new URLSearchParams({
+        var url = CONFIG.NOMINATIM_URL + '/search?' + new URLSearchParams({
             q: query + ', Victoria, Australia',
             format: 'json',
             addressdetails: 1,
@@ -52,13 +51,14 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(function(response) { return response.json(); })
             .then(function(data) {
                 console.log('Autocomplete response:', data);
-                const filtered = data.filter(function(item) {
-                    const addr = item.address || {};
-                    return (
-                        addr.state === 'Victoria' &&
-                        addr.house_number &&
-                        !item.type?.match(/amenity|shop|office|tourism/)
-                    );
+                var filtered = data.filter(function(item) {
+                    var addr = item.address || {};
+                    var hasHouseNumber = addr.state === 'Victoria' && addr.house_number;
+                    var notCommercial = true;
+                    if (item.type) {
+                        notCommercial = !item.type.match(/amenity|shop|office|tourism/);
+                    }
+                    return hasHouseNumber && notCommercial;
                 });
                 console.log('Filtered results:', filtered.length);
                 displayAutocomplete(filtered);
@@ -75,33 +75,39 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        autocompleteResults.innerHTML = results.map(function(item) {
-            const addr = item.address;
-            const display = [
-                addr.house_number,
-                addr.road,
-                addr.suburb || addr.city || addr.town,
-                'VIC'
-            ].filter(Boolean).join(', ');
+        var html = '';
+        for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var addr = item.address;
+            var parts = [];
+            if (addr.house_number) parts.push(addr.house_number);
+            if (addr.road) parts.push(addr.road);
+            if (addr.suburb) parts.push(addr.suburb);
+            else if (addr.city) parts.push(addr.city);
+            else if (addr.town) parts.push(addr.town);
+            parts.push('VIC');
+            var display = parts.join(', ');
 
-            return '<div class="autocomplete-item" data-lat="' + item.lat + '" data-lon="' + item.lon + '" data-display="' + display + '">' + display + '</div>';
-        }).join('');
+            html += '<div class="autocomplete-item" data-lat="' + item.lat + '" data-lon="' + item.lon + '" data-display="' + display + '">' + display + '</div>';
+        }
 
+        autocompleteResults.innerHTML = html;
         autocompleteResults.classList.add('active');
 
-        autocompleteResults.querySelectorAll('.autocomplete-item').forEach(function(item) {
-            item.addEventListener('click', function() {
+        var items = autocompleteResults.querySelectorAll('.autocomplete-item');
+        for (var i = 0; i < items.length; i++) {
+            items[i].addEventListener('click', function() {
                 selectedLocation = {
-                    lat: parseFloat(item.dataset.lat),
-                    lon: parseFloat(item.dataset.lon),
-                    display: item.dataset.display
+                    lat: parseFloat(this.dataset.lat),
+                    lon: parseFloat(this.dataset.lon),
+                    display: this.dataset.display
                 };
                 console.log('Selected location:', selectedLocation);
-                addressInput.value = item.dataset.display;
+                addressInput.value = this.dataset.display;
                 autocompleteResults.classList.remove('active');
                 autocompleteResults.innerHTML = '';
             });
-        });
+        }
     }
 
     document.addEventListener('click', function(e) {
@@ -116,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Selected location:', selectedLocation);
             
             if (!selectedLocation) {
-                const query = addressInput.value.trim();
+                var query = addressInput.value.trim();
                 if (!query) {
                     showError('Please enter an address');
                     return;
@@ -137,11 +143,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 navigator.geolocation.getCurrentPosition(
                     function(position) {
-                        const lat = position.coords.latitude;
-                        const lon = position.coords.longitude;
+                        var lat = position.coords.latitude;
+                        var lon = position.coords.longitude;
                         console.log('Got coordinates:', lat, lon);
 
-                        const url = CONFIG.NOMINATIM_URL + '/reverse?' + new URLSearchParams({
+                        var url = CONFIG.NOMINATIM_URL + '/reverse?' + new URLSearchParams({
                             lat: lat,
                             lon: lon,
                             format: 'json',
@@ -153,19 +159,22 @@ document.addEventListener('DOMContentLoaded', function() {
                             .then(function(response) { return response.json(); })
                             .then(function(data) {
                                 console.log('Reverse geocode response:', data);
-                                if (data.address?.state !== 'Victoria') {
+                                if (data.address && data.address.state !== 'Victoria') {
                                     showError('This tool only works for addresses in Victoria, Australia');
                                     locationBtn.textContent = '📍 Use my location';
                                     locationBtn.disabled = false;
                                     return;
                                 }
 
-                                const display = [
-                                    data.address.house_number,
-                                    data.address.road,
-                                    data.address.suburb || data.address.city,
-                                    'VIC'
-                                ].filter(Boolean).join(', ') || 'Current Location';
+                                var parts = [];
+                                if (data.address) {
+                                    if (data.address.house_number) parts.push(data.address.house_number);
+                                    if (data.address.road) parts.push(data.address.road);
+                                    if (data.address.suburb) parts.push(data.address.suburb);
+                                    else if (data.address.city) parts.push(data.address.city);
+                                    parts.push('VIC');
+                                }
+                                var display = parts.length > 0 ? parts.join(', ') : 'Current Location';
 
                                 searchEVC(lat, lon, display);
                                 locationBtn.textContent = '📍 Use my location';
@@ -193,7 +202,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function geocodeAndSearch(query) {
         console.log('Geocoding:', query);
-        const url = CONFIG.NOMINATIM_URL + '/search?' + new URLSearchParams({
+        var url = CONFIG.NOMINATIM_URL + '/search?' + new URLSearchParams({
             q: query + ', Victoria, Australia',
             format: 'json',
             addressdetails: 1,
@@ -210,8 +219,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
 
-                const result = data[0];
-                if (result.address?.state !== 'Victoria') {
+                var result = data[0];
+                if (result.address && result.address.state !== 'Victoria') {
                     showError('This tool only works for addresses in Victoria, Australia');
                     return;
                 }
@@ -227,21 +236,22 @@ document.addEventListener('DOMContentLoaded', function() {
     function searchEVC(lat, lon, address) {
         console.log('Searching EVC for:', lat, lon, address);
         
-        document.querySelectorAll('.step').forEach(function(step, idx) {
-            if (idx < 2) step.classList.add('active');
-        });
+        var steps = document.querySelectorAll('.step');
+        for (var i = 0; i < steps.length; i++) {
+            if (i < 2) steps[i].classList.add('active');
+        }
 
         showModal('<div class="loading-spinner"></div>');
 
-        const buffer = 0.01;
-        const bbox = [
+        var buffer = 0.01;
+        var bbox = [
             lon - buffer,
             lat - buffer,
             lon + buffer,
             lat + buffer
         ].join(',');
 
-        const wfsUrl = CONFIG.VIC_WFS_URL + '?' + new URLSearchParams({
+        var wfsUrl = CONFIG.VIC_WFS_URL + '?' + new URLSearchParams({
             service: 'WFS',
             version: '1.1.0',
             request: 'GetFeature',
@@ -261,17 +271,17 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(function(data) {
                 console.log('WFS response:', data);
-                console.log('Number of features:', data.features?.length);
+                console.log('Number of features:', data.features ? data.features.length : 0);
 
                 if (!data.features || data.features.length === 0) {
                     showError('No EVC data found for this location. This may be outside mapped areas.');
                     return;
                 }
 
-                const point = turf.point([lon, lat]);
-                let matchedFeature = null;
+                var point = turf.point([lon, lat]);
+                var matchedFeature = null;
 
-                for (let i = 0; i < data.features.length; i++) {
+                for (var i = 0; i < data.features.length; i++) {
                     if (turf.booleanPointInPolygon(point, data.features[i])) {
                         matchedFeature = data.features[i];
                         console.log('Found exact match!');
@@ -287,9 +297,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Matched feature:', matchedFeature);
                 displayResults(matchedFeature, address);
 
-                document.querySelectorAll('.step').forEach(function(step) {
-                    step.classList.add('active');
-                });
+                var allSteps = document.querySelectorAll('.step');
+                for (var i = 0; i < allSteps.length; i++) {
+                    allSteps[i].classList.add('active');
+                }
             })
             .catch(function(error) {
                 console.error('EVC fetch error:', error);
@@ -300,15 +311,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayResults(feature, address) {
         console.log('Displaying results for feature:', feature);
         
-        const props = feature.properties;
+        var props = feature.properties;
         console.log('Feature properties:', props);
         
-        const evcName = props.x_evcname || props.evc_name || props.X_EVCNAME || 'Unknown';
-        const evcCode = props.evc || props.evc_no || props.EVC || '';
-        const bioregion = props.bioregion || props.bioregion_name || props.BIOREGION || 'Not specified';
-        const status = props.evc_bcs_desc || props.bcs_description || props.EVC_BCS_DESC || 'Status not available';
+        var evcName = props.x_evcname || props.evc_name || props.X_EVCNAME || 'Unknown';
+        var evcCode = props.evc || props.evc_no || props.EVC || '';
+        var bioregion = props.bioregion || props.bioregion_name || props.BIOREGION || 'Not specified';
+        var status = props.evc_bcs_desc || props.bcs_description || props.EVC_BCS_DESC || 'Status not available';
 
-        const html = '<div class="result-header">' +
+        var html = '<div class="result-header">' +
             '<h2>EVC ' + evcCode + ' — ' + evcName + '</h2>' +
             '<div class="result-address">' + address + '</div>' +
             '</div>' +
@@ -343,7 +354,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function showError(message) {
         console.error('Showing error:', message);
-        const html = '<div class="error-message">' + message + '</div>';
+        var html = '<div class="error-message">' + message + '</div>';
         showModal(html);
     }
 
@@ -362,124 +373,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});// EVC Lookup functionality with debug logging
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('EVC Fetch script loaded');
-    
-    const addressInput = document.getElementById('address');
-    const searchBtn = document.getElementById('searchBtn');
-    const locationBtn = document.getElementById('locationBtn');
-    const autocompleteResults = document.getElementById('autocompleteResults');
-    const resultsModal = document.getElementById('resultsModal');
-    const modalClose = document.getElementById('modalClose');
-
-    let selectedLocation = null;
-    let autocompleteTimeout = null;
-
-    console.log('Elements found:', {
-        addressInput: !!addressInput,
-        searchBtn: !!searchBtn,
-        locationBtn: !!locationBtn,
-        autocompleteResults: !!autocompleteResults,
-        resultsModal: !!resultsModal
-    });
-
-    if (addressInput) {
-        addressInput.addEventListener('input', function(e) {
-            clearTimeout(autocompleteTimeout);
-            const query = e.target.value.trim();
-
-            if (query.length < 3) {
-                autocompleteResults.classList.remove('active');
-                autocompleteResults.innerHTML = '';
-                return;
-            }
-
-            autocompleteTimeout = setTimeout(function() {
-                fetchAutocomplete(query);
-            }, 300);
-        });
-    }
-
-    function fetchAutocomplete(query) {
-        console.log('Fetching autocomplete for:', query);
-        const url = CONFIG.NOMINATIM_URL + '/search?' + new URLSearchParams({
-            q: query + ', Victoria, Australia',
-            format: 'json',
-            addressdetails: 1,
-            limit: 8,
-            countrycodes: 'au'
-        });
-
-        console.log('Autocomplete URL:', url);
-        fetch(url)
-            .then(function(response) { return response.json(); })
-            .then(function(data) {
-                console.log('Autocomplete response:', data);
-                const filtered = data.filter(function(item) {
-                    const addr = item.address || {};
-                    return (
-                        addr.state === 'Victoria' &&
-                        addr.house_number &&
-                        !item.type?.match(/amenity|shop|office|tourism/)
-                    );
-                });
-                console.log('Filtered results:', filtered.length);
-                displayAutocomplete(filtered);
-            })
-            .catch(function(error) {
-                console.error('Autocomplete error:', error);
-            });
-    }
-
-    function displayAutocomplete(results) {
-        if (results.length === 0) {
-            autocompleteResults.classList.remove('active');
-            autocompleteResults.innerHTML = '';
-            return;
-        }
-
-        autocompleteResults.innerHTML = results.map(function(item) {
-            const addr = item.address;
-            const display = [
-                addr.house_number,
-                addr.road,
-                addr.suburb || addr.city || addr.town,
-                'VIC'
-            ].filter(Boolean).join(', ');
-
-            return '<div class="autocomplete-item" data-lat="' + item.lat + '" data-lon="' + item.lon + '" data-display="' + display + '">' + display + '</div>';
-        }).join('');
-
-        autocompleteResults.classList.add('active');
-
-        autocompleteResults.querySelectorAll('.autocomplete-item').forEach(function(item) {
-            item.addEventListener('click', function() {
-                selectedLocation = {
-                    lat: parseFloat(item.dataset.lat),
-                    lon: parseFloat(item.dataset.lon),
-                    display: item.dataset.display
-                };
-                console.log('Selected location:', selectedLocation);
-                addressInput.value = item.dataset.display;
-                autocompleteResults.classList.remove('active');
-                autocompleteResults.innerHTML = '';
-            });
-        });
-    }
-
-    document.addEventListener('click', function(e) {
-        if (addressInput && !addressInput.contains(e.target) && autocompleteResults && !autocompleteResults.contains(e.target)) {
-            autocompleteResults.classList.remove('active');
-        }
-    });
-
-    if (searchBtn) {
-        searchBtn.addEventListener('click', function() {
-            console.log('Search button clicked');
-            console.log('Selected location:', selectedLocation);
-            
-            if (!selectedLocation) {
-                const query = addressInput.value.trim();
-                if (!query) {
-                    showError('Please enter an addres
+});
