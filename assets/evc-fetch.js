@@ -233,7 +233,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // ============================================================================
+    // UPDATED: Property-Precise EVC Detection
+    // ============================================================================
     function searchEVC(lat, lon, address) {
+        console.log('=== PROPERTY-PRECISE EVC SEARCH ===');
         console.log('Searching EVC for:', lat, lon, address);
         
         var steps = document.querySelectorAll('.step');
@@ -243,9 +247,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         showModal('<div class="loading-spinner"></div>');
 
-        var buffer = 0.01;
+        // CHANGE: Ultra-precise buffer for property-level accuracy
+        var buffer = 0.0001;  // ~11 meters (property-level precision)
         
-        // Try lat,lon order first (some EPSG:4326 servers expect this)
+        console.log('Using ultra-precise buffer:', buffer, '(~11 meters)');
+        
+        // Try lat,lon order first
         var bbox1 = [
             lat - buffer,
             lon - buffer,
@@ -263,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
             srsName: 'EPSG:4326'
         });
 
-        console.log('WFS URL (lat,lon order):', wfsUrl);
+        console.log('WFS URL (lat,lon order, property-precise):', wfsUrl);
         fetch(wfsUrl)
             .then(function(response) {
                 if (!response.ok) {
@@ -276,9 +283,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Number of features:', data.features ? data.features.length : 0);
 
                 if (!data.features || data.features.length === 0) {
-                    // Try lon,lat order
-                    console.log('No features with lat,lon order, trying lon,lat...');
-                    return searchEVCLonLat(lat, lon, address);
+                    // Try lon,lat order with precise buffer
+                    console.log('No features with precise lat,lon, trying lon,lat...');
+                    return searchEVCLonLat(lat, lon, address, buffer);
                 }
 
                 processEVCResults(data, lat, lon, address);
@@ -289,8 +296,11 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-    function searchEVCLonLat(lat, lon, address) {
-        var buffer = 0.01;
+    function searchEVCLonLat(lat, lon, address, buffer) {
+        // If no buffer provided, start with ultra-precise
+        if (!buffer) buffer = 0.0001;
+        
+        console.log('Trying lon,lat order with buffer:', buffer);
         
         // Try lon,lat order
         var bbox2 = [
@@ -323,6 +333,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log('Number of features:', data.features ? data.features.length : 0);
 
                 if (!data.features || data.features.length === 0) {
+                    // If ultra-precise failed, try slightly larger buffer
+                    if (buffer < 0.001) {
+                        console.log('No features with ultra-precise buffer, trying larger area...');
+                        return searchEVCLonLat(lat, lon, address, 0.001); // ~110 meters
+                    }
                     showError('No EVC data found for this location. This may be outside mapped areas.');
                     return;
                 }
@@ -335,24 +350,58 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+    // UPDATED: Better polygon matching with transition zone handling
     function processEVCResults(data, lat, lon, address) {
+        console.log('=== PROCESSING EVC RESULTS ===');
         var point = turf.point([lon, lat]);
         var matchedFeature = null;
 
+        console.log('Checking', data.features.length, 'polygon(s) for exact match...');
+
+        // Find ALL polygons that contain this exact point
+        var containingPolygons = [];
         for (var i = 0; i < data.features.length; i++) {
-            if (turf.booleanPointInPolygon(point, data.features[i])) {
-                matchedFeature = data.features[i];
-                console.log('Found exact match!');
-                break;
+            var feature = data.features[i];
+            if (turf.booleanPointInPolygon(point, feature)) {
+                containingPolygons.push(feature);
+                var evcCode = feature.properties.evc || feature.properties.evc_no || feature.properties.EVC;
+                var evcName = feature.properties.x_evcname || feature.properties.evc_name || feature.properties.X_EVCNAME;
+                console.log('✓ Point contained in polygon', i, '- EVC', evcCode, '-', evcName);
             }
         }
 
-        if (!matchedFeature) {
-            console.log('No exact match, using first feature');
+        if (containingPolygons.length === 0) {
+            // No exact match - use nearest (first in results)
+            console.log('⚠ No polygons contain this exact point, using nearest polygon');
             matchedFeature = data.features[0];
+        } else if (containingPolygons.length === 1) {
+            // Perfect - exactly one polygon
+            console.log('✓ Exact match: 1 polygon contains this property');
+            matchedFeature = containingPolygons[0];
+        } else {
+            // Multiple polygons contain point (mosaic/transition zone)
+            console.log('⚠ TRANSITION ZONE:', containingPolygons.length, 'polygons overlap at this location');
+            
+            // Select the SMALLEST polygon (most specific EVC classification)
+            matchedFeature = containingPolygons[0];
+            var smallestArea = turf.area(matchedFeature);
+            
+            for (var i = 1; i < containingPolygons.length; i++) {
+                var currentArea = turf.area(containingPolygons[i]);
+                if (currentArea < smallestArea) {
+                    smallestArea = currentArea;
+                    matchedFeature = containingPolygons[i];
+                }
+            }
+            
+            console.log('✓ Selected smallest/most specific polygon');
+            console.log('  Area:', Math.round(smallestArea), 'square meters');
         }
 
-        console.log('Matched feature:', matchedFeature);
+        var finalEvcCode = matchedFeature.properties.evc || matchedFeature.properties.evc_no || matchedFeature.properties.EVC;
+        var finalEvcName = matchedFeature.properties.x_evcname || matchedFeature.properties.evc_name || matchedFeature.properties.X_EVCNAME;
+        console.log('=== FINAL RESULT: EVC', finalEvcCode, '-', finalEvcName, '===');
+
         displayResults(matchedFeature, address);
 
         var allSteps = document.querySelectorAll('.step');
@@ -360,6 +409,9 @@ document.addEventListener('DOMContentLoaded', function() {
             allSteps[i].classList.add('active');
         }
     }
+    // ============================================================================
+    // END UPDATED SECTION
+    // ============================================================================
 
     function displayResults(feature, address) {
         console.log('Displaying results for feature:', feature);
