@@ -1,28 +1,17 @@
-/* ============================================================================
-   FindMyEVC - Registry Aesthetic
-   Updated to match Gardener & Son / Ecological Registry design system
-   All layout preserved, only visual styling updated
-   ============================================================================ */
-
-/* ============================================================================
-   DESIGN TOKENS (Registry System)
-   ============================================================================ */
+/* FindMyEVC - Registry Aesthetic */
 :root {
-    --bg-primary: #fff0dc;               /* nostalgic-beige */
-    --text-primary: #3d4535;             /* gardener-green */
-    --text-secondary: rgba(61,69,53,.72); /* muted */
+    --bg-primary: #fff0dc;
+    --text-primary: #3d4535;
+    --text-secondary: rgba(61,69,53,.72);
     --gradient-start: #3d4535;
     --gradient-end: #2f3928;
     --accent: #7a8a6f;
-    --border-color: rgba(61, 69, 53, 0.12);  /* Registry: border-subtle */
-    --border-strong: rgba(61, 69, 53, 0.15); /* Registry: border-subtle-strong */
+    --border-color: rgba(61, 69, 53, 0.12);
+    --border-strong: rgba(61, 69, 53, 0.15);
     --shadow: rgba(61, 69, 53, 0.08);
-    --wash: rgba(61, 69, 53, 0.05);          /* Registry: wash */
+    --wash: rgba(61, 69, 53, 0.05);
 }
 
-/* ============================================================================
-   RESET & BASE
-   ============================================================================ */
 * {
     margin: 0;
     padding: 0;
@@ -36,16 +25,13 @@ html {
 }
 
 body {
-    font-family: 'IBM Plex Sans', sans-serif;  /* Changed from Mono to Sans */
-    font-weight: 300;                           /* Registry default weight */
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 300;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
 }
 
-/* ============================================================================
-   NAVIGATION
-   ============================================================================ */
 .main-nav {
     position: fixed;
     top: 0;
@@ -69,7 +55,7 @@ body {
 .logo {
     font-family: 'Abril Fatface', serif;
     font-size: 1.5rem;
-    font-weight: 400;                   /* Registry: explicit 400 */
+    font-weight: 400;
     color: var(--text-primary);
     text-decoration: none;
     letter-spacing: -0.02em;
@@ -110,9 +96,6 @@ body {
     transform: rotate(-45deg) translate(7px, -7px);
 }
 
-/* ============================================================================
-   NAV MODAL
-   ============================================================================ */
 .nav-modal {
     position: fixed;
     top: 0;
@@ -187,17 +170,11 @@ body {
     opacity: 0.7;
 }
 
-/* ============================================================================
-   MAIN CONTENT
-   ============================================================================ */
 .main-content {
     padding-top: 80px;
     min-height: calc(100vh - 200px);
 }
 
-/* ============================================================================
-   HERO
-   ============================================================================ */
 .hero {
     text-align: center;
     padding: 4rem 2rem 2rem;
@@ -209,7 +186,7 @@ body {
     font-family: 'Abril Fatface', serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 400;
-    line-height: 0.98;              /* Registry tight line-height */
+    line-height: 0.98;
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
     color: var(--text-primary);
@@ -224,18 +201,12 @@ body {
     line-height: 1.6;
 }
 
-/* ============================================================================
-   LOOKUP SECTION
-   ============================================================================ */
 .lookup-section {
     max-width: 700px;
     margin: 3rem auto;
     padding: 0 2rem;
 }
 
-/* ============================================================================
-   STEP INDICATOR
-   ============================================================================ */
 .step-indicator {
     display: flex;
     justify-content: space-between;
@@ -249,7 +220,7 @@ body {
     top: 20px;
     left: 10%;
     right: 10%;
-    height: 1px;                    /* Thinner line - Registry style */
+    height: 1px;
     background: var(--border-color);
     z-index: 0;
 }
@@ -269,11 +240,11 @@ body {
     height: 40px;
     border-radius: 50%;
     background: var(--bg-primary);
-    border: 1px solid var(--border-strong);  /* Thinner border */
+    border: 1px solid var(--border-strong);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 400;                         /* Not 500 */
+    font-weight: 400;
     transition: all 0.3s;
 }
 
@@ -285,30 +256,24 @@ body {
 
 .step-label {
     font-size: 0.875rem;
-    font-weight: 300;                   /* Lighter weight */
+    font-weight: 300;
     color: var(--text-secondary);
     text-align: center;
 }
 
 .step.active .step-label {
     color: var(--text-primary);
-    font-weight: 400;                   /* Not 500 */
+    font-weight: 400;
 }
 
-/* ============================================================================
-   LOOKUP CONTAINER
-   ============================================================================ */
 .lookup-container {
     background: white;
-    border: 1px solid var(--border-strong);   /* Thinner border */
-    border-radius: 2px;                        /* Registry: 2px not 12px */
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
     padding: 2.5rem;
-    box-shadow: 0 4px 12px var(--shadow);     /* Softer shadow */
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
-/* ============================================================================
-   FORMS
-   ============================================================================ */
 .input-group {
     margin-bottom: 1.5rem;
 }
@@ -316,7 +281,7 @@ body {
 .input-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 400;                   /* Not 500 */
+    font-weight: 400;
     font-size: 0.95rem;
 }
 
@@ -327,9 +292,9 @@ body {
 input[type="text"] {
     width: 100%;
     padding: 1rem;
-    border: 1px solid rgba(61, 69, 53, 0.25);  /* Thinner border */
-    border-radius: 2px;                         /* Registry: 2px */
-    font-family: 'IBM Plex Sans', sans-serif;   /* Changed from Mono */
+    border: 1px solid rgba(61, 69, 53, 0.25);
+    border-radius: 2px;
+    font-family: 'IBM Plex Sans', sans-serif;
     font-size: 1rem;
     font-weight: 300;
     background: white;
@@ -338,7 +303,7 @@ input[type="text"] {
 }
 
 input[type="text"]:focus {
-    outline: 2px solid rgba(61, 69, 53, 0.55);  /* Registry focus */
+    outline: 2px solid rgba(61, 69, 53, 0.55);
     outline-offset: 3px;
     border-color: var(--text-primary);
 }
@@ -349,9 +314,6 @@ input[type="text"]::placeholder {
     font-weight: 300;
 }
 
-/* ============================================================================
-   AUTOCOMPLETE
-   ============================================================================ */
 .autocomplete-results {
     position: absolute;
     top: 100%;
@@ -360,7 +322,7 @@ input[type="text"]::placeholder {
     background: white;
     border: 1px solid var(--border-strong);
     border-top: none;
-    border-radius: 0 0 2px 2px;          /* Registry radius */
+    border-radius: 0 0 2px 2px;
     max-height: 300px;
     overflow-y: auto;
     display: none;
@@ -385,38 +347,34 @@ input[type="text"]::placeholder {
 }
 
 .autocomplete-item:hover {
-    background: var(--wash);             /* Registry wash */
+    background: var(--wash);
 }
 
-/* ============================================================================
-   BUTTONS
-   ============================================================================ */
 .button-group {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
 }
 
-.btn-primary,
-.btn-secondary {
+.btn-primary, .btn-secondary {
     flex: 1;
     padding: 1rem 1.5rem;
     border: none;
-    border-radius: 2px;                  /* Registry: 2px not 8px */
-    font-family: 'IBM Plex Sans', sans-serif;  /* Changed from Mono */
-    font-size: 14px;                     /* Registry button size */
-    font-weight: 400;                    /* Not 500 */
+    border-radius: 2px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .btn-primary {
-    background: var(--text-primary);     /* Solid color, not gradient */
+    background: var(--text-primary);
     color: var(--bg-primary);
 }
 
 .btn-primary:hover {
-    opacity: 0.7;                        /* Registry hover */
+    opacity: 0.7;
 }
 
 .btn-primary:active {
@@ -426,7 +384,7 @@ input[type="text"]::placeholder {
 .btn-secondary {
     background: transparent;
     color: var(--text-primary);
-    border: 1px solid rgba(61, 69, 53, 0.25);  /* Thinner border */
+    border: 1px solid rgba(61, 69, 53, 0.25);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -434,7 +392,7 @@ input[type="text"]::placeholder {
 }
 
 .btn-secondary:hover {
-    background: var(--text-primary);     /* Registry button hover */
+    background: var(--text-primary);
     color: var(--bg-primary);
     border-color: var(--text-primary);
 }
@@ -443,14 +401,11 @@ input[type="text"]::placeholder {
     font-size: 1.125rem;
 }
 
-/* ============================================================================
-   INFO BOX
-   ============================================================================ */
 .info-box {
     background: var(--wash);
-    border-left: 2px solid var(--accent);  /* Thinner accent */
+    border-left: 2px solid var(--accent);
     padding: 1.25rem;
-    border-radius: 0 2px 2px 0;           /* Registry radius */
+    border-radius: 0 2px 2px 0;
 }
 
 .info-box p {
@@ -464,7 +419,7 @@ input[type="text"]::placeholder {
 }
 
 .info-box strong {
-    font-weight: 500;                      /* Not too heavy */
+    font-weight: 500;
 }
 
 .link-learn-more {
@@ -479,9 +434,6 @@ input[type="text"]::placeholder {
     opacity: 0.7;
 }
 
-/* ============================================================================
-   FEATURES
-   ============================================================================ */
 .features {
     max-width: 1100px;
     margin: 5rem auto;
@@ -517,9 +469,6 @@ input[type="text"]::placeholder {
     line-height: 1.6;
 }
 
-/* ============================================================================
-   MODAL
-   ============================================================================ */
 .modal {
     display: none;
     position: fixed;
@@ -543,7 +492,7 @@ input[type="text"]::placeholder {
 .modal-content {
     background: white;
     border: 1px solid var(--border-strong);
-    border-radius: 2px;                    /* Registry: 2px not 12px */
+    border-radius: 2px;
     max-width: 600px;
     width: 100%;
     max-height: 90vh;
@@ -583,13 +532,10 @@ input[type="text"]::placeholder {
     opacity: 1;
 }
 
-/* ============================================================================
-   LOADING SPINNER
-   ============================================================================ */
 .loading-spinner {
     width: 50px;
     height: 50px;
-    border: 3px solid var(--wash);         /* Thinner */
+    border: 3px solid var(--wash);
     border-top-color: var(--text-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -600,9 +546,6 @@ input[type="text"]::placeholder {
     to { transform: rotate(360deg); }
 }
 
-/* ============================================================================
-   RESULTS
-   ============================================================================ */
 .result-header {
     margin-bottom: 2rem;
 }
@@ -636,7 +579,7 @@ input[type="text"]::placeholder {
     font-size: 0.875rem;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.1em;           /* Registry letter-spacing */
+    letter-spacing: 0.1em;
     margin-bottom: 0.25rem;
 }
 
@@ -666,7 +609,7 @@ input[type="text"]::placeholder {
 .result-cta a {
     display: inline-block;
     padding: 1rem 2rem;
-    background: var(--text-primary);        /* Solid not gradient */
+    background: var(--text-primary);
     color: var(--bg-primary);
     text-decoration: none;
     border-radius: 2px;
@@ -675,12 +618,9 @@ input[type="text"]::placeholder {
 }
 
 .result-cta a:hover {
-    opacity: 0.7;                          /* Registry hover */
+    opacity: 0.7;
 }
 
-/* ============================================================================
-   ERROR MESSAGE
-   ============================================================================ */
 .error-message {
     background: rgba(185, 28, 28, 0.08);
     border-left: 2px solid #b91c1c;
@@ -690,9 +630,6 @@ input[type="text"]::placeholder {
     font-weight: 300;
 }
 
-/* ============================================================================
-   GARDENER BADGE
-   ============================================================================ */
 .gardener-badge {
     position: fixed;
     bottom: 2rem;
@@ -705,7 +642,7 @@ input[type="text"]::placeholder {
     background: var(--bg-primary);
     padding: 0.5rem 0.875rem;
     border: 1px solid var(--border-color);
-    border-radius: 2px;                    /* Registry: 2px */
+    border-radius: 2px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     text-decoration: none;
     transition: all 0.2s;
@@ -717,16 +654,13 @@ input[type="text"]::placeholder {
 }
 
 .badge-text {
-    font-size: 10px;                       /* Registry badge size */
+    font-size: 10px;
     color: var(--text-primary);
     font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.1em;
 }
 
-/* ============================================================================
-   FOOTER
-   ============================================================================ */
 .footer {
     background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: rgba(255, 240, 220, 0.8);
@@ -768,9 +702,6 @@ input[type="text"]::placeholder {
     opacity: 0.5;
 }
 
-/* ============================================================================
-   PAGE CONTENT (for About/Contact pages)
-   ============================================================================ */
 .page-content {
     max-width: 800px;
     margin: 0 auto;
@@ -844,9 +775,6 @@ input[type="text"]::placeholder {
     opacity: 0.7;
 }
 
-/* ============================================================================
-   EVC HEADER (for detail pages)
-   ============================================================================ */
 .evc-header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
@@ -867,102 +795,38 @@ input[type="text"]::placeholder {
     margin-bottom: 0;
 }
 
-/* ============================================================================
-   FOCUS STATES (Accessibility)
-   ============================================================================ */
 :focus-visible {
     outline: 2px solid rgba(61, 69, 53, 0.55);
     outline-offset: 3px;
 }
 
-/* ============================================================================
-   RESPONSIVE - MOBILE
-   ============================================================================ */
 @media (max-width: 768px) {
-    .nav-links a {
-        font-size: 2rem;
-    }
-
-    .hero {
-        padding: 3rem 1.5rem 1.5rem;
-    }
-
-    .hero-title {
-        line-height: 0.92;              /* Tighter on mobile */
-    }
-
-    .lookup-container {
-        padding: 1.5rem;
-    }
-
-    .button-group {
-        flex-direction: column;
-    }
-
-    .step-label {
-        font-size: 0.75rem;
-    }
-
-    .content-article {
-        padding: 2rem 1.5rem;
-    }
-
-    .content-article h1 {
-        font-size: 2rem;
-    }
-
-    .content-article h2 {
-        font-size: 1.5rem;
-    }
-
-    .gardener-badge {
-        bottom: 1rem;
-        right: 1rem;
-    }
-
-    .badge-text {
-        font-size: 9px;
-        padding: 6px 10px;
-    }
-
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
+    .nav-links a { font-size: 2rem; }
+    .hero { padding: 3rem 1.5rem 1.5rem; }
+    .hero-title { line-height: 0.92; }
+    .lookup-container { padding: 1.5rem; }
+    .button-group { flex-direction: column; }
+    .step-label { font-size: 0.75rem; }
+    .content-article { padding: 2rem 1.5rem; }
+    .content-article h1 { font-size: 2rem; }
+    .content-article h2 { font-size: 1.5rem; }
+    .gardener-badge { bottom: 1rem; right: 1rem; }
+    .badge-text { font-size: 9px; padding: 6px 10px; }
+    .feature-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-    .step-indicator::before {
-        display: none;
-    }
-
-    .step {
-        font-size: 0.7rem;
-    }
-
-    .step-number {
-        width: 32px;
-        height: 32px;
-        font-size: 0.875rem;
-    }
-
-    .hero-title {
-        font-size: 2rem;
-    }
+    .step-indicator::before { display: none; }
+    .step { font-size: 0.7rem; }
+    .step-number { width: 32px; height: 32px; font-size: 0.875rem; }
+    .hero-title { font-size: 2rem; }
 }
 
-/* ============================================================================
-   REDUCED MOTION (Accessibility)
-   ============================================================================ */
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    
-    html {
-        scroll-behavior: auto !important;
-    }
+    html { scroll-behavior: auto !important; }
 }
