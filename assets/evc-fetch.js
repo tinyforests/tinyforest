@@ -353,7 +353,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         console.log('Matched feature:', matchedFeature);
-        displayResults(matchedFeature, address);
+        displayResults(matchedFeature, address, lat, lon);
 
         var allSteps = document.querySelectorAll('.step');
         for (var i = 0; i < allSteps.length; i++) {
@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function displayResults(feature, address) {
+    function displayResults(feature, address, lat, lon) {
         console.log('Displaying results for feature:', feature);
         
         var props = feature.properties;
@@ -371,6 +371,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var evcCode = props.evc || props.evc_no || props.EVC || '';
         var bioregion = props.bioregion || props.bioregion_name || props.BIOREGION || 'Not specified';
         var status = props.evc_bcs_desc || props.bcs_description || props.EVC_BCS_DESC || 'Status not available';
+
+        // LOG THE SEARCH - NEW!
+        logSearchQuery(address, lat, lon, evcCode, evcName);
 
         var html = '<div class="result-header">' +
             '<h2>EVC ' + evcCode + ' — ' + evcName + '</h2>' +
@@ -397,6 +400,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
         showModal(html);
     }
+
+    // ============================================================================
+    // NEW: SEARCH LOGGING FUNCTION
+    // ============================================================================
+    function logSearchQuery(searchAddress, lat, lon, evcCode, evcName) {
+        var FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSd-yEQrxJbipr0M7ZM1PzC9AiTu1S__i7iy7egBM3yRVUablg/formResponse';
+        
+        var ENTRY_IDS = {
+            timestamp: 'entry.1872197451',
+            searchAddress: 'entry.325945624',
+            evcName: 'entry.1772337080',
+            evcCode: 'entry.574020621',
+            latitude: 'entry.895524211',
+            longitude: 'entry.174755702'
+        };
+
+        try {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = FORM_URL;
+            form.target = 'findmyevc-log-iframe';
+            form.style.display = 'none';
+
+            var timestamp = new Date().toISOString();
+            
+            var fields = {
+                [ENTRY_IDS.timestamp]: timestamp,
+                [ENTRY_IDS.searchAddress]: searchAddress || 'Unknown',
+                [ENTRY_IDS.evcName]: evcName || '',
+                [ENTRY_IDS.evcCode]: evcCode || '',
+                [ENTRY_IDS.latitude]: lat?.toFixed(6) || '',
+                [ENTRY_IDS.longitude]: lon?.toFixed(6) || ''
+            };
+
+            Object.keys(fields).forEach(function(key) {
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                form.appendChild(input);
+            });
+
+            var iframe = document.getElementById('findmyevc-log-iframe');
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = 'findmyevc-log-iframe';
+                iframe.name = 'findmyevc-log-iframe';
+                iframe.style.display = 'none';
+                document.body.appendChild(iframe);
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+            
+            setTimeout(function() {
+                document.body.removeChild(form);
+            }, 1000);
+
+            console.log('✓ Search logged:', { searchAddress: searchAddress, lat: lat, lon: lon, evcCode: evcCode, evcName: evcName });
+        } catch (error) {
+            console.error('Failed to log search:', error);
+            // Fail silently - don't interrupt user experience
+        }
+    }
+    // ============================================================================
+    // END SEARCH LOGGING
+    // ============================================================================
 
     function showModal(content) {
         if (!resultsModal) return;
