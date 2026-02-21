@@ -1,18 +1,34 @@
+/* ============================================================================
+   FindMyEVC - Registry Aesthetic
+   Updated to match Gardener & Son / Ecological Registry design system
+   All layout preserved, only visual styling updated
+   ============================================================================ */
+
+/* ============================================================================
+   DESIGN TOKENS (Registry System)
+   ============================================================================ */
 :root {
-    --bg-primary: #fff0dc;
-    --text-primary: #3d4535;
-    --text-secondary: #5a6352;
+    --bg-primary: #fff0dc;               /* nostalgic-beige */
+    --text-primary: #3d4535;             /* gardener-green */
+    --text-secondary: rgba(61,69,53,.72); /* muted */
     --gradient-start: #3d4535;
     --gradient-end: #2f3928;
     --accent: #7a8a6f;
-    --border-color: rgba(61, 69, 53, 0.15);
-    --shadow: rgba(61, 69, 53, 0.1);
+    --border-color: rgba(61, 69, 53, 0.12);  /* Registry: border-subtle */
+    --border-strong: rgba(61, 69, 53, 0.15); /* Registry: border-subtle-strong */
+    --shadow: rgba(61, 69, 53, 0.08);
+    --wash: rgba(61, 69, 53, 0.05);          /* Registry: wash */
 }
 
+/* ============================================================================
+   RESET & BASE
+   ============================================================================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html {
@@ -20,24 +36,25 @@ html {
 }
 
 body {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: 'IBM Plex Sans', sans-serif;  /* Changed from Mono to Sans */
+    font-weight: 300;                           /* Registry default weight */
     background-color: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================================================================
+   NAVIGATION
+   ============================================================================ */
 .main-nav {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    background: var(--bg-primary);
+    background: rgba(255, 240, 220, 0.95);
     border-bottom: 1px solid var(--border-color);
     z-index: 100;
     backdrop-filter: blur(10px);
-    background: rgba(255, 240, 220, 0.95);
 }
 
 .nav-container {
@@ -52,6 +69,7 @@ body {
 .logo {
     font-family: 'Abril Fatface', serif;
     font-size: 1.5rem;
+    font-weight: 400;                   /* Registry: explicit 400 */
     color: var(--text-primary);
     text-decoration: none;
     letter-spacing: -0.02em;
@@ -66,6 +84,11 @@ body {
     flex-direction: column;
     gap: 5px;
     z-index: 101;
+    transition: opacity 0.2s;
+}
+
+.hamburger:hover {
+    opacity: 0.7;
 }
 
 .hamburger span {
@@ -87,6 +110,9 @@ body {
     transform: rotate(-45deg) translate(7px, -7px);
 }
 
+/* ============================================================================
+   NAV MODAL
+   ============================================================================ */
 .nav-modal {
     position: fixed;
     top: 0;
@@ -107,12 +133,8 @@ body {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .nav-modal-content {
@@ -154,6 +176,7 @@ body {
 .nav-links a {
     font-family: 'Abril Fatface', serif;
     font-size: 2.5rem;
+    font-weight: 400;
     color: var(--bg-primary);
     text-decoration: none;
     transition: opacity 0.2s;
@@ -164,11 +187,17 @@ body {
     opacity: 0.7;
 }
 
+/* ============================================================================
+   MAIN CONTENT
+   ============================================================================ */
 .main-content {
     padding-top: 80px;
     min-height: calc(100vh - 200px);
 }
 
+/* ============================================================================
+   HERO
+   ============================================================================ */
 .hero {
     text-align: center;
     padding: 4rem 2rem 2rem;
@@ -179,24 +208,34 @@ body {
 .hero-title {
     font-family: 'Abril Fatface', serif;
     font-size: clamp(2rem, 5vw, 3.5rem);
-    line-height: 1.1;
+    font-weight: 400;
+    line-height: 0.98;              /* Registry tight line-height */
     margin-bottom: 1rem;
     letter-spacing: -0.02em;
+    color: var(--text-primary);
 }
 
 .hero-subtitle {
     font-size: 1.125rem;
+    font-weight: 300;
     color: var(--text-secondary);
     max-width: 600px;
     margin: 0 auto;
+    line-height: 1.6;
 }
 
+/* ============================================================================
+   LOOKUP SECTION
+   ============================================================================ */
 .lookup-section {
     max-width: 700px;
     margin: 3rem auto;
     padding: 0 2rem;
 }
 
+/* ============================================================================
+   STEP INDICATOR
+   ============================================================================ */
 .step-indicator {
     display: flex;
     justify-content: space-between;
@@ -210,7 +249,7 @@ body {
     top: 20px;
     left: 10%;
     right: 10%;
-    height: 2px;
+    height: 1px;                    /* Thinner line - Registry style */
     background: var(--border-color);
     z-index: 0;
 }
@@ -230,11 +269,11 @@ body {
     height: 40px;
     border-radius: 50%;
     background: var(--bg-primary);
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-strong);  /* Thinner border */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 500;
+    font-weight: 400;                         /* Not 500 */
     transition: all 0.3s;
 }
 
@@ -246,22 +285,30 @@ body {
 
 .step-label {
     font-size: 0.875rem;
+    font-weight: 300;                   /* Lighter weight */
     color: var(--text-secondary);
     text-align: center;
 }
 
 .step.active .step-label {
     color: var(--text-primary);
-    font-weight: 500;
+    font-weight: 400;                   /* Not 500 */
 }
 
+/* ============================================================================
+   LOOKUP CONTAINER
+   ============================================================================ */
 .lookup-container {
     background: white;
-    border-radius: 12px;
+    border: 1px solid var(--border-strong);   /* Thinner border */
+    border-radius: 2px;                        /* Registry: 2px not 12px */
     padding: 2.5rem;
-    box-shadow: 0 4px 20px var(--shadow);
+    box-shadow: 0 4px 12px var(--shadow);     /* Softer shadow */
 }
 
+/* ============================================================================
+   FORMS
+   ============================================================================ */
 .input-group {
     margin-bottom: 1.5rem;
 }
@@ -269,7 +316,7 @@ body {
 .input-group label {
     display: block;
     margin-bottom: 0.5rem;
-    font-weight: 500;
+    font-weight: 400;                   /* Not 500 */
     font-size: 0.95rem;
 }
 
@@ -280,33 +327,45 @@ body {
 input[type="text"] {
     width: 100%;
     padding: 1rem;
-    border: 2px solid var(--border-color);
-    border-radius: 8px;
-    font-family: 'IBM Plex Mono', monospace;
+    border: 1px solid rgba(61, 69, 53, 0.25);  /* Thinner border */
+    border-radius: 2px;                         /* Registry: 2px */
+    font-family: 'IBM Plex Sans', sans-serif;   /* Changed from Mono */
     font-size: 1rem;
+    font-weight: 300;
     background: white;
+    color: var(--text-primary);
     transition: border-color 0.2s;
 }
 
 input[type="text"]:focus {
-    outline: none;
+    outline: 2px solid rgba(61, 69, 53, 0.55);  /* Registry focus */
+    outline-offset: 3px;
     border-color: var(--text-primary);
 }
 
+input[type="text"]::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.6;
+    font-weight: 300;
+}
+
+/* ============================================================================
+   AUTOCOMPLETE
+   ============================================================================ */
 .autocomplete-results {
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     background: white;
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-strong);
     border-top: none;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 2px 2px;          /* Registry radius */
     max-height: 300px;
     overflow-y: auto;
     display: none;
     z-index: 10;
-    box-shadow: 0 4px 12px var(--shadow);
+    box-shadow: 0 4px 6px var(--shadow);
 }
 
 .autocomplete-results.active {
@@ -317,7 +376,8 @@ input[type="text"]:focus {
     padding: 0.875rem 1rem;
     cursor: pointer;
     border-bottom: 1px solid rgba(61, 69, 53, 0.08);
-    transition: background 0.15s;
+    transition: background 0.2s;
+    font-weight: 300;
 }
 
 .autocomplete-item:last-child {
@@ -325,9 +385,12 @@ input[type="text"]:focus {
 }
 
 .autocomplete-item:hover {
-    background: rgba(61, 69, 53, 0.05);
+    background: var(--wash);             /* Registry wash */
 }
 
+/* ============================================================================
+   BUTTONS
+   ============================================================================ */
 .button-group {
     display: flex;
     gap: 1rem;
@@ -339,28 +402,31 @@ input[type="text"]:focus {
     flex: 1;
     padding: 1rem 1.5rem;
     border: none;
-    border-radius: 8px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 1rem;
-    font-weight: 500;
+    border-radius: 2px;                  /* Registry: 2px not 8px */
+    font-family: 'IBM Plex Sans', sans-serif;  /* Changed from Mono */
+    font-size: 14px;                     /* Registry button size */
+    font-weight: 400;                    /* Not 500 */
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    background: var(--text-primary);     /* Solid color, not gradient */
     color: var(--bg-primary);
 }
 
 .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(61, 69, 53, 0.2);
+    opacity: 0.7;                        /* Registry hover */
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
 }
 
 .btn-secondary {
-    background: white;
+    background: transparent;
     color: var(--text-primary);
-    border: 2px solid var(--border-color);
+    border: 1px solid rgba(61, 69, 53, 0.25);  /* Thinner border */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -368,6 +434,8 @@ input[type="text"]:focus {
 }
 
 .btn-secondary:hover {
+    background: var(--text-primary);     /* Registry button hover */
+    color: var(--bg-primary);
     border-color: var(--text-primary);
 }
 
@@ -375,32 +443,45 @@ input[type="text"]:focus {
     font-size: 1.125rem;
 }
 
+/* ============================================================================
+   INFO BOX
+   ============================================================================ */
 .info-box {
-    background: rgba(61, 69, 53, 0.04);
-    border-left: 3px solid var(--accent);
+    background: var(--wash);
+    border-left: 2px solid var(--accent);  /* Thinner accent */
     padding: 1.25rem;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 2px 2px 0;           /* Registry radius */
 }
 
 .info-box p {
     margin-bottom: 0.75rem;
+    font-weight: 300;
+    line-height: 1.6;
 }
 
 .info-box p:last-child {
     margin-bottom: 0;
 }
 
+.info-box strong {
+    font-weight: 500;                      /* Not too heavy */
+}
+
 .link-learn-more {
     color: var(--text-primary);
-    font-weight: 500;
+    font-weight: 400;
     text-decoration: none;
     border-bottom: 1px solid var(--text-primary);
+    transition: opacity 0.2s;
 }
 
 .link-learn-more:hover {
     opacity: 0.7;
 }
 
+/* ============================================================================
+   FEATURES
+   ============================================================================ */
 .features {
     max-width: 1100px;
     margin: 5rem auto;
@@ -426,13 +507,19 @@ input[type="text"]:focus {
 .feature-card h3 {
     font-family: 'Abril Fatface', serif;
     font-size: 1.5rem;
+    font-weight: 400;
     margin-bottom: 0.75rem;
 }
 
 .feature-card p {
     color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.6;
 }
 
+/* ============================================================================
+   MODAL
+   ============================================================================ */
 .modal {
     display: none;
     position: fixed;
@@ -455,7 +542,8 @@ input[type="text"]:focus {
 
 .modal-content {
     background: white;
-    border-radius: 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;                    /* Registry: 2px not 12px */
     max-width: 600px;
     width: 100%;
     max-height: 90vh;
@@ -463,6 +551,7 @@ input[type="text"]:focus {
     position: relative;
     padding: 2.5rem;
     animation: slideUp 0.3s ease;
+    box-shadow: 0 8px 24px rgba(61, 69, 53, 0.15);
 }
 
 @keyframes slideUp {
@@ -494,10 +583,13 @@ input[type="text"]:focus {
     opacity: 1;
 }
 
+/* ============================================================================
+   LOADING SPINNER
+   ============================================================================ */
 .loading-spinner {
     width: 50px;
     height: 50px;
-    border: 4px solid var(--border-color);
+    border: 3px solid var(--wash);         /* Thinner */
     border-top-color: var(--text-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -505,11 +597,12 @@ input[type="text"]:focus {
 }
 
 @keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
+    to { transform: rotate(360deg); }
 }
 
+/* ============================================================================
+   RESULTS
+   ============================================================================ */
 .result-header {
     margin-bottom: 2rem;
 }
@@ -517,11 +610,14 @@ input[type="text"]:focus {
 .result-header h2 {
     font-family: 'Abril Fatface', serif;
     font-size: 2rem;
+    font-weight: 400;
     margin-bottom: 0.5rem;
+    line-height: 1.2;
 }
 
 .result-address {
     color: var(--text-secondary);
+    font-weight: 300;
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--border-color);
@@ -536,25 +632,29 @@ input[type="text"]:focus {
 }
 
 .result-item-label {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 0.875rem;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.1em;           /* Registry letter-spacing */
     margin-bottom: 0.25rem;
 }
 
 .result-item-value {
     font-size: 1.125rem;
+    font-weight: 300;
 }
 
 .result-disclaimer {
     background: rgba(122, 138, 111, 0.1);
-    border-left: 3px solid var(--accent);
+    border-left: 2px solid var(--accent);
     padding: 1rem;
     margin: 2rem 0;
     font-size: 0.9rem;
+    font-weight: 300;
     color: var(--text-secondary);
+    line-height: 1.6;
+    border-radius: 0 2px 2px 0;
 }
 
 .result-cta {
@@ -566,27 +666,33 @@ input[type="text"]:focus {
 .result-cta a {
     display: inline-block;
     padding: 1rem 2rem;
-    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    background: var(--text-primary);        /* Solid not gradient */
     color: var(--bg-primary);
     text-decoration: none;
-    border-radius: 8px;
-    font-weight: 500;
-    transition: all 0.2s;
+    border-radius: 2px;
+    font-weight: 400;
+    transition: opacity 0.2s;
 }
 
 .result-cta a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(61, 69, 53, 0.2);
+    opacity: 0.7;                          /* Registry hover */
 }
 
+/* ============================================================================
+   ERROR MESSAGE
+   ============================================================================ */
 .error-message {
-    background: rgba(185, 28, 28, 0.1);
-    border-left: 3px solid #b91c1c;
+    background: rgba(185, 28, 28, 0.08);
+    border-left: 2px solid #b91c1c;
     padding: 1.25rem;
     color: #7f1d1d;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 2px 2px 0;
+    font-weight: 300;
 }
 
+/* ============================================================================
+   GARDENER BADGE
+   ============================================================================ */
 .gardener-badge {
     position: fixed;
     bottom: 2rem;
@@ -596,25 +702,31 @@ input[type="text"]:focus {
 
 .gardener-badge a {
     display: block;
-    background: white;
-    padding: 0.75rem 1.25rem;
-    border-radius: 50px;
-    box-shadow: 0 4px 12px var(--shadow);
+    background: var(--bg-primary);
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;                    /* Registry: 2px */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     text-decoration: none;
     transition: all 0.2s;
 }
 
 .gardener-badge a:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(61, 69, 53, 0.15);
+    opacity: 1;
+    border-color: rgba(61, 69, 53, 0.25);
 }
 
 .badge-text {
-    font-size: 0.875rem;
+    font-size: 10px;                       /* Registry badge size */
     color: var(--text-primary);
-    font-weight: 500;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
+/* ============================================================================
+   FOOTER
+   ============================================================================ */
 .footer {
     background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: rgba(255, 240, 220, 0.8);
@@ -630,12 +742,14 @@ input[type="text"]:focus {
 
 .acknowledgement {
     font-size: 0.95rem;
+    font-weight: 300;
     line-height: 1.7;
     margin-bottom: 1.5rem;
 }
 
 .footer-links {
     font-size: 0.9rem;
+    font-weight: 300;
 }
 
 .footer-links a {
@@ -654,6 +768,9 @@ input[type="text"]:focus {
     opacity: 0.5;
 }
 
+/* ============================================================================
+   PAGE CONTENT (for About/Contact pages)
+   ============================================================================ */
 .page-content {
     max-width: 800px;
     margin: 0 auto;
@@ -662,14 +779,16 @@ input[type="text"]:focus {
 
 .content-article {
     background: white;
-    border-radius: 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 2px;
     padding: 3rem;
-    box-shadow: 0 4px 20px var(--shadow);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
 .content-article h1 {
     font-family: 'Abril Fatface', serif;
     font-size: 2.5rem;
+    font-weight: 400;
     line-height: 1.2;
     margin-bottom: 2rem;
 }
@@ -677,6 +796,7 @@ input[type="text"]:focus {
 .content-article h2 {
     font-family: 'Abril Fatface', serif;
     font-size: 1.75rem;
+    font-weight: 400;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
 }
@@ -687,12 +807,13 @@ input[type="text"]:focus {
 
 .content-section p {
     margin-bottom: 1rem;
+    font-weight: 300;
     line-height: 1.8;
 }
 
 .cta-box {
-    background: rgba(61, 69, 53, 0.04);
-    border-radius: 8px;
+    background: var(--wash);
+    border-radius: 2px;
     padding: 2rem;
     text-align: center;
     margin-top: 3rem;
@@ -701,38 +822,44 @@ input[type="text"]:focus {
 .cta-box h3 {
     font-family: 'Abril Fatface', serif;
     font-size: 1.5rem;
+    font-weight: 400;
     margin-bottom: 0.75rem;
 }
 
 .cta-box p {
     color: var(--text-secondary);
+    font-weight: 300;
     margin-bottom: 1.5rem;
 }
 
 .external-link {
     color: var(--text-primary);
-    font-weight: 500;
+    font-weight: 400;
     text-decoration: none;
-    border-bottom: 2px solid var(--text-primary);
+    border-bottom: 1px solid var(--text-primary);
+    transition: opacity 0.2s;
 }
 
 .external-link:hover {
     opacity: 0.7;
 }
 
+/* ============================================================================
+   EVC HEADER (for detail pages)
+   ============================================================================ */
 .evc-header {
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
-    border-bottom: 2px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
 .evc-code {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     margin-bottom: 0.5rem;
 }
 
@@ -740,6 +867,17 @@ input[type="text"]:focus {
     margin-bottom: 0;
 }
 
+/* ============================================================================
+   FOCUS STATES (Accessibility)
+   ============================================================================ */
+:focus-visible {
+    outline: 2px solid rgba(61, 69, 53, 0.55);
+    outline-offset: 3px;
+}
+
+/* ============================================================================
+   RESPONSIVE - MOBILE
+   ============================================================================ */
 @media (max-width: 768px) {
     .nav-links a {
         font-size: 2rem;
@@ -747,6 +885,10 @@ input[type="text"]:focus {
 
     .hero {
         padding: 3rem 1.5rem 1.5rem;
+    }
+
+    .hero-title {
+        line-height: 0.92;              /* Tighter on mobile */
     }
 
     .lookup-container {
@@ -778,6 +920,11 @@ input[type="text"]:focus {
         right: 1rem;
     }
 
+    .badge-text {
+        font-size: 9px;
+        padding: 6px 10px;
+    }
+
     .feature-grid {
         grid-template-columns: 1fr;
     }
@@ -796,5 +943,26 @@ input[type="text"]:focus {
         width: 32px;
         height: 32px;
         font-size: 0.875rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+}
+
+/* ============================================================================
+   REDUCED MOTION (Accessibility)
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto !important;
     }
 }
