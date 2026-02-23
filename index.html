@@ -1,153 +1,325 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Find My EVC | Ecological Vegetation Class Lookup for Victoria</title>
-    <meta name="description" content="Find your Ecological Vegetation Class (EVC) in Victoria. Learn about native vegetation communities and get indigenous plant recommendations for your garden.">
-    <meta property="og:title" content="Find My EVC | Ecological Vegetation Class Lookup">
-    <meta property="og:description" content="Find your Ecological Vegetation Class (EVC) in Victoria. Learn about native vegetation communities.">
-    <meta property="og:url" content="https://findmyevc.com/">
-    <meta property="og:type" content="website">
-    <link rel="canonical" href="https://findmyevc.com/">
-    <link rel="manifest" href="./manifest.json">
-    <meta name="theme-color" content="#3d4535">
-    
-    <!-- Registry Fleet Fonts: IBM Plex Sans + Abril Fatface -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="./assets/styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find My EVC — Gardener &amp; Son</title>
+  <meta name="description" content="Identify the Ecological Vegetation Class (EVC) classification for addresses in Victoria." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gardener: "#3d4535",
+            beige: "#fff0dc",
+            contrast: "#2f3a2c" // subtle darker green for depth
+          },
+          fontFamily: {
+            serif: ['"Abril Fatface"', "serif"],
+            sans: ['"IBM Plex Sans"', "system-ui", "-apple-system", "Segoe UI", "Roboto", "Arial", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Keep things flat + crisp (no rounded corners, no grain). */
+    :root { color-scheme: light; }
+    body { font-family: "IBM Plex Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+
+    /* Scroll snap (Yield-style full screens) */
+    .snap-y-mandatory { scroll-snap-type: y mandatory; }
+    .snap-start { scroll-snap-align: start; }
+
+    /* Hamburger */
+    .hamburger span { display:block; width:22px; height:2px; margin:5px 0; background:#fff0dc; transition:transform .2s ease, opacity .2s ease; }
+    .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity:0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Nav modal: support multiple JS class toggles (active/open/is-open) */
+    .nav-modal,
+    .modal { opacity:0; pointer-events:none; transition:opacity .18s ease; }
+    .nav-modal.active, .nav-modal.open, .nav-modal.is-open,
+    .modal.active, .modal.open, .modal.is-open { opacity:1; pointer-events:auto; }
+
+    /* Autocomplete panel (kept compatible with existing JS) */
+    .autocomplete-results { display:none; }
+    .autocomplete-results.active,
+    .autocomplete-results.open,
+    .autocomplete-results.is-open { display:block; }
+  </style>
 </head>
-<body>
-    <nav class="main-nav">
-        <div class="nav-container">
-            <a href="./" class="logo">Find My EVC</a>
-            <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
 
-    <div class="nav-modal" id="navModal">
-        <div class="nav-modal-content">
-            <button class="nav-close" id="navClose">&times;</button>
-            <ul class="nav-links">
-                <li><a href="./">Home</a></li>
-                <li><a href="./about.html">About EVCs</a></li>
-                <li><a href="./contact.html">Contact</a></li>
-                <li><a href="https://www.findmyecologicalgarden.com/" target="_blank" rel="noopener">Find My Ecological Garden →</a></li>
-            </ul>
-        </div>
+<body class="bg-gardener text-beige">
+  <!-- Sticky Header -->
+  <nav class="main-nav sticky top-0 z-50 bg-gardener border-b border-beige/20">
+    <div class="nav-container max-w-6xl mx-auto px-5 py-4 flex items-center justify-between">
+      <a href="/" class="logo font-serif text-[1.25rem] tracking-tight text-beige">
+        Find My EVC
+      </a>
+
+      <div class="flex items-center gap-3">
+        <a href="/about.html" class="hidden sm:inline text-beige/85 hover:text-beige transition text-sm">About</a>
+        <a href="/contact.html" class="hidden sm:inline text-beige/85 hover:text-beige transition text-sm">Contact</a>
+
+        <button class="hamburger sm:hidden" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
+  </nav>
 
-    <main class="main-content">
-        <section class="hero">
-            <h1 class="hero-title">Find Your Ecological Vegetation Class</h1>
-            <p class="hero-subtitle">Discover the native vegetation community of your Victorian property</p>
-        </section>
+  <!-- Mobile Nav Modal -->
+  <div class="nav-modal fixed inset-0 bg-gardener/95 z-50" id="navModal" aria-hidden="true">
+    <div class="nav-modal-content max-w-6xl mx-auto px-5 py-6">
+      <div class="flex items-center justify-between">
+        <div class="font-serif text-[1.25rem]">Menu</div>
+        <button class="nav-close text-beige/80 hover:text-beige text-3xl leading-none" id="navClose" aria-label="Close menu">
+          &times;
+        </button>
+      </div>
 
-        <section class="lookup-section">
-            <div class="step-indicator">
-                <div class="step active" data-step="1">
-                    <div class="step-number">1</div>
-                    <div class="step-label">Enter Address</div>
-                </div>
-                <div class="step" data-step="2">
-                    <div class="step-number">2</div>
-                    <div class="step-label">Find EVC</div>
-                </div>
-                <div class="step" data-step="3">
-                    <div class="step-number">3</div>
-                    <div class="step-label">View Results</div>
-                </div>
-            </div>
+      <ul class="nav-links mt-8 space-y-4 text-lg">
+        <li><a href="/" class="block text-beige hover:text-beige/80">Home</a></li>
+        <li><a href="/about.html" class="block text-beige hover:text-beige/80">About</a></li>
+        <li><a href="/contact.html" class="block text-beige hover:text-beige/80">Contact</a></li>
+      </ul>
 
-            <div class="lookup-container">
-                <div class="input-group">
-                    <label for="address">Enter your Victorian address</label>
-                    <div class="input-with-button">
-                        <input 
-                            type="text" 
-                            id="address" 
-                            placeholder="123 Main Street, Melbourne VIC"
-                            autocomplete="off"
-                        >
-                        <div class="autocomplete-results" id="autocompleteResults"></div>
-                    </div>
-                </div>
+      <div class="mt-10 pt-6 border-t border-beige/20 text-sm text-beige/70">
+        A Gardener &amp; Son project.
+      </div>
+    </div>
+  </div>
 
-                <div class="button-group">
-                    <button class="btn-primary" id="searchBtn">Find My EVC</button>
-                    <button class="btn-secondary" id="locationBtn">
-                        <span class="location-icon">📍</span>
-                        Use my location
-                    </button>
-                </div>
+  <!-- Main -->
+  <main class="main-content snap-y-mandatory">
+    <!-- HERO (screen) -->
+    <section class="hero snap-start min-h-screen flex items-center">
+      <div class="max-w-6xl mx-auto px-5 w-full">
+        <div class="max-w-2xl">
+          <h1 class="hero-title font-serif text-[2.4rem] sm:text-[3.2rem] leading-[1.05] tracking-tight">
+            Find your Ecological Vegetation Class.
+          </h1>
 
-                <div class="info-box">
-                    <p><strong>What is an EVC?</strong></p>
-                    <p>An Ecological Vegetation Class describes the native vegetation community that would naturally occur at a location. Understanding your EVC helps you choose appropriate indigenous plants for ecological gardens.</p>
-                    <a href="./about.html" class="link-learn-more">Learn more about EVCs →</a>
-                </div>
-            </div>
-        </section>
+          <p class="hero-subtitle mt-4 text-beige/80 text-base sm:text-lg leading-relaxed">
+            A fast lookup for Victorian addresses — grounded in state-published spatial datasets — to help gardens
+            align with place.
+          </p>
 
-        <section class="features">
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🌿</div>
-                    <h3>Ecological Accuracy</h3>
-                    <p>Uses official Victorian Government EVC mapping data</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🗺️</div>
-                    <h3>Location-Based</h3>
-                    <p>Find the native vegetation community for your exact property</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🌱</div>
-                    <h3>Garden Planning</h3>
-                    <p>Get indigenous plant recommendations matched to your EVC</p>
-                </div>
-            </div>
-        </section>
-    </main>
+          <div class="mt-8 flex flex-col sm:flex-row gap-3">
+            <a href="#lookup" class="inline-flex items-center justify-center px-4 py-3 bg-beige text-gardener border border-beige hover:bg-beige/90 transition">
+              Start lookup
+            </a>
 
-    <div class="modal" id="resultsModal">
-        <div class="modal-content">
-            <button class="modal-close" id="modalClose">&times;</button>
-            <div id="resultsContent">
-                <div class="loading-spinner"></div>
-            </div>
+            <a href="/about.html" class="inline-flex items-center justify-center px-4 py-3 bg-transparent text-beige border border-beige/35 hover:border-beige/70 transition">
+              Method + notes
+            </a>
+          </div>
+
+          <div class="mt-10 text-sm text-beige/70">
+            Designed to match the Ecological Registry stack — simple, approachable, and clear.
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <div class="gardener-badge">
-        <a href="https://www.gardenerandson.com.au/" target="_blank" rel="noopener">
-            <div class="badge-text">A Gardener & Son Project</div>
-        </a>
-    </div>
-
-    <footer class="footer">
-        <div class="footer-content">
-            <p class="acknowledgement">We acknowledge the Traditional Custodians of the lands on which we work and pay our respects to Elders past, present, and emerging. This site uses ecological data to support the restoration of indigenous plant communities on Country.</p>
-            <p class="footer-links">
-                <a href="./about.html">About</a>
-                <span>·</span>
-                <a href="./contact.html">Contact</a>
-                <span>·</span>
-                <a href="https://www.gardenerandson.com.au/" target="_blank" rel="noopener">Gardener & Son</a>
+    <!-- LOOKUP (screen) -->
+    <section id="lookup" class="lookup-section snap-start min-h-screen bg-beige text-gardener flex items-center">
+      <div class="max-w-6xl mx-auto px-5 w-full">
+        <div class="grid lg:grid-cols-2 gap-10 items-start">
+          <!-- Left: Copy -->
+          <div>
+            <h2 class="font-serif text-[2rem] sm:text-[2.4rem] leading-[1.1]">Lookup</h2>
+            <p class="mt-3 text-gardener/80 leading-relaxed">
+              Enter a Victorian address (or use current location) to return the modelled pre-1750 EVC for that point.
             </p>
-        </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-    <script src="./assets/config.js"></script>
-    <script src="./assets/app.js"></script>
-    <script src="./assets/evc-fetch.js"></script>
+            <div class="mt-7 grid grid-cols-3 gap-3">
+              <div class="border border-gardener/20 p-3">
+                <div class="text-xs tracking-wide uppercase text-gardener/70">Step 1</div>
+                <div class="mt-1 font-medium">Enter address</div>
+              </div>
+              <div class="border border-gardener/20 p-3">
+                <div class="text-xs tracking-wide uppercase text-gardener/70">Step 2</div>
+                <div class="mt-1 font-medium">Search EVC</div>
+              </div>
+              <div class="border border-gardener/20 p-3">
+                <div class="text-xs tracking-wide uppercase text-gardener/70">Step 3</div>
+                <div class="mt-1 font-medium">View result</div>
+              </div>
+            </div>
+
+            <div class="mt-8 border border-gardener/20 p-4">
+              <p class="text-sm text-gardener/75 leading-relaxed">
+                Results are derived from Victorian Government spatial layers and represent broad ecological patterns —
+                not a site-specific assessment.
+              </p>
+              <p class="mt-2 text-sm">
+                <a href="/about.html" class="inline-flex items-center gap-1 underline underline-offset-4 text-gardener hover:text-gardener/80">
+                  Learn more about EVC classifications <span aria-hidden="true">→</span>
+                </a>
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: Form Card -->
+          <div class="border border-gardener/25 p-5 sm:p-6 bg-beige">
+            <div class="lookup-container">
+              <div class="input-group">
+                <label for="address" class="block text-sm font-medium">Victorian Address</label>
+
+                <div class="input-with-button mt-2 relative">
+                  <input
+                    type="text"
+                    id="address"
+                    placeholder="e.g. 10 Smith Street, Melbourne"
+                    autocomplete="off"
+                    class="w-full px-4 py-3 bg-transparent border border-gardener/35 focus:outline-none focus:border-gardener text-gardener placeholder:text-gardener/45"
+                  />
+                  <div
+                    class="autocomplete-results absolute left-0 right-0 top-[calc(100%+6px)] bg-beige border border-gardener/25 z-20 max-h-64 overflow-auto"
+                    id="autocompleteResults"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="button-group mt-4 flex flex-col sm:flex-row gap-3">
+                <button class="btn-primary px-4 py-3 bg-gardener text-beige border border-gardener hover:bg-contrast transition w-full sm:w-auto" id="searchBtn">
+                  Search EVC
+                </button>
+
+                <button class="btn-secondary px-4 py-3 bg-transparent text-gardener border border-gardener/35 hover:border-gardener transition w-full sm:w-auto flex items-center justify-center gap-2" id="locationBtn">
+                  <span class="material-icons" style="font-size: 1.25rem;">location_on</span>
+                  Use current location
+                </button>
+              </div>
+
+              <div class="mt-5 text-xs text-gardener/65 leading-relaxed">
+                Tip: if an address returns an unexpected result, try dropping the unit number or using a nearby intersection.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES (screen) -->
+    <section class="features snap-start min-h-screen bg-gardener text-beige flex items-center">
+      <div class="max-w-6xl mx-auto px-5 w-full">
+        <div class="flex items-end justify-between gap-6 flex-wrap">
+          <div class="max-w-2xl">
+            <h2 class="font-serif text-[2rem] sm:text-[2.4rem] leading-[1.1]">Why this exists</h2>
+            <p class="mt-3 text-beige/80 leading-relaxed">
+              The lookup is a small bridge between “where a garden sits” and “what it can become” — supporting indigenous
+              plant selection, habitat layering, and registry-style documentation over time.
+            </p>
+          </div>
+
+          <a
+            href="https://www.findmyecologicalgarden.com/"
+            class="inline-flex items-center justify-center px-4 py-3 bg-beige text-gardener border border-beige hover:bg-beige/90 transition"
+            target="_blank"
+            rel="noopener"
+          >
+            Explore FYEG
+          </a>
+        </div>
+
+        <div class="feature-grid mt-10 grid md:grid-cols-3 gap-4">
+          <div class="feature-card border border-beige/20 p-5">
+            <div class="feature-icon flex items-center gap-2 text-beige/80">
+              <span class="material-icons" style="font-size: 1.6rem;">location_on</span>
+              <span class="text-xs tracking-wide uppercase">Lookup</span>
+            </div>
+            <h3 class="mt-3 font-medium text-lg">Location-based identification</h3>
+            <p class="mt-2 text-beige/75 leading-relaxed">
+              Enter a Victorian address or use current location to identify the mapped EVC at that point.
+            </p>
+          </div>
+
+          <div class="feature-card border border-beige/20 p-5">
+            <div class="feature-icon flex items-center gap-2 text-beige/80">
+              <span class="material-icons" style="font-size: 1.6rem;">nature</span>
+              <span class="text-xs tracking-wide uppercase">Planning</span>
+            </div>
+            <h3 class="mt-3 font-medium text-lg">Garden planning resource</h3>
+            <p class="mt-2 text-beige/75 leading-relaxed">
+              Use EVC as a “place anchor” for indigenous species, structure, and habitat intent.
+            </p>
+          </div>
+
+          <div class="feature-card border border-beige/20 p-5">
+            <div class="feature-icon flex items-center gap-2 text-beige/80">
+              <span class="material-icons" style="font-size: 1.6rem;">filter_center_focus</span>
+              <span class="text-xs tracking-wide uppercase">Transparency</span>
+            </div>
+            <h3 class="mt-3 font-medium text-lg">Data-driven baseline</h3>
+            <p class="mt-2 text-beige/75 leading-relaxed">
+              Built on state-published spatial datasets — useful for baselines and exploration, not final truth.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-10 border-t border-beige/20 pt-6 text-sm text-beige/70">
+          Next step: link results into the Registry + FYEG explore pages so people can move from classification → planting → verification.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Results Modal (kept compatible with existing JS) -->
+  <div class="modal fixed inset-0 bg-gardener/90 z-50 flex items-center justify-center p-5" id="resultsModal" aria-hidden="true">
+    <div class="modal-content w-full max-w-2xl bg-beige text-gardener border border-gardener/25 p-5 sm:p-6 relative">
+      <button class="modal-close absolute right-4 top-3 text-3xl leading-none text-gardener/70 hover:text-gardener" id="modalClose" aria-label="Close">
+        &times;
+      </button>
+      <div id="resultsContent"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer bg-gardener text-beige border-t border-beige/20">
+    <div class="footer-content max-w-6xl mx-auto px-5 py-10">
+      <div class="acknowledgement text-sm text-beige/75 leading-relaxed">
+        We acknowledge the Traditional Owners of the lands on which we work and pay our respects to Elders past and present.
+        Ecological Vegetation Classes represent an interpretation of pre-colonial vegetation patterns and do not replace Indigenous
+        knowledge systems.
+      </div>
+
+      <div class="footer-note mt-4 text-sm text-beige/65 leading-relaxed">
+        EVC classifications are derived from state-published spatial datasets and represent broad ecological patterns rather than
+        site-specific assessments.
+      </div>
+
+      <div class="footer-links mt-6 text-sm text-beige/75 flex flex-wrap items-center gap-2">
+        <a href="/about.html" class="hover:text-beige underline underline-offset-4">About</a>
+        <span class="opacity-50">·</span>
+        <a href="/contact.html" class="hover:text-beige underline underline-offset-4">Contact</a>
+        <span class="opacity-50">·</span>
+        <a href="https://www.gardenerandson.com.au" target="_blank" rel="noopener" class="hover:text-beige underline underline-offset-4">
+          A Gardener &amp; Son Project
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Existing scripts (unchanged) -->
+  <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+  <script src="assets/config.js"></script>
+  <script src="assets/app.js"></script>
+  <script src="assets/evc-fetch.js"></script>
 </body>
 </html>
