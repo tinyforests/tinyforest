@@ -7,8 +7,11 @@
     },
     {
       "code": "132",
-      "name": "Coastal Tussock Grassland",
-      "slug": "132-coastal-tussock-grassland"
+      "name": "Plains Grassland",
+      "slug": "132-plains-grassland",
+      "aliases": [
+        "132-coastal-tussock-grassland"
+      ]
     },
     {
       "code": "47",
@@ -32,8 +35,11 @@
     },
     {
       "code": "83",
-      "name": "Swamp Scrub",
-      "slug": "83-swamp-scrub"
+      "name": "Swampy Riparian Woodland",
+      "slug": "83-swampy-riparian-woodland",
+      "aliases": [
+        "83-swamp-scrub"
+      ]
     },
     {
       "code": "48",
@@ -67,13 +73,19 @@
     },
     {
       "code": "73",
-      "name": "Riparian Forest",
-      "slug": "73-riparian-forest"
+      "name": "Rocky Outcrop Shrubland/Herbland Mosaic",
+      "slug": "73-rocky-outcrop-shrubland-herbland-mosaic",
+      "aliases": [
+        "73-riparian-forest"
+      ]
     },
     {
       "code": "103",
-      "name": "Swampy Riparian Woodland",
-      "slug": "103-swampy-riparian-woodland"
+      "name": "Riverine Chenopod Woodland",
+      "slug": "103-riverine-chenopod-woodland",
+      "aliases": [
+        "103-swampy-riparian-woodland"
+      ]
     },
     {
       "code": "129",
@@ -82,8 +94,11 @@
     },
     {
       "code": "164",
-      "name": "Coastal Headland Scrub",
-      "slug": "164-coastal-headland-scrub"
+      "name": "Creekline Herb-rich Woodland",
+      "slug": "164-creekline-herb-rich-woodland",
+      "aliases": [
+        "164-coastal-headland-scrub"
+      ]
     },
     {
       "code": "171",
@@ -92,8 +107,11 @@
     },
     {
       "code": "9",
-      "name": "Coastal Dune Scrub",
-      "slug": "9-coastal-dune-scrub"
+      "name": "Coastal Saltmarsh",
+      "slug": "9-coastal-saltmarsh",
+      "aliases": [
+        "9-coastal-dune-scrub"
+      ]
     },
     {
       "code": "118",
