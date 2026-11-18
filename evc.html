@@ -82,7 +82,7 @@
                 if (code) {
                     evc = data.evcs.find(e => e.code === code);
                 } else if (slug) {
-                    evc = data.evcs.find(e => e.slug === slug);
+                    evc = data.evcs.find(e => e.slug === slug || (e.aliases || []).includes(slug));
                 }
 
                 if (!evc) {

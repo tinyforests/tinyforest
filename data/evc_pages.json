@@ -12,13 +12,16 @@
     },
     {
       "code": "132",
-      "name": "Coastal Tussock Grassland",
-      "slug": "132-coastal-tussock-grassland",
-      "overview": "Coastal Tussock Grassland is a wind-swept grassland community dominated by Coastal Tussock Grass, occurring on exposed coastal headlands, clifftops, and coastal flats. This salt-tolerant vegetation withstands strong winds and salt spray.",
-      "distribution": "Found along Victoria's coastline on exposed sites, particularly from the Bellarine Peninsula westward. Often occurs on council-managed land and coastal reserves where public access requires careful management.",
-      "structure": "Dominated by dense tussocks of Coastal Tussock Grass with scattered herbs and ground-hugging plants adapted to wind and salt exposure. Shrubs may occur in more sheltered pockets.",
-      "boundaries": "Transitions to Coastal Headland Scrub where shrubs become more prominent, and to Coastal Dune Scrub on sandier substrates. The landward boundary often grades into other grassland types as salt influence decreases.",
-      "garden_relevance": "For coastal properties, plants from this EVC are invaluable for their salt and wind tolerance. Coastal Tussock Grass, Coast Everlasting, and other species provide erosion control and habitat while thriving in harsh coastal conditions."
+      "name": "Plains Grassland",
+      "slug": "132-plains-grassland",
+      "overview": "Plains Grassland is an open community of grasses and herbs, with few or no trees. Its composition varies between bioregions and soil types.",
+      "distribution": "Mapped across several Victorian bioregions, including the Victorian Volcanic Plain and Otway Plain. Use the benchmark for the local bioregion and variant.",
+      "structure": "Tussock grasses grow among smaller grasses and flowering herbs. Trees and shrubs may occur occasionally.",
+      "boundaries": "Grassland boundaries depend on soil, moisture and landform. Confirm the local mapped EVC and bioregion before choosing a benchmark.",
+      "garden_relevance": "Give grasses and seasonal herbs room and sunlight. Choose locally indigenous species suited to the site; this overview is not a reviewed planting list.",
+      "aliases": [
+        "132-coastal-tussock-grassland"
+      ]
     },
     {
       "code": "47",
@@ -62,13 +65,16 @@
     },
     {
       "code": "83",
-      "name": "Swamp Scrub",
-      "slug": "83-swamp-scrub",
-      "overview": "Swamp Scrub is a dense shrubland occurring in seasonally or permanently waterlogged areas. This EVC is dominated by moisture-tolerant shrubs and supports specialized flora adapted to wet conditions.",
-      "distribution": "Occurs in swampy depressions and low-lying areas subject to waterlogging. Remnants persist in local wetland reserves and protected wet areas across Victoria.",
-      "structure": "Dense shrubs form a closed canopy over sedges, rushes, and herbs. Common shrubs include Swamp Paperbark and various tea-trees. The ground is often waterlogged or inundated during wet periods.",
-      "boundaries": "Swamp Scrub transitions to Riparian Forest along creek margins, to Swampy Riparian Woodland where trees become more prominent, and to surrounding dry communities on higher ground. Drainage modifications have altered many sites.",
-      "garden_relevance": "For gardens with poorly drained areas or constructed wetlands, Swamp Scrub species provide dense habitat and erosion control. These plants create refuge for frogs, waterbirds, and aquatic invertebrates."
+      "name": "Swampy Riparian Woodland",
+      "slug": "83-swampy-riparian-woodland",
+      "overview": "Swampy Riparian Woodland is a woodland community along slow-flowing streams on plains and foothills.",
+      "distribution": "Use local EVC mapping and the relevant bioregional benchmark to establish its extent.",
+      "structure": "An open tree layer stands above shrubs, tussock grasses and sedges.",
+      "boundaries": "Changes in drainage and landform influence its boundaries with neighbouring vegetation.",
+      "garden_relevance": "Retain suitable wet-ground vegetation and choose species from the local benchmark. This overview is not a reviewed planting list.",
+      "aliases": [
+        "83-swamp-scrub"
+      ]
     },
     {
       "code": "48",
